@@ -3,6 +3,8 @@ package application;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -28,5 +30,7 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+		// JSONObject myString = new JSONObject().put("username", "Hello, World!");
+		// System.out.println(myString);
 	}
 }
