@@ -1,5 +1,7 @@
 package application;
 	
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,21 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+		
+		/*
+		FileReader filereader = null;
+		try {
+			filereader = new FileReader("assets/users.json");
+			JSONObject obj = new JSONObject(filereader);
+			System.out.println(obj);
+			filereader.close();
+		}
+		catch (Exception e) {
+		}
+		finally {
+		}
+		*/
+		
 		// JSONObject myString = new JSONObject().put("username", "Hello, World!");
 		// System.out.println(myString);
 	}
