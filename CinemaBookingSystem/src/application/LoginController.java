@@ -3,31 +3,36 @@ package application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginController {
 	@FXML private Label lblTest;
 	@FXML private TextField txtUsername;
 	@FXML private TextField txtPassword;
+	@FXML private PasswordField pwPassword;
 	
 	public void validateCredentials(ActionEvent event) {
-		validateUsername(txtUsername.getText());
-		validatePassword(txtPassword.getText());
+		if (validateUsername(txtUsername.getText()) && validatePassword(pwPassword.getText())) {
+			lblTest.setText("Success");
+		} else {
+			lblTest.setText("Failure");
+		}
 	}
-	
-	private void validateUsername(String username) {
+	private boolean validateUsername(String username) {
 		if(username.compareTo("username") == 0) {
-			lblTest.setText("Success!");
+			return true;
 		} else {
-			lblTest.setText("Try Again!");
+			return false;
 		}
 	}
 	
-	private void validatePassword(String password) {
+	private boolean validatePassword(String password) {
 		if(password.compareTo("password") == 0) {
-			lblTest.setText("Success!");
+			return true;
 		} else {
-			lblTest.setText("Try Again!");
+			return false;
 		}
 	}
+
 }
