@@ -1,18 +1,13 @@
 package application;
 	
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.json.JSONObject;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 
 public class Main extends Application {
 	static List<User> users = new ArrayList<User>();

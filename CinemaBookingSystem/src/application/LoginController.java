@@ -18,15 +18,30 @@ public class LoginController {
 	@FXML private TextField txtPassword;
 	@FXML private PasswordField pwPassword;
 	
-	public void validateCredentials(ActionEvent event) {
-		if (validateUser(txtUsername.getText(), pwPassword.getText())) {
+	public User validateCredentials(ActionEvent event) {
+		JSONObject userJSON = validateUser(txtUsername.getText(), pwPassword.getText());
+		if (userJSON != null) {
 			lblTest.setText("Success");
+			User user = null;
+			if (userJSON.getString("role").compareTo("employee") == 0) {
+				user = new Employee(userJSON);
+			} else if (userJSON.getString("role").compareTo("customer") == 0) {
+				user = new Customer(userJSON);
+			}
+			return user;
 		} else {
 			lblTest.setText("Failure");
+			return null;
 		}
 	}
 	
-	private boolean validateUser(String username, String password) {
+	public void createUser(ActionEvent event) {
+		System.out.println("kill me");
+		String content = null;
+
+	}
+	
+	private JSONObject validateUser(String username, String password) {
 		String content = null;
 		
 		try {
@@ -35,20 +50,21 @@ public class LoginController {
 			e.printStackTrace();
 		}
 		
-		JSONObject obj = new JSONObject(content);
-		JSONObject obj2;
+		JSONObject usersJSON = new JSONObject(content);
+		JSONObject userI;
 		
-		for (int i = 0 ; i < obj.getJSONArray("users").length(); i++) {
-			obj2 = obj.getJSONArray("users").getJSONObject(i);
-			if(obj2.getString("username").compareTo(username) == 0 &&
-				obj2.getString("password").compareTo(password) == 0) {
-				return true;
+		for (int i = 0 ; i < usersJSON.getJSONArray("users").length(); i++) {
+			userI = usersJSON.getJSONArray("users").getJSONObject(i);
+			if(userI.getString("username").compareTo(username) == 0 &&
+				userI.getString("password").compareTo(password) == 0) {
+				return userI;
 			} else {
 				continue;
 			}
 		}
-		return false;
+		return null;
 	}
+	
 	
 
 
