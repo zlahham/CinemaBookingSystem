@@ -7,10 +7,10 @@ public abstract class User {
 	private String password;
 	private String role;
 	
-	User(JSONObject user) {
-		this.username = user.getString(username);
-		this.password = user.getString(password);
-		this.role = user.getString(role);
+	User(JSONObject userJSON) {
+		this.username = userJSON.getString("username");
+		this.password = userJSON.getString("password");
+		this.role = userJSON.getString("role");
 	}
 	
 	// setters

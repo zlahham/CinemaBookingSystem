@@ -3,7 +3,7 @@
 		{"username": "aleksi", "password": "123123123", "role": "employee"},
 		{"username": "zaid", "password": "123123123", "role": "employee"},
 		{"username": "ghita", "password": "123123123", "role": "employee"},
-		{"username": "mouse", "password": "123123123", "role": "customer"},
+		{"username": "mouse", "password": "123123123", "role": "customer", "first name": "Mickey", "last name": "Moose", "email": "moose@goose.org", "bookings":[ {"film title": "Memento", "date": "13/12", "time": "12:00"}, {"film title": "Vertigo", "date": "11/01", "time": "17:00"} ] },
 		{"username": "keyboard", "password": "123123123", "role": "customer"},
 		{"username": "water", "password": "123123123", "role": "customer"}
 	]
