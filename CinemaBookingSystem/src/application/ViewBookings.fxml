@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="724.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ViewBookingsController">
+   <children>
+      <TableView fx:id="tblBookings" layoutX="176.0" layoutY="172.0" prefHeight="302.0" prefWidth="509.0">
+        <columns>
+          <TableColumn fx:id="tblclmnDate" editable="false" prefWidth="167.0" text="Date" />
+          <TableColumn fx:id="tblclmnTime" editable="false" prefWidth="200.0" text="Time" />
+            <TableColumn fx:id="tblclmnDelete" prefWidth="141.0" text="Delete" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

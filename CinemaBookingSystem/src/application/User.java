@@ -1,6 +1,10 @@
 package application;
 
+import java.util.List;
+
 import org.json.JSONObject;
+
+import javafx.collections.ObservableList;
 
 public abstract class User {
 	private String username;
@@ -38,4 +42,6 @@ public abstract class User {
 	public String getRole() {
 		return role;
 	}
+	
+	//abstract public ObservableList<Booking> getBookings();
 }

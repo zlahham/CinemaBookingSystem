@@ -6,11 +6,15 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
+
 public class Customer extends User {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private List<Booking> bookings = new ArrayList<Booking>();
+	private ObservableList<Booking> bookings = FXCollections.observableArrayList();
 
 	Customer(JSONObject userJSON) {
 		super(userJSON);
@@ -23,7 +27,7 @@ public class Customer extends User {
 			bookingI = bookingsJSON.getJSONObject(i);
 			this.bookings.add(new Booking(bookingI.getString("bookingID"), bookingI.getString("filmTitle"),
 					bookingI.getString("date"), bookingI.getString("time")));
-			System.out.println("Test: adding booking for " + bookingI.getString("filmTitle"));
+			System.out.println("Test: adding booking for " + bookings.get(i).getFilmTitle());
 		}
 	}
 
@@ -51,6 +55,10 @@ public class Customer extends User {
 
 	public String getEmail() {
 		return email;
+	}
+	
+	public ObservableList<Booking> getBookings() {
+		return bookings;
 	}
 
 }
