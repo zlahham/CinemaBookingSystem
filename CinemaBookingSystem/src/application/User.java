@@ -22,6 +22,10 @@ public abstract class User {
 		this.password = password;
 	}
 
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	// getters
 	public String getUsername() {
 		return username;
@@ -29,5 +33,9 @@ public abstract class User {
 
 	public boolean checkPassword(String passwordAttempt) {
 		return (password == passwordAttempt);
+	}
+
+	public String getRole() {
+		return role;
 	}
 }

@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 
 import javafx.event.ActionEvent;
@@ -15,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class LoginController {
 	@FXML
@@ -26,7 +26,6 @@ public class LoginController {
 	private TextField txtPassword;
 	@FXML
 	private PasswordField pwPassword;
-	
 
 	public void validateCredentials(ActionEvent event) {
 		JSONObject userJSON = validateUser(txtUsername.getText(), pwPassword.getText());
@@ -40,22 +39,23 @@ public class LoginController {
 			} else if (userJSON.getString("role").compareTo("customer") == 0) {
 				user = new Customer(userJSON);
 			}
-			
-			Main.user = user; 
-						
-			try {
-				Main.stage.setTitle("Customer View");
-				Parent customerView;
-				customerView = FXMLLoader.load(getClass().getResource("/application/Customer.fxml"));
-				Scene scene = new Scene(customerView, 1000, 1000);
-				Main.stage.setScene(scene);
-				Main.stage.show();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
+			Main.user = user;
+			transitionToUserView(user);
 		} else {
 			lblTest.setText("Failure");
+		}
+	}
+
+	public void transitionToUserView(User user) {
+		try {
+			Parent userView;
+			userView = FXMLLoader
+					.load(getClass().getResource("/application/" + StringUtils.capitalize(user.getRole()) + ".fxml"));
+			Scene scene = new Scene(userView, 500, 500);
+			Main.stage.setScene(scene);
+			Main.stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 

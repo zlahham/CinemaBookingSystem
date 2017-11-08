@@ -16,7 +16,7 @@ public class Main extends Application {
 			stage.setTitle("Cinema Booking System");
 		
 			Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
-			Scene scene = new Scene(root, 1000, 1000);
+			Scene scene = new Scene(root, 500, 500);
 
 			stage.setScene(scene);
 			stage.show();
