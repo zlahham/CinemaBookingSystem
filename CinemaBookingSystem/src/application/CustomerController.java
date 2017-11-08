@@ -7,7 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-public class CustomerController {
+public class CustomerController extends MainController{
 	public void viewBookings(ActionEvent event) {
 		Parent viewBookings;
 		try {
@@ -16,7 +16,6 @@ public class CustomerController {
 			Main.stage.setScene(scene);
 			Main.stage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
