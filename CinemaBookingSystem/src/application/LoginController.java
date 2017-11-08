@@ -1,5 +1,11 @@
 package application;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+import org.json.JSONObject;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -20,11 +26,8 @@ public class LoginController {
 		}
 	}
 	private boolean validateUsername(String username) {
-		if(username.compareTo("username") == 0) {
-			return true;
-		} else {
-			return false;
-		}
+		return searchForUsername(username);
+
 	}
 	
 	private boolean validatePassword(String password) {
@@ -33,6 +36,28 @@ public class LoginController {
 		} else {
 			return false;
 		}
+	}
+	
+	private boolean searchForUsername(String username) {
+		String content = null;
+		
+		try {
+			content = new Scanner(new File("assets/users.json")).useDelimiter("\\Z").next();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		JSONObject obj = new JSONObject(content);
+		
+		for (int i = 0 ; i < obj.getJSONArray("users").length(); i++) {
+			if(obj.getJSONArray("users").getJSONObject(i).getString("username").compareTo(username) == 0) {
+				return true;
+			} else {
+				continue;
+			}
+			
+		}
+		return false;
 	}
 
 }

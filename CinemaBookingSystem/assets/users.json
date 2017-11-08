@@ -1,1 +1,10 @@
-{"username": "aleksi"}
+{
+	"users": [
+		{"username": "aleksi", "password": "123123123", "role": "employee"},
+		{"username": "zaid", "password": "123123123", "role": "employee"},
+		{"username": "ghita", "password": "123123123", "role": "employee"},
+		{"username": "mouse", "password": "123123123", "role": "customer"},
+		{"username": "keyboard", "password": "123123123", "role": "customer"},
+		{"username": "water", "password": "123123123", "role": "customer"}
+	]
+}
