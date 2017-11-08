@@ -1,10 +1,59 @@
 {
-	"users": [
-		{"username": "aleksi", "password": "123123123", "role": "employee"},
-		{"username": "zaid", "password": "123123123", "role": "employee"},
-		{"username": "ghita", "password": "123123123", "role": "employee"},
-		{"username": "mouse", "password": "123123123", "role": "customer", "first name": "Mickey", "last name": "Moose", "email": "moose@goose.org", "bookings":[ {"booking ID": "A1", "film title": "Memento", "date": "13/12", "time": "12:00"}, {"booking ID": "B12", "film title": "Vertigo", "date": "11/01", "time": "17:00"} ] },
-		{"username": "keyboard", "password": "123123123", "role": "customer"},
-		{"username": "water", "password": "123123123", "role": "customer"}
+	"users": 
+	[
+		{
+			"username": "aleksi",
+			"password": "123123123",
+			"role": "employee"
+		},
+
+		{
+			"username": "zaid",
+			"password": "123123123",
+			"role": "employee"
+		},
+
+		{
+			"username": "ghita",
+			"password": "123123123",
+			"role": "employee"
+		},
+
+		{
+			"username": "mouse",
+			"password": "123123123",
+			"role": "customer",
+			"firstName": "Mickey",
+			"lastName": "Moose",
+			"email": "moose@goose.org",
+			"bookings": 
+			[
+				{
+					"bookingID": "A1",
+					"filmTitle": "Memento",
+					"date": "13/12",
+					"time": "12:00"
+				},
+
+				{
+					"bookingID": "B12",
+					"filmTitle": "Vertigo",
+					"date": "11/01",
+					"time": "17:00"
+				}
+			]
+		},
+
+		{
+			"username": "keyboard",
+			"password": "123123123",
+			"role": "customer"
+		},
+
+		{
+			"username": "water",
+			"password": "123123123",
+			"role": "customer"
+		}
 	]
 }

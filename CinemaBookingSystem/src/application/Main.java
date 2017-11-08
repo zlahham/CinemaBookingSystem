@@ -1,7 +1,4 @@
 package application;
-	
-import java.util.ArrayList;
-import java.util.List;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -10,22 +7,28 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 public class Main extends Application {
-	static List<User> users = new ArrayList<User>();
+	public static Stage stage = new Stage();
+	public static User user;
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			// BorderPane root = new BorderPane();
+			stage.setTitle("Cinema Booking System");
+		
 			Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
-			Scene scene = new Scene(root,400,400);
-			// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch(Exception e) {
+			Scene scene = new Scene(root, 1000, 1000);
+
+			stage.setScene(scene);
+			stage.show();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
 }
+
+
+// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
