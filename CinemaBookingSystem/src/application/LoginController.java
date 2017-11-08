@@ -51,7 +51,7 @@ public class LoginController {
 			Parent userView;
 			userView = FXMLLoader
 					.load(getClass().getResource("/application/" + StringUtils.capitalize(user.getRole()) + ".fxml"));
-			Scene scene = new Scene(userView, 500, 500);
+			Scene scene = new Scene(userView, 750, 500);
 			Main.stage.setScene(scene);
 			Main.stage.show();
 		} catch (IOException e) {
