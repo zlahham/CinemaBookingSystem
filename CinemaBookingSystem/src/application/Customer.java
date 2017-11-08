@@ -21,8 +21,31 @@ public class Customer extends User {
 		JSONObject bookingI;
 		for (int i = 0; i < bookingsJSON.length(); i++) {
 			bookingI = bookingsJSON.getJSONObject(i);
-			this.bookings.add(new Booking(bookingI.getString("film title"), bookingI.getString("date"), bookingI.getString("time")));
+			this.bookings.add(new Booking(bookingI.getString("booking ID"),bookingI.getString("film title"), bookingI.getString("date"), bookingI.getString("time")));
 			System.out.println("Test: adding booking for " + bookingI.getString("film title"));
 		}
 	}
+	
+	// setters
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	// getters
+	public String getFirstName() {
+		return firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public String getEmail() {
+		return email;
+	}
+		
 }
