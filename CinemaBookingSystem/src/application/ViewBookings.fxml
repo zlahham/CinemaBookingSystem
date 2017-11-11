@@ -8,10 +8,9 @@
    <children>
       <TableView fx:id="tblBookings" layoutX="209.0" layoutY="186.0" prefHeight="302.0" prefWidth="525.0">
         <columns>
-            <TableColumn fx:id="tblclmnFilmTitle" editable="false" prefWidth="135.0" text="Film Title" />
-          <TableColumn fx:id="tblclmnDate" editable="false" prefWidth="105.0" text="Date" />
-          <TableColumn fx:id="tblclmnTime" editable="false" prefWidth="190.0" text="Time" />
-            <TableColumn fx:id="tblclmnDelete" prefWidth="245.0" text="Delete" />
+            <TableColumn fx:id="tblclmnFilmTitle" editable="false" prefWidth="172.0" text="Film Title" />
+          <TableColumn fx:id="tblclmnDate" editable="false" prefWidth="166.0" text="Date" />
+          <TableColumn fx:id="tblclmnTime" editable="false" prefWidth="186.0" text="Time" />
         </columns>
       </TableView>
    </children>
