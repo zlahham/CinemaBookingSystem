@@ -6,11 +6,12 @@
 
 <AnchorPane prefHeight="724.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ViewBookingsController">
    <children>
-      <TableView fx:id="tblBookings" layoutX="176.0" layoutY="172.0" prefHeight="302.0" prefWidth="509.0">
+      <TableView fx:id="tblBookings" layoutX="209.0" layoutY="186.0" prefHeight="302.0" prefWidth="525.0">
         <columns>
-          <TableColumn fx:id="tblclmnDate" editable="false" prefWidth="167.0" text="Date" />
-          <TableColumn fx:id="tblclmnTime" editable="false" prefWidth="200.0" text="Time" />
-            <TableColumn fx:id="tblclmnDelete" prefWidth="141.0" text="Delete" />
+            <TableColumn fx:id="tblclmnFilmTitle" editable="false" prefWidth="135.0" text="Film Title" />
+          <TableColumn fx:id="tblclmnDate" editable="false" prefWidth="105.0" text="Date" />
+          <TableColumn fx:id="tblclmnTime" editable="false" prefWidth="190.0" text="Time" />
+            <TableColumn fx:id="tblclmnDelete" prefWidth="245.0" text="Delete" />
         </columns>
       </TableView>
    </children>

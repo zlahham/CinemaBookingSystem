@@ -14,6 +14,8 @@ public class Customer extends User {
 	private String firstName;
 	private String lastName;
 	private String email;
+	// Do we need to use FXCollections.observableList here instead?
+	// maybe first define an ArrayList and pass it to the above?
 	private ObservableList<Booking> bookings = FXCollections.observableArrayList();
 
 	Customer(JSONObject userJSON) {

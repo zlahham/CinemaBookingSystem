@@ -1,33 +1,30 @@
 package application;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ViewBookingsController {
 	@FXML private TableView<Booking> tblBookings;
+	@FXML private TableColumn<Booking, String> tblclmnFilmTitle;
 	@FXML private TableColumn<Booking, String> tblclmnDate;
 	@FXML private TableColumn<Booking, String> tblclmnTime;
 	
 	public void initialize() {
-		System.out.println(((Customer)(Main.user)).getBookings().get(0).getFilmTitle());
+		// tblBookings.getItems() is an ObservableList<Booking>;
+		// here we set it equal to the customer's bookings field
 		tblBookings.getItems().addAll(((Customer)(Main.user)).getBookings());
+		// c is a TableColumn.CellDataFeatures<Booking, String> object, this class
+		// being a wrapper class for the cells in the TableView
+		// where does c come from?
+		// why does the lambda return a Callback, not a SimpleStringProperty?
+		// alternative to lambdas: PropertyValueFactory
+		// SimpleStringProperty is a Property wrapper for a String
+		tblclmnFilmTitle.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getFilmTitle()));
 		tblclmnDate.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getDate()));
 		tblclmnTime.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getTime()));
-		//tblBookings.setItems(Main.user.getBookings());
-	}
-	
-	{
-		//tblBookings.setItems(Main.user.getBookings());
-		//tblBookings.setItems((ObservableList<Booking>) Main.user.getBookings());
-			//for (int i = 0; i < Main.user.getBookings().size(); i++) {
-				//System.out.println(Main.user.getBookings().get(i).getFilmTitle());
-	//	}
 	}
 	
 	private void aaa(ActionEvent event) {
