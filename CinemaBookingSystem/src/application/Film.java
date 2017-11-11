@@ -1,18 +1,45 @@
 package application;
 
-import java.util.List;
+import java.time.LocalDate;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Film {
-	private String title;
+	private String filmTitle;
 	private String description;
 	private String imageFilepath;
 	private String ageRating;
 	
-	private List<Screening> screenings;
+	private ObservableList<Screening> screenings = FXCollections.observableArrayList();
 
+	{
+		
+	}
+	Film(JSONObject filmJSON) {
+		this.filmTitle = filmJSON.getString("filmTitle");
+		this.description = filmJSON.getString("description");
+		this.imageFilepath = filmJSON.getString("imageFilePath");
+		this.ageRating = filmJSON.getString("ageRating");
+		JSONArray screeningsJSON = filmJSON.getJSONArray("screenings");
+		JSONObject screeningI;
+		for (int i = 0; i < screeningsJSON.length(); i++) {
+			screeningI = screeningsJSON.getJSONObject(i);
+			this.screenings.add(new Screening(screeningI.getString("filmTitle"),
+					LocalDate.parse(screeningI.getString("date")), screeningI.getString("time")));
+			// remove these later
+			System.out.println("Test: adding screening for " + screenings.get(i).getFilmTitle());
+			System.out.println("Test: Date: " + LocalDate.parse(screeningI.getString("date")));
+			/////////////////
+		}
+	}
+	
 	// setters
-	public void setTitle(String title) {
-		this.title = title;
+	public void setFilmTitle(String filmTitle) {
+		this.filmTitle = filmTitle;
 	}
 	public void setDescription(String description) {
 		this.description = description;
@@ -25,8 +52,8 @@ public class Film {
 	}
 	
 	// getters
-	public String getTitle() {
-		return title;
+	public String getFilmTitle() {
+		return filmTitle;
 	}
 	public String getDescription() {
 		return description;
@@ -37,7 +64,9 @@ public class Film {
 	public String getAgeRating() {
 		return ageRating;
 	}
-	
+	public ObservableList<Screening> getScreenings() {
+		return screenings;
+	}
 	
 	
 }
