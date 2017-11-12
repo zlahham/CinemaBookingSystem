@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -14,5 +15,6 @@
           <TableColumn fx:id="tblclmnTime" minWidth="0.0" prefWidth="270.0" text="Time" />
         </columns>
       </TableView>
+      <Button fx:id="btnBack" layoutX="751.0" layoutY="590.0" mnemonicParsing="false" onAction="#backToCustomerView" text="Back" />
    </children>
 </AnchorPane>
