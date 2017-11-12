@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -31,8 +32,9 @@ public class ViewBookingsController {
 		// why does the lambda return a Callback, not a SimpleStringProperty?
 		// alternative to lambdas: PropertyValueFactory
 		// SimpleStringProperty is a Property wrapper for a String
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
 		tblclmnFilmTitle.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getFilmTitle()));
-		tblclmnDate.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getDate()));
+		tblclmnDate.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getDate().format(formatter)));
 		tblclmnTime.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getTime()));
 	}
 	

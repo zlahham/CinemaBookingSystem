@@ -1,5 +1,6 @@
 package application;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +29,10 @@ public class Customer extends User {
 		for (int i = 0; i < bookingsJSON.length(); i++) {
 			bookingI = bookingsJSON.getJSONObject(i);
 			this.bookings.add(new Booking(bookingI.getString("bookingID"), bookingI.getString("filmTitle"),
-					bookingI.getString("date"), bookingI.getString("time")));
+					LocalDate.parse(bookingI.getString("date")), bookingI.getString("time")));
 			System.out.println("Test: adding booking for " + bookings.get(i).getFilmTitle());
 		}
 	}
-
 	// setters
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;

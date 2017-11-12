@@ -31,14 +31,14 @@
 				{
 					"bookingID": "A1",
 					"filmTitle": "Memento",
-					"date": "13/12",
+					"date": "2017-12-13",
 					"time": "12:00"
 				},
 
 				{
 					"bookingID": "B12",
 					"filmTitle": "Vertigo",
-					"date": "11/01",
+					"date": "2018-01-11",
 					"time": "17:00"
 				}
 			]

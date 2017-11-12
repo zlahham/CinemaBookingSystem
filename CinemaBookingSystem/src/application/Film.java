@@ -16,9 +16,7 @@ public class Film {
 	
 	private ObservableList<Screening> screenings = FXCollections.observableArrayList();
 
-	{
-		
-	}
+
 	Film(JSONObject filmJSON) {
 		this.filmTitle = filmJSON.getString("filmTitle");
 		this.description = filmJSON.getString("description");
