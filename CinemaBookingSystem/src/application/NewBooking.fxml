@@ -16,5 +16,6 @@
         </columns>
       </TableView>
       <Button fx:id="btnBack" layoutX="751.0" layoutY="590.0" mnemonicParsing="false" onAction="#backToCustomerView" text="Back" />
+      <Button fx:id="btnLogout" layoutX="830.0" layoutY="83.0" mnemonicParsing="false" onAction="#logout" text="Log out" />
    </children>
 </AnchorPane>

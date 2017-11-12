@@ -1,25 +1,17 @@
 package application;
 
 
-import java.io.IOException;
-import java.time.LocalDate;
-
-import org.apache.commons.lang3.StringUtils;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class NewBookingController {
+public class NewBookingController extends MainController{
 	
 	//initialize films: move this somewhere else later
 	FilmList filmList = new FilmList("assets/films.json");
@@ -46,17 +38,5 @@ public class NewBookingController {
 			tblFilms.getItems().clear();
 			label.setText("No screenings on this date.");
 		}	
-	}
-	public void backToCustomerView(ActionEvent event) {
-		try {
-			Parent userView;
-			userView = FXMLLoader
-					.load(getClass().getResource("/application/" + StringUtils.capitalize("Customer.fxml")));
-			Scene scene = new Scene(userView, 750, 500);
-			Main.stage.setScene(scene);
-			Main.stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 }
