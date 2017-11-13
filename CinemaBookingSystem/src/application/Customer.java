@@ -1,7 +1,9 @@
 package application;
 
 import java.time.LocalDate;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -10,6 +12,7 @@ import org.json.JSONObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.ObservableListBase;
+import javafx.collections.ObservableMap;
 
 public class Customer extends User {
 	private String firstName;
@@ -18,12 +21,15 @@ public class Customer extends User {
 	// Do we need to use FXCollections.observableList here instead?
 	// maybe first define an ArrayList and pass it to the above?
 	private ObservableList<Booking> bookings = FXCollections.observableArrayList();
+	// list of customer details for TableView
+	private ObservableList<SimpleEntry<String, String>> details = FXCollections.observableArrayList();
 
 	Customer(JSONObject userJSON) {
 		super(userJSON);
 		this.firstName = userJSON.getString("firstName");
 		this.lastName = userJSON.getString("lastName");
 		this.email = userJSON.getString("email");
+		// construct bookings list
 		JSONArray bookingsJSON = userJSON.getJSONArray("bookings");
 		JSONObject bookingI;
 		for (int i = 0; i < bookingsJSON.length(); i++) {
@@ -32,6 +38,12 @@ public class Customer extends User {
 					LocalDate.parse(bookingI.getString("date")), bookingI.getString("time")));
 			System.out.println("Test: adding booking for " + bookings.get(i).getFilmTitle());
 		}
+		// construct details list
+		details.add(new SimpleEntry<String, String>("Username", username));
+		details.add(new SimpleEntry<String, String>("Password", password.replaceAll(".", "*")));
+		details.add(new SimpleEntry<String, String>("First name", firstName));
+		details.add(new SimpleEntry<String, String>("Last name", lastName));
+		details.add(new SimpleEntry<String, String>("Email address", email));
 	}
 	// setters
 	public void setFirstName(String firstName) {
@@ -62,5 +74,9 @@ public class Customer extends User {
 	public ObservableList<Booking> getBookings() {
 		return bookings;
 	}
-
+	
+	public ObservableList<SimpleEntry<String, String>> getDetails() {
+		return details;
+	}
+	
 }

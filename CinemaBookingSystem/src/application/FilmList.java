@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class FilmList {
+	
 	private ObservableList<Film> filmList = FXCollections.observableArrayList();
 
 	FilmList (String JSONfilepath) {
@@ -33,6 +34,7 @@ public class FilmList {
 			filmList.add(film);
 		}
 	}
+	
 	public ObservableList<Screening> screeningsOnDate(LocalDate date) {
 		System.out.println("screeningsondate running");
 		ObservableList<Screening> returnList = FXCollections.observableArrayList();

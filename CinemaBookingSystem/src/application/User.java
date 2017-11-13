@@ -7,9 +7,9 @@ import org.json.JSONObject;
 import javafx.collections.ObservableList;
 
 public abstract class User {
-	private String username;
-	private String password;
-	private String role;
+	protected String username;
+	protected String password;
+	protected String role;
 
 	User(JSONObject userJSON) {
 		this.username = userJSON.getString("username");

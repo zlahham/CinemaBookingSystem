@@ -6,7 +6,7 @@ public class Screening {
 	private String filmTitle;
 	private LocalDate date;
 	private String time;
-	private Customer[][] seats;
+	private Booking[][] seats;
 	
 	Screening (String filmTitle, LocalDate date, String time) {
 		this.filmTitle = filmTitle;
