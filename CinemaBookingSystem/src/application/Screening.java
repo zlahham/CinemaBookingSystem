@@ -1,29 +1,23 @@
 package application;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Screening {
 	private String filmTitle;
-	private LocalDate date;
-	private String time;
+	private LocalDateTime dateTime;
 	private Booking[][] seats;
 	
-	Screening (String filmTitle, LocalDate date, String time) {
+	Screening (String filmTitle, LocalDateTime dateTime) {
 		this.filmTitle = filmTitle;
-		this.date = date;
-		this.time = time;
+		this.dateTime = dateTime;
 	}
 
 	public String getFilmTitle() {
 		return this.filmTitle;
 	}
 	
-	public LocalDate getDate() {
-		return this.date;
-	}
-	
-	public String getTime() {
-	return this.time;
+	public LocalDateTime getDateTime() {
+		return this.dateTime;
 	}
 	
 }

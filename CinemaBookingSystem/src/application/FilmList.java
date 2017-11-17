@@ -3,8 +3,7 @@ package application;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 import org.json.JSONObject;
@@ -40,7 +39,7 @@ public class FilmList {
 		ObservableList<Screening> returnList = FXCollections.observableArrayList();
 		for (int i = 0; i < filmList.size(); i++) {
 			for (int j = 0; j < filmList.get(i).getScreenings().size(); j++) {
-				if (date.equals(filmList.get(i).getScreenings().get(j).getDate())) {
+				if (date.equals(filmList.get(i).getScreenings().get(j).getDateTime().toLocalDate())) {
 					returnList.add(filmList.get(i).getScreenings().get(j));
 				}
 			}

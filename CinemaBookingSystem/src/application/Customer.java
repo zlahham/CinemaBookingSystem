@@ -1,21 +1,14 @@
 package application;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
-import javafx.collections.ObservableMap;
 
 public class Customer extends User {
 	private String firstName;
@@ -35,10 +28,11 @@ public class Customer extends User {
 		// construct bookings list
 		JSONArray bookingsJSON = userJSON.getJSONArray("bookings");
 		JSONObject bookingI;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		for (int i = 0; i < bookingsJSON.length(); i++) {
 			bookingI = bookingsJSON.getJSONObject(i);
 			this.bookings.add(new Booking(bookingI.getString("bookingID"), bookingI.getString("filmTitle"),
-					LocalDate.parse(bookingI.getString("date")), bookingI.getString("time")));
+					LocalDateTime.parse(bookingI.getString("dateTime"), formatter) ));
 			System.out.println("Test: adding booking for " + bookings.get(i).getFilmTitle());
 		}
 		// construct details list
@@ -82,6 +76,7 @@ public class Customer extends User {
 		return details;
 	}
 	
+	// other methods
 	public void deleteBooking(String bookingID) {
 		for (Booking i : bookings) {
 			if (i.getBookingID().compareTo(bookingID) == 0) {
@@ -92,7 +87,7 @@ public class Customer extends User {
 	}
 	
 	public void addBooking(Screening screening) {
-		Booking booking = new Booking("XXX", screening.getFilmTitle(), screening.getDate(), screening.getTime());
+		Booking booking = new Booking("XXX", screening.getFilmTitle(), screening.getDateTime());
 		bookings.add(booking);
 	}
 }

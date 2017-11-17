@@ -33,7 +33,7 @@ public class CustomerController extends MainController{
 	public void changeDetails(ActionEvent event) {
 		Parent changeDetails;
 		try {
-			changeDetails = FXMLLoader.load(getClass().getResource("/application/ChangeDetails.fxml"));
+			changeDetails = FXMLLoader.load(getClass().getResource("/application/Profile.fxml"));
 			Scene scene = new Scene(changeDetails, 1000, 1000);
 			Main.stage.setScene(scene);
 			Main.stage.show();

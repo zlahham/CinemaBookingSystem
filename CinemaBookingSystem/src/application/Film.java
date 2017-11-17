@@ -1,6 +1,8 @@
 package application;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,13 +26,14 @@ public class Film {
 		this.ageRating = filmJSON.getString("ageRating");
 		JSONArray screeningsJSON = filmJSON.getJSONArray("screenings");
 		JSONObject screeningI;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		for (int i = 0; i < screeningsJSON.length(); i++) {
 			screeningI = screeningsJSON.getJSONObject(i);
 			this.screenings.add(new Screening(screeningI.getString("filmTitle"),
-					LocalDate.parse(screeningI.getString("date")), screeningI.getString("time")));
+					LocalDateTime.parse(screeningI.getString("dateTime"), formatter)));
 			// remove these later
 			System.out.println("Test: adding screening for " + screenings.get(i).getFilmTitle());
-			System.out.println("Test: Date: " + LocalDate.parse(screeningI.getString("date")));
+			//System.out.println("Test: Date: " + LocalDate.parse(screeningI.getString("date")));
 			/////////////////
 		}
 	}

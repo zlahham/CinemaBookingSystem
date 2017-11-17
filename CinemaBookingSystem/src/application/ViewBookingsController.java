@@ -35,10 +35,11 @@ public class ViewBookingsController extends MainController {
 		// why does the lambda return a Callback, not a SimpleStringProperty?
 		// alternative to lambdas: PropertyValueFactory
 		// SimpleStringProperty is a Property wrapper for a String
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 		tblclmnFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
-		tblclmnDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDate().format(formatter)));
-		tblclmnTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTime()));
+		tblclmnDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
+		tblclmnTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
 
 		tblclmnDelete.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 

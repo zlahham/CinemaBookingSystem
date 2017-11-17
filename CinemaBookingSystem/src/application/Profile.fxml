@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="724.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ChangeDetailsController">
+<AnchorPane prefHeight="724.0" prefWidth="971.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ProfileController">
    <children>
       <Button fx:id="btnBack" layoutX="648.0" layoutY="519.0" mnemonicParsing="false" onAction="#backToUserView" text="Back" />
       <Button fx:id="btnLogout" layoutX="830.0" layoutY="83.0" mnemonicParsing="false" onAction="#logout" text="Log out" />
