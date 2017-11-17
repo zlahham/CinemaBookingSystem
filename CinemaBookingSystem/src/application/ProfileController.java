@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class ChangeDetailsController extends MainController{
+public class ProfileController extends MainController{
 	
 	@FXML private Button btnBack;
 	

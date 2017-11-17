@@ -15,6 +15,9 @@ public class Booking {
 		this.time = time;
 	}
 	
+	public String getBookingID() {
+		return this.bookingID;
+	}
 	public String getFilmTitle() {
 		return this.filmTitle;
 	}

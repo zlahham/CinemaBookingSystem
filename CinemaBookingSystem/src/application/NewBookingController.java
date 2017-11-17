@@ -8,8 +8,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 public class NewBookingController extends MainController{
 	
@@ -24,8 +27,45 @@ public class NewBookingController extends MainController{
 	@FXML private Label label = new Label("Select a date.");
 	@FXML private Button btnBack;
 	
+	@FXML
+	private TableColumn tblclmnBook = new TableColumn("Delete");
+	
 	public void initialize() {
 		tblFilms.setPlaceholder(label);
+		
+		tblclmnBook.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+
+		Callback<TableColumn<Screening, String>, TableCell<Screening, String>> cellFactory = //
+				new Callback<TableColumn<Screening, String>, TableCell<Screening, String>>() {
+					@Override
+					public TableCell call(final TableColumn<Screening, String> param) {
+						final TableCell<Screening, String> cell = new TableCell<Screening, String>() {
+
+							final Button btn = new Button("Book that shit");
+
+							@Override
+							public void updateItem(String item, boolean empty) {
+								super.updateItem(item, empty);
+								if (empty) {
+									setGraphic(null);
+									setText(null);
+								} else {
+									btn.setOnAction(event -> {
+										((Customer) (Main.user)).addBooking(getTableView().getItems().get(getIndex()));
+										getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
+									});
+									setGraphic(btn);
+									setText(null);
+								}
+							}
+						};
+
+						return cell;
+					}
+				};
+
+		tblclmnBook.setCellFactory(cellFactory);
+
 	}
 	public void datePicked(ActionEvent event) {
 		System.out.println(dtpckrDate.getValue());

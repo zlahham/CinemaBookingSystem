@@ -2,24 +2,34 @@ package application;
 
 import java.time.format.DateTimeFormatter;
 
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
-public class ViewBookingsController extends MainController{
-	@FXML private TableView<Booking> tblBookings;
-	@FXML private TableColumn<Booking, String> tblclmnFilmTitle;
-	@FXML private TableColumn<Booking, String> tblclmnDate;
-	@FXML private TableColumn<Booking, String> tblclmnTime;
-	@FXML private Button btnBack;
-	
+public class ViewBookingsController extends MainController {
+	@FXML
+	private TableView<Booking> tblBookings;
+	@FXML
+	private TableColumn<Booking, String> tblclmnFilmTitle;
+	@FXML
+	private TableColumn<Booking, String> tblclmnDate;
+	@FXML
+	private TableColumn<Booking, String> tblclmnTime;
+	@FXML
+	private Button btnBack;
+
+	@FXML
+	private TableColumn tblclmnDelete = new TableColumn("Delete");
+
 	public void initialize() {
 		// tblBookings.getItems() is an ObservableList<Booking>;
 		// here we set it equal to the customer's bookings field
-		tblBookings.getItems().addAll(((Customer)(Main.user)).getBookings());
+		tblBookings.getItems().addAll(((Customer) (Main.user)).getBookings());
 		// c is a TableColumn.CellDataFeatures<Booking, String> object, this class
 		// being a wrapper class for the cells in the TableView
 		// where does c come from?
@@ -27,11 +37,46 @@ public class ViewBookingsController extends MainController{
 		// alternative to lambdas: PropertyValueFactory
 		// SimpleStringProperty is a Property wrapper for a String
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-		tblclmnFilmTitle.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getFilmTitle()));
-		tblclmnDate.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getDate().format(formatter)));
-		tblclmnTime.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getTime()));
+		tblclmnFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
+		tblclmnDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDate().format(formatter)));
+		tblclmnTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTime()));
+
+		tblclmnDelete.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+
+		Callback<TableColumn<Booking, String>, TableCell<Booking, String>> cellFactory = //
+				new Callback<TableColumn<Booking, String>, TableCell<Booking, String>>() {
+					@Override
+					public TableCell call(final TableColumn<Booking, String> param) {
+						final TableCell<Booking, String> cell = new TableCell<Booking, String>() {
+
+							final Button btn = new Button("Delete that shit");
+
+							@Override
+							public void updateItem(String item, boolean empty) {
+								super.updateItem(item, empty);
+								if (empty) {
+									setGraphic(null);
+									setText(null);
+								} else {
+									btn.setOnAction(event -> {
+										((Customer) (Main.user)).deleteBooking(
+												getTableView().getItems().get(getIndex()).getBookingID());
+										getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
+									});
+									setGraphic(btn);
+									setText(null);
+								}
+							}
+						};
+
+						return cell;
+					}
+				};
+
+		tblclmnDelete.setCellFactory(cellFactory);
+
 	}
-	
+
 	// To do: delete button(s)
-       
+
 }

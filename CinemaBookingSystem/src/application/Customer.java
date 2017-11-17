@@ -1,10 +1,13 @@
 package application;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -79,4 +82,17 @@ public class Customer extends User {
 		return details;
 	}
 	
+	public void deleteBooking(String bookingID) {
+		for (Booking i : bookings) {
+			if (i.getBookingID().compareTo(bookingID) == 0) {
+				bookings.remove(i);
+				return;
+			}
+		}
+	}
+	
+	public void addBooking(Screening screening) {
+		Booking booking = new Booking("XXX", screening.getFilmTitle(), screening.getDate(), screening.getTime());
+		bookings.add(booking);
+	}
 }
