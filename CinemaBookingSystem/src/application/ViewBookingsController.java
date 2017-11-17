@@ -22,9 +22,8 @@ public class ViewBookingsController extends MainController {
 	private TableColumn<Booking, String> tblclmnTime;
 	@FXML
 	private Button btnBack;
-
 	@FXML
-	private TableColumn tblclmnDelete = new TableColumn("Delete");
+	private TableColumn<Booking, String> tblclmnDelete = new TableColumn<Booking, String>("Delete");
 
 	public void initialize() {
 		// tblBookings.getItems() is an ObservableList<Booking>;
@@ -46,10 +45,10 @@ public class ViewBookingsController extends MainController {
 		Callback<TableColumn<Booking, String>, TableCell<Booking, String>> cellFactory = //
 				new Callback<TableColumn<Booking, String>, TableCell<Booking, String>>() {
 					@Override
-					public TableCell call(final TableColumn<Booking, String> param) {
+					public TableCell<Booking, String> call(final TableColumn<Booking, String> param) {
 						final TableCell<Booking, String> cell = new TableCell<Booking, String>() {
 
-							final Button btn = new Button("Delete that shit");
+							final Button btn = new Button("Delete");
 
 							@Override
 							public void updateItem(String item, boolean empty) {
@@ -68,7 +67,6 @@ public class ViewBookingsController extends MainController {
 								}
 							}
 						};
-
 						return cell;
 					}
 				};

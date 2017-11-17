@@ -26,9 +26,8 @@ public class NewBookingController extends MainController{
 	// warning: this label is not set in the fxml yet
 	@FXML private Label label = new Label("Select a date.");
 	@FXML private Button btnBack;
-	
 	@FXML
-	private TableColumn tblclmnBook = new TableColumn("Delete");
+	private TableColumn<Screening, String> tblclmnBook = new TableColumn<Screening, String>("Delete");
 	
 	public void initialize() {
 		tblFilms.setPlaceholder(label);
@@ -38,10 +37,10 @@ public class NewBookingController extends MainController{
 		Callback<TableColumn<Screening, String>, TableCell<Screening, String>> cellFactory = //
 				new Callback<TableColumn<Screening, String>, TableCell<Screening, String>>() {
 					@Override
-					public TableCell call(final TableColumn<Screening, String> param) {
+					public TableCell<Screening, String> call(final TableColumn<Screening, String> param) {
 						final TableCell<Screening, String> cell = new TableCell<Screening, String>() {
 
-							final Button btn = new Button("Book that shit");
+							final Button btn = new Button("Book");
 
 							@Override
 							public void updateItem(String item, boolean empty) {
@@ -59,7 +58,6 @@ public class NewBookingController extends MainController{
 								}
 							}
 						};
-
 						return cell;
 					}
 				};
