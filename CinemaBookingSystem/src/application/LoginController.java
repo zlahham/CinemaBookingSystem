@@ -17,7 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginController {
+public class LoginController extends MainController{
 	@FXML
 	private Label lblTest;
 	@FXML
@@ -43,19 +43,6 @@ public class LoginController {
 			transitionToUserView(user);
 		} else {
 			lblTest.setText("Failure");
-		}
-	}
-
-	public void transitionToUserView(User user) {
-		try {
-			Parent userView;
-			userView = FXMLLoader
-					.load(getClass().getResource("/application/" + StringUtils.capitalize(user.getRole()) + ".fxml"));
-			Scene scene = new Scene(userView, 750, 500);
-			Main.stage.setScene(scene);
-			Main.stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 

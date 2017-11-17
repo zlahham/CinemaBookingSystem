@@ -19,9 +19,27 @@ public class CustomerController extends MainController{
 			e.printStackTrace();
 		}
 	}
-	public void newBooking() {
+	public void newBooking(ActionEvent event) {
+		Parent newBooking;
+		try {
+			newBooking = FXMLLoader.load(getClass().getResource("/application/NewBooking.fxml"));
+			Scene scene = new Scene(newBooking, 1000, 1000);
+			Main.stage.setScene(scene);
+			Main.stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	public void changeDetails() {
+	public void changeDetails(ActionEvent event) {
+		Parent changeDetails;
+		try {
+			changeDetails = FXMLLoader.load(getClass().getResource("/application/ChangeDetails.fxml"));
+			Scene scene = new Scene(changeDetails, 1000, 1000);
+			Main.stage.setScene(scene);
+			Main.stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

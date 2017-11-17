@@ -1,37 +1,80 @@
 package application;
 
+import java.time.format.DateTimeFormatter;
+
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
-public class ViewBookingsController {
-	@FXML private TableView<Booking> tblBookings;
-	@FXML private TableColumn<Booking, String> tblclmnDate;
-	@FXML private TableColumn<Booking, String> tblclmnTime;
-	
+public class ViewBookingsController extends MainController {
+	@FXML
+	private TableView<Booking> tblBookings;
+	@FXML
+	private TableColumn<Booking, String> tblclmnFilmTitle;
+	@FXML
+	private TableColumn<Booking, String> tblclmnDate;
+	@FXML
+	private TableColumn<Booking, String> tblclmnTime;
+	@FXML
+	private Button btnBack;
+	@FXML
+	private TableColumn<Booking, String> tblclmnDelete = new TableColumn<Booking, String>("Delete");
+
 	public void initialize() {
-		System.out.println(((Customer)(Main.user)).getBookings().get(0).getFilmTitle());
-		tblBookings.getItems().addAll(((Customer)(Main.user)).getBookings());
-		tblclmnDate.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getDate()));
-		tblclmnTime.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getTime()));
-		//tblBookings.setItems(Main.user.getBookings());
+		// tblBookings.getItems() is an ObservableList<Booking>;
+		// here we set it equal to the customer's bookings field
+		tblBookings.getItems().addAll(((Customer) (Main.user)).getBookings());
+		// c is a TableColumn.CellDataFeatures<Booking, String> object, this class
+		// being a wrapper class for the cells in the TableView
+		// where does c come from?
+		// why does the lambda return a Callback, not a SimpleStringProperty?
+		// alternative to lambdas: PropertyValueFactory
+		// SimpleStringProperty is a Property wrapper for a String
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+		tblclmnFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
+		tblclmnDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDate().format(formatter)));
+		tblclmnTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getTime()));
+
+		tblclmnDelete.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+
+		Callback<TableColumn<Booking, String>, TableCell<Booking, String>> cellFactory = //
+				new Callback<TableColumn<Booking, String>, TableCell<Booking, String>>() {
+					@Override
+					public TableCell<Booking, String> call(final TableColumn<Booking, String> param) {
+						final TableCell<Booking, String> cell = new TableCell<Booking, String>() {
+
+							final Button btn = new Button("Delete");
+
+							@Override
+							public void updateItem(String item, boolean empty) {
+								super.updateItem(item, empty);
+								if (empty) {
+									setGraphic(null);
+									setText(null);
+								} else {
+									btn.setOnAction(event -> {
+										((Customer) (Main.user)).deleteBooking(
+												getTableView().getItems().get(getIndex()).getBookingID());
+										getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
+									});
+									setGraphic(btn);
+									setText(null);
+								}
+							}
+						};
+						return cell;
+					}
+				};
+
+		tblclmnDelete.setCellFactory(cellFactory);
+
 	}
-	
-	{
-		//tblBookings.setItems(Main.user.getBookings());
-		//tblBookings.setItems((ObservableList<Booking>) Main.user.getBookings());
-			//for (int i = 0; i < Main.user.getBookings().size(); i++) {
-				//System.out.println(Main.user.getBookings().get(i).getFilmTitle());
-	//	}
-	}
-	
-	private void aaa(ActionEvent event) {
-		System.out.println("aaa");
-	}
+
+	// To do: delete button(s)
 
 }
