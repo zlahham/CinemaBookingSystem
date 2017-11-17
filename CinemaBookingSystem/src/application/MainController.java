@@ -2,6 +2,9 @@ package application;
 
 import java.io.IOException;
 
+import org.apache.commons.lang3.StringUtils;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,5 +24,22 @@ public class MainController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void transitionToUserView(User user) {
+		try {
+			Parent userView;
+			userView = FXMLLoader
+					.load(getClass().getResource("/application/" + StringUtils.capitalize(user.getRole()) + ".fxml"));
+			Scene scene = new Scene(userView, 750, 500);
+			Main.stage.setScene(scene);
+			Main.stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void backToUserView(ActionEvent event) {
+		transitionToUserView(Main.user);
 	}
 }
