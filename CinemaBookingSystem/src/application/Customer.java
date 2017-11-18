@@ -26,6 +26,7 @@ public class Customer extends User {
 		this.lastName = userJSON.getString("lastName");
 		this.email = userJSON.getString("email");
 		
+		// old version!
 		// construct bookings list
 		JSONArray bookingsJSON = userJSON.getJSONArray("bookings");
 		JSONObject bookingI;
@@ -36,6 +37,7 @@ public class Customer extends User {
 					LocalDateTime.parse(bookingI.getString("dateTime"), formatter) ));
 			System.out.println("Test: adding booking for " + bookings.get(i).getFilmTitle());
 		}
+		
 		// construct details list
 		details.add(new SimpleEntry<String, String>("Username", username));
 		details.add(new SimpleEntry<String, String>("Password", password.replaceAll(".", "*")));

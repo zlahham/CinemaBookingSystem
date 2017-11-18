@@ -3,6 +3,7 @@ package application;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import org.json.JSONObject;
@@ -24,12 +25,15 @@ public class FilmList {
 		}
 	
 		JSONObject filmsJSON = new JSONObject(content);
+		filmsJSON = filmsJSON.getJSONObject("films");
 		JSONObject filmI;
-	
-		for (int i = 0; i < filmsJSON.getJSONArray("films").length(); i++) {
-			filmI = filmsJSON.getJSONArray("films").getJSONObject(i);
-			Film film = new Film(filmI);
-			filmList.add(film);
+		
+		Iterator<String> iterator = filmsJSON.keys();
+		String filmKey = null;
+		while (iterator.hasNext()) {
+			filmKey = iterator.next();
+			filmI = filmsJSON.getJSONObject(filmKey);
+			filmList.add(new Film(filmI));
 		}
 	}
 	

@@ -1,7 +1,6 @@
 {
-	"films": 
-	[
-		{
+	"films": {
+		"memento": {
 			"filmTitle": "Memento",
 			"description": "'Tis a movie",
 			"imageFilePath": "/memento.jpg",
@@ -48,6 +47,7 @@
 				 } 
 			}
 		},
+		"vertigo":
 			{
 			"filmTitle": "Vertigo",
 			"description": "'Tis another movie",
@@ -82,7 +82,7 @@
 				}
 			}
 		}
-	],
+	},
 	  "bookings" : {
        "2017-11-18 16:00 zaid" : {
          "dateTime" : "2017-11-18 16:00",
