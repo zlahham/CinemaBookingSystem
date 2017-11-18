@@ -13,6 +13,24 @@ public class Screening {
 	private LocalDateTime dateTime;
 	private HashMap<String, Boolean> seats = new HashMap<String, Boolean>(9);
 
+	Screening(JSONObject screeningJSON) {
+		this.screeningID = screeningJSON.getString("screeningID");
+		this.filmTitle = screeningJSON.getString("filmTitle");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		this.dateTime = LocalDateTime.parse(screeningJSON.getString("dateTime"), formatter);
+		
+		// construct seats HashMap
+		JSONObject seats = screeningJSON.getJSONObject("seats");
+		Iterator<String> iterator = seats.keys();
+		String seatKey = null;
+		while (iterator.hasNext()) {
+			seatKey = iterator.next();
+			seats.put(seatKey, seats.getBoolean(seatKey));
+		}
+	}
+	
+	
+	/* old
 	// Note: the screeningJSON itself does not contain the date or the time anymore,
 	// which is why they key is passed as well. An array of ScreeningJSON objects
 	// would make this constructor nicer, but we would lose the ability to fetch
@@ -35,6 +53,7 @@ public class Screening {
 			seats.put(seatKey, seats.getBoolean(seatKey));
 		}
 	}
+	*/
 	
 	// To do: create another constructor; make the existing one refer to that
 

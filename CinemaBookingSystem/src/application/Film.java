@@ -32,7 +32,7 @@ public class Film {
 		while (iterator.hasNext()) {
 			screeningKey = iterator.next();
 			screeningI = screeningsJSON.getJSONObject(screeningKey);
-			this.screenings.add(new Screening(this, screeningKey, screeningI));
+			this.screenings.add(new Screening(screeningI));
 		}
 	}
 	// To do: create another constructor; make the existing one refer to that

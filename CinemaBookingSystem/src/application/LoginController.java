@@ -57,7 +57,7 @@ public class LoginController extends MainController{
 		String content = null;
 
 		try {
-			content = new Scanner(new File("assets/users.json")).useDelimiter("\\Z").next();
+			content = new Scanner(new File("assets/cinemaBookingSystem.json")).useDelimiter("\\Z").next();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

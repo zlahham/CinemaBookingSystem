@@ -19,7 +19,7 @@ public class Booking {
 		this.dateTime = LocalDateTime.parse(bookingJSON.getString("dateTime"), formatter);
 		this.filmTitle = bookingJSON.getString("filmTitle");
 		this.username = bookingJSON.getString("username");
-		this.bookingID = dateTime.format(formatter) + " " + username;
+		this.bookingID = bookingJSON.getString("bookingID");
 		this.seats = new ArrayList<String>();
 		for (int i = 0; i < bookingJSON.getJSONArray("seats").length(); i++) {
 			System.out.println(bookingJSON.getJSONArray("seats").get(i));
