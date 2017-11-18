@@ -6,37 +6,81 @@
 			"description": "'Tis a movie",
 			"imageFilePath": "/memento.jpg",
 			"ageRating": "15",
-			"screenings":
-			[
-				{
-					"filmTitle": "Memento",
-					"dateTime": "2017-12-13 12:00"
-				},
-
-				{
-					"filmTitle": "Memento",
-					"dateTime": "2018-01-01 15:00"
-				}
-			]
+			"screenings": {
+				 "2017-11-18 11:00" : {
+				   "seats" : {
+					 "a1" : false,
+					 "a2" : false,
+					 "a3" : false,
+					 "b1" : false,
+					 "b2" : false,
+					 "b3" : false,
+					 "c1" : false,
+					 "c2" : true,
+					 "c3" : false
+				   }
+				 },
+				 "2017-11-18 12:00" : {
+				   "seats" : {
+					 "a1" : false,
+					 "a2" : false,
+					 "a3" : false,
+					 "b1" : false,
+					 "b2" : false,
+					 "b3" : false,
+					 "c1" : false,
+					 "c2" : false,
+					 "c3" : false
+				   }
+				 },
+				 "2017-11-18 14:00" : {
+				   "seats" : {
+					 "a1" : false,
+					 "a2" : false,
+					 "a3" : false,
+					 "b1" : false,
+					 "b2" : false,
+					 "b3" : false,
+					 "c1" : false,
+					 "c2" : false,
+					 "c3" : false
+				   }
+				 } 
+			}
 		},
-
-		{
+			{
 			"filmTitle": "Vertigo",
 			"description": "'Tis another movie",
 			"imageFilePath": "/vertigo.jpg",
 			"ageRating": "PG",
-			"screenings":
-			[
-				{
-					"filmTitle": "Vertigo",
-					"dateTime": "2018-01-11 17:00"
+			"screenings": {
+			"2017-11-18 15:00" : {
+				  "seats" : {
+					"a1" : false,
+					"a2" : false,
+					"a3" : false,
+					"b1" : false,
+					"b2" : false,
+					"b3" : false,
+					"c1" : false,
+					"c2" : false,
+					"c3" : false
+				  }
 				},
-
-				{
-					"filmTitle": "Vertigo",
-					"dateTime": "2018-02-02 15:00"
+				"2017-11-18 16:00" : {
+				  "seats" : {
+					"a1" : false,
+					"a2" : false,
+					"a3" : false,
+					"b1" : false,
+					"b2" : false,
+					"b3" : false,
+					"c1" : false,
+					"c2" : false,
+					"c3" : false
+				  }
 				}
-			]
+			}
 		}
 	]
 }
