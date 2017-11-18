@@ -1,57 +1,130 @@
 {
-	"users": 
-	[
-		{
-			"username": "aleksi",
-			"password": "123123123",
-			"role": "employee"
-		},
-
-		{
-			"username": "zaid",
-			"password": "123123123",
-			"role": "employee"
-		},
-
-		{
-			"username": "ghita",
-			"password": "123123123",
-			"role": "employee"
-		},
-
-		{
-			"username": "mouse",
-			"password": "123123123",
-			"role": "customer",
-			"firstName": "Mickey",
-			"lastName": "Moose",
-			"email": "moose@goose.org",
-			"bookings": 
-			[
-				{
-					"bookingID": "A1",
-					"filmTitle": "Memento",
-					"dateTime": "2017-12-13 12:00"
-				},
-
-				{
-					"bookingID": "B12",
-					"filmTitle": "Vertigo",
-					"dateTime": "2018-01-11 17:00"
-				}
-			]
-		},
-
-		{
-			"username": "keyboard",
-			"password": "123123123",
-			"role": "customer"
-		},
-
-		{
-			"username": "water",
-			"password": "123123123",
-			"role": "customer"
-		}
-	]
+  "bookings" : {
+    "2017-11-18 16:00 mouse" : {
+      "bookingID" : "2017-11-18 16:00 mouse",
+      "dateTime" : "2017-11-18 16:00",
+      "filmTitle" : "Vertigo",
+      "seats" : [ "a1", "a2" ],
+      "username" : "mouse"
+    }
+  },
+  "films" : {
+    "Memento" : {
+      "ageRating" : "18",
+      "description" : "This is amazing!",
+      "filmTitle" : "Memento",
+      "imageFilePath" : "test",
+      "screenings" : {
+        "2017-11-18 11:00" : {
+          "dateTime" : "2017-11-18 11:00",
+          "filmTitle" : "Memento",
+          "screeningID" : "2017-11-18 11:00",
+          "seats" : {
+            "a1" : false,
+            "a2" : false,
+            "a3" : false,
+            "b1" : false,
+            "b2" : false,
+            "b3" : false,
+            "c1" : false,
+            "c2" : false,
+            "c3" : false
+          }
+        },
+        "2017-11-18 12:00" : {
+          "dateTime" : "2017-11-18 12:00",
+          "filmTitle" : "Memento",
+          "screeningID" : "2017-11-18 12:00",
+          "seats" : {
+            "a1" : false,
+            "a2" : false,
+            "a3" : false,
+            "b1" : false,
+            "b2" : false,
+            "b3" : false,
+            "c1" : false,
+            "c2" : false,
+            "c3" : false
+          }
+        },
+        "2017-11-18 14:00" : {
+          "dateTime" : "2017-11-18 14:00",
+          "filmTitle" : "Memento",
+          "screeningID" : "2017-11-18 14:00",
+          "seats" : {
+            "a1" : false,
+            "a2" : false,
+            "a3" : false,
+            "b1" : false,
+            "b2" : false,
+            "b3" : false,
+            "c1" : false,
+            "c2" : false,
+            "c3" : false
+          }
+        }
+      }
+    },
+    "Vertigo" : {
+      "ageRating" : "16",
+      "description" : "This is a movie called Vertigo",
+      "filmTitle" : "Vertigo",
+      "imageFilePath" : "test",
+      "screenings" : {
+        "2017-11-18 15:00" : {
+          "dateTime" : "2017-11-18 15:00",
+          "filmTitle" : "Vertigo",
+          "screeningID" : "2017-11-18 15:00",
+          "seats" : {
+            "a1" : false,
+            "a2" : false,
+            "a3" : false,
+            "b1" : false,
+            "b2" : false,
+            "b3" : false,
+            "c1" : false,
+            "c2" : false,
+            "c3" : false
+          }
+        },
+        "2017-11-18 16:00" : {
+          "dateTime" : "2017-11-18 16:00",
+          "filmTitle" : "Vertigo",
+          "screeningID" : "2017-11-18 16:00",
+          "seats" : {
+            "a1" : true,
+            "a2" : true,
+            "a3" : false,
+            "b1" : false,
+            "b2" : false,
+            "b3" : false,
+            "c1" : false,
+            "c2" : false,
+            "c3" : false
+          }
+        }
+      }
+    }
+  },
+  "users" : {
+    "aleksi" : {
+      "password" : "123123",
+      "role" : "employee",
+      "username" : "aleksi"
+    },
+    "mouse" : {
+      "bookings" : [ "2017-11-18 16:00 mouse" ],
+      "email" : "moose@goose.org",
+      "firstName" : "Mickey",
+      "lastName" : "Mouse",
+      "password" : "123123",
+      "role" : "customer",
+      "username" : "mouse"
+    },
+    "zaid" : {
+      "password" : "123123",
+      "role" : "employee",
+      "username" : "zaid"
+    }
+  }
 }

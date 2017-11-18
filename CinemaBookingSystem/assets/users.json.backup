@@ -1,0 +1,57 @@
+{
+	"users": 
+	[
+		{
+			"username": "aleksi",
+			"password": "123123123",
+			"role": "employee"
+		},
+
+		{
+			"username": "zaid",
+			"password": "123123123",
+			"role": "employee"
+		},
+
+		{
+			"username": "ghita",
+			"password": "123123123",
+			"role": "employee"
+		},
+
+		{
+			"username": "mouse",
+			"password": "123123123",
+			"role": "customer",
+			"firstName": "Mickey",
+			"lastName": "Moose",
+			"email": "moose@goose.org",
+			"bookings": 
+			[
+				{
+					"bookingID": "A1",
+					"filmTitle": "Memento",
+					"dateTime": "2017-12-13 12:00"
+				},
+
+				{
+					"bookingID": "B12",
+					"filmTitle": "Vertigo",
+					"dateTime": "2018-01-11 17:00"
+				}
+			]
+		},
+
+		{
+			"username": "keyboard",
+			"password": "123123123",
+			"role": "customer"
+		},
+
+		{
+			"username": "water",
+			"password": "123123123",
+			"role": "customer"
+		}
+	]
+}

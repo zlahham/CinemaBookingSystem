@@ -63,6 +63,15 @@ public class LoginController extends MainController{
 		}
 
 		JSONObject usersJSON = new JSONObject(content);
+		usersJSON = usersJSON.getJSONObject("users");
+		
+		if (usersJSON.getJSONObject(username).getString("password").compareTo(password) == 0) {
+			return usersJSON.getJSONObject(username);
+		} else {
+			return null;
+		}
+		
+		/* old
 		JSONObject userI;
 
 		for (int i = 0; i < usersJSON.getJSONArray("users").length(); i++) {
@@ -75,6 +84,7 @@ public class LoginController extends MainController{
 			}
 		}
 		return null;
+		*/
 	}
 
 }
