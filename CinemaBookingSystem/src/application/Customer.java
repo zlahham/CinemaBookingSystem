@@ -25,6 +25,7 @@ public class Customer extends User {
 		this.firstName = userJSON.getString("firstName");
 		this.lastName = userJSON.getString("lastName");
 		this.email = userJSON.getString("email");
+		
 		// construct bookings list
 		JSONArray bookingsJSON = userJSON.getJSONArray("bookings");
 		JSONObject bookingI;

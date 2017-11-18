@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 public class Main extends Application {
 	public static Stage stage = new Stage();
 	public static User user;
+	public static FilmList filmList = new FilmList("assets/films.json");
+	public static BookingList bookingList = new BookingList("assets/films.json");
 
 	@Override
 	public void start(Stage primaryStage) {

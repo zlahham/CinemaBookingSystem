@@ -82,5 +82,13 @@
 				}
 			}
 		}
-	]
+	],
+	  "bookings" : {
+       "2017-11-18 16:00 zaid" : {
+         "dateTime" : "2017-11-18 16:00",
+         "filmTitle" : "vertigo",
+         "seats" : [ "a1", "a2" ],
+         "username" : "zaid"
+       }
+	  }
 }

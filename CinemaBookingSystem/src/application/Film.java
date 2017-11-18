@@ -35,6 +35,7 @@ public class Film {
 			this.screenings.add(new Screening(this, screeningKey, screeningI));
 		}
 	}
+	// To do: create another constructor; make the existing one refer to that
 	
 	// setters
 	public void setFilmTitle(String filmTitle) {

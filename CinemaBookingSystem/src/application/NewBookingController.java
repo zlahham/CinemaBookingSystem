@@ -17,9 +17,6 @@ import javafx.util.Callback;
 
 public class NewBookingController extends MainController {
 
-	// initialize films: move this somewhere else later
-	FilmList filmList = new FilmList("assets/films.json");
-
 	@FXML
 	private DatePicker dtpckrDate;
 	@FXML
@@ -78,7 +75,7 @@ public class NewBookingController extends MainController {
 		// test; remove later
 		System.out.println(dtpckrDate.getValue());
 		/////
-		ObservableList<Screening> screeningList = filmList.screeningsOnDate(dtpckrDate.getValue());
+		ObservableList<Screening> screeningList = Main.filmList.screeningsOnDate(dtpckrDate.getValue());
 		if (screeningList.size() > 0) {
 			tblFilms.getItems().addAll(screeningList);
 			tblclmnFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
