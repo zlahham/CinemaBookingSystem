@@ -84,11 +84,11 @@
 		}
 	},
 	  "bookings" : {
-       "2017-11-18 16:00 zaid" : {
+       "2017-11-18 16:00 mouse" : {
          "dateTime" : "2017-11-18 16:00",
-         "filmTitle" : "vertigo",
+         "filmTitle" : "Vertigo",
          "seats" : [ "a1", "a2" ],
-         "username" : "zaid"
+         "username" : "mouse"
        }
 	  }
 }

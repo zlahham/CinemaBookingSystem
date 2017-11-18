@@ -1,6 +1,8 @@
 package application;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -54,7 +56,10 @@ public class NewBookingController extends MainController {
 									setText(null);
 								} else {
 									btn.setOnAction(event -> {
-										((Customer) (Main.user)).addBooking(getTableView().getItems().get(getIndex()));
+										ArrayList<String> x = new ArrayList<String>();
+										x.add("a1");
+										x.add("a2");
+										Main.bookingList.addBooking(getTableView().getItems().get(getIndex()), (Customer)(Main.user), x);
 										getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
 									});
 									setGraphic(btn);

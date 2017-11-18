@@ -28,7 +28,7 @@ public class ViewBookingsController extends MainController {
 	public void initialize() {
 		// tblBookings.getItems() is an ObservableList<Booking>;
 		// here we set it equal to the customer's bookings field
-		tblBookings.getItems().addAll(((Customer) (Main.user)).getBookings());
+		tblBookings.getItems().addAll(Main.bookingList.bookingsByCustomer((Customer)(Main.user)));
 		// c is a TableColumn.CellDataFeatures<Booking, String> object, this class
 		// being a wrapper class for the cells in the TableView
 		// where does c come from?
@@ -59,7 +59,7 @@ public class ViewBookingsController extends MainController {
 									setText(null);
 								} else {
 									btn.setOnAction(event -> {
-										((Customer) (Main.user)).deleteBooking(
+										Main.bookingList.deleteBooking(
 												getTableView().getItems().get(getIndex()).getBookingID());
 										getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
 									});
