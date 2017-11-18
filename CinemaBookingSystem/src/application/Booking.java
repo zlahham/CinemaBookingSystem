@@ -51,4 +51,7 @@ public class Booking {
 	public LocalDateTime getDateTime() {
 		return this.dateTime;
 	}
+	public String getSeats() {
+		return this.seats.toString();
+	}
 }

@@ -21,6 +21,8 @@ public class ViewBookingsController extends MainController {
 	@FXML
 	private TableColumn<Booking, String> tblclmnTime;
 	@FXML
+	private TableColumn<Booking, String> tblclmnSeats;
+	@FXML
 	private Button btnBack;
 	@FXML
 	private TableColumn<Booking, String> tblclmnDelete = new TableColumn<Booking, String>("Delete");
@@ -40,6 +42,7 @@ public class ViewBookingsController extends MainController {
 		tblclmnFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
 		tblclmnDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
 		tblclmnTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
+		tblclmnSeats.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSeats()));
 
 		tblclmnDelete.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 
