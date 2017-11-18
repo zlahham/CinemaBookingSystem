@@ -38,7 +38,6 @@ public class FilmList {
 	}
 	
 	public ObservableList<Screening> screeningsOnDate(LocalDate date) {
-		System.out.println("screeningsondate running");
 		ObservableList<Screening> returnList = FXCollections.observableArrayList();
 		for (int i = 0; i < filmList.size(); i++) {
 			for (int j = 0; j < filmList.get(i).getScreenings().size(); j++) {

@@ -3,13 +3,11 @@ package application;
 import org.json.JSONObject;
 
 public abstract class User {
-	protected JSONObject userJSON;
 	protected String username;
 	protected String password;
 	protected String role;
 
 	User(JSONObject userJSON) {
-		this.userJSON = userJSON;
 		this.username = userJSON.getString("username");
 		this.password = userJSON.getString("password");
 		this.role = userJSON.getString("role");
@@ -41,5 +39,4 @@ public abstract class User {
 	public boolean checkPassword(String passwordAttempt) {
 		return (password == passwordAttempt);
 	}
-	//abstract public ObservableList<Booking> getBookings();
 }

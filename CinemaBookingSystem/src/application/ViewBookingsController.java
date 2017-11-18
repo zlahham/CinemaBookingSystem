@@ -74,11 +74,7 @@ public class ViewBookingsController extends MainController {
 						return cell;
 					}
 				};
-
 		tblclmnDelete.setCellFactory(cellFactory);
-
 	}
-
-	// To do: delete button(s)
 
 }

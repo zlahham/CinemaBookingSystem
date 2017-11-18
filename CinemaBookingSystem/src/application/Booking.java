@@ -22,7 +22,6 @@ public class Booking {
 		this.bookingID = bookingJSON.getString("bookingID");
 		this.seats = new ArrayList<String>();
 		for (int i = 0; i < bookingJSON.getJSONArray("seats").length(); i++) {
-			System.out.println(bookingJSON.getJSONArray("seats").get(i));
 			this.seats.add(bookingJSON.getJSONArray("seats").getString(i));
 		}
 	}

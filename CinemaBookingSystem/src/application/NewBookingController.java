@@ -72,14 +72,10 @@ public class NewBookingController extends MainController {
 				};
 
 		tblclmnBook.setCellFactory(cellFactory);
-
 	}
 
 	public void datePicked(ActionEvent event) {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-		// test; remove later
-		System.out.println(dtpckrDate.getValue());
-		/////
 		ObservableList<Screening> screeningList = Main.filmList.screeningsOnDate(dtpckrDate.getValue());
 		if (screeningList.size() > 0) {
 			tblFilms.getItems().addAll(screeningList);

@@ -35,20 +35,13 @@ public class BookingList {
 			bookingI = bookingsJSON.getJSONObject(bookingKey);
 			bookingList.add(new Booking(bookingI));
 		}
-		
-		System.out.println("bookingList:");
-		for (Booking i : bookingList) {
-			System.out.println(i.getBookingID());
-		}
 	}
 	
 	public ObservableList<Booking> bookingsByCustomer(Customer customer) {
-		System.out.println("bookingsByCustomer running");
 		ObservableList<Booking> returnList = FXCollections.observableArrayList();
 		for (int i = 0; i < bookingList.size(); i++) {
 			if (customer.getUsername().equals(bookingList.get(i).getUsername())){
 				returnList.add(bookingList.get(i));
-				System.out.println(bookingList.get(i).getBookingID());
 			}
 		}
 		return returnList;

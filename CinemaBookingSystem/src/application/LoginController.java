@@ -3,6 +3,7 @@ package application;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
@@ -17,7 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginController extends MainController{
+public class LoginController extends MainController {
 	@FXML
 	private Label lblTest;
 	@FXML
@@ -64,18 +65,11 @@ public class LoginController extends MainController{
 
 		JSONObject usersJSON = new JSONObject(content);
 		usersJSON = usersJSON.getJSONObject("users");
-		
-		if (usersJSON.getJSONObject(username).getString("password").compareTo(password) == 0) {
-			return usersJSON.getJSONObject(username);
-		} else {
-			return null;
-		}
-		
-		/* old
-		JSONObject userI;
 
-		for (int i = 0; i < usersJSON.getJSONArray("users").length(); i++) {
-			userI = usersJSON.getJSONArray("users").getJSONObject(i);
+		Iterator<String> iterator = usersJSON.keys();
+		JSONObject userI = null;
+		while (iterator.hasNext()) {
+			userI = usersJSON.getJSONObject(iterator.next());
 			if (userI.getString("username").compareTo(username) == 0
 					&& userI.getString("password").compareTo(password) == 0) {
 				return userI;
@@ -84,7 +78,6 @@ public class LoginController extends MainController{
 			}
 		}
 		return null;
-		*/
 	}
 
 }
