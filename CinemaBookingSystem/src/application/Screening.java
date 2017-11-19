@@ -8,17 +8,22 @@ import java.util.Iterator;
 import org.json.JSONObject;
 
 public class Screening {
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 	private String screeningID;
 	private String filmTitle;
 	private LocalDateTime dateTime;
 	private HashMap<String, Boolean> seats = new HashMap<String, Boolean>(9);
 
-	Screening(JSONObject screeningJSON) {
-		this.screeningID = screeningJSON.getString("screeningID");
-		this.filmTitle = screeningJSON.getString("filmTitle");
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-		this.dateTime = LocalDateTime.parse(screeningJSON.getString("dateTime"), formatter);
-		
+	public Screening(String screeningID, String filmTitle, LocalDateTime dateTime, HashMap<String, Boolean> seats) {
+		this.screeningID = screeningID;
+		this.filmTitle = filmTitle;
+		this.dateTime = dateTime;
+		this.seats = seats;
+		}
+	
+	public Screening(JSONObject screeningJSON) {
+		this(screeningJSON.getString("screeningID"), screeningJSON.getString("filmTitle"),
+				LocalDateTime.parse(screeningJSON.getString("dateTime"), formatter), new HashMap<String, Boolean>(9));
 		// construct seats HashMap
 		JSONObject seats = screeningJSON.getJSONObject("seats");
 		Iterator<String> iterator = seats.keys();
@@ -28,7 +33,6 @@ public class Screening {
 			seats.put(seatKey, seats.getBoolean(seatKey));
 		}
 	}
-	// To do: create another constructor; make the existing one refer to that
 
 	// getters
 	public String getScreeningID() {

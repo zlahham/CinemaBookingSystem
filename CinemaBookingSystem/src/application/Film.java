@@ -19,11 +19,17 @@ public class Film {
 	
 	private ObservableList<Screening> screenings = FXCollections.observableArrayList();
 
-	Film(JSONObject filmJSON) {
-		this.filmTitle = filmJSON.getString("filmTitle");
-		this.description = filmJSON.getString("description");
-		this.imageFilepath = filmJSON.getString("imageFilePath");
-		this.ageRating = filmJSON.getString("ageRating");
+	public Film(String filmTitle, String description, String imageFilepath, String ageRating, ObservableList<Screening> screenings) {
+		this.filmTitle = filmTitle;
+		this.description = description;
+		this.imageFilepath = imageFilepath;
+		this.ageRating = ageRating;
+		this.screenings = screenings;
+	}
+	
+	public Film(JSONObject filmJSON) {
+		this(filmJSON.getString("filmTitle"), filmJSON.getString("description"), filmJSON.getString("imageFilePath"),
+				filmJSON.getString("ageRating"), FXCollections.observableArrayList());
 		JSONObject screeningsJSON = filmJSON.getJSONObject("screenings");
 		JSONObject screeningI;
 		Iterator<String> iterator = screeningsJSON.keys();
@@ -34,7 +40,6 @@ public class Film {
 			this.screenings.add(new Screening(screeningI));
 		}
 	}
-	// To do: create another constructor; make the existing one refer to that
 	
 	// setters
 	public void setFilmTitle(String filmTitle) {

@@ -3,9 +3,9 @@ package application;
 import org.json.JSONObject;
 
 public abstract class User {
-	protected String username;
-	protected String password;
-	protected String role;
+	private String username;
+	private String password;
+	private String role;
 
 	User(JSONObject userJSON) {
 		this.username = userJSON.getString("username");

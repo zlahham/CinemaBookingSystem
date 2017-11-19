@@ -15,7 +15,7 @@ public class FilmList {
 	
 	private ObservableList<Film> filmList = FXCollections.observableArrayList();
 
-	FilmList (String JSONfilepath) {
+	public FilmList (String JSONfilepath) {
 		String content = null;
 	
 		try {

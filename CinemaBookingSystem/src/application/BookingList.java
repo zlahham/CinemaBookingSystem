@@ -16,7 +16,7 @@ public class BookingList {
 	
 	private ObservableList<Booking> bookingList = FXCollections.observableArrayList();
 	
-	BookingList (String JSONfilepath) {
+	public BookingList (String JSONfilepath) {
 		String content = null;
 	
 		try {

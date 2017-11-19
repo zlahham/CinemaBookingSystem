@@ -18,18 +18,19 @@ public class Customer extends User {
 	private ObservableList<SimpleEntry<String, String>> details = FXCollections.observableArrayList();
 	
 
-	Customer(JSONObject userJSON) {
+	public Customer(JSONObject userJSON) {
 		super(userJSON);
 		this.firstName = userJSON.getString("firstName");
 		this.lastName = userJSON.getString("lastName");
 		this.email = userJSON.getString("email");
 		
 		// construct details list
-		details.add(new SimpleEntry<String, String>("Username", username));
-		details.add(new SimpleEntry<String, String>("Password", password.replaceAll(".", "*")));
-		details.add(new SimpleEntry<String, String>("First name", firstName));
-		details.add(new SimpleEntry<String, String>("Last name", lastName));
-		details.add(new SimpleEntry<String, String>("Email address", email));
+		details.add(new SimpleEntry<String, String>("Username", this.getUsername()));
+		details.add(new SimpleEntry<String, String>("Password", "********"));
+		//details.add(new SimpleEntry<String, String>("Password", password.replaceAll(".", "*"))); maybe not the best idea
+		details.add(new SimpleEntry<String, String>("First name", this.getFirstName()));
+		details.add(new SimpleEntry<String, String>("Last name", this.getLastName()));
+		details.add(new SimpleEntry<String, String>("Email address", this.getEmail()));
 	}
 	// setters
 	public void setFirstName(String firstName) {
