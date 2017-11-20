@@ -8,7 +8,7 @@ import java.util.List;
 import org.json.JSONObject;
 
 public class Booking {
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 	private String bookingID;
 	private String filmTitle;
 	private LocalDateTime dateTime;

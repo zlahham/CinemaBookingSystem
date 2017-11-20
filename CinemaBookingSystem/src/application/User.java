@@ -7,7 +7,7 @@ public abstract class User {
 	private String password;
 	private String role;
 
-	User(JSONObject userJSON) {
+	protected User(JSONObject userJSON) {
 		this.username = userJSON.getString("username");
 		this.password = userJSON.getString("password");
 		this.role = userJSON.getString("role");

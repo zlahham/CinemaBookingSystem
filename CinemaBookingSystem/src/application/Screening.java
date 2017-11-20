@@ -8,7 +8,7 @@ import java.util.Iterator;
 import org.json.JSONObject;
 
 public class Screening {
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 	private String screeningID;
 	private String filmTitle;
 	private LocalDateTime dateTime;
