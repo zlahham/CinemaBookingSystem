@@ -1,6 +1,5 @@
 package application;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import javafx.beans.property.SimpleStringProperty;

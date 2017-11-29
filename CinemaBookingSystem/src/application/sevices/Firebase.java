@@ -1,11 +1,11 @@
-package application;
+package application.sevices;
 
 import org.json.JSONObject;
 
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-public class FirebaseController {
+public class Firebase {
 	private static String URL = "https://cinema-booking-app.firebaseio.com/";
 
 	public static JSONObject getList(String className) throws UnirestException {

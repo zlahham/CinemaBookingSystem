@@ -1,11 +1,5 @@
 package application;
 
-import java.util.Iterator;
-
-import org.json.JSONObject;
-
-import com.mashape.unirest.http.exceptions.UnirestException;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,31 +32,11 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-		populateList("films");
-		populateList("bookings");
+		MainController.populateList("films");
+		MainController.populateList("bookings");
 
 		launch(args);
 	}
-
-	// TODO: Move to MainController
-	private static void populateList(String type) {
-		JSONObject json = null;
-		try {
-			json = FirebaseController.getList(type);
-		} catch (UnirestException e) {
-			e.printStackTrace();
-		}
-
-		Iterator<String> iterator = json.keys();
-		while (iterator.hasNext()) {
-			String key = iterator.next();
-			if(type.equals("films"))
-				filmList.add(new Film(json.getJSONObject(key)));
-			else
-				bookingList.add(new Booking(json.getJSONObject(key)));
-		}
-	}
-
 }
 
 // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

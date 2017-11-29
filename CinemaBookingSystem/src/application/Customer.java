@@ -1,10 +1,7 @@
 package application;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.AbstractMap.SimpleEntry;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javafx.collections.FXCollections;
