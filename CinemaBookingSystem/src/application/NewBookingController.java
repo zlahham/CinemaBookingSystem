@@ -1,12 +1,14 @@
 package application;
 
+import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -14,6 +16,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Popup;
 import javafx.util.Callback;
 
 public class NewBookingController extends MainController {
@@ -26,19 +29,23 @@ public class NewBookingController extends MainController {
 	private TableColumn<Screening, String> tblclmnFilmTitle;
 	@FXML
 	private TableColumn<Screening, String> tblclmnTime;
-	// warning: this label is not set in the fxml yet
 	@FXML
 	private Label label = new Label("Select a date.");
 	@FXML
 	private Button btnBack;
 	@FXML
 	private TableColumn<Screening, String> tblclmnBook = new TableColumn<Screening, String>("Delete");
+	public static Screening chosenScreening;
 
 	public void initialize() {
-		tblFilms.setPlaceholder(label);
-
-		tblclmnBook.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
-
+		// set "select a date" label
+		// causes NullPointerExceptions; replace
+		// tblFilms.setPlaceholder(label);
+		
+		final Popup seatsWindow = new Popup();
+		
+		// set up screening table
+		tblclmnBook.setCellValueFactory(new PropertyValueFactory<>("dummy"));
 		Callback<TableColumn<Screening, String>, TableCell<Screening, String>> cellFactory = //
 				new Callback<TableColumn<Screening, String>, TableCell<Screening, String>>() {
 					@Override
@@ -55,6 +62,13 @@ public class NewBookingController extends MainController {
 									setText(null);
 								} else {
 									btn.setOnAction(event -> {
+										chosenScreening =  getTableView().getItems().get(getIndex());
+										try {
+											seatsWindow.getContent().add((Parent)FXMLLoader.load(getClass().getResource("/application/Seats.fxml")));
+										} catch(IOException e) {
+											e.printStackTrace();
+										}
+										seatsWindow.show(Main.stage);
 										ArrayList<String> x = new ArrayList<String>();
 										x.add("a1");
 										x.add("a2");
@@ -69,7 +83,6 @@ public class NewBookingController extends MainController {
 						return cell;
 					}
 				};
-
 		tblclmnBook.setCellFactory(cellFactory);
 	}
 
@@ -86,4 +99,5 @@ public class NewBookingController extends MainController {
 			label.setText("No screenings on this date.");
 		}
 	}
+	
 }

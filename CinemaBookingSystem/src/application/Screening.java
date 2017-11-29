@@ -30,8 +30,10 @@ public class Screening {
 		String seatKey = null;
 		while (iterator.hasNext()) {
 			seatKey = iterator.next();
-			seats.put(seatKey, seats.getBoolean(seatKey));
+			this.seats.put(seatKey, seats.getBoolean(seatKey));
 		}
+		System.out.println("this.seats");
+		System.out.println(this.seats);
 	}
 
 	// getters
@@ -49,6 +51,10 @@ public class Screening {
 	
 	public HashMap<String, Boolean> getSeats() {
 		return this.seats;
+	}
+	
+	public boolean checkSeat(String seat) {
+		return seats.get(seat);
 	}
 
 }
