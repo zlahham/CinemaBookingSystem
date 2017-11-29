@@ -1,9 +1,11 @@
 package application;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -75,7 +77,7 @@ public class NewBookingController extends MainController {
 
 	public void datePicked(ActionEvent event) {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-		ObservableList<Screening> screeningList = Main.filmList.screeningsOnDate(dtpckrDate.getValue());
+		ObservableList<Screening> screeningList = filterScreeningsByDate(dtpckrDate.getValue());
 		if (screeningList.size() > 0) {
 			tblFilms.getItems().addAll(screeningList);
 			tblclmnFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
@@ -85,5 +87,17 @@ public class NewBookingController extends MainController {
 			tblFilms.getItems().clear();
 			label.setText("No screenings on this date.");
 		}
+	}
+	
+	public ObservableList<Screening> filterScreeningsByDate(LocalDate date) {
+		ObservableList<Screening> returnList = FXCollections.observableArrayList();
+		for (int i = 0; i < Main.filmList.size(); i++) {
+			for (int j = 0; j < Main.filmList.get(i).getScreenings().size(); j++) {
+				if (date.equals(Main.filmList.get(i).getScreenings().get(j).getDateTime().toLocalDate())) {
+					returnList.add(Main.filmList.get(i).getScreenings().get(j));
+				}
+			}
+		}
+		return returnList;
 	}
 }
