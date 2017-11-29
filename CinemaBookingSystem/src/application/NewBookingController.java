@@ -1,5 +1,7 @@
 package application;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -14,24 +16,27 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-public class NewBookingController extends MainController{
-	
-	//initialize films: move this somewhere else later
-	FilmList filmList = new FilmList("assets/films.json");
-	
-	@FXML private DatePicker dtpckrDate;
-	@FXML private TableView<Screening> tblFilms;
-	@FXML private TableColumn<Screening, String> tblclmnFilmTitle;
-	@FXML private TableColumn<Screening, String> tblclmnTime;
+public class NewBookingController extends MainController {
+
+	@FXML
+	private DatePicker dtpckrDate;
+	@FXML
+	private TableView<Screening> tblFilms;
+	@FXML
+	private TableColumn<Screening, String> tblclmnFilmTitle;
+	@FXML
+	private TableColumn<Screening, String> tblclmnTime;
 	// warning: this label is not set in the fxml yet
-	@FXML private Label label = new Label("Select a date.");
-	@FXML private Button btnBack;
+	@FXML
+	private Label label = new Label("Select a date.");
+	@FXML
+	private Button btnBack;
 	@FXML
 	private TableColumn<Screening, String> tblclmnBook = new TableColumn<Screening, String>("Delete");
-	
+
 	public void initialize() {
 		tblFilms.setPlaceholder(label);
-		
+
 		tblclmnBook.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 
 		Callback<TableColumn<Screening, String>, TableCell<Screening, String>> cellFactory = //
@@ -50,7 +55,10 @@ public class NewBookingController extends MainController{
 									setText(null);
 								} else {
 									btn.setOnAction(event -> {
-										((Customer) (Main.user)).addBooking(getTableView().getItems().get(getIndex()));
+										ArrayList<String> x = new ArrayList<String>();
+										x.add("a1");
+										x.add("a2");
+										Main.bookingList.addBooking(getTableView().getItems().get(getIndex()), (Customer)(Main.user), x);
 										getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
 									});
 									setGraphic(btn);
@@ -63,18 +71,19 @@ public class NewBookingController extends MainController{
 				};
 
 		tblclmnBook.setCellFactory(cellFactory);
-
 	}
+
 	public void datePicked(ActionEvent event) {
-		System.out.println(dtpckrDate.getValue());
-		ObservableList<Screening> screeningList = filmList.screeningsOnDate(dtpckrDate.getValue());
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+		ObservableList<Screening> screeningList = Main.filmList.screeningsOnDate(dtpckrDate.getValue());
 		if (screeningList.size() > 0) {
 			tblFilms.getItems().addAll(screeningList);
-			tblclmnFilmTitle.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getFilmTitle()));
-			tblclmnTime.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getTime()));
+			tblclmnFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
+			tblclmnTime.setCellValueFactory(
+					c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
 		} else {
 			tblFilms.getItems().clear();
 			label.setText("No screenings on this date.");
-		}	
+		}
 	}
 }

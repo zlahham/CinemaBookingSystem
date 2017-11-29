@@ -2,7 +2,7 @@ package application;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import org.apache.commons.lang3.StringUtils;
@@ -10,14 +10,11 @@ import org.json.JSONObject;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginController extends MainController{
+public class LoginController extends MainController {
 	@FXML
 	private Label lblTest;
 	@FXML
@@ -57,16 +54,18 @@ public class LoginController extends MainController{
 		String content = null;
 
 		try {
-			content = new Scanner(new File("assets/users.json")).useDelimiter("\\Z").next();
+			content = new Scanner(new File("assets/cinemaBookingSystem.json")).useDelimiter("\\Z").next();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
 		JSONObject usersJSON = new JSONObject(content);
-		JSONObject userI;
+		usersJSON = usersJSON.getJSONObject("users");
 
-		for (int i = 0; i < usersJSON.getJSONArray("users").length(); i++) {
-			userI = usersJSON.getJSONArray("users").getJSONObject(i);
+		Iterator<String> iterator = usersJSON.keys();
+		JSONObject userI = null;
+		while (iterator.hasNext()) {
+			userI = usersJSON.getJSONObject(iterator.next());
 			if (userI.getString("username").compareTo(username) == 0
 					&& userI.getString("password").compareTo(password) == 0) {
 				return userI;

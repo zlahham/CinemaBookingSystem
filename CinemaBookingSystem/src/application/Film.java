@@ -1,8 +1,7 @@
 package application;
 
-import java.time.LocalDate;
+import java.util.Iterator;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javafx.collections.FXCollections;
@@ -16,22 +15,25 @@ public class Film {
 	
 	private ObservableList<Screening> screenings = FXCollections.observableArrayList();
 
-
-	Film(JSONObject filmJSON) {
-		this.filmTitle = filmJSON.getString("filmTitle");
-		this.description = filmJSON.getString("description");
-		this.imageFilepath = filmJSON.getString("imageFilePath");
-		this.ageRating = filmJSON.getString("ageRating");
-		JSONArray screeningsJSON = filmJSON.getJSONArray("screenings");
+	public Film(String filmTitle, String description, String imageFilepath, String ageRating, ObservableList<Screening> screenings) {
+		this.filmTitle = filmTitle;
+		this.description = description;
+		this.imageFilepath = imageFilepath;
+		this.ageRating = ageRating;
+		this.screenings = screenings;
+	}
+	
+	public Film(JSONObject filmJSON) {
+		this(filmJSON.getString("filmTitle"), filmJSON.getString("description"), filmJSON.getString("imageFilePath"),
+				filmJSON.getString("ageRating"), FXCollections.observableArrayList());
+		JSONObject screeningsJSON = filmJSON.getJSONObject("screenings");
 		JSONObject screeningI;
-		for (int i = 0; i < screeningsJSON.length(); i++) {
-			screeningI = screeningsJSON.getJSONObject(i);
-			this.screenings.add(new Screening(screeningI.getString("filmTitle"),
-					LocalDate.parse(screeningI.getString("date")), screeningI.getString("time")));
-			// remove these later
-			System.out.println("Test: adding screening for " + screenings.get(i).getFilmTitle());
-			System.out.println("Test: Date: " + LocalDate.parse(screeningI.getString("date")));
-			/////////////////
+		Iterator<String> iterator = screeningsJSON.keys();
+		String screeningKey = null;
+		while (iterator.hasNext()) {
+			screeningKey = iterator.next();
+			screeningI = screeningsJSON.getJSONObject(screeningKey);
+			this.screenings.add(new Screening(screeningI));
 		}
 	}
 	

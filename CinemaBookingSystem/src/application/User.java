@@ -1,19 +1,13 @@
 package application;
 
-import java.util.List;
-
 import org.json.JSONObject;
 
-import javafx.collections.ObservableList;
-
 public abstract class User {
-	protected JSONObject userJSON;
-	protected String username;
-	protected String password;
-	protected String role;
+	private String username;
+	private String password;
+	private String role;
 
-	User(JSONObject userJSON) {
-		this.userJSON = userJSON;
+	protected User(JSONObject userJSON) {
 		this.username = userJSON.getString("username");
 		this.password = userJSON.getString("password");
 		this.role = userJSON.getString("role");
@@ -37,13 +31,12 @@ public abstract class User {
 		return username;
 	}
 
-	public boolean checkPassword(String passwordAttempt) {
-		return (password == passwordAttempt);
-	}
-
 	public String getRole() {
 		return role;
 	}
 	
-	//abstract public ObservableList<Booking> getBookings();
+	// other methods
+	public boolean checkPassword(String passwordAttempt) {
+		return (password == passwordAttempt);
+	}
 }

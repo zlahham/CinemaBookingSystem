@@ -1,52 +1,36 @@
 package application;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
-import javafx.collections.ObservableMap;
 
 public class Customer extends User {
 	private String firstName;
 	private String lastName;
 	private String email;
-	// Do we need to use FXCollections.observableList here instead?
-	// maybe first define an ArrayList and pass it to the above?
-	private ObservableList<Booking> bookings = FXCollections.observableArrayList();
 	// list of customer details for TableView
 	private ObservableList<SimpleEntry<String, String>> details = FXCollections.observableArrayList();
+	
 
-	Customer(JSONObject userJSON) {
+	public Customer(JSONObject userJSON) {
 		super(userJSON);
 		this.firstName = userJSON.getString("firstName");
 		this.lastName = userJSON.getString("lastName");
 		this.email = userJSON.getString("email");
-		// construct bookings list
-		JSONArray bookingsJSON = userJSON.getJSONArray("bookings");
-		JSONObject bookingI;
-		for (int i = 0; i < bookingsJSON.length(); i++) {
-			bookingI = bookingsJSON.getJSONObject(i);
-			this.bookings.add(new Booking(bookingI.getString("bookingID"), bookingI.getString("filmTitle"),
-					LocalDate.parse(bookingI.getString("date")), bookingI.getString("time")));
-			System.out.println("Test: adding booking for " + bookings.get(i).getFilmTitle());
-		}
+		
 		// construct details list
-		details.add(new SimpleEntry<String, String>("Username", username));
-		details.add(new SimpleEntry<String, String>("Password", password.replaceAll(".", "*")));
-		details.add(new SimpleEntry<String, String>("First name", firstName));
-		details.add(new SimpleEntry<String, String>("Last name", lastName));
-		details.add(new SimpleEntry<String, String>("Email address", email));
+		details.add(new SimpleEntry<String, String>("Username", this.getUsername()));
+		details.add(new SimpleEntry<String, String>("Password", "********"));
+		//details.add(new SimpleEntry<String, String>("Password", password.replaceAll(".", "*"))); maybe not the best idea
+		details.add(new SimpleEntry<String, String>("First name", this.getFirstName()));
+		details.add(new SimpleEntry<String, String>("Last name", this.getLastName()));
+		details.add(new SimpleEntry<String, String>("Email address", this.getEmail()));
 	}
 	// setters
 	public void setFirstName(String firstName) {
@@ -74,14 +58,16 @@ public class Customer extends User {
 		return email;
 	}
 	
-	public ObservableList<Booking> getBookings() {
-		return bookings;
-	}
-	
 	public ObservableList<SimpleEntry<String, String>> getDetails() {
 		return details;
 	}
 	
+	// other methods
+	
+	/* old
+	public ObservableList<Booking> getBookings() {
+		return bookings;
+	}
 	public void deleteBooking(String bookingID) {
 		for (Booking i : bookings) {
 			if (i.getBookingID().compareTo(bookingID) == 0) {
@@ -92,7 +78,8 @@ public class Customer extends User {
 	}
 	
 	public void addBooking(Screening screening) {
-		Booking booking = new Booking("XXX", screening.getFilmTitle(), screening.getDate(), screening.getTime());
+		Booking booking = new Booking("XXX", screening.getFilmTitle(), screening.getDateTime());
 		bookings.add(booking);
 	}
+	*/
 }
