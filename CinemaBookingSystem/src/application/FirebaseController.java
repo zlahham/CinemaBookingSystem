@@ -7,11 +7,17 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class FirebaseController {
 	private static String URL = "https://cinema-booking-app.firebaseio.com/";
-	
+
 	public static JSONObject getList(String className) throws UnirestException {
-		String response = Unirest.get(URL + className + ".json").asString().getBody();
-		JSONObject listJSON = new JSONObject(response);
-		return listJSON;
+		String response = httpRequester(className, "");
+		JSONObject json = new JSONObject(response);
+		return json;
+	}
+
+	public static JSONObject getItem(String className, String id) throws UnirestException {
+		String response = httpRequester(className, id);
+		JSONObject json = new JSONObject(response);
+		return json;
 	}
 
 	public static boolean post() {
@@ -27,5 +33,16 @@ public class FirebaseController {
 	public static boolean destroy() {
 		return false;
 
+	}
+
+	private static String httpRequester(String className, String id) throws UnirestException {
+		String response = null;
+
+		if (id.equals(""))
+			response = Unirest.get(URL + className + ".json").asString().getBody();
+		else
+			response = Unirest.get(URL + className + "/" + id + ".json").asString().getBody();
+
+		return response;
 	}
 }

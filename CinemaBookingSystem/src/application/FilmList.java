@@ -1,12 +1,11 @@
 package application;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.util.Iterator;
-import java.util.Scanner;
 
 import org.json.JSONObject;
+
+import com.mashape.unirest.http.exceptions.UnirestException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,25 +14,19 @@ public class FilmList {
 	
 	private ObservableList<Film> filmList = FXCollections.observableArrayList();
 
-	public FilmList (String JSONfilepath) {
-		String content = null;
-	
-		try {
-			content = new Scanner(new File(JSONfilepath)).useDelimiter("\\Z").next();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+	public FilmList () {
+		JSONObject json = null;
+		try { 
+			json = FirebaseController.getList("films");
+		} catch (UnirestException e) { 
+			e.printStackTrace(); 
 		}
-	
-		JSONObject filmsJSON = new JSONObject(content);
-		filmsJSON = filmsJSON.getJSONObject("films");
-		JSONObject filmI;
 		
-		Iterator<String> iterator = filmsJSON.keys();
+		Iterator<String> iterator = json.keys();
 		String filmKey = null;
 		while (iterator.hasNext()) {
 			filmKey = iterator.next();
-			filmI = filmsJSON.getJSONObject(filmKey);
-			filmList.add(new Film(filmI));
+			filmList.add(new Film(json.getJSONObject(filmKey)));
 		}
 	}
 	

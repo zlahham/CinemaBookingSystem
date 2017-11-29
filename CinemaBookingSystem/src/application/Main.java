@@ -1,6 +1,5 @@
 package application;
 
-import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -10,7 +9,8 @@ import javafx.scene.Scene;
 public class Main extends Application {
 	public static Stage stage = new Stage();
 	public static User user;
-	public static FilmList filmList = new FilmList("assets/cinemaBookingSystem.json");
+
+	public static FilmList filmList = new FilmList();
 	public static BookingList bookingList = new BookingList("assets/cinemaBookingSystem.json");
 
 	@Override
@@ -28,9 +28,10 @@ public class Main extends Application {
 		}
 	}
 
-	public static void main(String[] args) throws UnirestException {
-		FirebaseController.get("users", "");
-		// launch(args);
+	public static void main(String[] args) {
+		
+		//System.out.println(FirebaseController.getList("users"));
+		launch(args);
 	}
 }
 
