@@ -61,25 +61,4 @@ public class Customer extends User {
 	public ObservableList<SimpleEntry<String, String>> getDetails() {
 		return details;
 	}
-	
-	// other methods
-	
-	/* old
-	public ObservableList<Booking> getBookings() {
-		return bookings;
-	}
-	public void deleteBooking(String bookingID) {
-		for (Booking i : bookings) {
-			if (i.getBookingID().compareTo(bookingID) == 0) {
-				bookings.remove(i);
-				return;
-			}
-		}
-	}
-	
-	public void addBooking(Screening screening) {
-		Booking booking = new Booking("XXX", screening.getFilmTitle(), screening.getDateTime());
-		bookings.add(booking);
-	}
-	*/
 }
