@@ -21,6 +21,7 @@ public class Screening {
 		this.seats = seats;
 		}
 	
+	// TODO: Refactor this contructor with the others
 	public Screening(JSONObject screeningJSON) {
 		this(screeningJSON.getString("screeningID"), screeningJSON.getString("filmTitle"),
 				LocalDateTime.parse(screeningJSON.getString("dateTime"), formatter), new HashMap<String, Boolean>(9));

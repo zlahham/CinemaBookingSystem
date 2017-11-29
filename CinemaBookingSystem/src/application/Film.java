@@ -23,6 +23,7 @@ public class Film {
 		this.screenings = screenings;
 	}
 	
+	// TODO: Refactor this contructor with the others
 	public Film(JSONObject filmJSON) {
 		this(filmJSON.getString("filmTitle"), filmJSON.getString("description"), filmJSON.getString("imageFilePath"),
 				filmJSON.getString("ageRating"), FXCollections.observableArrayList());

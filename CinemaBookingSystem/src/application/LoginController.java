@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 
 import javafx.event.ActionEvent;

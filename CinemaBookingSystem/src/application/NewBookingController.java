@@ -3,7 +3,11 @@ package application;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -69,10 +73,10 @@ public class NewBookingController extends MainController {
 											e.printStackTrace();
 										}
 										seatsWindow.show(Main.stage);
-										ArrayList<String> x = new ArrayList<String>();
-										x.add("a1");
-										x.add("a2");
-										Main.bookingList.addBooking(getTableView().getItems().get(getIndex()), (Customer)(Main.user), x);
+										HashMap<String, Boolean> x = new HashMap<String, Boolean>(9);
+										x.put("a1", true);
+										x.put("a2", true);
+										addBooking(getTableView().getItems().get(getIndex()), (Customer)(Main.user), x);
 										getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
 									});
 									setGraphic(btn);
@@ -88,7 +92,7 @@ public class NewBookingController extends MainController {
 
 	public void datePicked(ActionEvent event) {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-		ObservableList<Screening> screeningList = Main.filmList.screeningsOnDate(dtpckrDate.getValue());
+		ObservableList<Screening> screeningList = filterScreeningsByDate(dtpckrDate.getValue());
 		if (screeningList.size() > 0) {
 			tblFilms.getItems().addAll(screeningList);
 			tblclmnFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
@@ -100,4 +104,21 @@ public class NewBookingController extends MainController {
 		}
 	}
 	
+	public ObservableList<Screening> filterScreeningsByDate(LocalDate date) {
+		ObservableList<Screening> returnList = FXCollections.observableArrayList();
+		for (int i = 0; i < Main.filmList.size(); i++) {
+			for (int j = 0; j < Main.filmList.get(i).getScreenings().size(); j++) {
+				if (date.equals(Main.filmList.get(i).getScreenings().get(j).getDateTime().toLocalDate())) {
+					returnList.add(Main.filmList.get(i).getScreenings().get(j));
+				}
+			}
+		}
+		return returnList;
+	}
+	
+	// TODO: Move to BookingController when it is created
+	public void addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
+		Booking booking = new Booking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
+		Main.bookingList.add(booking);
+	}
 }
