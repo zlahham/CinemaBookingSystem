@@ -3,6 +3,7 @@ package application;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -57,10 +58,10 @@ public class NewBookingController extends MainController {
 									setText(null);
 								} else {
 									btn.setOnAction(event -> {
-										ArrayList<String> x = new ArrayList<String>();
-										x.add("a1");
-										x.add("a2");
-										Main.bookingList.addBooking(getTableView().getItems().get(getIndex()), (Customer)(Main.user), x);
+										HashMap<String, Boolean> x = new HashMap<String, Boolean>(9);
+										x.put("a1", true);
+										x.put("a2", true);
+										addBooking(getTableView().getItems().get(getIndex()), (Customer)(Main.user), x);
 										getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
 									});
 									setGraphic(btn);
@@ -99,5 +100,11 @@ public class NewBookingController extends MainController {
 			}
 		}
 		return returnList;
+	}
+	
+	// TODO: Move to BookingController when it is created
+	public void addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
+		Booking booking = new Booking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
+		Main.bookingList.add(booking);
 	}
 }

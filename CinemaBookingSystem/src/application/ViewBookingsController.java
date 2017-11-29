@@ -1,8 +1,11 @@
 package application;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
@@ -30,7 +33,9 @@ public class ViewBookingsController extends MainController {
 	public void initialize() {
 		// tblBookings.getItems() is an ObservableList<Booking>;
 		// here we set it equal to the customer's bookings field
-		tblBookings.getItems().addAll(Main.bookingList.bookingsByCustomer((Customer)(Main.user)));
+		
+		tblBookings.getItems().addAll(filterBookingsByCustomer((Customer)(Main.user)));
+		
 		// c is a TableColumn.CellDataFeatures<Booking, String> object, this class
 		// being a wrapper class for the cells in the TableView
 		// where does c come from?
@@ -62,8 +67,7 @@ public class ViewBookingsController extends MainController {
 									setText(null);
 								} else {
 									btn.setOnAction(event -> {
-										Main.bookingList.deleteBooking(
-												getTableView().getItems().get(getIndex()).getBookingID());
+										deleteBooking(getTableView().getItems().get(getIndex()).getBookingID());
 										getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
 									});
 									setGraphic(btn);
@@ -75,6 +79,29 @@ public class ViewBookingsController extends MainController {
 					}
 				};
 		tblclmnDelete.setCellFactory(cellFactory);
+	}
+	
+
+	public ObservableList<Booking> filterBookingsByCustomer(Customer customer) {
+		ObservableList<Booking> returnList = FXCollections.observableArrayList();
+		for (int i = 0; i < Main.bookingList.size(); i++) {
+			if (customer.getUsername().equals(Main.bookingList.get(i).getUsername())){
+				returnList.add(Main.bookingList.get(i));
+			}
+			
+
+		}
+		return returnList;
+	}
+	
+	// TODO: Move to BookingController when it is created
+	public void deleteBooking(String bookingID) {
+		for (Booking i : Main.bookingList) {
+			if (i.getBookingID().compareTo(bookingID) == 0) {
+				Main.bookingList.remove(i);
+				return;
+			}
+		}
 	}
 
 }

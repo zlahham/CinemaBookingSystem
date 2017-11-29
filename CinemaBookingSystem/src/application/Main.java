@@ -19,7 +19,7 @@ public class Main extends Application {
 	public static User user;
 
 	public static ObservableList<Film> filmList = FXCollections.observableArrayList();
-	public static BookingList bookingList = new BookingList("assets/cinemaBookingSystem.json");
+	public static ObservableList<Booking> bookingList = FXCollections.observableArrayList();
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -38,26 +38,31 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-		populateFilmList();
-		// populateBookingList();
-		// System.out.println(FirebaseController.getList("users"));
+		populateList("films");
+		populateList("bookings");
+
 		launch(args);
 	}
 
-	private static void populateFilmList() {
+	// TODO: Move to MainController
+	private static void populateList(String type) {
 		JSONObject json = null;
 		try {
-			json = FirebaseController.getList("films");
+			json = FirebaseController.getList(type);
 		} catch (UnirestException e) {
 			e.printStackTrace();
 		}
 
 		Iterator<String> iterator = json.keys();
 		while (iterator.hasNext()) {
-			String filmKey = iterator.next();
-			filmList.add(new Film(json.getJSONObject(filmKey)));
+			String key = iterator.next();
+			if(type.equals("films"))
+				filmList.add(new Film(json.getJSONObject(key)));
+			else
+				bookingList.add(new Booking(json.getJSONObject(key)));
 		}
 	}
+
 }
 
 // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
