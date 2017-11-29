@@ -1,6 +1,8 @@
 package application;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
@@ -9,14 +11,16 @@ import javafx.scene.Scene;
 public class Main extends Application {
 	public static Stage stage = new Stage();
 	public static User user;
-	public static FilmList filmList = new FilmList("assets/cinemaBookingSystem.json");
-	public static BookingList bookingList = new BookingList("assets/cinemaBookingSystem.json");
+
+	public static ObservableList<Film> filmList = FXCollections.observableArrayList();
+	public static ObservableList<Booking> bookingList = FXCollections.observableArrayList();
 
 	@Override
 	public void start(Stage primaryStage) {
+
 		try {
 			stage.setTitle("Cinema Booking System");
-		
+
 			Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
 			Scene scene = new Scene(root, 750, 500);
 
@@ -28,9 +32,11 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
+		MainController.populateList("films");
+		MainController.populateList("bookings");
+
 		launch(args);
 	}
 }
-
 
 // scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
