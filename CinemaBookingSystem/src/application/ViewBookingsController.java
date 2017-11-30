@@ -81,7 +81,7 @@ public class ViewBookingsController extends MainController {
 	}
 	
 
-	public ObservableList<Booking> filterBookingsByCustomer(Customer customer) {
+	public static ObservableList<Booking> filterBookingsByCustomer(Customer customer) {
 		ObservableList<Booking> returnList = FXCollections.observableArrayList();
 		for (int i = 0; i < Main.bookingList.size(); i++) {
 			if (customer.getUsername().equals(Main.bookingList.get(i).getUsername())){

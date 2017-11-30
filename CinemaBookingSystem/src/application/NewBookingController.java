@@ -85,7 +85,7 @@ public class NewBookingController extends CustomerController {
 
 	}
 
-	private Screening initializeNewBooking() {
+	private void initializeNewBooking() {
 		tblclmnBook.setCellValueFactory(new PropertyValueFactory<>("dummy"));
 		Callback<TableColumn<Screening, String>, TableCell<Screening, String>> cellFactory = 
 				new Callback<TableColumn<Screening, String>, TableCell<Screening, String>>() {
@@ -121,7 +121,6 @@ public class NewBookingController extends CustomerController {
 					}
 				};
 		tblclmnBook.setCellFactory(cellFactory);
-		return null;
 	}
 
 	private void initializeSeatPlan() {
@@ -176,8 +175,33 @@ public class NewBookingController extends CustomerController {
 	}
 	
 	public void bookButtonPressed(ActionEvent event) {
-		addBooking(chosenScreening, (Customer)(Main.user), seatsBooked);
+		// so this is huge mess (the part amending an existing booking)
+		// is why it would be good to have the Screening contain usernames in seats
+		// other things also need to be changed
+		// TODO: change the logic here
+		// amending an existing booking:
+		ObservableList<Booking> customerBookings = ViewBookingsController.filterBookingsByCustomer((Customer)(Main.user));
+		if (customerBookings != null) {
+			for (int i = 0; i < customerBookings.size(); i++) {
+				System.out.println(customerBookings.get(i).getDateTime());
+				System.out.println(chosenScreening.getDateTime());
+				if (customerBookings.get(i).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
+					for (int j = 0; j < Main.bookingList.size(); j++) {
+						if (Main.bookingList.get(j).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
+							System.out.println("screening found");
+							Main.bookingList.get(j).addSeats(seatsBooked);
+							break;
+						}
+					}
+					break;
+				} // adding a new booking:
+				addBooking(chosenScreening, (Customer)(Main.user), seatsBooked);
+			}
+		} else { // adding a new booking:
+			addBooking(chosenScreening, (Customer)(Main.user), seatsBooked);
+		}
 	}
+	
 	// TODO: Move to BookingController when it is created
 	public void addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
 		Booking booking = new Booking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);

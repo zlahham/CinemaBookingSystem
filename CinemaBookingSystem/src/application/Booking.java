@@ -53,4 +53,7 @@ public class Booking {
 	public String getSeats() {
 		return this.seats.keySet().toString();
 	}
+	public void addSeats(HashMap<String, Boolean> seats) {
+		this.seats.putAll(seats);
+	}
 }
