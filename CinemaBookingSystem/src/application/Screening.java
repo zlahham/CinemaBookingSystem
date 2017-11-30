@@ -21,7 +21,7 @@ public class Screening {
 		this.seats = seats;
 		}
 	
-	// TODO: Refactor this contructor with the others
+	// TODO: Refactor this constructor with the others
 	public Screening(JSONObject screeningJSON) {
 		this(screeningJSON.getString("screeningID"), screeningJSON.getString("filmTitle"),
 				LocalDateTime.parse(screeningJSON.getString("dateTime"), formatter), new HashMap<String, Boolean>(9));
@@ -33,8 +33,6 @@ public class Screening {
 			seatKey = iterator.next();
 			this.seats.put(seatKey, seats.getBoolean(seatKey));
 		}
-		System.out.println("this.seats");
-		System.out.println(this.seats);
 	}
 
 	// getters

@@ -50,7 +50,7 @@ public class ViewBookingsController extends MainController {
 
 		tblclmnDelete.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 
-		Callback<TableColumn<Booking, String>, TableCell<Booking, String>> cellFactory = //
+		Callback<TableColumn<Booking, String>, TableCell<Booking, String>> cellFactory = 
 				new Callback<TableColumn<Booking, String>, TableCell<Booking, String>>() {
 					@Override
 					public TableCell<Booking, String> call(final TableColumn<Booking, String> param) {
