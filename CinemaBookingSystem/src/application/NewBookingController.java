@@ -26,6 +26,9 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.Glow;
+import javafx.scene.effect.SepiaTone;
+import javafx.scene.effect.Shadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -61,12 +64,11 @@ public class NewBookingController extends CustomerController {
 	private ImageView[][] seats = new ImageView[3][3];
 	private Image unbooked  = new Image("file:seat.png");
 	private Image booked  = new Image("file:bookedseat.png");
+	private Image selected  = new Image("file:selectedseat.png");
 	//
 	
 	private static Screening chosenScreening = null;
 	private static HashMap<String, Boolean> seatsBooked = new HashMap<String, Boolean>();
-
-	
 	
 	public void initialize() {
 		// set "select a date" label
@@ -130,22 +132,31 @@ public class NewBookingController extends CustomerController {
 					seats[i][j] = new ImageView(booked);
 				} else {
 					seats[i][j] = new ImageView(unbooked);
-					// horrible hack; do something about it
-					final int ix = i;
-					final int jx = j;
-					//
-					seats[i][j].setOnMouseClicked(event -> {
-						System.out.println("Muahaha");
-						grdpnlSeats.getChildren().remove(seats[ix][jx]);
-						seats[ix][jx] = new ImageView(booked);
-						grdpnlSeats.add(seats[ix][jx], jx, ix);
-						seatsBooked.put((char)('a' + ix) + "" + (jx+1), true);
-					});
 				}
+
+				gridPaneClick(i, j);
+
 				GridPane.setConstraints(seats[i][j], j, i);
 				grdpnlSeats.getChildren().add(seats[i][j]);
 			}
 		}
+	}
+	
+	public void gridPaneClick(int i, int j) {
+		seats[i][j].setOnMouseClicked(event -> {
+			if (seats[i][j].getImage().equals(unbooked)) {
+				grdpnlSeats.getChildren().remove(seats[i][j]);
+				seats[i][j] = new ImageView(selected);
+				grdpnlSeats.add(seats[i][j], j, i);
+				seatsBooked.put((char)('a' + i) + "" + (j+1), true);
+				gridPaneClick(i,j);
+			} else if (seats[i][j].getImage().equals(selected)) {
+				grdpnlSeats.getChildren().remove(seats[i][j]);
+				seats[i][j] = new ImageView(unbooked);
+				grdpnlSeats.add(seats[i][j], j, i);
+				gridPaneClick(i,j);
+			}
+		});
 	}
 	
 	public void datePicked(ActionEvent event) {
@@ -183,12 +194,9 @@ public class NewBookingController extends CustomerController {
 		ObservableList<Booking> customerBookings = ViewBookingsController.filterBookingsByCustomer((Customer)(Main.user));
 		if (customerBookings != null) {
 			for (int i = 0; i < customerBookings.size(); i++) {
-				System.out.println(customerBookings.get(i).getDateTime());
-				System.out.println(chosenScreening.getDateTime());
 				if (customerBookings.get(i).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
 					for (int j = 0; j < Main.bookingList.size(); j++) {
 						if (Main.bookingList.get(j).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
-							System.out.println("screening found");
 							Main.bookingList.get(j).addSeats(seatsBooked);
 							break;
 						}
@@ -200,6 +208,7 @@ public class NewBookingController extends CustomerController {
 		} else { // adding a new booking:
 			addBooking(chosenScreening, (Customer)(Main.user), seatsBooked);
 		}
+		this.transitionToUserView(Main.user);
 	}
 	
 	// TODO: Move to BookingController when it is created

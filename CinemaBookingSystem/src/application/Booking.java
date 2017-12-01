@@ -34,7 +34,6 @@ public class Booking {
 		while (iterator.hasNext()) {
 			seatKey = iterator.next();
 			this.seats.put(seatKey, seats.getBoolean(seatKey));
-			System.out.println(seatKey);
 		}
 	}
 	

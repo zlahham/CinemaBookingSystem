@@ -22,7 +22,7 @@ public class CustomerController extends MainController{
 	public void newBooking(ActionEvent event) {
 		Parent newBooking;
 		try {
-			newBooking = FXMLLoader.load(getClass().getResource("/application/NewBooking.fxml"));
+			newBooking = FXMLLoader.load(CustomerController.class.getResource("/application/NewBooking.fxml"));
 			Scene scene = new Scene(newBooking, 1000, 1000);
 			Main.stage.setScene(scene);
 			Main.stage.show();
