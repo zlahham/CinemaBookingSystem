@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.function.UnaryOperator;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -35,8 +36,23 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
 import javafx.util.Callback;
 
-public class NewBookingController extends CustomerController {
+public class BookingsController extends CustomerController {
 
+	//TODO: move variable definitions into initialisation methods
+	// view bookings view controls
+	@FXML
+	private TableView<Booking> tblBookings;
+	@FXML
+	private TableColumn<Booking, String> tblclmnBookingsFilmTitle;
+	@FXML
+	private TableColumn<Booking, String> tblclmnBookingsDate;
+	@FXML
+	private TableColumn<Booking, String> tblclmnBookingsTime;
+	@FXML
+	private TableColumn<Booking, String> tblclmnBookingsSeats;
+	@FXML
+	private TableColumn<Booking, String> tblclmnBookingsDelete = new TableColumn<Booking, String>("Delete");
+	
 	// new booking view controls
 	@FXML
 	private DatePicker dtpckrDate;
@@ -51,12 +67,9 @@ public class NewBookingController extends CustomerController {
 	@FXML
 	private Label lblDateInfo = new Label("Select a date.");
 	@FXML
-	private Button btnBackToCustomerView;
-	@FXML
-	private Button btnBackToNewBookingView;
-	@FXML
 	private Button btnBook;
 	
+	// TODO: nicer icons; effects instead of new icons for booked and selected seats?
 	// seats view controls
 	@FXML
 	private GridPane grdpnlSeats = new GridPane();
@@ -69,18 +82,80 @@ public class NewBookingController extends CustomerController {
 	private static Screening chosenScreening = null;
 	private static HashMap<String, Boolean> seatsBooked;
 	
+	// variable for initialisation control;
+	// TODO: come up with a better solution?
+	public static String mode = "";
+	
 	public void initialize() {
 
-		// new booking view
-		initializeNewBooking();
-		
-		// seats view
-		if (chosenScreening != null) {
-			initializeSeatPlan();
+		switch (mode) {
+			case "view":
+				initializeViewBookings();
+				break;
+			case "new":
+				initializeNewBooking();
+				break;
+			case "seats":
+				initializeSeatPlan();
+				break;
+			default:
+				System.err.println("Something is horribly wrong");
+				break;
 		}
-
 	}
 
+	// view bookings view initialisation
+	private void initializeViewBookings() {
+		// tblBookings.getItems() is an ObservableList<Booking>;
+		// here we set it equal to the customer's bookings field
+		
+		tblBookings.getItems().addAll(filterBookingsByCustomer((Customer)(Main.user)));
+		
+		// c is a TableColumn.CellDataFeatures<Booking, String> object, this class
+		// being a wrapper class for the cells in the TableView
+		// where does c come from?
+		// why does the lambda return a Callback, not a SimpleStringProperty?
+		// alternative to lambdas: PropertyValueFactory
+		// SimpleStringProperty is a Property wrapper for a String
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+		tblclmnBookingsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
+		tblclmnBookingsDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
+		tblclmnBookingsTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
+		tblclmnBookingsSeats.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSeats().keySet().toString()));
+
+		tblclmnBookingsDelete.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+
+		Callback<TableColumn<Booking, String>, TableCell<Booking, String>> cellFactory = 
+				new Callback<TableColumn<Booking, String>, TableCell<Booking, String>>() {
+					@Override
+					public TableCell<Booking, String> call(final TableColumn<Booking, String> param) {
+						final TableCell<Booking, String> cell = new TableCell<Booking, String>() {
+
+							final Button btn = new Button("Delete");
+
+							@Override
+							public void updateItem(String item, boolean empty) {
+								super.updateItem(item, empty);
+								if (empty) {
+									setGraphic(null);
+									setText(null);
+								} else {
+									btn.setOnAction(event -> {
+										deleteBooking(getTableView().getItems().get(getIndex()).getBookingID());
+										getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
+									});
+									setGraphic(btn);
+									setText(null);
+								}
+							}
+						};
+						return cell;
+					}
+				};
+		tblclmnBookingsDelete.setCellFactory(cellFactory);
+	}
+	
 	// new booking view initialisation
 	private void initializeNewBooking() {
 		// set "select a date" label in NewBooking view
@@ -107,6 +182,7 @@ public class NewBookingController extends CustomerController {
 										// note: this sets a REFERENCE to the screening; use it
 										chosenScreening = getTableView().getItems().get(getIndex());
 										try {
+											mode = "seats";
 											Parent seatsView = FXMLLoader.load(getClass().getResource("/application/Seats.fxml"));
 											Scene scene = new Scene(seatsView, 750, 500);
 											Main.stage.setScene(scene);
@@ -183,8 +259,8 @@ public class NewBookingController extends CustomerController {
 		// so this is huge mess (the part amending an existing booking)
 		// is why it would be good to have the Screening contain usernames in seats
 		// other things also need to be changed
-		// TODO: change the logic here
-		ObservableList<Booking> customerBookings = ViewBookingsController.filterBookingsByCustomer((Customer)(Main.user));
+		// TODO: change the logic here, or change data structure
+		ObservableList<Booking> customerBookings = filterBookingsByCustomer((Customer)(Main.user));
 		// check if customer has bookings:
 		if (customerBookings != null) {
 			for (int i = 0; i < customerBookings.size(); i++) {
@@ -214,6 +290,54 @@ public class NewBookingController extends CustomerController {
 		this.transitionToUserView(Main.user);
 	}
 	
+	public static ObservableList<Booking> filterBookingsByCustomer(Customer customer) {
+		ObservableList<Booking> returnList = FXCollections.observableArrayList();
+		for (int i = 0; i < Main.bookingList.size(); i++) {
+			if (customer.getUsername().equals(Main.bookingList.get(i).getUsername())){
+				returnList.add(Main.bookingList.get(i));
+			}
+			
+
+		}
+		return returnList;
+	}
+	
+	public void addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
+		Booking booking = new Booking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
+		Main.bookingList.add(booking);
+		chosenScreening.updateSeats(seats);
+	}
+
+	public void deleteBooking(String bookingID) {
+		//TODO change data structure to make this less horrendous
+		//this first part removes the booked seats from the screening
+		for (Booking b : Main.bookingList) {
+			if (b.getBookingID().compareTo(bookingID) == 0) {
+				for (Film f : Main.filmList) {
+					for (Screening s : f.getScreenings())
+						if (b.getDateTime().compareTo(s.getDateTime()) == 0) {
+							// this is why we should convert from key-value pairs to strings
+							// with the seats
+							//TODO clean this up
+							HashMap<String, Boolean> seatsToUnbook = new HashMap<String, Boolean>();
+							Iterator<String> iterator = s.getSeats().keySet().iterator();
+							String seatI = null;
+							while (iterator.hasNext()) {
+								seatI = iterator.next();
+								if (b.getSeats().containsKey(seatI)) {
+									seatsToUnbook.put(seatI, false);
+								}
+							s.updateSeats(seatsToUnbook);
+							}
+						}
+				}
+				Main.bookingList.remove(b);
+				return;
+			}
+		}
+	}
+
+	// TODO move this
 	public ObservableList<Screening> filterScreeningsByDate(LocalDate date) {
 		ObservableList<Screening> returnList = FXCollections.observableArrayList();
 		for (int i = 0; i < Main.filmList.size(); i++) {
@@ -226,9 +350,4 @@ public class NewBookingController extends CustomerController {
 		return returnList;
 	}
 	
-	public void addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
-		Booking booking = new Booking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
-		Main.bookingList.add(booking);
-		chosenScreening.addSeats(seats);
-	}
 }

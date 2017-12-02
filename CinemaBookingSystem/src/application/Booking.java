@@ -49,8 +49,8 @@ public class Booking {
 	public LocalDateTime getDateTime() {
 		return this.dateTime;
 	}
-	public String getSeats() {
-		return this.seats.keySet().toString();
+	public HashMap<String, Boolean> getSeats() {
+		return this.seats;
 	}
 	public void addSeats(HashMap<String, Boolean> seats) {
 		this.seats.putAll(seats);

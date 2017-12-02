@@ -57,8 +57,7 @@ public class Screening {
 		return seats.get(seat);
 	}
 	
-	public void addSeats(HashMap<String, Boolean> seats) {
+	public void updateSeats(HashMap<String, Boolean> seats) {
 		this.seats.putAll(seats);
 	}
-
 }
