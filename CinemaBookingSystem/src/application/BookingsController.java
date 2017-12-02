@@ -305,7 +305,11 @@ public class BookingsController extends CustomerController {
 	public void addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
 		Booking booking = new Booking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
 		Main.bookingList.add(booking);
-		chosenScreening.updateSeats(seats);
+		// chosenScreening should only be updated if this method is used in the seats view;
+		// hence this if
+		if (chosenScreening != null) {
+			chosenScreening.updateSeats(seats);
+		}
 	}
 
 	public void deleteBooking(String bookingID) {
@@ -331,13 +335,14 @@ public class BookingsController extends CustomerController {
 							}
 						}
 				}
+				// remove the actual booking
 				Main.bookingList.remove(b);
 				return;
 			}
 		}
 	}
 
-	// TODO move this
+	// TODO move this to FilmsController once created
 	public ObservableList<Screening> filterScreeningsByDate(LocalDate date) {
 		ObservableList<Screening> returnList = FXCollections.observableArrayList();
 		for (int i = 0; i < Main.filmList.size(); i++) {
