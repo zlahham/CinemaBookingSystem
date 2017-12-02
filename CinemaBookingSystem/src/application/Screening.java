@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.JSONObject;
 
@@ -54,6 +55,10 @@ public class Screening {
 	
 	public boolean checkSeat(String seat) {
 		return seats.get(seat);
+	}
+	
+	public void addSeats(HashMap<String, Boolean> seats) {
+		this.seats.putAll(seats);
 	}
 
 }

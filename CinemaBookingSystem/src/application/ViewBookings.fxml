@@ -9,11 +9,11 @@
    <children>
       <TableView fx:id="tblBookings" layoutX="209.0" layoutY="186.0" prefHeight="302.0" prefWidth="720.0">
         <columns>
-            <TableColumn fx:id="tblclmnFilmTitle" editable="false" prefWidth="128.0" text="Film Title" />
-          <TableColumn fx:id="tblclmnDate" editable="false" prefWidth="163.0" text="Date" />
-          <TableColumn fx:id="tblclmnTime" editable="false" prefWidth="153.0" text="Time" />
-            <TableColumn fx:id="tblclmnSeats" editable="false" prefWidth="153.0" text="Seats" />
-            <TableColumn fx:id="tblclmnDelete" editable="false" prefWidth="275.0" text="Action" />
+            <TableColumn fx:id="tblclmnBookingsFilmTitle" editable="false" prefWidth="128.0" text="Film Title" />
+          <TableColumn fx:id="tblclmnBookingsDate" editable="false" prefWidth="163.0" text="Date" />
+          <TableColumn fx:id="tblclmnBookingsTime" editable="false" prefWidth="153.0" text="Time" />
+            <TableColumn fx:id="tblclmnBookingsSeats" editable="false" prefWidth="153.0" text="Seats" />
+            <TableColumn fx:id="tblclmnBookingsDelete" editable="false" prefWidth="275.0" text="Action" />
         </columns>
       </TableView>
       <Button fx:id="btnBack" layoutX="755.0" layoutY="539.0" mnemonicParsing="false" onAction="#backToUserView" text="Back" />

@@ -37,58 +37,58 @@ import javafx.util.Callback;
 
 public class NewBookingController extends CustomerController {
 
-	// new booking view
+	// new booking view controls
 	@FXML
 	private DatePicker dtpckrDate;
 	@FXML
-	private TableView<Screening> tblFilms;
+	private TableView<Screening> tblScreenings;
 	@FXML
-	private TableColumn<Screening, String> tblclmnFilmTitle;
+	private TableColumn<Screening, String> tblclmnScreeningsFilmTitle;
 	@FXML
-	private TableColumn<Screening, String> tblclmnTime;
+	private TableColumn<Screening, String> tblclmnScreeningsTime;
 	@FXML
-	private Label label = new Label("Select a date.");
+	private TableColumn<Screening, String> tblclmnScreeningsBook = new TableColumn<Screening, String>("Book");
+	@FXML
+	private Label lblDateInfo = new Label("Select a date.");
 	@FXML
 	private Button btnBackToCustomerView;
 	@FXML
 	private Button btnBackToNewBookingView;
 	@FXML
 	private Button btnBook;
-	@FXML
-	private TableColumn<Screening, String> tblclmnBook = new TableColumn<Screening, String>("Delete");
-	//
 	
-	// seats view
+	// seats view controls
 	@FXML
 	private GridPane grdpnlSeats = new GridPane();
 	private ImageView[][] seats = new ImageView[3][3];
 	private Image unbooked  = new Image("file:seat.png");
 	private Image booked  = new Image("file:bookedseat.png");
 	private Image selected  = new Image("file:selectedseat.png");
-	//
 	
+	// used in seats view
 	private static Screening chosenScreening = null;
-	private static HashMap<String, Boolean> seatsBooked = new HashMap<String, Boolean>();
+	private static HashMap<String, Boolean> seatsBooked;
 	
 	public void initialize() {
-		// set "select a date" label
-		// causes NullPointerExceptions; replace
-		// tblFilms.setPlaceholder(label);
-		
-		// set up screening table
-	
-		
-		
+
+		// new booking view
 		initializeNewBooking();
 		
+		// seats view
 		if (chosenScreening != null) {
 			initializeSeatPlan();
 		}
 
 	}
 
+	// new booking view initialisation
 	private void initializeNewBooking() {
-		tblclmnBook.setCellValueFactory(new PropertyValueFactory<>("dummy"));
+		// set "select a date" label in NewBooking view
+		// causes NullPointerExceptions; fix
+		// tblFilms.setPlaceholder(label);
+		
+		// set up screening table
+		tblclmnScreeningsBook.setCellValueFactory(new PropertyValueFactory<>("dummy"));
 		Callback<TableColumn<Screening, String>, TableCell<Screening, String>> cellFactory = 
 				new Callback<TableColumn<Screening, String>, TableCell<Screening, String>>() {
 					@Override
@@ -104,6 +104,7 @@ public class NewBookingController extends CustomerController {
 									setText(null);
 								} else {
 									btnBook.setOnAction(event -> {
+										// note: this sets a REFERENCE to the screening; use it
 										chosenScreening = getTableView().getItems().get(getIndex());
 										try {
 											Parent seatsView = FXMLLoader.load(getClass().getResource("/application/Seats.fxml"));
@@ -122,10 +123,27 @@ public class NewBookingController extends CustomerController {
 						return cell;
 					}
 				};
-		tblclmnBook.setCellFactory(cellFactory);
+		tblclmnScreeningsBook.setCellFactory(cellFactory);
 	}
 
+	// used in new booking view
+	public void datePicked(ActionEvent event) {
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+		ObservableList<Screening> screeningList = filterScreeningsByDate(dtpckrDate.getValue());
+		if (screeningList.size() > 0) {
+			tblScreenings.getItems().addAll(screeningList);
+			tblclmnScreeningsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
+			tblclmnScreeningsTime.setCellValueFactory(
+					c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
+		} else {
+			tblScreenings.getItems().clear();
+			lblDateInfo.setText("No screenings on this date.");
+		}
+	}
+	
+	// seats view initialisation
 	private void initializeSeatPlan() {
+		seatsBooked = new HashMap<String, Boolean>();
 		for (int i = 0; i < seats.length; i++) {
 			for (int j = 0; j < seats[i].length; j++) {
 				if (chosenScreening.checkSeat((char) ('a' + i) + "" + (j + 1))) {
@@ -142,6 +160,7 @@ public class NewBookingController extends CustomerController {
 		}
 	}
 	
+	// used in seats view
 	public void gridPaneClick(int i, int j) {
 		seats[i][j].setOnMouseClicked(event -> {
 			if (seats[i][j].getImage().equals(unbooked)) {
@@ -159,18 +178,40 @@ public class NewBookingController extends CustomerController {
 		});
 	}
 	
-	public void datePicked(ActionEvent event) {
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-		ObservableList<Screening> screeningList = filterScreeningsByDate(dtpckrDate.getValue());
-		if (screeningList.size() > 0) {
-			tblFilms.getItems().addAll(screeningList);
-			tblclmnFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
-			tblclmnTime.setCellValueFactory(
-					c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
-		} else {
-			tblFilms.getItems().clear();
-			label.setText("No screenings on this date.");
+	// used in seats view
+	public void bookButtonPressed(ActionEvent event) {
+		// so this is huge mess (the part amending an existing booking)
+		// is why it would be good to have the Screening contain usernames in seats
+		// other things also need to be changed
+		// TODO: change the logic here
+		ObservableList<Booking> customerBookings = ViewBookingsController.filterBookingsByCustomer((Customer)(Main.user));
+		// check if customer has bookings:
+		if (customerBookings != null) {
+			for (int i = 0; i < customerBookings.size(); i++) {
+				// check if customer has bookings in chosenScreening:
+				if (customerBookings.get(i).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
+					// iterate through bookingList to find the right booking to amend:
+					for (int j = 0; j < Main.bookingList.size(); j++) {
+						if (Main.bookingList.get(j).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
+							// amend customer's booking in chosenScreening:
+							Main.bookingList.get(j).addSeats(seatsBooked);
+							seatsBooked = null;
+							break;
+						}
+					}
+					break;
+				}
+			} // add a new booking if customer has no bookings in chosenScreening:
+			if (seatsBooked != null) { // this if is a silly hack to prevent duplicate bookings; should maybe rewrite logic
+				addBooking(chosenScreening, (Customer)(Main.user), seatsBooked);
+				seatsBooked = null;
+			}
+		} else { // add a new booking if customer has no bookings:
+			addBooking(chosenScreening, (Customer)(Main.user), seatsBooked);
+			seatsBooked = null;
 		}
+		chosenScreening = null;
+		this.transitionToUserView(Main.user);
 	}
 	
 	public ObservableList<Screening> filterScreeningsByDate(LocalDate date) {
@@ -185,35 +226,9 @@ public class NewBookingController extends CustomerController {
 		return returnList;
 	}
 	
-	public void bookButtonPressed(ActionEvent event) {
-		// so this is huge mess (the part amending an existing booking)
-		// is why it would be good to have the Screening contain usernames in seats
-		// other things also need to be changed
-		// TODO: change the logic here
-		// amending an existing booking:
-		ObservableList<Booking> customerBookings = ViewBookingsController.filterBookingsByCustomer((Customer)(Main.user));
-		if (customerBookings != null) {
-			for (int i = 0; i < customerBookings.size(); i++) {
-				if (customerBookings.get(i).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
-					for (int j = 0; j < Main.bookingList.size(); j++) {
-						if (Main.bookingList.get(j).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
-							Main.bookingList.get(j).addSeats(seatsBooked);
-							break;
-						}
-					}
-					break;
-				} // adding a new booking:
-				addBooking(chosenScreening, (Customer)(Main.user), seatsBooked);
-			}
-		} else { // adding a new booking:
-			addBooking(chosenScreening, (Customer)(Main.user), seatsBooked);
-		}
-		this.transitionToUserView(Main.user);
-	}
-	
-	// TODO: Move to BookingController when it is created
 	public void addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
 		Booking booking = new Booking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
 		Main.bookingList.add(booking);
+		chosenScreening.addSeats(seats);
 	}
 }

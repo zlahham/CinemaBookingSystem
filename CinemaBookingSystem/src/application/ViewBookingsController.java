@@ -17,17 +17,17 @@ public class ViewBookingsController extends MainController {
 	@FXML
 	private TableView<Booking> tblBookings;
 	@FXML
-	private TableColumn<Booking, String> tblclmnFilmTitle;
+	private TableColumn<Booking, String> tblclmnBookingsFilmTitle;
 	@FXML
-	private TableColumn<Booking, String> tblclmnDate;
+	private TableColumn<Booking, String> tblclmnBookingsDate;
 	@FXML
-	private TableColumn<Booking, String> tblclmnTime;
+	private TableColumn<Booking, String> tblclmnBookingsTime;
 	@FXML
-	private TableColumn<Booking, String> tblclmnSeats;
+	private TableColumn<Booking, String> tblclmnBookingsSeats;
+	@FXML
+	private TableColumn<Booking, String> tblclmnBookingsDelete = new TableColumn<Booking, String>("Delete");
 	@FXML
 	private Button btnBack;
-	@FXML
-	private TableColumn<Booking, String> tblclmnDelete = new TableColumn<Booking, String>("Delete");
 
 	public void initialize() {
 		// tblBookings.getItems() is an ObservableList<Booking>;
@@ -43,12 +43,12 @@ public class ViewBookingsController extends MainController {
 		// SimpleStringProperty is a Property wrapper for a String
 		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-		tblclmnFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
-		tblclmnDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
-		tblclmnTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
-		tblclmnSeats.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSeats()));
+		tblclmnBookingsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
+		tblclmnBookingsDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
+		tblclmnBookingsTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
+		tblclmnBookingsSeats.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSeats()));
 
-		tblclmnDelete.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
+		tblclmnBookingsDelete.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
 
 		Callback<TableColumn<Booking, String>, TableCell<Booking, String>> cellFactory = 
 				new Callback<TableColumn<Booking, String>, TableCell<Booking, String>>() {
@@ -77,7 +77,7 @@ public class ViewBookingsController extends MainController {
 						return cell;
 					}
 				};
-		tblclmnDelete.setCellFactory(cellFactory);
+		tblclmnBookingsDelete.setCellFactory(cellFactory);
 	}
 	
 
