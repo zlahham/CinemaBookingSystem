@@ -266,15 +266,9 @@ public class BookingsController extends CustomerController {
 			for (int i = 0; i < customerBookings.size(); i++) {
 				// check if customer has bookings in chosenScreening:
 				if (customerBookings.get(i).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
-					// iterate through bookingList to find the right booking to amend:
-					for (int j = 0; j < Main.bookingList.size(); j++) {
-						if (Main.bookingList.get(j).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
-							// amend customer's booking in chosenScreening:
-							Main.bookingList.get(j).addSeats(seatsBooked);
-							seatsBooked = null;
-							break;
-						}
-					}
+					// amend customer's booking in chosenScreening:
+					updateBookingSeats(customerBookings.get(i).getBookingID(), seatsBooked);
+					seatsBooked = null;
 					break;
 				}
 			} // add a new booking if customer has no bookings in chosenScreening:
@@ -296,8 +290,6 @@ public class BookingsController extends CustomerController {
 			if (customer.getUsername().equals(Main.bookingList.get(i).getUsername())){
 				returnList.add(Main.bookingList.get(i));
 			}
-			
-
 		}
 		return returnList;
 	}
@@ -305,10 +297,24 @@ public class BookingsController extends CustomerController {
 	public void addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
 		Booking booking = new Booking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
 		Main.bookingList.add(booking);
-		// chosenScreening should only be updated if this method is used in the seats view;
-		// hence this if
-		if (chosenScreening != null) {
-			chosenScreening.updateSeats(seats);
+		 //remember that Java passes by reference value, so this contains a reference to the Screening we want
+		// hence no need to use updateScreeningSeats
+		screening.updateSeats(seats);
+	}
+	
+	// TODO: remove this; or merge it with addSeats in Booking?
+	// add seat removal functionality to the same method
+	// should we use Booking instead of bookingID here,
+	// or IDs in other places? (I used BookingID because deleteBooking did);
+	// make the interfaces uniform
+	public void updateBookingSeats(String bookingID, HashMap<String, Boolean> seats) {
+		for (Booking b : Main.bookingList) { //passing the Booking would allow us to drop this loop
+			if (b.getBookingID().compareTo(bookingID) == 0) {
+				b.addSeats(seats);
+				// add getScreening to Booking and refactor updateScreeningSeats to make things nicer?
+				// or add getScreeningID to Booking?
+				updateScreeningSeats(b.getBookingID().substring(0, 16), seats);
+			}
 		}
 	}
 
@@ -318,7 +324,7 @@ public class BookingsController extends CustomerController {
 		for (Booking b : Main.bookingList) {
 			if (b.getBookingID().compareTo(bookingID) == 0) {
 				for (Film f : Main.filmList) {
-					for (Screening s : f.getScreenings())
+					for (Screening s : f.getScreenings()) //add getScreening to Booking to avoid this?
 						if (b.getDateTime().compareTo(s.getDateTime()) == 0) {
 							// this is why we should convert from key-value pairs to strings
 							// with the seats
@@ -331,8 +337,9 @@ public class BookingsController extends CustomerController {
 								if (b.getSeats().containsKey(seatI)) {
 									seatsToUnbook.put(seatI, false);
 								}
-							s.updateSeats(seatsToUnbook);
 							}
+							// no need to call updateScreeningSeats since we already have a reference
+							s.updateSeats(seatsToUnbook);
 						}
 				}
 				// remove the actual booking
@@ -342,6 +349,22 @@ public class BookingsController extends CustomerController {
 		}
 	}
 
+	// TODO move this to FilmsController once created
+	// maybe remove this
+	// updating the seats in two places is painful;
+	// is it more or less painful to always search one list?
+	public void updateScreeningSeats(String screeningID, HashMap<String, Boolean> seats) {
+		// should screenings get their own list?
+		for (Film f : Main.filmList) {
+			for (Screening s : f.getScreenings()) {
+				if (s.getScreeningID().compareTo(screeningID) == 0) {
+					s.updateSeats(seats);
+					return;
+				}
+			}
+		}
+	}
+	
 	// TODO move this to FilmsController once created
 	public ObservableList<Screening> filterScreeningsByDate(LocalDate date) {
 		ObservableList<Screening> returnList = FXCollections.observableArrayList();
