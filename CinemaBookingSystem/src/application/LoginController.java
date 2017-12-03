@@ -1,78 +1,137 @@
 package application;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
+
+import application.sevices.Firebase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginController extends MainController {
 	@FXML
-	private Label lblTest;
+	private Label lblSuccess;
+	@FXML
+	private Label lblFailure;
+	@FXML
+	private Label lblEmail;
+	@FXML
+	private Label lblUsername;
+	@FXML
+	private Label lblPassword;
+	@FXML
+	private Label lblFirstname;
+	@FXML
+	private Label lblLastname;
+
+	@FXML
+	private TextField txtEmail;
 	@FXML
 	private TextField txtUsername;
 	@FXML
-	private TextField txtPassword;
+	private TextField txtFirstname;
+	@FXML
+	private TextField txtLastname;
+
 	@FXML
 	private PasswordField pwPassword;
 
-	public void validateCredentials(ActionEvent event) {
-		JSONObject userJSON = validateUser(txtUsername.getText(), pwPassword.getText());
-		if (userJSON != null) {
-			lblTest.setText("Success");
+	public void validateCredentials(ActionEvent event) throws UnirestException {
 
-			User user = null;
-
-			if (userJSON.getString("role").compareTo("employee") == 0) {
-				user = new Employee(userJSON);
-			} else if (userJSON.getString("role").compareTo("customer") == 0) {
-				user = new Customer(userJSON);
-			}
-			Main.user = user;
-			transitionToUserView(user);
+		if (txtUsername.getText().equals("") || pwPassword.getText().equals("")) {
+			lblFailure.setText("Username/Password cannot be empty");
+			return;
 		} else {
-			lblTest.setText("Failure");
+			JSONObject userJSON = findUser(txtUsername.getText(), pwPassword.getText());
+
+			if (userJSON != null) {
+				User user = null;
+
+				if (userJSON.getString("role").compareTo("employee") == 0) {
+					user = new Employee(userJSON);
+				} else if (userJSON.getString("role").compareTo("customer") == 0) {
+					user = new Customer(userJSON);
+				}
+				Main.user = user;
+				transitionToUserView(user);
+
+			} else {
+				lblFailure.setText("Failure");
+			}
+
 		}
-	}
-
-	// TODO: Sort this out
-	public void createUser(ActionEvent event) {
-		System.out.println("kill me");
-		String content = null;
 
 	}
 
-	private JSONObject validateUser(String username, String password) {
-		String content = null;
+	public void transitionToRegistrationView(ActionEvent event) {
 
 		try {
-			content = new Scanner(new File("assets/cinemaBookingSystem.json")).useDelimiter("\\Z").next();
-		} catch (FileNotFoundException e) {
+			Parent registrationView;
+
+			registrationView = FXMLLoader.load(getClass().getResource("/application/Registration.fxml"));
+			Scene scene = new Scene(registrationView, 750, 500);
+			Main.stage.setScene(scene);
+			Main.stage.show();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
 
-		JSONObject usersJSON = new JSONObject(content);
-		usersJSON = usersJSON.getJSONObject("users");
+	public void createUser(ActionEvent event) throws UnirestException, InterruptedException {
+		lblFailure.setText("");
 
-		Iterator<String> iterator = usersJSON.keys();
-		JSONObject userI = null;
-		while (iterator.hasNext()) {
-			userI = usersJSON.getJSONObject(iterator.next());
-			if (userI.getString("username").compareTo(username) == 0
-					&& userI.getString("password").compareTo(password) == 0) {
-				return userI;
-			} else {
-				continue;
+		if (txtEmail.getText().equals("") || 
+				pwPassword.getText().equals("") || 
+				txtUsername.getText().equals("")	||
+				txtFirstname.getText().equals("") ||
+				txtLastname.getText().equals("")) {
+			lblFailure.setText("Please fill in the entire form!");
+			return;
+		} else {
+			try {
+				Firebase.getItem("users", txtUsername.getText());
+			} catch (JSONException e) {
+				Map<String, String> params = new HashMap<String, String>();
+				params.put("username", txtUsername.getText());
+				params.put("email", txtEmail.getText());
+				params.put("firstname", txtFirstname.getText());
+				params.put("lastname", txtLastname.getText());
+				params.put("password", pwPassword.getText());
+
+				Firebase.createUser(params);
+				lblSuccess.setText("User created, please login!");
+				transitionToLoginView();
 			}
+
+			lblFailure.setText("Username is taken, please choose another one");
 		}
-		return null;
+
+	}
+
+	private JSONObject findUser(String username, String password) throws UnirestException {
+		JSONObject userJSON = null;
+
+		try {
+			userJSON = Firebase.getItem("users", username);
+			if (userJSON.getString("password").compareTo(password) != 0)
+				userJSON = null;
+
+		} catch (JSONException e) {
+			return userJSON;
+		}
+
+		return userJSON;
 	}
 
 }
