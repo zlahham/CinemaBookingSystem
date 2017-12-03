@@ -109,7 +109,7 @@ public class LoginController extends MainController {
 				params.put("lastname", txtLastname.getText());
 				params.put("password", pwPassword.getText());
 
-				Firebase.createItem("users", params);
+				Firebase.createUser(params);
 				lblSuccess.setText("User created, please login!");
 				transitionToLoginView();
 			}

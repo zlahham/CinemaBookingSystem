@@ -22,8 +22,8 @@ public class Firebase {
 		return json;
 	}
 
-	public static void createItem(String className, Map<String, String> params) throws UnirestException {
-		Unirest.patch(URL + className + ".json").header("accept", "application/json")
+	public static void createUser(Map<String, String> params) throws UnirestException {
+		Unirest.patch(URL + "users.json").header("accept", "application/json")
 				.body("{\"" + params.get("username") + "\":{\"email\":\"" + params.get("email") + "\","
 						+ "\"firstName\":\"" + params.get("firstname") + "\"," + "\"lastName\":\""
 						+ params.get("lastname") + "\"," + "\"password\":\"" + params.get("password") + "\","
