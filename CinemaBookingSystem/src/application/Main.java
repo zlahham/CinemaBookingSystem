@@ -23,7 +23,8 @@ public class Main extends Application {
 
 			Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
 			Scene scene = new Scene(root, 750, 500);
-
+			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			
 			stage.setScene(scene);
 			stage.show();
 		} catch (Exception e) {
@@ -38,5 +39,3 @@ public class Main extends Application {
 		launch(args);
 	}
 }
-
-// scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

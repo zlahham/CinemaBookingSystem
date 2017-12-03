@@ -17,20 +17,10 @@ import javafx.scene.Scene;
 public class MainController {
 
 	public void logout() {
-		try {
-			Main.user = null;
-			
-			Parent loginView;
-			loginView = FXMLLoader
-					.load(getClass().getResource("/application/Login.fxml"));
-			Scene scene = new Scene(loginView, 750, 500);
-			Main.stage.setScene(scene);
-			Main.stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		Main.user = null;
+		transitionToLoginView();
 	}
-	
+
 	public void transitionToUserView(User user) {
 		try {
 			Parent userView;
@@ -43,12 +33,24 @@ public class MainController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// TODO: Remove this
 	public void backToUserView(ActionEvent event) {
 		transitionToUserView(Main.user);
 	}
-	
+
+	public void transitionToLoginView() {
+		try {
+			Parent loginView;
+			loginView = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
+			Scene scene = new Scene(loginView, 750, 500);
+			Main.stage.setScene(scene);
+			Main.stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	// TODO: Move to FilmController and BookingController when created
 	static void populateList(String type) {
 		JSONObject json = null;
@@ -61,7 +63,7 @@ public class MainController {
 		Iterator<String> iterator = json.keys();
 		while (iterator.hasNext()) {
 			String key = iterator.next();
-			if(type.equals("films"))
+			if (type.equals("films"))
 				Main.filmList.add(new Film(json.getJSONObject(key)));
 			else
 				Main.bookingList.add(new Booking(json.getJSONObject(key)));

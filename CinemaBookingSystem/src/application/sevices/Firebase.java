@@ -1,5 +1,7 @@
 package application.sevices;
 
+import java.util.Map;
+
 import org.json.JSONObject;
 
 import com.mashape.unirest.http.Unirest;
@@ -18,6 +20,16 @@ public class Firebase {
 		String response = httpRequester(className, id);
 		JSONObject json = new JSONObject(response);
 		return json;
+	}
+
+	public static void createUser(Map<String, String> params) throws UnirestException {
+		Unirest.patch(URL + "users.json").header("accept", "application/json")
+				.body("{\"" + params.get("username") + "\":{\"email\":\"" + params.get("email") + "\","
+						+ "\"firstName\":\"" + params.get("firstname") + "\"," + "\"lastName\":\""
+						+ params.get("lastname") + "\"," + "\"password\":\"" + params.get("password") + "\","
+						+ "\"role\":\"customer\"," + "\"username\":\"" + params.get("username") + "\"}}")
+
+				.asString();
 	}
 
 	public static boolean post() {
