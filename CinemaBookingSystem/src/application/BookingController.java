@@ -36,7 +36,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Popup;
 import javafx.util.Callback;
 
-public class BookingsController extends CustomerController {
+public class BookingController extends CustomerController {
 
 	//TODO: move variable definitions into initialisation methods
 	// view bookings view controls
@@ -205,7 +205,7 @@ public class BookingsController extends CustomerController {
 	// used in new booking view
 	public void datePicked(ActionEvent event) {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-		ObservableList<Screening> screeningList = filterScreeningsByDate(dtpckrDate.getValue());
+		ObservableList<Screening> screeningList = FilmController.filterScreeningsByDate(dtpckrDate.getValue());
 		if (screeningList.size() > 0) {
 			tblScreenings.getItems().addAll(screeningList);
 			tblclmnScreeningsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
@@ -313,7 +313,7 @@ public class BookingsController extends CustomerController {
 				b.addSeats(seats);
 				// add getScreening to Booking and refactor updateScreeningSeats to make things nicer?
 				// or add getScreeningID to Booking?
-				updateScreeningSeats(b.getBookingID().substring(0, 16), seats);
+				FilmController.updateScreeningSeats(b.getBookingID().substring(0, 16), seats);
 			}
 		}
 	}
@@ -348,34 +348,4 @@ public class BookingsController extends CustomerController {
 			}
 		}
 	}
-
-	// TODO move this to FilmsController once created
-	// maybe remove this
-	// updating the seats in two places is painful;
-	// is it more or less painful to always search one list?
-	public void updateScreeningSeats(String screeningID, HashMap<String, Boolean> seats) {
-		// should screenings get their own list?
-		for (Film f : Main.filmList) {
-			for (Screening s : f.getScreenings()) {
-				if (s.getScreeningID().compareTo(screeningID) == 0) {
-					s.updateSeats(seats);
-					return;
-				}
-			}
-		}
-	}
-	
-	// TODO move this to FilmsController once created
-	public ObservableList<Screening> filterScreeningsByDate(LocalDate date) {
-		ObservableList<Screening> returnList = FXCollections.observableArrayList();
-		for (int i = 0; i < Main.filmList.size(); i++) {
-			for (int j = 0; j < Main.filmList.get(i).getScreenings().size(); j++) {
-				if (date.equals(Main.filmList.get(i).getScreenings().get(j).getDateTime().toLocalDate())) {
-					returnList.add(Main.filmList.get(i).getScreenings().get(j));
-				}
-			}
-		}
-		return returnList;
-	}
-	
 }

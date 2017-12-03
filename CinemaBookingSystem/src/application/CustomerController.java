@@ -11,7 +11,7 @@ public class CustomerController extends MainController{
 	public void viewBookings(ActionEvent event) {
 		Parent viewBookings;
 		try {
-			BookingsController.mode = "view";
+			BookingController.mode = "view";
 			viewBookings = FXMLLoader.load(getClass().getResource("/application/ViewBookings.fxml"));
 			Scene scene = new Scene(viewBookings, 1000, 1000);
 			Main.stage.setScene(scene);
@@ -23,7 +23,7 @@ public class CustomerController extends MainController{
 	public void newBooking(ActionEvent event) {
 		Parent newBooking;
 		try {
-			BookingsController.mode = "new";
+			BookingController.mode = "new";
 			newBooking = FXMLLoader.load(getClass().getResource("/application/NewBooking.fxml"));
 			Scene scene = new Scene(newBooking, 1000, 1000);
 			Main.stage.setScene(scene);
