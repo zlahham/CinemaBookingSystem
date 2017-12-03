@@ -1,15 +1,5 @@
 {
   "bookings" : {
-    "2017-11-18 16:00 mouse" : {
-      "bookingID" : "2017-11-18 16:00 mouse",
-      "dateTime" : "2017-11-18 16:00",
-      "filmTitle" : "Vertigo",
-      "seats" : {
-        "a1" : true,
-        "a2" : true
-      },
-      "username" : "mouse"
-    },
     "2017-11-18 16:00 horse" : {
       "bookingID" : "2017-11-18 16:00 horse",
       "dateTime" : "2017-11-18 16:00",
@@ -19,6 +9,16 @@
         "b2" : true
       },
       "username" : "horse"
+    },
+    "2017-11-18 16:00 mouse" : {
+      "bookingID" : "2017-11-18 16:00 mouse",
+      "dateTime" : "2017-11-18 16:00",
+      "filmTitle" : "Vertigo",
+      "seats" : {
+        "a1" : true,
+        "a2" : true
+      },
+      "username" : "mouse"
     }
   },
   "films" : {
@@ -124,6 +124,14 @@
       "password" : "123123",
       "role" : "employee",
       "username" : "aleksi"
+    },
+    "cat" : {
+      "email" : "cat@test.com",
+      "firstName" : "Cat",
+      "lastName" : "Hat",
+      "password" : "123123",
+      "role" : "customer",
+      "username" : "cat"
     },
     "dog" : {
       "password" : "123123",
