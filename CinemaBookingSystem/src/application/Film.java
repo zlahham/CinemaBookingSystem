@@ -1,6 +1,7 @@
 package application;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.JSONObject;
 
@@ -23,7 +24,7 @@ public class Film {
 		this.screenings = screenings;
 	}
 	
-	// TODO: Refactor this contructor with the others
+	// TODO: Refactor this constructor with the others
 	public Film(JSONObject filmJSON) {
 		this(filmJSON.getString("filmTitle"), filmJSON.getString("description"), filmJSON.getString("imageFilePath"),
 				filmJSON.getString("ageRating"), FXCollections.observableArrayList());
@@ -67,6 +68,9 @@ public class Film {
 	}
 	public ObservableList<Screening> getScreenings() {
 		return screenings;
+	}
+	public void addScreenings(List<Screening> screenings) {
+		this.screenings.addAll(screenings);
 	}
 	
 	

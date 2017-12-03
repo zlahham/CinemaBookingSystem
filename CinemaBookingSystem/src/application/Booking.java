@@ -23,7 +23,7 @@ public class Booking {
 		this.seats = seats;
 	}
 	
-	// TODO: Refactor this contructor with the others
+	// TODO: Refactor this constructor with the others
 	public Booking(JSONObject bookingJSON) {
 		this(bookingJSON.getString("filmTitle"), LocalDateTime.parse(bookingJSON.getString("dateTime"), formatter),
 				bookingJSON.getString("username"), new HashMap<String, Boolean>(9));
@@ -33,7 +33,7 @@ public class Booking {
 		String seatKey = null;
 		while (iterator.hasNext()) {
 			seatKey = iterator.next();
-			seats.put(seatKey, seats.getBoolean(seatKey));
+			this.seats.put(seatKey, seats.getBoolean(seatKey));
 		}
 	}
 	
@@ -49,7 +49,10 @@ public class Booking {
 	public LocalDateTime getDateTime() {
 		return this.dateTime;
 	}
-	public String getSeats() {
-		return this.seats.toString();
+	public HashMap<String, Boolean> getSeats() {
+		return this.seats;
+	}
+	public void addSeats(HashMap<String, Boolean> seats) {
+		this.seats.putAll(seats);
 	}
 }
