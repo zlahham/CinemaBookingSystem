@@ -32,19 +32,9 @@ public class Firebase {
 				.asString();
 	}
 
-	public static boolean post() {
-		return false;
-
-	}
-
-	public static boolean patch() {
-		return false;
-
-	}
 
 	public static boolean destroy() {
 		return false;
-
 	}
 
 	private static String httpRequester(String className, String id) throws UnirestException {
