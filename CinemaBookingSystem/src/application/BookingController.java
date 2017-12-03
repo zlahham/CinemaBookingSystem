@@ -99,7 +99,7 @@ public class BookingController extends CustomerController {
 				initializeSeatPlan();
 				break;
 			default:
-				System.err.println("Something is horribly wrong");
+				System.err.println("Something has gone horribly wrong and it's probably Aleksi's fault");
 				break;
 		}
 	}
@@ -250,6 +250,8 @@ public class BookingController extends CustomerController {
 				seats[i][j] = new ImageView(unbooked);
 				grdpnlSeats.add(seats[i][j], j, i);
 				gridPaneClick(i,j);
+			} else {
+				// display error message (seat already booked)
 			}
 		});
 	}

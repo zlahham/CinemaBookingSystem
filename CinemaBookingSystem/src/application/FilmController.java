@@ -6,8 +6,11 @@ import java.util.HashMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class FilmController {
+public class FilmController extends MainController {
 	
+	public void initialize() {
+		
+	}
 	// remove this and use some different way to accomplish things?
 	public static Screening getScreeningForBooking(Booking booking) {
 		for (Film f : Main.filmList) {
