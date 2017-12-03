@@ -37,8 +37,17 @@ import javafx.stage.Popup;
 import javafx.util.Callback;
 
 public class BookingController extends CustomerController {
-
-	//TODO: move variable definitions into initialisation methods
+	
+	//TODO: move variable definitions into initialisation methods?
+	
+	// variable for initialisation control;
+	// TODO: come up with a better solution?
+	public static String mode = "";
+	
+	// used in seats view
+	private static Screening chosenScreening = null;
+	private static HashMap<String, Boolean> seatsBooked;
+	
 	// view bookings view controls
 	@FXML
 	private TableView<Booking> tblBookings;
@@ -77,14 +86,6 @@ public class BookingController extends CustomerController {
 	private Image unbooked  = new Image("file:seat.png");
 	private Image booked  = new Image("file:bookedseat.png");
 	private Image selected  = new Image("file:selectedseat.png");
-	
-	// used in seats view
-	private static Screening chosenScreening = null;
-	private static HashMap<String, Boolean> seatsBooked;
-	
-	// variable for initialisation control;
-	// TODO: come up with a better solution?
-	public static String mode = "";
 	
 	public void initialize() {
 

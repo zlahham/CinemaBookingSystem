@@ -21,6 +21,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <Label prefHeight="16.0" prefWidth="134.0" text="Add film" GridPane.columnSpan="2" GridPane.halignment="CENTER" />
@@ -29,11 +30,13 @@
       <Label text="Age Rating" GridPane.rowIndex="3" />
       <Label text="Image" GridPane.rowIndex="4" />
       <Label text="Screenings" GridPane.rowIndex="5" />
-      <Button mnemonicParsing="false" text="Cancel" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button mnemonicParsing="false" text="Upload" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Button mnemonicParsing="false" onAction="#backToUserView" text="Cancel" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+      <TextField fx:id="txtFilmTitle" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="txtDescription" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <ComboBox fx:id="cbxAgeRating" prefHeight="26.0" prefWidth="203.0" promptText="Choose Age Rating" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button fx:id="btnUploadImage" mnemonicParsing="false" text="Upload" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Button mnemonicParsing="false" text="Set screenings" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Button mnemonicParsing="false" onAction="#addFilmButtonPressed" text="Add film" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
+      <Label fx:id="lblError" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
    </children>
 </GridPane>

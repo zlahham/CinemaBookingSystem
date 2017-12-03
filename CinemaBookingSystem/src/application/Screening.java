@@ -15,16 +15,19 @@ public class Screening {
 	private LocalDateTime dateTime;
 	private HashMap<String, Boolean> seats = new HashMap<String, Boolean>(9);
 
-	public Screening(String screeningID, String filmTitle, LocalDateTime dateTime, HashMap<String, Boolean> seats) {
-		this.screeningID = screeningID;
+	public Screening(String filmTitle, LocalDateTime dateTime, HashMap<String, Boolean> seats) {
+		// old version:
+		// this.screeningID = screeningID;
+		// the new version makes constructing screenings easier (no formatter needed)
+		this.screeningID = dateTime.format(formatter).toString() + " " + filmTitle;
 		this.filmTitle = filmTitle;
 		this.dateTime = dateTime;
-		this.seats = seats;
+			this.seats = seats;
 		}
 	
 	// TODO: Refactor this constructor with the others
 	public Screening(JSONObject screeningJSON) {
-		this(screeningJSON.getString("screeningID"), screeningJSON.getString("filmTitle"),
+		this(screeningJSON.getString("filmTitle"),
 				LocalDateTime.parse(screeningJSON.getString("dateTime"), formatter), new HashMap<String, Boolean>(9));
 		// construct seats HashMap
 		JSONObject seats = screeningJSON.getJSONObject("seats");

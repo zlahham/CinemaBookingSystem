@@ -19,7 +19,6 @@ public class EmployeeController extends MainController{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-//		System.out.println(Main.user.getUsername());
 	}
 
 	public void exportFilms() {

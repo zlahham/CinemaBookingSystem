@@ -1,6 +1,7 @@
 package application;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.JSONObject;
 
@@ -67,6 +68,9 @@ public class Film {
 	}
 	public ObservableList<Screening> getScreenings() {
 		return screenings;
+	}
+	public void addScreenings(List<Screening> screenings) {
+		this.screenings.addAll(screenings);
 	}
 	
 	
