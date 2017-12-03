@@ -203,7 +203,7 @@ public class BookingController extends CustomerController {
 	}
 
 	// used in new booking view
-	public void datePicked(ActionEvent event) {
+	public void showScreeningsOnSelectedDate(ActionEvent event) {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 		ObservableList<Screening> screeningList = FilmController.filterScreeningsByDate(dtpckrDate.getValue());
 		if (screeningList.size() > 0) {
@@ -284,6 +284,15 @@ public class BookingController extends CustomerController {
 		this.transitionToUserView(Main.user);
 	}
 	
+	public Booking getBooking(String bookingID) {
+		for (Booking b : Main.bookingList) {
+			if (b.getBookingID().compareTo(bookingID) == 0) {
+				return b;
+			}
+		}
+		return null;
+	}
+	
 	public static ObservableList<Booking> filterBookingsByCustomer(Customer customer) {
 		ObservableList<Booking> returnList = FXCollections.observableArrayList();
 		for (int i = 0; i < Main.bookingList.size(); i++) {
@@ -297,55 +306,36 @@ public class BookingController extends CustomerController {
 	public void addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
 		Booking booking = new Booking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
 		Main.bookingList.add(booking);
-		 //remember that Java passes by reference value, so this contains a reference to the Screening we want
-		// hence no need to use updateScreeningSeats
 		screening.updateSeats(seats);
 	}
 	
 	// TODO: remove this; or merge it with addSeats in Booking?
 	// add seat removal functionality to the same method
-	// should we use Booking instead of bookingID here,
-	// or IDs in other places? (I used BookingID because deleteBooking did);
 	// make the interfaces uniform
 	public void updateBookingSeats(String bookingID, HashMap<String, Boolean> seats) {
-		for (Booking b : Main.bookingList) { //passing the Booking would allow us to drop this loop
-			if (b.getBookingID().compareTo(bookingID) == 0) {
-				b.addSeats(seats);
-				// add getScreening to Booking and refactor updateScreeningSeats to make things nicer?
-				// or add getScreeningID to Booking?
-				FilmController.updateScreeningSeats(b.getBookingID().substring(0, 16), seats);
-			}
-		}
+		Booking booking = getBooking(bookingID);
+		booking.addSeats(seats);
+		FilmController.getScreeningForBooking(booking).updateSeats(seats);
 	}
 
 	public void deleteBooking(String bookingID) {
 		//TODO change data structure to make this less horrendous
 		//this first part removes the booked seats from the screening
-		for (Booking b : Main.bookingList) {
-			if (b.getBookingID().compareTo(bookingID) == 0) {
-				for (Film f : Main.filmList) {
-					for (Screening s : f.getScreenings()) //add getScreening to Booking to avoid this?
-						if (b.getDateTime().compareTo(s.getDateTime()) == 0) {
-							// this is why we should convert from key-value pairs to strings
-							// with the seats
-							//TODO clean this up
-							HashMap<String, Boolean> seatsToUnbook = new HashMap<String, Boolean>();
-							Iterator<String> iterator = s.getSeats().keySet().iterator();
-							String seatI = null;
-							while (iterator.hasNext()) {
-								seatI = iterator.next();
-								if (b.getSeats().containsKey(seatI)) {
-									seatsToUnbook.put(seatI, false);
-								}
-							}
-							// no need to call updateScreeningSeats since we already have a reference
-							s.updateSeats(seatsToUnbook);
-						}
-				}
-				// remove the actual booking
-				Main.bookingList.remove(b);
-				return;
+		Booking b = getBooking(bookingID);
+		Screening s = FilmController.getScreeningForBooking(b);
+		// this is why we should convert from key-value pairs to strings
+		// with the seats
+		//TODO clean this up
+		HashMap<String, Boolean> seatsToUnbook = new HashMap<String, Boolean>();
+		Iterator<String> iterator = s.getSeats().keySet().iterator();
+		String seatI = null;
+		while (iterator.hasNext()) {
+			seatI = iterator.next();
+			if (b.getSeats().containsKey(seatI)) {
+				seatsToUnbook.put(seatI, false);
 			}
 		}
+		s.updateSeats(seatsToUnbook);				
+		Main.bookingList.remove(b);
 	}
 }
