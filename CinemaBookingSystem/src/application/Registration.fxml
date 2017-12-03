@@ -22,7 +22,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="76.0" prefWidth="804.0">
                      <children>
-                        <Label text="User Registration">
+                        <Label text="User Registration" underline="true">
                            <font>
                               <Font name="System Bold" size="24.0" />
                            </font>

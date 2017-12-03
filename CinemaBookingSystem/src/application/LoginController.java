@@ -56,8 +56,6 @@ public class LoginController extends MainController {
 			JSONObject userJSON = findUser(txtUsername.getText(), pwPassword.getText());
 
 			if (userJSON != null) {
-				lblSuccess.setText("Success");
-
 				User user = null;
 
 				if (userJSON.getString("role").compareTo("employee") == 0) {
@@ -90,12 +88,14 @@ public class LoginController extends MainController {
 		}
 	}
 
-	public void createUser(ActionEvent event) throws UnirestException {
+	public void createUser(ActionEvent event) throws UnirestException, InterruptedException {
 		lblFailure.setText("");
-		lblSuccess.setText("");
 
-		if (txtEmail.getText().equals("") || pwPassword.getText().equals("") || txtUsername.getText().equals("")
-				|| txtFirstname.getText().equals("") || txtLastname.getText().equals("")) {
+		if (txtEmail.getText().equals("") || 
+				pwPassword.getText().equals("") || 
+				txtUsername.getText().equals("")	||
+				txtFirstname.getText().equals("") ||
+				txtLastname.getText().equals("")) {
 			lblFailure.setText("Please fill in the entire form!");
 			return;
 		} else {
@@ -111,7 +111,7 @@ public class LoginController extends MainController {
 
 				Firebase.createItem("users", params);
 				lblSuccess.setText("User created, please login!");
-				return;
+				transitionToLoginView();
 			}
 
 			lblFailure.setText("Username is taken, please choose another one");
