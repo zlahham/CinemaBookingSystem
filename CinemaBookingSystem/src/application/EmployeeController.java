@@ -12,6 +12,7 @@ public class EmployeeController extends MainController{
 	public void addFilms(ActionEvent event) {
 		Parent addFilms;
 		try {
+			FilmController.mode = "addFilms";
 			addFilms = FXMLLoader.load(getClass().getResource("/application/AddFilms.fxml"));
 			Scene scene = new Scene(addFilms, 1000, 1000);
 			Main.stage.setScene(scene);

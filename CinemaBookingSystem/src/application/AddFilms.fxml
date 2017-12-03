@@ -35,7 +35,7 @@
       <TextField fx:id="txtDescription" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <ComboBox fx:id="cbxAgeRating" prefHeight="26.0" prefWidth="203.0" promptText="Choose Age Rating" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <Button fx:id="btnUploadImage" mnemonicParsing="false" text="Upload" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Button mnemonicParsing="false" text="Set screenings" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Button mnemonicParsing="false" onAction="#transitionToAddScreeningsView" text="Add screenings" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <Button mnemonicParsing="false" onAction="#addFilmButtonPressed" text="Add film" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
       <Label fx:id="lblError" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
    </children>
