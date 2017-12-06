@@ -2,6 +2,7 @@ package application;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.List;
 import org.json.JSONObject;
 
 public class Screening {
+	// used when a new Screening is created within the program;
+	// Screenings from the database get their dimensions from the database
 	public static final int[] theatreDimensions = {3, 3};	
 	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 	private String screeningID;
@@ -68,5 +71,26 @@ public class Screening {
 	
 	public void updateSeats(HashMap<String, Boolean> seats) {
 		this.seats.putAll(seats);
+	}
+	
+	// gets theatre dimensions for existing Screening objects
+	// assumes the seat plan is a rectangle,
+	// and that the row index is a single character
+	public int[] getTheatreDimensions() {
+		Iterator<String> iterator = this.getSeats().keySet().iterator();
+		String key = "";
+		ArrayList<String> rows = new ArrayList<String>();
+		ArrayList<String> columns = new ArrayList<String>();
+		while (iterator.hasNext()) {
+			key = iterator.next().toString();
+			if (!rows.contains(key.substring(0, 1))) {
+				rows.add(key.substring(0, 1));
+			}
+			if (!columns.contains(key.substring(1))) {
+				columns.add(key.substring(1));
+			}
+		}
+		int dimensions[] = {rows.size(), columns.size()};
+		return dimensions;
 	}
 }

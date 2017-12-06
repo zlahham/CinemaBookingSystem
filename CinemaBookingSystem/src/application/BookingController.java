@@ -222,7 +222,7 @@ public class BookingController extends CustomerController {
 	
 	// seats view initialisation
 	private void initializeSeatPlan() {
-		int dimensions[] = getSeatPlanDimensions(chosenScreening);
+		int dimensions[] = (chosenScreening.getTheatreDimensions());
 		seats = new ImageView[dimensions[0]][dimensions[1]];
 		seatsBooked = new HashMap<String, Boolean>();
 		for (int i = 0; i < seats.length; i++) {
@@ -239,26 +239,6 @@ public class BookingController extends CustomerController {
 				grdpnSeats.getChildren().add(seats[i][j]);
 			}
 		}
-	}
-	
-	// assumes the seat plan is a rectangle,
-	// and that the row index is a single character
-	private int[] getSeatPlanDimensions(Screening screening) {
-		Iterator<String> iterator = screening.getSeats().keySet().iterator();
-		String key = "";
-		ArrayList<String> rows = new ArrayList<String>();
-		ArrayList<String> columns = new ArrayList<String>();
-		while (iterator.hasNext()) {
-			key = iterator.next().toString();
-			if (!rows.contains(key.substring(0, 1))) {
-				rows.add(key.substring(0, 1));
-			}
-			if (!columns.contains(key.substring(1))) {
-				columns.add(key.substring(1));
-			}
-		}
-		int dimensions[] = {rows.size(), columns.size()};
-		return dimensions;
 	}
 	
 	// used in seats view
