@@ -82,7 +82,7 @@ public class BookingController extends CustomerController {
 	// seats view controls
 	@FXML
 	private GridPane grdpnlSeats = new GridPane();
-	private ImageView[][] seats = new ImageView[3][3];
+	private ImageView[][] seats;
 	private Image unbooked  = new Image("file:seat.png");
 	private Image booked  = new Image("file:bookedseat.png");
 	private Image selected  = new Image("file:selectedseat.png");
@@ -220,6 +220,8 @@ public class BookingController extends CustomerController {
 	
 	// seats view initialisation
 	private void initializeSeatPlan() {
+		int dimensions[] = getSeatPlanDimensions(chosenScreening);
+		seats = new ImageView[dimensions[0]][dimensions[1]];
 		seatsBooked = new HashMap<String, Boolean>();
 		for (int i = 0; i < seats.length; i++) {
 			for (int j = 0; j < seats[i].length; j++) {
@@ -235,6 +237,26 @@ public class BookingController extends CustomerController {
 				grdpnlSeats.getChildren().add(seats[i][j]);
 			}
 		}
+	}
+	
+	// assumes the seat plan is a rectangle,
+	// and that the row index is a single character
+	private int[] getSeatPlanDimensions(Screening screening) {
+		Iterator<String> iterator = screening.getSeats().keySet().iterator();
+		String key = "";
+		ArrayList<String> rows = new ArrayList<String>();
+		ArrayList<String> columns = new ArrayList<String>();
+		while (iterator.hasNext()) {
+			key = iterator.next().toString();
+			if (!rows.contains(key.substring(0, 0))) {
+				rows.add(key.substring(0, 0));
+			}
+			if (!columns.contains(key.substring(1))) {
+				columns.add(key.substring(0));
+			}
+		}
+		int dimensions[] = {rows.size(), columns.size()};
+		return dimensions;
 	}
 	
 	// used in seats view
