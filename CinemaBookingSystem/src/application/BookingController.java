@@ -273,7 +273,7 @@ public class BookingController extends CustomerController {
 			} else if (seats[i][j].getImage().equals(selected)) {
 				grdpnSeats.getChildren().remove(seats[i][j]);
 				seats[i][j] = new ImageView(unbooked);
-				grdpnlSeats.add(seats[i][j], j, i);
+				grdpnSeats.add(seats[i][j], j, i);
 				seatsBooked.remove((char)('a' + i) + "" + (j+1), true);
 				gridPaneClick(i,j);
 			} else {
