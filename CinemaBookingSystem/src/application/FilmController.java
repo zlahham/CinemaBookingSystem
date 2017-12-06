@@ -140,7 +140,7 @@ public class FilmController extends MainController {
 		try {
 			mode = "addScreenings";
 			Parent addScreeningsView = FXMLLoader.load(getClass().getResource("/application/AddScreenings.fxml"));
-			Scene scene = new Scene(addScreeningsView, 750, 500);
+			Scene scene = new Scene(addScreeningsView);
 			Main.stage.setScene(scene);
 			Main.stage.show();
 		} catch(IOException e) {

@@ -185,7 +185,7 @@ public class BookingController extends CustomerController {
 										try {
 											mode = "seats";
 											Parent seatsView = FXMLLoader.load(getClass().getResource("/application/Seats.fxml"));
-											Scene scene = new Scene(seatsView, 750, 500);
+											Scene scene = new Scene(seatsView);
 											Main.stage.setScene(scene);
 											Main.stage.show();
 										} catch(IOException e) {

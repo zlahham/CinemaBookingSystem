@@ -80,7 +80,7 @@ public class LoginController extends MainController {
 			Parent registrationView;
 
 			registrationView = FXMLLoader.load(getClass().getResource("/application/Registration.fxml"));
-			Scene scene = new Scene(registrationView, 750, 500);
+			Scene scene = new Scene(registrationView);
 			Main.stage.setScene(scene);
 			Main.stage.show();
 		} catch (IOException e) {

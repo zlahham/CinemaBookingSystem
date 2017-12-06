@@ -22,7 +22,7 @@ public class Main extends Application {
 			stage.setTitle("Cinema Booking System");
 
 			Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
-			Scene scene = new Scene(root, 750, 500);
+			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			
 			stage.setScene(scene);

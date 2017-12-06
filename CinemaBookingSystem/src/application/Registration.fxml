@@ -6,148 +6,83 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Blend?>
-<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="750.0" style="-fx-background-color: white;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.LoginController">
 
    <children>
-      <VBox layoutY="1.0" prefHeight="500.0" prefWidth="750.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <HBox alignment="CENTER" prefHeight="76.0" prefWidth="750.0">
+            <Label text="User Registration" textFill="WHITE" underline="true" GridPane.columnSpan="6">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="4" GridPane.valignment="CENTER">
                <children>
-                  <VBox alignment="CENTER" prefHeight="76.0" prefWidth="804.0">
-                     <children>
-                        <Label text="User Registration" underline="true">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="lblFailure" textFill="#c23e3e">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Label>
-                        <Label fx:id="lblSuccess" layoutX="385.0" layoutY="59.0" textFill="#3ec251">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <effect>
-                              <Blend />
-                           </effect>
-                        </Label>
-                     </children>
-                  </VBox>
+                  <Label fx:id="lblUsername" prefHeight="30.0" text="Username" textFill="WHITE" />
+                  <Label fx:id="lblEmail" prefHeight="30.0" text="Email" textFill="WHITE" />
+                  <Label fx:id="lblPassword" prefHeight="30.0" text="Password" textFill="WHITE" />
+                  <Label fx:id="lblFirstname" prefHeight="30.0" text="First Name" textFill="WHITE" />
+                  <Label fx:id="lblLastname" prefHeight="30.0" text="Last Name" textFill="WHITE" />
                </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="67.0" prefWidth="750.0">
+               <opaqueInsets>
+                  <Insets bottom="13.0" />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <padding>
+                  <Insets top="-55.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER" layoutX="244.0" layoutY="123.0" prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="4">
+               <opaqueInsets>
+                  <Insets bottom="13.0" />
+               </opaqueInsets>
                <children>
-                  <VBox alignment="CENTER" prefHeight="76.0" prefWidth="157.0">
-                     <children>
-                        <Label fx:id="lblEmail" text="Email">
-                           <effect>
-                              <Bloom />
-                           </effect>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" layoutX="182.0" layoutY="10.0" prefHeight="76.0" prefWidth="340.0">
-                     <children>
-                        <TextField fx:id="txtEmail" prefWidth="358.0" promptText="email@domain.com" />
-                     </children>
-                  </VBox>
+                  <TextField fx:id="txtUsername" prefWidth="566.0" promptText="mickeyMouse21" />
+                  <TextField fx:id="txtEmail" prefWidth="358.0" promptText="email@domain.com" />
+                  <PasswordField fx:id="pwPassword" promptText="***********" />
+                  <TextField fx:id="txtFirstname" promptText="Mickey" />
+                  <TextField fx:id="txtLastname" promptText="Mouse" />
                </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="86.0" prefHeight="67.0" prefWidth="750.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="76.0" prefWidth="157.0">
-                     <children>
-                        <Label fx:id="lblUsername" text="Username" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" layoutX="182.0" layoutY="10.0" prefHeight="76.0" prefWidth="340.0">
-                     <children>
-                        <TextField fx:id="txtUsername" prefWidth="358.0" promptText="mickeyMouse21" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="162.0" prefHeight="67.0" prefWidth="750.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="76.0" prefWidth="157.0">
-                     <children>
-                        <Label fx:id="lblPassword" text="Password" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" layoutX="182.0" layoutY="10.0" prefHeight="76.0" prefWidth="340.0">
-                     <children>
-                        <PasswordField fx:id="pwPassword" promptText="***********" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="238.0" prefHeight="67.0" prefWidth="750.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="76.0" prefWidth="157.0">
-                     <children>
-                        <Label fx:id="lblFirstname" text="First Name" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" layoutX="182.0" layoutY="10.0" prefHeight="76.0" prefWidth="340.0">
-                     <children>
-                        <TextField fx:id="txtFirstname" promptText="Mickey" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="314.0" prefHeight="67.0" prefWidth="750.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="76.0" prefWidth="157.0">
-                     <children>
-                        <Label fx:id="lblLastname" text="Last Name" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" layoutX="182.0" layoutY="10.0" prefHeight="76.0" prefWidth="340.0">
-                     <children>
-                        <TextField fx:id="txtLastname" promptText="Mouse" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="354.0" prefHeight="67.0" prefWidth="750.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="67.0" prefWidth="375.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#transitionToLoginView" prefWidth="100.0" styleClass="default" text="Back">
-                           <VBox.margin>
-                              <Insets left="190.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" layoutX="182.0" layoutY="10.0" prefHeight="76.0" prefWidth="375.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#createUser" prefWidth="234.0" text="Submit">
-                           <styleClass>
-                              <String fx:value="success" />
-                              <String fx:value="btn" />
-                           </styleClass>
-                           <VBox.margin>
-                              <Insets right="190.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
+               <GridPane.margin>
+                  <Insets top="-55.0" />
+               </GridPane.margin>
+            </VBox>
+            <Button mnemonicParsing="false" onAction="#createUser" prefWidth="234.0" text="Submit" GridPane.columnIndex="4" GridPane.rowIndex="4">
+               <styleClass>
+                  <String fx:value="success" />
+                  <String fx:value="btn" />
+               </styleClass>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#transitionToLoginView" prefWidth="100.0" styleClass="primary" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label styleClass="success" stylesheets="@application.css" text="Please fill in the following form to create your user acount" textFill="#31708f" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Label fx:id="lblFailure" layoutX="386.0" layoutY="193.0" styleClass="success" stylesheets="@application.css" textFill="#8f3232" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+            <Label fx:id="lblSuccess" layoutX="474.0" layoutY="122.0" styleClass="success" stylesheets="@application.css" textFill="#398f32" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
          </children>
-      </VBox>
+      </GridPane>
    </children>
 </AnchorPane>

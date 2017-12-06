@@ -3,6 +3,10 @@
 .root {
 	-fx-body-color : #F5F5F5;
 	-fx-outer-border : #cecece;
+	-fx-background-color:
+	    /* linear-gradient(to bottom right, #89f7fe, #66a6ff) */
+	    linear-gradient(#09203f, #537895)
+
 }
 .button:focused, .toggle-button:focused,
 .split-menu-button:focused, .menu-button:focused,

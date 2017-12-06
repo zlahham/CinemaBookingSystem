@@ -26,7 +26,7 @@ public class MainController {
 			Parent userView;
 			userView = FXMLLoader
 					.load(getClass().getResource("/application/" + StringUtils.capitalize(user.getRole()) + ".fxml"));
-			Scene scene = new Scene(userView, 750, 500);
+			Scene scene = new Scene(userView);
 			Main.stage.setScene(scene);
 			Main.stage.show();
 		} catch (IOException e) {
@@ -43,7 +43,7 @@ public class MainController {
 		try {
 			Parent loginView;
 			loginView = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
-			Scene scene = new Scene(loginView, 750, 500);
+			Scene scene = new Scene(loginView);
 			Main.stage.setScene(scene);
 			Main.stage.show();
 		} catch (IOException e) {

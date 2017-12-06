@@ -13,7 +13,7 @@ public class CustomerController extends MainController{
 		try {
 			BookingController.mode = "view";
 			viewBookings = FXMLLoader.load(getClass().getResource("/application/ViewBookings.fxml"));
-			Scene scene = new Scene(viewBookings, 1000, 1000);
+			Scene scene = new Scene(viewBookings);
 			Main.stage.setScene(scene);
 			Main.stage.show();
 		} catch (IOException e) {
@@ -25,7 +25,7 @@ public class CustomerController extends MainController{
 		try {
 			BookingController.mode = "new";
 			newBooking = FXMLLoader.load(getClass().getResource("/application/NewBooking.fxml"));
-			Scene scene = new Scene(newBooking, 1000, 1000);
+			Scene scene = new Scene(newBooking);
 			Main.stage.setScene(scene);
 			Main.stage.show();
 		} catch (IOException e) {
@@ -36,7 +36,7 @@ public class CustomerController extends MainController{
 		Parent changeDetails;
 		try {
 			changeDetails = FXMLLoader.load(getClass().getResource("/application/Profile.fxml"));
-			Scene scene = new Scene(changeDetails, 1000, 1000);
+			Scene scene = new Scene(changeDetails);
 			Main.stage.setScene(scene);
 			Main.stage.show();
 		} catch (IOException e) {

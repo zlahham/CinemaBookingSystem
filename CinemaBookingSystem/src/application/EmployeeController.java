@@ -14,7 +14,7 @@ public class EmployeeController extends MainController{
 		try {
 			FilmController.mode = "addFilms";
 			addFilms = FXMLLoader.load(getClass().getResource("/application/AddFilms.fxml"));
-			Scene scene = new Scene(addFilms, 1000, 1000);
+			Scene scene = new Scene(addFilms);
 			Main.stage.setScene(scene);
 			Main.stage.show();
 		} catch (IOException e) {
