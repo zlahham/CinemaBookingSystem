@@ -98,6 +98,7 @@ public class FilmController extends MainController {
 	
 	// used in AddFilm view
 	public void addFilmButtonPressed(ActionEvent event) {
+		lblError.setText("");
 		if (txtFilmTitle.getText().trim().isEmpty()) {
 			lblError.setText(lblError.getText()+"Film title is missing");
 		}
@@ -122,17 +123,19 @@ public class FilmController extends MainController {
 		if (lblError.getText().trim().isEmpty()) {
 			// first create film with no screenings (Film object required to create Screening objects)
 			Film film = new Film(txtFilmTitle.getText(), txtDescription.getText(), "", cbxAgeRating.getValue(), FXCollections.observableArrayList());
+			
+			/* get this later
 			ArrayList<Screening> screeningsToAdd = new ArrayList<Screening>();
 			screeningDateTimesToAdd.add(LocalDateTime.now()); // for testing
 			for (LocalDateTime dt : screeningDateTimesToAdd) {
 				screeningsToAdd.add(new Screening(film.getFilmTitle(), dt, emptySeatPlan(Screening.theatreDimensions)));
 			}
 			film.addScreenings(screeningsToAdd);
+			screeningDateTimesToAdd.clear(); (after other stuff)*/
 			Main.filmList.add(film);
 			txtFilmTitle.clear();
 			txtDescription.clear();
 			cbxAgeRating.setValue("Choose Age Rating");
-			screeningDateTimesToAdd.clear();
 		}
 	}
 	
