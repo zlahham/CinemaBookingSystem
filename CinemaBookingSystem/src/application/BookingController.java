@@ -81,7 +81,7 @@ public class BookingController extends CustomerController {
 	// TODO: nicer icons; effects instead of new icons for booked and selected seats?
 	// seats view controls
 	@FXML
-	private GridPane grdpnlSeats = new GridPane();
+	private GridPane grdpnSeats = new GridPane();
 	private ImageView[][] seats;
 	private Image unbooked  = new Image("file:seat.png");
 	private Image booked  = new Image("file:bookedseat.png");
@@ -234,7 +234,7 @@ public class BookingController extends CustomerController {
 				gridPaneClick(i, j);
 
 				GridPane.setConstraints(seats[i][j], j, i);
-				grdpnlSeats.getChildren().add(seats[i][j]);
+				grdpnSeats.getChildren().add(seats[i][j]);
 			}
 		}
 	}
@@ -248,11 +248,11 @@ public class BookingController extends CustomerController {
 		ArrayList<String> columns = new ArrayList<String>();
 		while (iterator.hasNext()) {
 			key = iterator.next().toString();
-			if (!rows.contains(key.substring(0, 0))) {
-				rows.add(key.substring(0, 0));
+			if (!rows.contains(key.substring(0, 1))) {
+				rows.add(key.substring(0, 1));
 			}
 			if (!columns.contains(key.substring(1))) {
-				columns.add(key.substring(0));
+				columns.add(key.substring(1));
 			}
 		}
 		int dimensions[] = {rows.size(), columns.size()};
@@ -263,15 +263,15 @@ public class BookingController extends CustomerController {
 	public void gridPaneClick(int i, int j) {
 		seats[i][j].setOnMouseClicked(event -> {
 			if (seats[i][j].getImage().equals(unbooked)) {
-				grdpnlSeats.getChildren().remove(seats[i][j]);
+				grdpnSeats.getChildren().remove(seats[i][j]);
 				seats[i][j] = new ImageView(selected);
-				grdpnlSeats.add(seats[i][j], j, i);
+				grdpnSeats.add(seats[i][j], j, i);
 				seatsBooked.put((char)('a' + i) + "" + (j+1), true);
 				gridPaneClick(i,j);
 			} else if (seats[i][j].getImage().equals(selected)) {
-				grdpnlSeats.getChildren().remove(seats[i][j]);
+				grdpnSeats.getChildren().remove(seats[i][j]);
 				seats[i][j] = new ImageView(unbooked);
-				grdpnlSeats.add(seats[i][j], j, i);
+				grdpnSeats.add(seats[i][j], j, i);
 				gridPaneClick(i,j);
 			} else {
 				// display error message (seat already booked)

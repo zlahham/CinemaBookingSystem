@@ -125,7 +125,7 @@ public class FilmController extends MainController {
 			ArrayList<Screening> screeningsToAdd = new ArrayList<Screening>();
 			screeningDateTimesToAdd.add(LocalDateTime.now()); // for testing
 			for (LocalDateTime dt : screeningDateTimesToAdd) {
-				screeningsToAdd.add(new Screening(film.getFilmTitle(), dt, emptySeatPlan()));
+				screeningsToAdd.add(new Screening(film.getFilmTitle(), dt, emptySeatPlan(Screening.theatreDimensions)));
 			}
 			film.addScreenings(screeningsToAdd);
 			Main.filmList.add(film);
@@ -234,10 +234,12 @@ public class FilmController extends MainController {
 		return returnList; 
 	}
 	
-	public static HashMap<String, Boolean> emptySeatPlan() {
+	public static HashMap<String, Boolean> emptySeatPlan(int[] dimensions) {
 		HashMap<String, Boolean> seats = new HashMap<String, Boolean>();
-		for (int i = 0; i < 9; i++) {
-			seats.put((char)('a' + i/3) + "" + (i%3 + 1), false);
+		for (int i = 0; i < dimensions[0]; i++) {
+			for (int j = 0; i < dimensions[1]; j++) {
+				seats.put((char)('a' + i/3) + "" + (j%3 + 1), false);
+			}
 		}
 		return seats;
 	}
