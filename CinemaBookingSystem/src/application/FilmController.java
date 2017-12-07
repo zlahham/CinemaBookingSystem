@@ -10,7 +10,9 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,22 +26,37 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 
-public class FilmController extends MainController {
+public class FilmController extends EmployeeController {
 
 	public static final ObservableList<String> AGE_RATINGS = FXCollections
 			.observableArrayList(Arrays.asList("U", "PG", "12A", "12", "15", "18", "R18"));
 	
-	public static String mode = "";
+	public static String mode = "dashboard";
 	
 	private static ObservableList<LocalDateTime> screeningDateTimesToAdd = FXCollections.observableArrayList();
 	private Image image;
 
+	// dasboard view controls
+	@FXML
+	private TableView<Film> tblFilms;
+	@FXML
+	private TableColumn<Film, ImageView> tblclmnFilmsImage;
+	@FXML
+	private TableColumn<Film, String> tblclmnFilmsFilmTitle;
+	@FXML
+	private TableColumn<Film, String> tblclmnFilmsDescription;
+	@FXML
+	private TableColumn<Film, String> tblclmnFilmsScreenings;
+	
+	
 	// AddFilms view controls
 	@FXML
 	private TextField txtFilmTitle;
@@ -78,6 +95,9 @@ public class FilmController extends MainController {
 	public void initialize() {
 		
 		switch (mode) {
+		case "dashboard": 
+			initializeDashboard();
+			break;
 		case "addFilms":
 			initializeAddFilms();
 			break;
@@ -90,8 +110,26 @@ public class FilmController extends MainController {
 		}
 	}
 	
+	// initialize dashboard view
+	private void initializeDashboard() {
+		
+		tblFilms.getItems().addAll(Main.filmList);
+		
+		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+		Image a = new Image("File:assets/vertigo.jpg");
+		ImageView ax = new ImageView(a);
+		tblclmnFilmsImage.setCellValueFactory(c -> new SimpleObjectProperty(new ImageView("File:" + c.getValue().getImageFilePath())));
+		tblclmnFilmsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
+		tblclmnFilmsDescription.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDescription()));
+		tblclmnFilmsScreenings.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getScreenings().toString()));
+
+		
+	}
+	
 	// initialize addFilm view
 	private void initializeAddFilms() {
+		mode = "dashboard"; //for back button
 		lblError.setText("");
 		cbxAgeRating.getItems().addAll(AGE_RATINGS);
 	}
@@ -246,6 +284,5 @@ public class FilmController extends MainController {
 		}
 		return seats;
 	}
-	
 	
 }
