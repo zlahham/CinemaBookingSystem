@@ -7,7 +7,7 @@
 <?import javafx.scene.web.HTMLEditor?>
 <?import java.lang.*?>
 <ScrollPane prefHeight="3000.0" prefViewportHeight="600.0" prefViewportWidth="800.0" prefWidth="1000.0"
-            style="-fx-background-color: white;" stylesheets="@../src/application/application.css" xmlns="http://javafx.com/javafx/8"
+            style="-fx-background-color: white;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8"
             xmlns:fx="http://javafx.com/fxml/1">
     <contextMenu>
         <ContextMenu>
