@@ -75,12 +75,14 @@ public class BookingController extends CustomerController {
 	// TODO: nicer icons; effects instead of new icons for booked and selected seats?
 	// seats view controls
 	@FXML
-	private GridPane grdpnlSeats = new GridPane();
-	private ImageView[][] seats = new ImageView[3][3];
+	private GridPane grdpnSeats = new GridPane();
+	private ImageView[][] seats;
 	private Image unbooked  = new Image("file:assets/seat.png");
 	private Image booked  = new Image("file:assets/bookedseat.png");
 	private Image selected  = new Image("file:assets/selectedseat.png");
-
+	@FXML
+	private Label lblFailure;
+	
 	public void initialize() {
 
 		switch (mode) {
@@ -214,6 +216,8 @@ public class BookingController extends CustomerController {
 	
 	// seats view initialisation
 	private void initializeSeatPlan() {
+		int dimensions[] = (chosenScreening.getTheatreDimensions());
+		seats = new ImageView[dimensions[0]][dimensions[1]];
 		seatsBooked = new HashMap<String, Boolean>();
 		for (int i = 0; i < seats.length; i++) {
 			for (int j = 0; j < seats[i].length; j++) {
@@ -226,7 +230,7 @@ public class BookingController extends CustomerController {
 				gridPaneClick(i, j);
 
 				GridPane.setConstraints(seats[i][j], j, i);
-				grdpnlSeats.getChildren().add(seats[i][j]);
+				grdpnSeats.getChildren().add(seats[i][j]);
 			}
 		}
 	}
@@ -235,15 +239,16 @@ public class BookingController extends CustomerController {
 	public void gridPaneClick(int i, int j) {
 		seats[i][j].setOnMouseClicked(event -> {
 			if (seats[i][j].getImage().equals(unbooked)) {
-				grdpnlSeats.getChildren().remove(seats[i][j]);
+				grdpnSeats.getChildren().remove(seats[i][j]);
 				seats[i][j] = new ImageView(selected);
-				grdpnlSeats.add(seats[i][j], j, i);
+				grdpnSeats.add(seats[i][j], j, i);
 				seatsBooked.put((char)('a' + i) + "" + (j+1), true);
 				gridPaneClick(i,j);
 			} else if (seats[i][j].getImage().equals(selected)) {
-				grdpnlSeats.getChildren().remove(seats[i][j]);
+				grdpnSeats.getChildren().remove(seats[i][j]);
 				seats[i][j] = new ImageView(unbooked);
-				grdpnlSeats.add(seats[i][j], j, i);
+				grdpnSeats.add(seats[i][j], j, i);
+				seatsBooked.remove((char)('a' + i) + "" + (j+1), true);
 				gridPaneClick(i,j);
 			} else {
 				// display error message (seat already booked)
@@ -253,32 +258,38 @@ public class BookingController extends CustomerController {
 	
 	// used in seats view
 	public void bookButtonPressed(ActionEvent event) {
-		// so this is huge mess (the part amending an existing booking)
-		// is why it would be good to have the Screening contain usernames in seats
-		// other things also need to be changed
-		// TODO: change the logic here, or change data structure
-		ObservableList<Booking> customerBookings = filterBookingsByCustomer((Customer)(Main.stage.getUserData()));
-		// check if customer has bookings:
-		if (customerBookings != null) {
-			for (int i = 0; i < customerBookings.size(); i++) {
-				// check if customer has bookings in chosenScreening:
-				if (customerBookings.get(i).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
-					// amend customer's booking in chosenScreening:
-					updateBookingSeats(customerBookings.get(i).getBookingID(), seatsBooked);
+
+		if (!seatsBooked.isEmpty()) {
+			// so this is huge mess (the part amending an existing booking)
+			// is why it would be good to have the Screening contain usernames in seats
+			// other things also need to be changed
+			// TODO: change the logic here, or change data structure
+            ObservableList<Booking> customerBookings = filterBookingsByCustomer((Customer)(Main.stage.getUserData()));
+			// check if customer has bookings:
+			if (customerBookings != null) {
+				for (int i = 0; i < customerBookings.size(); i++) {
+					// check if customer has bookings in chosenScreening:
+					if (customerBookings.get(i).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
+						// amend customer's booking in chosenScreening:
+						updateBookingSeats(customerBookings.get(i).getBookingID(), seatsBooked);
+						seatsBooked = null;
+						break;
+					}
+				} // add a new booking if customer has no bookings in chosenScreening:
+				if (seatsBooked != null) { // this if is a silly hack to prevent duplicate bookings; should maybe
+											// rewrite logic
+                    addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
 					seatsBooked = null;
-					break;
 				}
-			} // add a new booking if customer has no bookings in chosenScreening:
-			if (seatsBooked != null) { // this if is a silly hack to prevent duplicate bookings; should maybe rewrite logic
-				addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
+			} else { // add a new booking if customer has no bookings:
+                addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
 				seatsBooked = null;
 			}
-		} else { // add a new booking if customer has no bookings:
-            addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
-			seatsBooked = null;
+			chosenScreening = null;
+            this.transitionToUserView((User)(Main.stage.getUserData()));
+		} else {
+			lblFailure.setText("select some seats, man");
 		}
-		chosenScreening = null;
-		this.transitionToUserView((User)(Main.stage.getUserData()));
 	}
 	
 	public Booking getBooking(String bookingID) {

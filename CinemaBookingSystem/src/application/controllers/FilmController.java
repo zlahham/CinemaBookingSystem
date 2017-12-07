@@ -13,7 +13,9 @@ import application.*;
 import application.models.Booking;
 import application.models.Film;
 import application.models.Screening;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,29 +29,57 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
 
-public class FilmController extends MainController {
+public class FilmController extends EmployeeController {
 
 	public static final ObservableList<String> AGE_RATINGS = FXCollections
 			.observableArrayList(Arrays.asList("U", "PG", "12A", "12", "15", "18", "R18"));
 	
-	public static String mode = "";
+	public static String mode = "dashboard";
 	
 	private static ObservableList<LocalDateTime> screeningDateTimesToAdd = FXCollections.observableArrayList();
-	private Image image;
+	private static Film selectedFilm = null;
 
+	// dashboard view controls
+	@FXML
+	private TableView<Film> tblFilms;
+	@FXML
+	private TableColumn<Film, ImageView> tblclmnFilmsImage;
+	@FXML
+	private TableColumn<Film, String> tblclmnFilmsFilmTitle;
+	@FXML
+	private TableColumn<Film, String> tblclmnFilmsDescription;
+	@FXML
+	private TableColumn<Film, String> tblclmnFilmsScreenings;
+	
+	
 	// AddFilms view controls
+	@FXML
+	private Label lblViewTitle;
+	@FXML
+	private Label lblFilmTitle;
 	@FXML
 	private TextField txtFilmTitle;
 	@FXML
+	private Label lblDescription;
+	@FXML
 	private TextField txtDescription;
 	@FXML
+	private Label lblAgeRating;
+	@FXML
 	private ComboBox<String> cbxAgeRating;
+	@FXML
+	private ImageView image;
 	@FXML
 	private Button btnUploadImage;
 	@FXML
@@ -77,10 +107,12 @@ public class FilmController extends MainController {
 	@FXML
 	private Button btnRemove;
 	
-	
 	public void initialize() {
 		
 		switch (mode) {
+		case "dashboard": 
+			initializeDashboard();
+			break;
 		case "addFilms":
 			initializeAddFilms();
 			break;
@@ -93,14 +125,46 @@ public class FilmController extends MainController {
 		}
 	}
 	
+	// initialize dashboard view
+	private void initializeDashboard() {
+		
+		tblFilms.getItems().addAll(Main.filmList);
+		tblclmnFilmsImage.setCellValueFactory(c -> new SimpleObjectProperty<ImageView>(new ImageView(c.getValue().getImage())));
+		tblclmnFilmsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
+		tblclmnFilmsDescription.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDescription()));
+		tblclmnFilmsScreenings.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getScreenings().toString()));
+
+		tblFilms.setRowFactory(r -> {
+		    TableRow<Film> row = new TableRow<>();
+		    row.setOnMouseClicked(event -> {
+		        if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY 
+		             && event.getClickCount() == 1) {
+		            selectedFilm = row.getItem();
+		            transitionToAddFilmsView();
+		        }
+		    });
+		    return row ;
+		});
+	}
+	
 	// initialize addFilm view
 	private void initializeAddFilms() {
+		if (selectedFilm != null) {
+			lblViewTitle.setText("Edit film details");
+			lblFilmTitle.setText(selectedFilm.getFilmTitle());
+			lblDescription.setText(selectedFilm.getDescription());
+			lblFilmTitle.setText(selectedFilm.getFilmTitle());
+			lblAgeRating.setText(selectedFilm.getAgeRating());
+			image.setImage(selectedFilm.getImage());
+		}
+		mode = "dashboard"; //for back button
 		lblError.setText("");
 		cbxAgeRating.getItems().addAll(AGE_RATINGS);
 	}
 	
 	// used in AddFilm view
 	public void addFilmButtonPressed(ActionEvent event) {
+		lblError.setText("");
 		if (txtFilmTitle.getText().trim().isEmpty()) {
 			lblError.setText(lblError.getText()+"Film title is missing");
 		}
@@ -125,17 +189,19 @@ public class FilmController extends MainController {
 		if (lblError.getText().trim().isEmpty()) {
 			// first create film with no screenings (Film object required to create Screening objects)
 			Film film = new Film(txtFilmTitle.getText(), txtDescription.getText(), "", cbxAgeRating.getValue(), FXCollections.observableArrayList());
+			
+			/* get this later
 			ArrayList<Screening> screeningsToAdd = new ArrayList<Screening>();
 			screeningDateTimesToAdd.add(LocalDateTime.now()); // for testing
 			for (LocalDateTime dt : screeningDateTimesToAdd) {
-				screeningsToAdd.add(new Screening(film.getFilmTitle(), dt, emptySeatPlan()));
+				screeningsToAdd.add(new Screening(film.getFilmTitle(), dt, emptySeatPlan(Screening.theatreDimensions)));
 			}
 			film.addScreenings(screeningsToAdd);
+			screeningDateTimesToAdd.clear(); (after other stuff)*/
 			Main.filmList.add(film);
 			txtFilmTitle.clear();
 			txtDescription.clear();
 			cbxAgeRating.setValue("Choose Age Rating");
-			screeningDateTimesToAdd.clear();
 		}
 	}
 	
@@ -144,6 +210,18 @@ public class FilmController extends MainController {
 			mode = "addScreenings";
 			Parent addScreeningsView = FXMLLoader.load(getClass().getResource("/application/views/AddScreenings.fxml"));
 			Scene scene = new Scene(addScreeningsView);
+			Main.stage.setScene(scene);
+			Main.stage.show();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void transitionToAddFilmsView() {
+		try {
+			mode = "addFilms";
+			Parent addFilmsView = FXMLLoader.load(getClass().getResource("/application/AddFilms.fxml"));
+			Scene scene = new Scene(addFilmsView, 750, 500);
 			Main.stage.setScene(scene);
 			Main.stage.show();
 		} catch(IOException e) {
@@ -237,13 +315,14 @@ public class FilmController extends MainController {
 		return returnList; 
 	}
 	
-	public static HashMap<String, Boolean> emptySeatPlan() {
+	public static HashMap<String, Boolean> emptySeatPlan(int[] dimensions) {
 		HashMap<String, Boolean> seats = new HashMap<String, Boolean>();
-		for (int i = 0; i < 9; i++) {
-			seats.put((char)('a' + i/3) + "" + (i%3 + 1), false);
+		for (int i = 0; i < dimensions[0]; i++) {
+			for (int j = 0; i < dimensions[1]; j++) {
+				seats.put((char)('a' + i/3) + "" + (j%3 + 1), false);
+			}
 		}
 		return seats;
 	}
-	
 	
 }
