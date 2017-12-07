@@ -150,12 +150,13 @@ public class FilmController extends EmployeeController {
 	// initialize addFilm view
 	private void initializeAddFilms() {
 		if (selectedFilm != null) {
+			/* (reference these in the fxml to get them to work)
 			lblViewTitle.setText("Edit film details");
 			lblFilmTitle.setText(selectedFilm.getFilmTitle());
 			lblDescription.setText(selectedFilm.getDescription());
 			lblFilmTitle.setText(selectedFilm.getFilmTitle());
 			lblAgeRating.setText(selectedFilm.getAgeRating());
-			image.setImage(selectedFilm.getImage());
+			image.setImage(selectedFilm.getImage());*/
 		}
 		mode = "dashboard"; //for back button
 		lblError.setText("");
@@ -220,7 +221,7 @@ public class FilmController extends EmployeeController {
 	public void transitionToAddFilmsView() {
 		try {
 			mode = "addFilms";
-			Parent addFilmsView = FXMLLoader.load(getClass().getResource("/application/AddFilms.fxml"));
+			Parent addFilmsView = FXMLLoader.load(getClass().getResource("/application/views/AddFilms.fxml"));
 			Scene scene = new Scene(addFilmsView, 750, 500);
 			Main.stage.setScene(scene);
 			Main.stage.show();
