@@ -21,7 +21,7 @@ import javafx.scene.Scene;
 public class MainController {
 
 	public void logout() {
-		Main.user = null;
+		Main.stage.setUserData(null);
 		transitionToLoginView();
 	}
 
@@ -40,7 +40,7 @@ public class MainController {
 
 	// TODO: Remove this
 	public void backToUserView(ActionEvent event) {
-		transitionToUserView(Main.user);
+		transitionToUserView((User) (Main.stage.getUserData()));
 	}
 
 	public void transitionToLoginView() {

@@ -8,6 +8,7 @@ import application.*;
 import application.models.Customer;
 import application.models.Employee;
 import application.models.User;
+import javafx.stage.Stage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -67,7 +68,8 @@ public class LoginController extends MainController {
 				} else if (userJSON.getString("role").compareTo("customer") == 0) {
 					user = new Customer(userJSON);
 				}
-				Main.user = user;
+				Main.stage.setUserData(user);
+
 				transitionToUserView(user);
 
 			} else {

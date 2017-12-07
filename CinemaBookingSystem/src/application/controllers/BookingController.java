@@ -9,6 +9,7 @@ import application.*;
 import application.models.Booking;
 import application.models.Customer;
 import application.models.Screening;
+import application.models.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,10 +77,10 @@ public class BookingController extends CustomerController {
 	@FXML
 	private GridPane grdpnlSeats = new GridPane();
 	private ImageView[][] seats = new ImageView[3][3];
-	private Image unbooked  = new Image("file:seat.png");
-	private Image booked  = new Image("file:bookedseat.png");
-	private Image selected  = new Image("file:selectedseat.png");
-	
+	private Image unbooked  = new Image("file:assets/seat.png");
+	private Image booked  = new Image("file:assets/bookedseat.png");
+	private Image selected  = new Image("file:assets/selectedseat.png");
+
 	public void initialize() {
 
 		switch (mode) {
@@ -103,8 +104,8 @@ public class BookingController extends CustomerController {
 		// tblBookings.getItems() is an ObservableList<Booking>;
 		// here we set it equal to the customer's bookings field
 		
-		tblBookings.getItems().addAll(filterBookingsByCustomer((Customer)(Main.user)));
-		
+		tblBookings.getItems().addAll(filterBookingsByCustomer((Customer)(Main.stage.getUserData())));
+
 		// c is a TableColumn.CellDataFeatures<Booking, String> object, this class
 		// being a wrapper class for the cells in the TableView
 		// where does c come from?
@@ -256,7 +257,7 @@ public class BookingController extends CustomerController {
 		// is why it would be good to have the Screening contain usernames in seats
 		// other things also need to be changed
 		// TODO: change the logic here, or change data structure
-		ObservableList<Booking> customerBookings = filterBookingsByCustomer((Customer)(Main.user));
+		ObservableList<Booking> customerBookings = filterBookingsByCustomer((Customer)(Main.stage.getUserData()));
 		// check if customer has bookings:
 		if (customerBookings != null) {
 			for (int i = 0; i < customerBookings.size(); i++) {
@@ -269,15 +270,15 @@ public class BookingController extends CustomerController {
 				}
 			} // add a new booking if customer has no bookings in chosenScreening:
 			if (seatsBooked != null) { // this if is a silly hack to prevent duplicate bookings; should maybe rewrite logic
-				addBooking(chosenScreening, (Customer)(Main.user), seatsBooked);
+				addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
 				seatsBooked = null;
 			}
 		} else { // add a new booking if customer has no bookings:
-			addBooking(chosenScreening, (Customer)(Main.user), seatsBooked);
+            addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
 			seatsBooked = null;
 		}
 		chosenScreening = null;
-		this.transitionToUserView(Main.user);
+		this.transitionToUserView((User)(Main.stage.getUserData()));
 	}
 	
 	public Booking getBooking(String bookingID) {

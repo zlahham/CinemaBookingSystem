@@ -19,7 +19,8 @@ public class ProfileController extends MainController {
 	@FXML private TableColumn<SimpleEntry<String, String>, String> tblclmnValue;
 	
 	public void initialize() {
-		tblDetails.getItems().addAll(((Customer)(Main.user)).getDetails());
+
+		tblDetails.getItems().addAll(((Customer)(Main.stage.getUserData())).getDetails());
 		tblclmnDetail.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getKey()));
 		tblclmnValue.setCellValueFactory(c-> new SimpleStringProperty(c.getValue().getValue()));
 	}
