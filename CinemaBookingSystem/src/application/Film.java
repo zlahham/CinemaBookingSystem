@@ -7,12 +7,14 @@ import org.json.JSONObject;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 
 public class Film {
 	private String filmTitle;
 	private String description;
 	private String imageFilepath;
 	private String ageRating;
+	private Image image;
 	
 	private ObservableList<Screening> screenings = FXCollections.observableArrayList();
 
@@ -22,6 +24,7 @@ public class Film {
 		this.imageFilepath = imageFilepath;
 		this.ageRating = ageRating;
 		this.screenings = screenings;
+		this.image = new Image("File:" + imageFilepath, 200, 200, true, true);
 	}
 	
 	// TODO: Refactor this constructor with the others
@@ -46,8 +49,9 @@ public class Film {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public void setImageFilepath(String imageFilepath) {
+	public void setImage(String imageFilepath) {
 		this.imageFilepath = imageFilepath;
+		this.image = new Image("File:" + imageFilepath, 200, 200, true, true);
 	}
 	public void setAgeRating(String ageRating) {
 		this.ageRating = ageRating;
@@ -62,6 +66,9 @@ public class Film {
 	}
 	public String getImageFilePath() {
 		return imageFilepath;
+	}
+	public Image getImage() {
+		return image;
 	}
 	public String getAgeRating() {
 		return ageRating;
