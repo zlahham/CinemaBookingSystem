@@ -25,11 +25,10 @@ public class MainController {
 		transitionToLoginView();
 	}
 
-	public void transitionToUserView(User user) {
+	void transitionToUserView(User user) {
 		try {
 			Parent userView;
-			userView = FXMLLoader
-					.load(getClass().getResource("/application/views/" + StringUtils.capitalize(user.getRole()) + ".fxml"));
+			userView = FXMLLoader.load(getClass().getResource("/application/views/" + StringUtils.capitalize(user.getRole()) + ".fxml"));
 			Scene scene = new Scene(userView);
 			Main.stage.setScene(scene);
 			Main.stage.show();
@@ -38,7 +37,6 @@ public class MainController {
 		}
 	}
 
-	// TODO: Remove this
 	public void backToUserView(ActionEvent event) {
 		transitionToUserView((User) (Main.stage.getUserData()));
 	}
@@ -55,7 +53,6 @@ public class MainController {
 		}
 	}
 
-	// TODO: Move to FilmController and BookingController when created
 	public static void populateList(String type) {
 		JSONObject json = null;
 		try {
@@ -64,12 +61,13 @@ public class MainController {
 			e.printStackTrace();
 		}
 
-		Iterator<String> iterator = json.keys();
+        assert json != null;
+        Iterator<String> iterator = json.keys();
 		while (iterator.hasNext()) {
 			String key = iterator.next();
 			if (type.equals("films"))
 				Main.filmList.add(new Film(json.getJSONObject(key)));
-			else
+			else if(type.equals("bookings"))
 				Main.bookingList.add(new Booking(json.getJSONObject(key)));
 		}
 	}
