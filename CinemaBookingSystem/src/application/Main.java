@@ -1,5 +1,9 @@
 package application;
 
+import application.controllers.MainController;
+import application.models.Booking;
+import application.models.Film;
+import application.models.User;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,10 +25,9 @@ public class Main extends Application {
 		try {
 			stage.setTitle("Cinema Booking System");
 
-			Parent root = FXMLLoader.load(getClass().getResource("/application/Login.fxml"));
-			Scene scene = new Scene(root, 750, 500);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
+			Parent root = FXMLLoader.load(getClass().getResource("/application/views/Login.fxml"));
+			Scene scene = new Scene(root);
+
 			stage.setScene(scene);
 			stage.show();
 		} catch (Exception e) {
@@ -35,7 +38,6 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		MainController.populateList("films");
 		MainController.populateList("bookings");
-
 		launch(args);
 	}
 }
