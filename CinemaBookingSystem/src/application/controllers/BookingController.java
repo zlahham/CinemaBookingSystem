@@ -60,18 +60,6 @@ public class BookingController extends CustomerController {
 	@FXML
 	private TableColumn<Booking, String> tblclmnBookingsDelete = new TableColumn<Booking, String>("Delete");
 	
-	// new booking view controls
-	@FXML
-	private DatePicker dtpckrDate;
-	@FXML
-	private TableView<Screening> tblScreenings;
-	@FXML
-	private TableColumn<Screening, String> tblclmnScreeningsFilmTitle;
-	@FXML
-	private TableColumn<Screening, String> tblclmnScreeningsTime;
-	@FXML
-	private Label lblDateInfo = new Label("Select a date.");
-	
 	// TODO: nicer icons; effects instead of new icons for booked and selected seats?
 	// seats view controls
 	@FXML
@@ -89,9 +77,6 @@ public class BookingController extends CustomerController {
 		switch (mode) {
 			case "view":
 				initializeViewBookings();
-				break;
-			case "new":
-				initializeNewBooking();
 				break;
 			case "seats":
 				initializeSeatPlan();
@@ -152,48 +137,6 @@ public class BookingController extends CustomerController {
 					}
 				};
 		tblclmnBookingsDelete.setCellFactory(cellFactory);
-	}
-	
-	// new booking view initialisation
-	private void initializeNewBooking() {
-		// set "select a date" label in NewBooking view
-		// causes NullPointerExceptions; fix
-		// tblFilms.setPlaceholder(label);
-	}
-
-	// used in new booking view
-	public void showScreeningsOnSelectedDate(ActionEvent event) {
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-		ObservableList<Screening> screeningList = FilmController.filterScreeningsByDate(dtpckrDate.getValue());
-		if (screeningList.size() > 0) {
-			tblScreenings.getItems().addAll(screeningList);
-			tblclmnScreeningsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
-			tblclmnScreeningsTime.setCellValueFactory(
-					c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
-
-			tblScreenings.setRowFactory(r -> {
-			    TableRow<Screening> row = new TableRow<>();
-			    row.setOnMouseClicked(rowClick -> {
-			        if (! row.isEmpty() && rowClick.getButton()==MouseButton.PRIMARY 
-			             && rowClick.getClickCount() == 1) {
-			            chosenScreening = row.getItem();
-						try {
-							mode = "seats";
-							Parent seatsView = FXMLLoader.load(getClass().getResource("/application/views/Seats.fxml"));
-							Scene scene = new Scene(seatsView);
-							Main.stage.setScene(scene);
-							Main.stage.show();
-						} catch(IOException e) {
-							e.printStackTrace();
-						}
-			        }
-			    });
-			    return row ;
-			});
-		} else {
-			tblScreenings.getItems().clear();
-			lblDateInfo.setText("No screenings on this date.");
-		}
 	}
 	
 	// seats view initialisation
