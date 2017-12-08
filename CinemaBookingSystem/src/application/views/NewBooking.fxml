@@ -38,9 +38,8 @@
             <DatePicker fx:id="dtpckrDate" onAction="#showScreeningsOnSelectedDate" promptText="Choose date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <TableView fx:id="tblScreenings" prefHeight="0.0" prefWidth="628.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="2" GridPane.rowSpan="3">
               <columns>
-                <TableColumn fx:id="tblclmnScreeningsFilmTitle" prefWidth="400.0" text="Film Title" />
-                <TableColumn fx:id="tblclmnScreeningsTime" minWidth="0.0" prefWidth="165.85043334960938" text="Time" />
-                  <TableColumn fx:id="tblclmnScreeningsBook" minWidth="0.0" prefWidth="411.0" text="Book" />
+                <TableColumn fx:id="tblclmnScreeningsFilmTitle" prefWidth="548.0" text="Film Title" />
+                <TableColumn fx:id="tblclmnScreeningsTime" minWidth="0.0" prefWidth="418.0" text="Time" />
               </columns>
             </TableView>
             <Label text="New Booking" textFill="WHITE" underline="true" GridPane.columnIndex="3" GridPane.columnSpan="2">
