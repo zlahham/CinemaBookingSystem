@@ -10,39 +10,12 @@ import javafx.scene.Scene;
 
 public class CustomerController extends MainController {
 	public void viewBookings(ActionEvent event) {
-		Parent viewBookings;
-		try {
-			BookingController.mode = "BCView";
-			viewBookings = FXMLLoader.load(getClass().getResource("/views/ViewBookings.fxml"));
-			Scene scene = new Scene(viewBookings);
-			Main.stage.setScene(scene);
-			Main.stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		transition("Login", "BCView");
 	}
 	public void newBooking(ActionEvent event) {
-		Parent newBooking;
-		try {
-			FilmController.mode = "FCNew";
-			newBooking = FXMLLoader.load(getClass().getResource("/views/SelectScreening.fxml"));
-			Scene scene = new Scene(newBooking);
-			Main.stage.setScene(scene);
-			Main.stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		transition("Login", "FCNew");
 	}
 	public void changeDetails(ActionEvent event) {
-		Parent changeDetails;
-		try {
-			changeDetails = FXMLLoader.load(getClass().getResource("/views/Profile.fxml"));
-			Scene scene = new Scene(changeDetails);
-			Main.stage.setScene(scene);
-			Main.stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		transition("Profile", "");
 	}
-	
 }

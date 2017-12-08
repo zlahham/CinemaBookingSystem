@@ -11,16 +11,7 @@ import javafx.scene.Scene;
 public class EmployeeController extends MainController {
 
 	public void addFilms(ActionEvent event) {
-		Parent addFilms;
-		try {
-			FilmController.mode = "addFilms";
-			addFilms = FXMLLoader.load(getClass().getResource("/views/AddFilms.fxml"));
-			Scene scene = new Scene(addFilms);
-			Main.stage.setScene(scene);
-			Main.stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		transition("Login", "FCAddFilms");
 	}
 
 	public void exportFilms() {

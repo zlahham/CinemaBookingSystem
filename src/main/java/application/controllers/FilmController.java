@@ -208,27 +208,11 @@ public class FilmController extends EmployeeController {
 	}
 	
 	public void transitionToAddScreeningsView(ActionEvent event) {
-		try {
-			mode = "FCAddScreenings";
-			Parent addScreeningsView = FXMLLoader.load(getClass().getResource("/views/AddScreenings.fxml"));
-			Scene scene = new Scene(addScreeningsView);
-			Main.stage.setScene(scene);
-			Main.stage.show();
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
+		transition("Login", "FCAddScreenings");
 	}
 	
 	public void transitionToAddFilmsView() {
-		try {
-			mode = "FCAddFilms";
-			Parent addFilmsView = FXMLLoader.load(getClass().getResource("/views/AddFilms.fxml"));
-			Scene scene = new Scene(addFilmsView, 750, 500);
-			Main.stage.setScene(scene);
-			Main.stage.show();
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
+		transition("Login", "FCAddFilms");
 	}
 	
 	// new booking view initialisation
@@ -254,15 +238,7 @@ public class FilmController extends EmployeeController {
 			        if (! row.isEmpty() && rowClick.getButton()==MouseButton.PRIMARY 
 			             && rowClick.getClickCount() == 1) {
 			            BookingController.chosenScreening = row.getItem();
-						try {
-							BookingController.mode = "BCSeats";
-							Parent seatsView = FXMLLoader.load(getClass().getResource("/views/Seats.fxml"));
-							Scene scene = new Scene(seatsView);
-							Main.stage.setScene(scene);
-							Main.stage.show();
-						} catch(IOException e) {
-							e.printStackTrace();
-						}
+			    		transition("Login", "BCSeats");
 			        }
 			    });
 			    return row ;
