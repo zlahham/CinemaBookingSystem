@@ -73,16 +73,23 @@ public class FilmController extends EmployeeController {
 	private Label lblError;
 	
 	// AddScreenings view controls
+	// new booking view controls
 	@FXML
 	private DatePicker dtpckrDate;
+	@FXML
+	private TableView<Screening> tblScreenings;
+	@FXML
+	private TableColumn<Screening, String> tblclmnScreeningsFilmTitle;
+	@FXML
+	private TableColumn<Screening, String> tblclmnScreeningsTime;
+	@FXML
+	private Label lblDateInfo = new Label("Select a date.");
 	@FXML
 	private TableView<LocalTime> tblTimes;
 	@FXML
 	private TableColumn<LocalTime, String> tblclmnTimesTime;
 	@FXML
 	private TableColumn<LocalTime, String> tblclmnTimesAdd = new TableColumn<LocalTime, String>("Add");
-	@FXML
-	private Label lblDateInfo = new Label("Select a date.");
 	@FXML
 	private Button btnAdd;
 	@FXML
@@ -106,6 +113,8 @@ public class FilmController extends EmployeeController {
 		case "addScreenings":
 			initializeAddScreenings();
 			break;
+		case "new":
+			initializeNewBooking();
 		default:
 			System.err.println("Something has gone horribly wrong and it's probably Aleksi's fault");
 			break;
@@ -214,6 +223,48 @@ public class FilmController extends EmployeeController {
 			Main.stage.show();
 		} catch(IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	// new booking view initialisation
+	private void initializeNewBooking() {
+		// set "select a date" label in NewBooking view
+		// causes NullPointerExceptions; fix
+		// tblFilms.setPlaceholder(label);
+	}
+	
+	// used in new booking view
+	public void showScreeningsOnSelectedDate(ActionEvent event) {
+		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+		ObservableList<Screening> screeningList = FilmController.filterScreeningsByDate(dtpckrDate.getValue());
+		if (screeningList.size() > 0) {
+			tblScreenings.getItems().addAll(screeningList);
+			tblclmnScreeningsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
+			tblclmnScreeningsTime.setCellValueFactory(
+					c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
+
+			tblScreenings.setRowFactory(r -> {
+			    TableRow<Screening> row = new TableRow<>();
+			    row.setOnMouseClicked(rowClick -> {
+			        if (! row.isEmpty() && rowClick.getButton()==MouseButton.PRIMARY 
+			             && rowClick.getClickCount() == 1) {
+			            BookingController.chosenScreening = row.getItem();
+						try {
+							BookingController.mode = "seats";
+							Parent seatsView = FXMLLoader.load(getClass().getResource("/application/views/Seats.fxml"));
+							Scene scene = new Scene(seatsView);
+							Main.stage.setScene(scene);
+							Main.stage.show();
+						} catch(IOException e) {
+							e.printStackTrace();
+						}
+			        }
+			    });
+			    return row ;
+			});
+		} else {
+			tblScreenings.getItems().clear();
+			lblDateInfo.setText("No screenings on this date.");
 		}
 	}
 	
