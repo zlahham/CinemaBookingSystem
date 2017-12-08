@@ -24,17 +24,26 @@ public class MainController {
 		Main.stage.setUserData(null);
 		transitionToLoginView();
 	}
-
-	void transitionToUserView(User user) {
+	
+	public void transition(String viewName, String mode) {
+		if (mode.substring(0, 1).compareTo("F") == 0) {
+			FilmController.mode = mode;
+		} else if (mode.substring(0, 1).compareTo("B") == 0) {
+			BookingController.mode = mode;
+		}
 		try {
-			Parent userView;
-			userView = FXMLLoader.load(getClass().getResource("/views/" + StringUtils.capitalize(user.getRole()) + ".fxml"));
-			Scene scene = new Scene(userView);
+			Parent view;
+			view = FXMLLoader.load(getClass().getResource("/views/"+ viewName +".fxml"));
+			Scene scene = new Scene(view);
 			Main.stage.setScene(scene);
 			Main.stage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	void transitionToUserView(User user) {
+		transition(StringUtils.capitalize(user.getRole()), "");
 	}
 
 	public void backToUserView(ActionEvent event) {
@@ -42,15 +51,7 @@ public class MainController {
 	}
 
 	public void transitionToLoginView() {
-		try {
-			Parent loginView;
-			loginView = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
-			Scene scene = new Scene(loginView);
-			Main.stage.setScene(scene);
-			Main.stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		transition("Login", "");
 	}
 
 	public static void populateList(String type) {

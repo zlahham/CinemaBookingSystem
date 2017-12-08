@@ -32,7 +32,7 @@ public class FilmController extends EmployeeController {
 	public static final ObservableList<String> AGE_RATINGS = FXCollections
 			.observableArrayList(Arrays.asList("U", "PG", "12A", "12", "15", "18", "R18"));
 	
-	public static String mode = "dashboard";
+	public static String mode = "FCDashboard";
 	
 	private static ObservableList<LocalDateTime> screeningDateTimesToAdd = FXCollections.observableArrayList();
 	private static Film selectedFilm = null;
@@ -50,19 +50,13 @@ public class FilmController extends EmployeeController {
 	private TableColumn<Film, String> tblclmnFilmsScreenings;
 	
 	
-	// AddFilms view controls
+	// AddFilms and EditFilms view controls
 	@FXML
 	private Label lblViewTitle;
 	@FXML
-	private Label lblFilmTitle;
-	@FXML
 	private TextField txtFilmTitle;
 	@FXML
-	private Label lblDescription;
-	@FXML
 	private TextField txtDescription;
-	@FXML
-	private Label lblAgeRating;
 	@FXML
 	private ComboBox<String> cbxAgeRating;
 	@FXML
@@ -72,8 +66,15 @@ public class FilmController extends EmployeeController {
 	@FXML
 	private Label lblError;
 	
-	// AddScreenings view controls
-	// new booking view controls
+	// EditFilms view controls (not in AddFilms)
+	@FXML
+	private Label lblFilmTitle;
+	@FXML
+	private Label lblDescription;
+	@FXML
+	private Label lblAgeRating;
+	
+	// AddScreenings and SelectScreening view controls
 	@FXML
 	private DatePicker dtpckrDate;
 	@FXML
@@ -84,6 +85,8 @@ public class FilmController extends EmployeeController {
 	private TableColumn<Screening, String> tblclmnScreeningsTime;
 	@FXML
 	private Label lblDateInfo = new Label("Select a date.");
+	
+	// AddScreening view controls (not in SelectScreenings)
 	@FXML
 	private TableView<LocalTime> tblTimes;
 	@FXML
@@ -104,19 +107,21 @@ public class FilmController extends EmployeeController {
 	public void initialize() {
 		
 		switch (mode) {
-		case "dashboard": 
+		case "FCDashboard": 
 			initializeDashboard();
 			break;
-		case "addFilms":
+		case "FCAddFilms":
 			initializeAddFilms();
 			break;
-		case "addScreenings":
+		case "FCAddScreenings":
 			initializeAddScreenings();
 			break;
-		case "new":
+		case "FCNew":
 			initializeNewBooking();
+			break;
 		default:
-			System.err.println("Something has gone horribly wrong and it's probably Aleksi's fault");
+			System.err.println(mode);
+			System.err.println("Something has gone horribly wrong (FilmController) and it's probably Aleksi's fault");
 			break;
 		}
 	}
@@ -154,7 +159,7 @@ public class FilmController extends EmployeeController {
 			lblAgeRating.setText(selectedFilm.getAgeRating());
 			image.setImage(selectedFilm.getImage());*/
 		}
-		mode = "dashboard"; //for back button
+		mode = "FCDashboard"; //for back button
 		lblError.setText("");
 		cbxAgeRating.getItems().addAll(AGE_RATINGS);
 	}
@@ -204,7 +209,7 @@ public class FilmController extends EmployeeController {
 	
 	public void transitionToAddScreeningsView(ActionEvent event) {
 		try {
-			mode = "addScreenings";
+			mode = "FCAddScreenings";
 			Parent addScreeningsView = FXMLLoader.load(getClass().getResource("/views/AddScreenings.fxml"));
 			Scene scene = new Scene(addScreeningsView);
 			Main.stage.setScene(scene);
@@ -216,7 +221,7 @@ public class FilmController extends EmployeeController {
 	
 	public void transitionToAddFilmsView() {
 		try {
-			mode = "addFilms";
+			mode = "FCAddFilms";
 			Parent addFilmsView = FXMLLoader.load(getClass().getResource("/views/AddFilms.fxml"));
 			Scene scene = new Scene(addFilmsView, 750, 500);
 			Main.stage.setScene(scene);
@@ -250,7 +255,7 @@ public class FilmController extends EmployeeController {
 			             && rowClick.getClickCount() == 1) {
 			            BookingController.chosenScreening = row.getItem();
 						try {
-							BookingController.mode = "seats";
+							BookingController.mode = "BCSeats";
 							Parent seatsView = FXMLLoader.load(getClass().getResource("/views/Seats.fxml"));
 							Scene scene = new Scene(seatsView);
 							Main.stage.setScene(scene);

@@ -75,14 +75,15 @@ public class BookingController extends CustomerController {
 	public void initialize() {
 
 		switch (mode) {
-			case "view":
+			case "BCView":
 				initializeViewBookings();
 				break;
-			case "seats":
+			case "BCSeats":
 				initializeSeatPlan();
 				break;
 			default:
-				System.err.println("Something has gone horribly wrong and it's probably Aleksi's fault");
+				System.err.println(mode);
+				System.err.println("Something has gone horribly wrong (BookingController) and it's probably Aleksi's fault");
 				break;
 		}
 	}
