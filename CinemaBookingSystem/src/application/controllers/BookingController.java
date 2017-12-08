@@ -43,7 +43,7 @@ public class BookingController extends CustomerController {
 	public static String mode = "";
 	
 	// used in seats view
-	private static Screening chosenScreening = null;
+	public static Screening chosenScreening = null;
 	private static HashMap<String, Boolean> seatsBooked;
 	
 	// view bookings view controls

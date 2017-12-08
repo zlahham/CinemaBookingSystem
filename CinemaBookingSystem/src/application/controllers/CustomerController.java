@@ -24,7 +24,7 @@ public class CustomerController extends MainController {
 	public void newBooking(ActionEvent event) {
 		Parent newBooking;
 		try {
-			BookingController.mode = "new";
+			FilmController.mode = "new";
 			newBooking = FXMLLoader.load(getClass().getResource("/application/views/NewBooking.fxml"));
 			Scene scene = new Scene(newBooking);
 			Main.stage.setScene(scene);
