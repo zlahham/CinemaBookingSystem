@@ -8,8 +8,10 @@ import java.util.Iterator;
 import application.*;
 import application.models.Booking;
 import application.models.Customer;
+import application.models.Film;
 import application.models.Screening;
 import application.models.User;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,10 +25,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 
@@ -66,11 +70,7 @@ public class BookingController extends CustomerController {
 	@FXML
 	private TableColumn<Screening, String> tblclmnScreeningsTime;
 	@FXML
-	private TableColumn<Screening, String> tblclmnScreeningsBook = new TableColumn<Screening, String>("Book");
-	@FXML
 	private Label lblDateInfo = new Label("Select a date.");
-	@FXML
-	private Button btnBook;
 	
 	// TODO: nicer icons; effects instead of new icons for booked and selected seats?
 	// seats view controls
@@ -159,45 +159,6 @@ public class BookingController extends CustomerController {
 		// set "select a date" label in NewBooking view
 		// causes NullPointerExceptions; fix
 		// tblFilms.setPlaceholder(label);
-		
-		// set up screening table
-		tblclmnScreeningsBook.setCellValueFactory(new PropertyValueFactory<>("dummy"));
-		Callback<TableColumn<Screening, String>, TableCell<Screening, String>> cellFactory = 
-				new Callback<TableColumn<Screening, String>, TableCell<Screening, String>>() {
-					@Override
-					public TableCell<Screening, String> call(final TableColumn<Screening, String> param) {
-						final TableCell<Screening, String> cell = new TableCell<Screening, String>() {
-
-							final Button btnBook = new Button("Book");
-							@Override
-							public void updateItem(String item, boolean empty) {
-								super.updateItem(item, empty);
-								if (empty) {
-									setGraphic(null);
-									setText(null);
-								} else {
-									btnBook.setOnAction(event -> {
-										// note: this sets a REFERENCE to the screening; use it
-										chosenScreening = getTableView().getItems().get(getIndex());
-										try {
-											mode = "seats";
-											Parent seatsView = FXMLLoader.load(getClass().getResource("/application/views/Seats.fxml"));
-											Scene scene = new Scene(seatsView);
-											Main.stage.setScene(scene);
-											Main.stage.show();
-										} catch(IOException e) {
-											e.printStackTrace();
-										}
-									});
-									setGraphic(btnBook);
-									setText(null);
-								}
-							}
-						};
-						return cell;
-					}
-				};
-		tblclmnScreeningsBook.setCellFactory(cellFactory);
 	}
 
 	// used in new booking view
@@ -209,6 +170,26 @@ public class BookingController extends CustomerController {
 			tblclmnScreeningsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
 			tblclmnScreeningsTime.setCellValueFactory(
 					c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
+
+			tblScreenings.setRowFactory(r -> {
+			    TableRow<Screening> row = new TableRow<>();
+			    row.setOnMouseClicked(rowClick -> {
+			        if (! row.isEmpty() && rowClick.getButton()==MouseButton.PRIMARY 
+			             && rowClick.getClickCount() == 1) {
+			            chosenScreening = row.getItem();
+						try {
+							mode = "seats";
+							Parent seatsView = FXMLLoader.load(getClass().getResource("/application/views/Seats.fxml"));
+							Scene scene = new Scene(seatsView);
+							Main.stage.setScene(scene);
+							Main.stage.show();
+						} catch(IOException e) {
+							e.printStackTrace();
+						}
+			        }
+			    });
+			    return row ;
+			});
 		} else {
 			tblScreenings.getItems().clear();
 			lblDateInfo.setText("No screenings on this date.");
