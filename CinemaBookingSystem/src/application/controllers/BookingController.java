@@ -78,9 +78,9 @@ public class BookingController extends CustomerController {
 	private GridPane grdpnSeats = new GridPane();
 	private ImageView[][] seats;
 
-	private Image unbooked  = new Image("file:assets/seat.png");
-	private Image booked  = new Image("file:assets/bookedseat.png");
-	private Image selected  = new Image("file:assets/selectedseat.png");
+	private Image unbooked  = new Image("file:images/seat.png");
+	private Image booked  = new Image("file:images/bookedseat.png");
+	private Image selected  = new Image("file:images/selectedseat.png");
 	@FXML
 	private Label lblFailure;
 	
