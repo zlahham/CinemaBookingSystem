@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="CinemaBookingSystem" />
+        <module name="CBS" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="CinemaBookingSystem" target="1.8" />
+      <module name="CBS" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

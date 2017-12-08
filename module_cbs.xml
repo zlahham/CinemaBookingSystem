@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_cbs" default="compile.module.cbs">
+  <dirname property="module.cbs.basedir" file="${ant.file.module_cbs}"/>
+  
+  <property name="module.jdk.home.cbs" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.cbs" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.cbs" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.cbs" value="-encoding UTF-8 -source 1.8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="cbs.output.dir" value="${module.cbs.basedir}/target/classes"/>
+  <property name="cbs.testoutput.dir" value="${module.cbs.basedir}/target/test-classes"/>
+  
+  <path id="cbs.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="cbs.module.production.classpath">
+    <path refid="${module.jdk.classpath.cbs}"/>
+    <path refid="library.maven:_com.mashape.unirest:unirest-java:1.4.9.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpclient:4.5.2.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore:4.4.4.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.9.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpasyncclient:4.1.1.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore-nio:4.4.4.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpmime:4.5.2.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.7.classpath"/>
+    <path refid="library.maven:_org.json:json:20171018.classpath"/>
+  </path>
+  
+  <path id="cbs.runtime.production.module.classpath">
+    <pathelement location="${cbs.output.dir}"/>
+    <path refid="library.maven:_com.mashape.unirest:unirest-java:1.4.9.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpclient:4.5.2.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore:4.4.4.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.9.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpasyncclient:4.1.1.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore-nio:4.4.4.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpmime:4.5.2.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.7.classpath"/>
+    <path refid="library.maven:_org.json:json:20171018.classpath"/>
+  </path>
+  
+  <path id="cbs.module.classpath">
+    <path refid="${module.jdk.classpath.cbs}"/>
+    <pathelement location="${cbs.output.dir}"/>
+    <path refid="library.maven:_com.mashape.unirest:unirest-java:1.4.9.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpclient:4.5.2.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore:4.4.4.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.9.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpasyncclient:4.1.1.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore-nio:4.4.4.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpmime:4.5.2.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.7.classpath"/>
+    <path refid="library.maven:_org.json:json:20171018.classpath"/>
+  </path>
+  
+  <path id="cbs.runtime.module.classpath">
+    <pathelement location="${cbs.testoutput.dir}"/>
+    <pathelement location="${cbs.output.dir}"/>
+    <path refid="library.maven:_com.mashape.unirest:unirest-java:1.4.9.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpclient:4.5.2.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore:4.4.4.classpath"/>
+    <path refid="library.maven:_commons-logging:commons-logging:1.2.classpath"/>
+    <path refid="library.maven:_commons-codec:commons-codec:1.9.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpasyncclient:4.1.1.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpcore-nio:4.4.4.classpath"/>
+    <path refid="library.maven:_org.apache.httpcomponents:httpmime:4.5.2.classpath"/>
+    <path refid="library.maven:_org.apache.commons:commons-lang3:3.7.classpath"/>
+    <path refid="library.maven:_org.json:json:20171018.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.cbs">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.cbs">
+    <patternset refid="excluded.from.module.cbs"/>
+  </patternset>
+  
+  <path id="cbs.module.sourcepath">
+    <dirset dir="${module.cbs.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="cbs.module.test.sourcepath">
+    <dirset dir="${module.cbs.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.cbs" depends="compile.module.cbs.production,compile.module.cbs.tests" description="Compile module CBS"/>
+  
+  <target name="compile.module.cbs.production" depends="register.custom.compilers" description="Compile module CBS; production classes">
+    <mkdir dir="${cbs.output.dir}"/>
+    <javac2 destdir="${cbs.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.cbs}/javac">
+      <compilerarg line="${compiler.args.cbs}"/>
+      <bootclasspath refid="cbs.module.bootclasspath"/>
+      <classpath refid="cbs.module.production.classpath"/>
+      <src refid="cbs.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.cbs"/>
+    </javac2>
+    
+    <copy todir="${cbs.output.dir}">
+      <fileset dir="${module.cbs.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.cbs.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.cbs.tests" depends="register.custom.compilers,compile.module.cbs.production" description="compile module CBS; test classes" unless="skip.tests">
+    <mkdir dir="${cbs.testoutput.dir}"/>
+    <javac2 destdir="${cbs.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.cbs}/javac">
+      <compilerarg line="${compiler.args.cbs}"/>
+      <bootclasspath refid="cbs.module.bootclasspath"/>
+      <classpath refid="cbs.module.classpath"/>
+      <src refid="cbs.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.cbs"/>
+    </javac2>
+    
+    <copy todir="${cbs.testoutput.dir}">
+      <fileset dir="${module.cbs.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.cbs" description="cleanup module">
+    <delete dir="${cbs.output.dir}"/>
+    <delete dir="${cbs.testoutput.dir}"/>
+  </target>
+</project>
