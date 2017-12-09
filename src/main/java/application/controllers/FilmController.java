@@ -46,7 +46,7 @@ public class FilmController extends EmployeeController {
 	private TableColumn<Film, String> tblclmnFilmsScreenings;
 	
 	
-	// AddFilms and EditFilms view controls
+	// NewFilms and EditFilms view controls
 	@FXML
 	private Label lblViewTitle;
 	@FXML
@@ -62,7 +62,7 @@ public class FilmController extends EmployeeController {
 	@FXML
 	private Label lblError;
 	
-	// EditFilms view controls (not in AddFilms)
+	// EditFilms view controls (not in NewFilm)
 	@FXML
 	private Label lblFilmTitle;
 	@FXML
@@ -106,13 +106,13 @@ public class FilmController extends EmployeeController {
 		case "FCDashboard": 
 			initializeDashboard();
 			break;
-		case "FCAddFilms":
-			initializeAddFilms();
+		case "FCNewFilm":
+			initializeNewFilm();
 			break;
 		case "FCAddScreenings":
 			initializeAddScreenings();
 			break;
-		case "FCSelectScreening":
+		case "FCNewBooking":
 			initializeNewBooking();
 			break;
 		default:
@@ -137,15 +137,15 @@ public class FilmController extends EmployeeController {
 		        if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY 
 		             && event.getClickCount() == 1) {
 		            selectedFilm = row.getItem();
-		    		transition("AddFilms", "FCAddFilms");
+		    		transition("NewFilm", "FCNewFilm");
 		        }
 		    });
 		    return row ;
 		});
 	}
 	
-	// initialize addFilm view
-	private void initializeAddFilms() {
+	// initialize NewFilm view
+	private void initializeNewFilm() {
 		if (selectedFilm != null) {
 			/* (reference these in the fxml to get them to work)
 			lblViewTitle.setText("Edit film details");
@@ -160,7 +160,7 @@ public class FilmController extends EmployeeController {
 		cbxAgeRating.getItems().addAll(AGE_RATINGS);
 	}
 	
-	// used in AddFilm view
+	// used in NewFilm view
 	public void addFilmButtonPressed(ActionEvent event) {
 		lblError.setText("");
 		if (txtFilmTitle.getText().trim().isEmpty()) {
