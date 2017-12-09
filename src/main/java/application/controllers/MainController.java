@@ -6,8 +6,6 @@ import java.util.Iterator;
 import application.models.Booking;
 import application.models.Film;
 import application.Main;
-import application.models.User;
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 
 import com.mashape.unirest.http.exceptions.UnirestException;

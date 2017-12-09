@@ -1,6 +1,5 @@
 package application.controllers;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,9 +17,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import application.services.Firebase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
