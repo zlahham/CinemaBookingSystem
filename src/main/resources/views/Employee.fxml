@@ -35,7 +35,7 @@
             <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" styleClass="warning" text="Log out" GridPane.columnIndex="7" />
             <Label fx:id="lblWelcome" alignment="CENTER" text="Welcome, X" textFill="WHITE" GridPane.columnIndex="6" />
             <Label fx:id="lblDate" text="The date goes here" textFill="WHITE" />
-         	  <Button fx:id="btnAddFilms" mnemonicParsing="false" onAction="#addFilms" prefHeight="150.0" prefWidth="150.0" styleClass="success" text="Add Films" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+         	  <Button fx:id="btnToAddFilms_FCAddFilms" mnemonicParsing="false" onAction="#buttonTransition" prefHeight="150.0" prefWidth="150.0" styleClass="success" text="Add Films" GridPane.columnIndex="4" GridPane.rowIndex="3" />
             <Button fx:id="btnExportFilms" mnemonicParsing="false" onAction="#exportFilms" prefHeight="150.0" prefWidth="150.0" styleClass="info" text="Export Films" GridPane.columnIndex="3" GridPane.rowIndex="3" />
             <TableView fx:id="tblFilms" GridPane.columnIndex="2" GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
               <columns>

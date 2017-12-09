@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Objects;
 
+import org.apache.commons.lang3.StringUtils;
+
 import application.*;
 import application.models.Booking;
 import application.models.Customer;
@@ -75,7 +77,7 @@ public class BookingController extends CustomerController {
 	public void initialize() {
 
 		switch (mode) {
-			case "BCView":
+			case "BCViewBookings":
 				initializeViewBookings();
 				break;
 			case "BCSeats":
@@ -212,7 +214,7 @@ public class BookingController extends CustomerController {
 				seatsBooked = null;
 			}
 			chosenScreening = null;
-            this.transitionToUserView((User)(Main.stage.getUserData()));
+			transition(StringUtils.capitalize(((User)(Main.stage.getUserData())).getRole()), "");
 		} else {
 			lblFailure.setText("select some seats, man");
 		}

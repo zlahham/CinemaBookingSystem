@@ -29,7 +29,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#backToUserView" prefWidth="100.0" styleClass="primary" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button fx:id="btnToCustomer" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="100.0" styleClass="primary" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" prefWidth="100.0" styleClass="warning" text="Log out" GridPane.columnIndex="6" />
             <TableView fx:id="tblDetails" prefHeight="200.0" prefWidth="406.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="1" GridPane.rowSpan="3">
               <columns>

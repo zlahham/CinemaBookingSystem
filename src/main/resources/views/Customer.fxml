@@ -32,9 +32,9 @@
             <Button fx:id="btnLogout1" mnemonicParsing="false" onAction="#logout" styleClass="warning" text="Log out" GridPane.columnIndex="7" />
             <Label alignment="CENTER" text="Welcome, X" textFill="WHITE" GridPane.columnIndex="6" />
             <Label fx:id="lblDate1" text="The date goes here" textFill="WHITE" />
-            <Button fx:id="btnBookings" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#viewBookings" prefHeight="66.0" prefWidth="135.0" styleClass="info" text="Bookings" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3" />
-            <Button fx:id="btnNewBooking" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#newBooking" prefHeight="66.0" prefWidth="135.0" styleClass="success" text="New booking" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Button fx:id="btnChangeDetails" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#changeDetails" prefHeight="57.0" prefWidth="135.0" styleClass="primary" text="Change details" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+            <Button fx:id="btnToViewBookings_BCViewBookings" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#buttonTransition" prefHeight="66.0" prefWidth="135.0" styleClass="info" text="Bookings" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <Button fx:id="btnToSelectScreening_FCSelectScreening" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#buttonTransition" prefHeight="66.0" prefWidth="135.0" styleClass="success" text="New booking" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Button fx:id="btnToProfile" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#buttonTransition" prefHeight="57.0" prefWidth="135.0" styleClass="primary" text="Change details" textAlignment="CENTER" GridPane.columnIndex="5" GridPane.rowIndex="3" />
          </children>
       </GridPane>
    </children>

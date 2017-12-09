@@ -17,19 +17,26 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 
 public class MainController {
 
 	public void logout() {
 		Main.stage.setUserData(null);
-		transitionToLoginView();
+		transition("Login", "");
 	}
 	
 	public void transition(String viewName, String mode) {
-		if (mode.substring(0, 1).compareTo("F") == 0) {
-			FilmController.mode = mode;
-		} else if (mode.substring(0, 1).compareTo("B") == 0) {
-			BookingController.mode = mode;
+		//transition debugging
+		System.out.println("transition method; view: " + viewName);
+		System.out.println("transition method; mode: " + mode);
+		//
+		if (mode.length() > 0) {
+			if (mode.substring(0, 1).compareTo("F") == 0) {
+				FilmController.mode = mode;
+			} else if (mode.substring(0, 1).compareTo("B") == 0) {
+				BookingController.mode = mode;
+			}
 		}
 		try {
 			Parent view;
@@ -41,17 +48,25 @@ public class MainController {
 			e.printStackTrace();
 		}
 	}
-
-	void transitionToUserView(User user) {
-		transition(StringUtils.capitalize(user.getRole()), "");
-	}
-
-	public void backToUserView(ActionEvent event) {
-		transitionToUserView((User) (Main.stage.getUserData()));
-	}
-
-	public void transitionToLoginView() {
-		transition("Login", "");
+	
+	public void buttonTransition(ActionEvent event) {
+		String[] transitionDetails = ((Button)(event.getSource())).getId().split("_");
+		switch (transitionDetails.length) {
+			case 1:
+				//transition debugging
+				System.out.println("buttonTransition method; view: " + transitionDetails[0].replace("btnTo", ""));
+				transition(transitionDetails[0].replace("btnTo", ""), "");
+				break;
+			case 2:
+				//transition debugging
+				System.out.println("buttonTransition method; view: " + transitionDetails[0].replace("btnTo", ""));
+				System.out.println("buttonRransition method; mode: " + transitionDetails[1]);
+				transition(transitionDetails[0].replaceAll("btnTo", ""), transitionDetails[1]);
+				break;
+			default:
+				//transition debugging
+				System.err.println("The button you pressed has been improperly named");
+		}
 	}
 
 	public static void populateList(String type) {

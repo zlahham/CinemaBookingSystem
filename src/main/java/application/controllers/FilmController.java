@@ -32,7 +32,7 @@ public class FilmController extends EmployeeController {
 	public static final ObservableList<String> AGE_RATINGS = FXCollections
 			.observableArrayList(Arrays.asList("U", "PG", "12A", "12", "15", "18", "R18"));
 	
-	public static String mode = "FCDashboard";
+	public static String mode;
 	
 	private static ObservableList<LocalDateTime> screeningDateTimesToAdd = FXCollections.observableArrayList();
 	private static Film selectedFilm = null;
@@ -116,7 +116,7 @@ public class FilmController extends EmployeeController {
 		case "FCAddScreenings":
 			initializeAddScreenings();
 			break;
-		case "FCNew":
+		case "FCSelectScreening":
 			initializeNewBooking();
 			break;
 		default:
@@ -141,7 +141,7 @@ public class FilmController extends EmployeeController {
 		        if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY 
 		             && event.getClickCount() == 1) {
 		            selectedFilm = row.getItem();
-		            transitionToAddFilmsView();
+		    		transition("AddFilms", "FCAddFilms");
 		        }
 		    });
 		    return row ;
@@ -207,14 +207,6 @@ public class FilmController extends EmployeeController {
 		}
 	}
 	
-	public void transitionToAddScreeningsView(ActionEvent event) {
-		transition("Login", "FCAddScreenings");
-	}
-	
-	public void transitionToAddFilmsView() {
-		transition("Login", "FCAddFilms");
-	}
-	
 	// new booking view initialisation
 	private void initializeNewBooking() {
 		// set "select a date" label in NewBooking view
@@ -222,7 +214,7 @@ public class FilmController extends EmployeeController {
 		// tblFilms.setPlaceholder(label);
 	}
 	
-	// used in new booking view
+	// used in select screening view
 	public void showScreeningsOnSelectedDate(ActionEvent event) {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 		ObservableList<Screening> screeningList = FilmController.filterScreeningsByDate(dtpckrDate.getValue());
@@ -238,7 +230,7 @@ public class FilmController extends EmployeeController {
 			        if (! row.isEmpty() && rowClick.getButton()==MouseButton.PRIMARY 
 			             && rowClick.getClickCount() == 1) {
 			            BookingController.chosenScreening = row.getItem();
-			    		transition("Login", "BCSeats");
+			    		transition("Seats", "BCSeats");
 			        }
 			    });
 			    return row ;

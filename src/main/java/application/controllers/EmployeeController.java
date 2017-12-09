@@ -11,7 +11,7 @@ import javafx.scene.Scene;
 public class EmployeeController extends MainController {
 
 	public void addFilms(ActionEvent event) {
-		transition("Login", "FCAddFilms");
+		transition("AddFilms", "FCAddFilms");
 	}
 
 	public void exportFilms() {

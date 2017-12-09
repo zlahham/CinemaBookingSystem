@@ -10,10 +10,10 @@ import javafx.scene.Scene;
 
 public class CustomerController extends MainController {
 	public void viewBookings(ActionEvent event) {
-		transition("Login", "BCView");
+		transition("ViewBookings", "BCView");
 	}
 	public void newBooking(ActionEvent event) {
-		transition("Login", "FCNew");
+		transition("SelectScreening", "FCNew");
 	}
 	public void changeDetails(ActionEvent event) {
 		transition("Profile", "");

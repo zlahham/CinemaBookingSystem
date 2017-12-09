@@ -78,7 +78,7 @@
                   <String fx:value="btn" />
                </styleClass>
             </Button>
-            <Button mnemonicParsing="false" onAction="#transitionToLoginView" prefWidth="100.0" styleClass="primary" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button fx:id="btnToLogin" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="100.0" styleClass="primary" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label styleClass="success" stylesheets="@../application.css" text="Please fill in the following form to create your user acount" textFill="#31708f" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
             <Label fx:id="lblFailure" layoutX="386.0" layoutY="193.0" styleClass="success" stylesheets="@../application.css" textFill="#8f3232" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
             <Label fx:id="lblSuccess" layoutX="474.0" layoutY="122.0" styleClass="success" stylesheets="@../application.css" textFill="#398f32" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
