@@ -12,16 +12,24 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+
+import javax.activation.MimetypesFileTypeMap;
 
 public class FilmController extends EmployeeController {
 
@@ -32,6 +40,7 @@ public class FilmController extends EmployeeController {
 	
 	private static ObservableList<LocalDateTime> screeningDateTimesToAdd = FXCollections.observableArrayList();
 	private static Film selectedFilm = null;
+	private static ArrayList<String> errors =  new ArrayList<String>();
 
 	// dashboard view controls
 	@FXML
@@ -61,6 +70,8 @@ public class FilmController extends EmployeeController {
 	private Button btnUploadImage;
 	@FXML
 	private Label lblError;
+	@FXML
+	private Label lblImageError;
 	
 	// EditFilms view controls (not in NewFilm)
 	@FXML
@@ -146,60 +157,86 @@ public class FilmController extends EmployeeController {
 	
 	// initialize NewFilm view
 	private void initializeNewFilm() {
-		if (selectedFilm != null) {
-			/* (reference these in the fxml to get them to work)
-			lblViewTitle.setText("Edit film details");
-			lblFilmTitle.setText(selectedFilm.getFilmTitle());
-			lblDescription.setText(selectedFilm.getDescription());
-			lblFilmTitle.setText(selectedFilm.getFilmTitle());
-			lblAgeRating.setText(selectedFilm.getAgeRating());
-			image.setImage(selectedFilm.getImage());*/
-		}
-		mode = "FCDashboard"; //for back button
-		lblError.setText("");
 		cbxAgeRating.getItems().addAll(AGE_RATINGS);
 	}
 	
 	// used in NewFilm view
 	public void addFilmButtonPressed(ActionEvent event) {
+		errors.clear();
 		lblError.setText("");
 		if (txtFilmTitle.getText().trim().isEmpty()) {
-			lblError.setText(lblError.getText()+"Film title is missing");
+			errors.add("Film title is missing");
 		}
 		if (txtDescription.getText().trim().isEmpty()) {
-			if (!lblError.getText().trim().isEmpty()){
-				lblError.setText(lblError.getText()+"\n");
-			}
-			lblError.setText(lblError.getText()+"Description is missing");
+			errors.add("Description is missing");
 		}
 		if (cbxAgeRating.getValue() == null) {
-			if (!lblError.getText().trim().isEmpty()){
-				lblError.setText(lblError.getText()+"\n");
-			}
-			lblError.setText(lblError.getText()+"Age Rating is missing");
+			errors.add("Age Rating is missing");
 		}
-		/*if (image == null) {
-			if (!lblError.getText().trim().isEmpty()){
-				lblError.setText(lblError.getText()+"\n");
-			}
-			lblError.setText(lblError.getText()+"Image is missing");
-		}*/
-		if (lblError.getText().trim().isEmpty()) {
-			// first create film with no screenings (Film object required to create Screening objects)
-			Film film = new Film(txtFilmTitle.getText(), txtDescription.getText(), "", cbxAgeRating.getValue(), FXCollections.observableArrayList());
+		if (image.getImage() == null) {
+			errors.add("Image is missing");
+		}
+		if (errors.isEmpty()) {
 			
-			/* get this later
-			ArrayList<Screening> screeningsToAdd = new ArrayList<Screening>();
-			screeningDateTimesToAdd.add(LocalDateTime.now()); // for testing
-			for (LocalDateTime dt : screeningDateTimesToAdd) {
-				screeningsToAdd.add(new Screening(film.getFilmTitle(), dt, emptySeatPlan(Screening.theatreDimensions)));
-			}
-			film.addScreenings(screeningsToAdd);
-			screeningDateTimesToAdd.clear(); (after other stuff)*/
+			Film film = new Film(txtFilmTitle.getText(), txtDescription.getText(),"", cbxAgeRating.getValue(), FXCollections.observableArrayList());
 			Main.filmList.add(film);
+			//needed?
 			txtFilmTitle.clear();
 			txtDescription.clear();
 			cbxAgeRating.setValue("Choose Age Rating");
+		} else {
+			for (String error : errors) {
+				if (lblError.getText().trim().isEmpty()){
+					lblError.setText(error);
+				} else {
+					lblError.setText(lblError.getText() + "\n" + error);
+				}
+			}
+		}
+	}
+	
+	// screening stuff
+	/* get this later
+	ArrayList<Screening> screeningsToAdd = new ArrayList<Screening>();
+	screeningDateTimesToAdd.add(LocalDateTime.now()); // for testing
+	for (LocalDateTime dt : screeningDateTimesToAdd) {
+		screeningsToAdd.add(new Screening(film.getFilmTitle(), dt, emptySeatPlan(Screening.theatreDimensions)));
+	}
+	film.addScreenings(screeningsToAdd);
+	screeningDateTimesToAdd.clear(); (after other stuff)*/
+	
+	// film view stuff
+	/*if (selectedFilm != null) {
+	(reference these in the fxml to get them to work)
+	lblViewTitle.setText("Edit film details");
+	lblFilmTitle.setText(selectedFilm.getFilmTitle());
+	lblDescription.setText(selectedFilm.getDescription());
+	lblFilmTitle.setText(selectedFilm.getFilmTitle());
+	lblAgeRating.setText(selectedFilm.getAgeRating());
+	image.setImage(selectedFilm.getImage());
+}*/
+	
+	public void pickImage() {
+		lblImageError.setText("");
+		final FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Choose image");
+		File file = fileChooser.showOpenDialog(Main.stage);
+		if (file != null) {
+	        try {
+				String[] type = Files.probeContentType(file.toPath()).split("/");
+				if (type[0].compareTo("image") == 0) {
+					Image imagePicked = new Image(file.toURI().toString());
+					image.setPreserveRatio(true);
+					image.setFitHeight(200);
+					image.setFitWidth(200);
+					image.setImage(imagePicked);
+				} else {
+					lblImageError.setText("The file you chose does not seem to be an image.");
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
