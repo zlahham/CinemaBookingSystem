@@ -67,7 +67,7 @@
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="354.0" prefHeight="36.0" prefWidth="750.0">
                      <children>
                         <VBox alignment="CENTER" layoutX="332.0" layoutY="10.0" prefHeight="76.0" prefWidth="340.0" />
-                        <Button mnemonicParsing="false" onAction="#transitionToRegistrationView" prefWidth="234.0" text="Sign up">
+                        <Button fx:id="btnToRegistration" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="234.0" text="Sign up">
                            <styleClass>
                               <String fx:value="success" />
                               <String fx:value="btn" />

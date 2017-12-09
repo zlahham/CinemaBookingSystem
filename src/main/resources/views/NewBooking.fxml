@@ -34,7 +34,7 @@
         </rowConstraints>
          <children>
             <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" prefWidth="100.0" styleClass="warning" text="Log out" GridPane.columnIndex="7" />
-            <Button fx:id="btnBackToCustomerView" mnemonicParsing="false" onAction="#backToUserView" prefWidth="100.0" styleClass="success" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Button fx:id="btnToCustomer" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="100.0" styleClass="success" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <DatePicker fx:id="dtpckrDate" onAction="#showScreeningsOnSelectedDate" promptText="Choose date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <TableView fx:id="tblScreenings" prefHeight="0.0" prefWidth="628.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="2" GridPane.rowSpan="3">
               <columns>

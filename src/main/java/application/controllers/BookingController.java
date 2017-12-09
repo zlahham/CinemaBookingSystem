@@ -1,10 +1,11 @@
 package application.controllers;
 
-import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Objects;
+
+import org.apache.commons.lang3.StringUtils;
 
 import application.*;
 import application.models.Booking;
@@ -16,11 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -36,7 +33,6 @@ public class BookingController extends CustomerController {
     //TODO: move variable definitions into initialisation methods?
 
     // variable for initialisation control;
-    // TODO: come up with a better solution?
     public static String mode = "";
 
     // used in seats view
@@ -75,14 +71,15 @@ public class BookingController extends CustomerController {
 	public void initialize() {
 
 		switch (mode) {
-			case "view":
+			case "BCViewBookings":
 				initializeViewBookings();
 				break;
-			case "seats":
+			case "BCSeats":
 				initializeSeatPlan();
 				break;
 			default:
-				System.err.println("Something has gone horribly wrong and it's probably Aleksi's fault");
+				System.err.println(mode);
+				System.err.println("Something has gone horribly wrong (BookingController) and it's probably Aleksi's fault");
 				break;
 		}
 	}
@@ -211,7 +208,7 @@ public class BookingController extends CustomerController {
 				seatsBooked = null;
 			}
 			chosenScreening = null;
-            this.transitionToUserView((User)(Main.stage.getUserData()));
+			transition(StringUtils.capitalize(((User)(Main.stage.getUserData())).getRole()), "");
 		} else {
 			lblFailure.setText("select some seats, man");
 		}

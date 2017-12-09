@@ -10,16 +10,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.util.Callback;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -32,7 +28,7 @@ public class FilmController extends EmployeeController {
 	public static final ObservableList<String> AGE_RATINGS = FXCollections
 			.observableArrayList(Arrays.asList("U", "PG", "12A", "12", "15", "18", "R18"));
 	
-	public static String mode = "dashboard";
+	public static String mode;
 	
 	private static ObservableList<LocalDateTime> screeningDateTimesToAdd = FXCollections.observableArrayList();
 	private static Film selectedFilm = null;
@@ -50,19 +46,13 @@ public class FilmController extends EmployeeController {
 	private TableColumn<Film, String> tblclmnFilmsScreenings;
 	
 	
-	// AddFilms view controls
+	// NewFilms and EditFilms view controls
 	@FXML
 	private Label lblViewTitle;
 	@FXML
-	private Label lblFilmTitle;
-	@FXML
 	private TextField txtFilmTitle;
 	@FXML
-	private Label lblDescription;
-	@FXML
 	private TextField txtDescription;
-	@FXML
-	private Label lblAgeRating;
 	@FXML
 	private ComboBox<String> cbxAgeRating;
 	@FXML
@@ -72,8 +62,15 @@ public class FilmController extends EmployeeController {
 	@FXML
 	private Label lblError;
 	
-	// AddScreenings view controls
-	// new booking view controls
+	// EditFilms view controls (not in NewFilm)
+	@FXML
+	private Label lblFilmTitle;
+	@FXML
+	private Label lblDescription;
+	@FXML
+	private Label lblAgeRating;
+	
+	// AddScreenings and SelectScreening view controls
 	@FXML
 	private DatePicker dtpckrDate;
 	@FXML
@@ -84,6 +81,8 @@ public class FilmController extends EmployeeController {
 	private TableColumn<Screening, String> tblclmnScreeningsTime;
 	@FXML
 	private Label lblDateInfo = new Label("Select a date.");
+	
+	// AddScreening view controls (not in SelectScreenings)
 	@FXML
 	private TableView<LocalTime> tblTimes;
 	@FXML
@@ -104,19 +103,21 @@ public class FilmController extends EmployeeController {
 	public void initialize() {
 		
 		switch (mode) {
-		case "dashboard": 
+		case "FCDashboard": 
 			initializeDashboard();
 			break;
-		case "addFilms":
-			initializeAddFilms();
+		case "FCNewFilm":
+			initializeNewFilm();
 			break;
-		case "addScreenings":
+		case "FCAddScreenings":
 			initializeAddScreenings();
 			break;
-		case "new":
+		case "FCNewBooking":
 			initializeNewBooking();
+			break;
 		default:
-			System.err.println("Something has gone horribly wrong and it's probably Aleksi's fault");
+			System.err.println(mode);
+			System.err.println("Something has gone horribly wrong (FilmController) and it's probably Aleksi's fault");
 			break;
 		}
 	}
@@ -136,15 +137,15 @@ public class FilmController extends EmployeeController {
 		        if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY 
 		             && event.getClickCount() == 1) {
 		            selectedFilm = row.getItem();
-		            transitionToAddFilmsView();
+		    		transition("NewFilm", "FCNewFilm");
 		        }
 		    });
 		    return row ;
 		});
 	}
 	
-	// initialize addFilm view
-	private void initializeAddFilms() {
+	// initialize NewFilm view
+	private void initializeNewFilm() {
 		if (selectedFilm != null) {
 			/* (reference these in the fxml to get them to work)
 			lblViewTitle.setText("Edit film details");
@@ -154,12 +155,12 @@ public class FilmController extends EmployeeController {
 			lblAgeRating.setText(selectedFilm.getAgeRating());
 			image.setImage(selectedFilm.getImage());*/
 		}
-		mode = "dashboard"; //for back button
+		mode = "FCDashboard"; //for back button
 		lblError.setText("");
 		cbxAgeRating.getItems().addAll(AGE_RATINGS);
 	}
 	
-	// used in AddFilm view
+	// used in NewFilm view
 	public void addFilmButtonPressed(ActionEvent event) {
 		lblError.setText("");
 		if (txtFilmTitle.getText().trim().isEmpty()) {
@@ -202,30 +203,6 @@ public class FilmController extends EmployeeController {
 		}
 	}
 	
-	public void transitionToAddScreeningsView(ActionEvent event) {
-		try {
-			mode = "addScreenings";
-			Parent addScreeningsView = FXMLLoader.load(getClass().getResource("/views/AddScreenings.fxml"));
-			Scene scene = new Scene(addScreeningsView);
-			Main.stage.setScene(scene);
-			Main.stage.show();
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void transitionToAddFilmsView() {
-		try {
-			mode = "addFilms";
-			Parent addFilmsView = FXMLLoader.load(getClass().getResource("/views/AddFilms.fxml"));
-			Scene scene = new Scene(addFilmsView, 750, 500);
-			Main.stage.setScene(scene);
-			Main.stage.show();
-		} catch(IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 	// new booking view initialisation
 	private void initializeNewBooking() {
 		// set "select a date" label in NewBooking view
@@ -233,7 +210,7 @@ public class FilmController extends EmployeeController {
 		// tblFilms.setPlaceholder(label);
 	}
 	
-	// used in new booking view
+	// used in select screening view
 	public void showScreeningsOnSelectedDate(ActionEvent event) {
 		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 		ObservableList<Screening> screeningList = FilmController.filterScreeningsByDate(dtpckrDate.getValue());
@@ -249,15 +226,7 @@ public class FilmController extends EmployeeController {
 			        if (! row.isEmpty() && rowClick.getButton()==MouseButton.PRIMARY 
 			             && rowClick.getClickCount() == 1) {
 			            BookingController.chosenScreening = row.getItem();
-						try {
-							BookingController.mode = "seats";
-							Parent seatsView = FXMLLoader.load(getClass().getResource("/views/Seats.fxml"));
-							Scene scene = new Scene(seatsView);
-							Main.stage.setScene(scene);
-							Main.stage.show();
-						} catch(IOException e) {
-							e.printStackTrace();
-						}
+			    		transition("Seats", "BCSeats");
 			        }
 			    });
 			    return row ;

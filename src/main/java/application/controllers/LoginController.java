@@ -1,6 +1,5 @@
 package application.controllers;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,6 +7,8 @@ import application.*;
 import application.models.Customer;
 import application.models.Employee;
 import application.models.User;
+
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,9 +17,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import application.services.Firebase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -68,8 +66,8 @@ public class LoginController extends MainController {
 					user = new Customer(userJSON);
 				}
 				Main.stage.setUserData(user);
-
-				transitionToUserView(user);
+				
+				transition(StringUtils.capitalize(user.getRole()), "FCDashboard");
 
 			} else {
 				lblFailure.setText("Failure");
@@ -80,17 +78,7 @@ public class LoginController extends MainController {
 	}
 
 	public void transitionToRegistrationView(ActionEvent event) {
-
-		try {
-			Parent registrationView;
-
-			registrationView = FXMLLoader.load(getClass().getResource("/views/Registration.fxml"));
-			Scene scene = new Scene(registrationView);
-			Main.stage.setScene(scene);
-			Main.stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		transition("Registration", "");
 	}
 
 	public void createUser(ActionEvent event) throws UnirestException, InterruptedException {
@@ -116,7 +104,7 @@ public class LoginController extends MainController {
 
 				Firebase.createUser(params);
 				lblSuccess.setText("User created, please login!");
-				transitionToLoginView();
+				transition("Login", "");
 			}
 
 			lblFailure.setText("Username is taken, please choose another one");

@@ -45,12 +45,12 @@
             <Label text="Age Rating" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
             <Label text="Image" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="5" />
             <Label text="Screenings" textFill="WHITE" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="6" />
-            <Button mnemonicParsing="false" onAction="#backToUserView" prefWidth="135.0" styleClass="info" text="Back" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" />
+            <Button fx:id="btnToEmployee_FCDashboard" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="135.0" styleClass="info" text="Back" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="8" />
             <TextField fx:id="txtFilmTitle" prefWidth="285.0" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
             <TextField fx:id="txtDescription" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
             <ComboBox fx:id="cbxAgeRating" prefHeight="26.0" promptText="Choose Age Rating" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
             <Button fx:id="btnUploadImage" mnemonicParsing="false" text="Upload" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" onAction="#transitionToAddScreeningsView" text="Add screenings" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="6" />
+            <Button fx:id="btnToAddScreenings_FCAddScreenings" mnemonicParsing="false" onAction="#buttonTransition" text="Add screenings" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="6" />
             <Button mnemonicParsing="false" onAction="#addFilmButtonPressed" prefWidth="135.0" styleClass="success" text="Add film" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
             <Label fx:id="lblError" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
             <Label styleClass="success" stylesheets="@../application.css" text="Please fill in the following form to add a film" textFill="#31708f" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
