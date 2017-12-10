@@ -37,6 +37,8 @@ public class UserController  extends MainController{
     @FXML
     private TableColumn<Film, String> tblclmnFilmsDescription;
     @FXML
+    private TableColumn<Film, String> tblclmnFilmsAgeRating;
+    @FXML
     private TableColumn<Film, String> tblclmnFilmsScreenings;
 
 
@@ -62,6 +64,7 @@ public class UserController  extends MainController{
         tblclmnFilmsImage.setCellValueFactory(c -> new SimpleObjectProperty<ImageView>(new ImageView(c.getValue().getImage())));
         tblclmnFilmsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
         tblclmnFilmsDescription.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDescription()));
+        tblclmnFilmsAgeRating.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getAgeRating()));
         tblclmnFilmsScreenings.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getScreenings().toString()));
 
         tblFilms.setRowFactory(r -> {

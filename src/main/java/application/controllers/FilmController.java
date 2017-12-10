@@ -151,6 +151,7 @@ public class FilmController extends EmployeeController {
 		}*/
         if (lblError.getText().trim().isEmpty()) {
             // first create film with no screenings (Film object required to create Screening objects)
+            System.out.println(cbxAgeRating.getValue());
             Film film = new Film(txtFilmTitle.getText(), txtDescription.getText(), "", cbxAgeRating.getValue(), FXCollections.observableArrayList());
 			
 			/* get this later
