@@ -1,5 +1,8 @@
 package application.models;
 
+import java.io.File;
+import java.net.URI;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +28,9 @@ public class Film {
 		this.imageFilepath = imageFilepath;
 		this.ageRating = ageRating;
 		this.screenings = screenings;
-		this.image = new Image(Objects.requireNonNull(getClass().getClassLoader().getResource(imageFilepath)).toExternalForm(), 200, 200, true, true);
+		File imageFile = new File("src/main/resources/" + imageFilepath);
+		this.image = new Image(imageFile.toURI().toString(), 100, 100, true, true);
+		//this.image = new Image(Objects.requireNonNull(getClass().getClassLoader().getResource(imageFilepath)).toExternalForm(), 200, 200, true, true);
 	}
 	
 	// TODO: Refactor this constructor with the others
@@ -52,7 +57,7 @@ public class Film {
 	}
 	public void setImage(String imageFilepath) {
 		this.imageFilepath = imageFilepath;
-		this.image = new Image("File:" + imageFilepath, 200, 200, true, true);
+		//this.image = new Image("File:" + imageFilepath, 200, 200, true, true);
 	}
 	public void setAgeRating(String ageRating) {
 		this.ageRating = ageRating;
@@ -69,7 +74,7 @@ public class Film {
 		return imageFilepath;
 	}
 	public Image getImage() {
-		return image;
+		return this.image;
 	}
 	public String getAgeRating() {
 		return ageRating;
