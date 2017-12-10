@@ -48,7 +48,7 @@
                         <Insets left="20.0" top="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <TableView fx:id="tblFilms" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="2" GridPane.rowSpan="3">
+                  <TableView fx:id="tblFilms" tableMenuButtonVisible="true" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="2" GridPane.rowSpan="3">
                     <columns>
                       <TableColumn fx:id="tblclmnFilmsImage" prefWidth="156.5374755859375" text="Image" />
                       <TableColumn fx:id="tblclmnFilmsFilmTitle" minWidth="7.0" prefWidth="133.4625244140625" text="Title" />
