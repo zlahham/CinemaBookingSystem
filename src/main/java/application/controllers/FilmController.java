@@ -155,7 +155,7 @@ public class FilmController extends EmployeeController {
 		if (errors.isEmpty()) {
 			
 			try {
-				Files.copy(filePicked.toPath(), Paths.get("src/main/resources/images/" + txtFilmTitle.getText().trim()));
+				Files.copy(filePicked.toPath(), Paths.get("src/main/resources/images/films/" + txtFilmTitle.getText().trim()));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

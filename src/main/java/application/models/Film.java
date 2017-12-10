@@ -28,7 +28,7 @@ public class Film {
 		this.imageFilepath = imageFilepath;
 		this.ageRating = ageRating;
 		this.screenings = screenings;
-		File imageFile = new File("src/main/resources/" + imageFilepath);
+		File imageFile = new File("src/main/resources/images/films/" + imageFilepath.split("/")[1]);
 		this.image = new Image(imageFile.toURI().toString(), 100, 100, true, true);
 		//this.image = new Image(Objects.requireNonNull(getClass().getClassLoader().getResource(imageFilepath)).toExternalForm(), 200, 200, true, true);
 	}
