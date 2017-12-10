@@ -1,52 +1,148 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.FilmController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.EmployeeController">
    <children>
-      <GridPane prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" styleClass="warning" text="Log out" GridPane.columnIndex="7" />
-            <Label fx:id="lblWelcome" alignment="CENTER" text="Welcome, X" textFill="WHITE" GridPane.columnIndex="6" />
-            <Label fx:id="lblDate" text="The date goes here" textFill="WHITE" />
-         	  <Button fx:id="btnToNewFilm_FCNewFilm" mnemonicParsing="false" onAction="#buttonTransition" prefHeight="150.0" prefWidth="150.0" styleClass="success" text="Add Films" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <Button fx:id="btnExportFilms" mnemonicParsing="false" onAction="#exportFilms" prefHeight="150.0" prefWidth="150.0" styleClass="info" text="Export Films" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <TableView fx:id="tblFilms" GridPane.columnIndex="2" GridPane.columnSpan="5" GridPane.rowIndex="1" GridPane.rowSpan="2">
-              <columns>
-                <TableColumn fx:id="tblclmnFilmsImage" prefWidth="143.0" text="Image" />
-                <TableColumn fx:id="tblclmnFilmsFilmTitle" minWidth="7.0" prefWidth="82.0" text="Title" />
-                  <TableColumn fx:id="tblclmnFilmsDescription" minWidth="0.0" prefWidth="133.0" text="Description" />
-                  <TableColumn prefWidth="117.0" text="Age Rating" />
-                  <TableColumn fx:id="tblclmnFilmsScreenings" prefWidth="176.0" text="Screenings" />
-              </columns>
-            </TableView>
-         </children>
-      </GridPane>
+      <BorderPane prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <GridPane prefHeight="800.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="lblDate" text="DateTime" textFill="WHITE" GridPane.columnSpan="2" GridPane.halignment="LEFT">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TableView fx:id="tblFilms" tableMenuButtonVisible="true" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="2" GridPane.rowSpan="3">
+                    <columns>
+                      <TableColumn fx:id="tblclmnFilmsImage" prefWidth="156.5374755859375" text="Image" />
+                      <TableColumn fx:id="tblclmnFilmsFilmTitle" minWidth="7.0" prefWidth="133.4625244140625" text="Title" />
+                        <TableColumn fx:id="tblclmnFilmsDescription" minWidth="0.0" prefWidth="247.21673583984375" text="Description" />
+                        <TableColumn fx:id="tblclmnFilmsAgeRating" prefWidth="106.7833251953125" resizable="false" text="Age Rating" />
+                        <TableColumn fx:id="tblclmnFilmsScreenings" prefWidth="235.14385986328125" text="Screenings" />
+                    </columns>
+                  </TableView>
+                  <JFXButton fx:id="btnToNewFilm_FCNewFilm" buttonType="RAISED" onAction="#buttonTransition" prefWidth="150.0" ripplerFill="#b3b844" text="Add Films" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="success" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnExportFilms" buttonType="RAISED" layoutX="136.0" layoutY="294.0" maxHeight="213.0" onAction="#exportFilms" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Export Films" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="info" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SHARE" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" layoutX="60.0" layoutY="265.0" maxHeight="213.0" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Bookings" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="primary" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="LIST" size="15" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </GridPane>
+         </center>
+         <top>
+            <GridPane prefHeight="50.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="lblTitle" alignment="CENTER" text="STAFF Dashboard" textFill="WHITE" underline="true">
+                     <font>
+                        <Font size="42.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="20.0" top="10.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT" GridPane.columnIndex="2">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="warning" />
+                     </styleClass>
+                     <GridPane.margin>
+                        <Insets right="20.0" top="10.0" />
+                     </GridPane.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                     <children>
+                        <FontAwesomeIconView fill="WHITE" glyphName="USER" size="18">
+                           <HBox.margin>
+                              <Insets right="4.0" />
+                           </HBox.margin>
+                        </FontAwesomeIconView>
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="179.0" layoutY="19.0" nodeOrientation="LEFT_TO_RIGHT" text="Welcome, " textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblWelcome" alignment="CENTER" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" text="username" textAlignment="CENTER" textFill="WHITE" underline="true">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </GridPane>
+         </top>
+      </BorderPane>
    </children>
 </AnchorPane>

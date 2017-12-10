@@ -1,5 +1,6 @@
 package application.controllers;
 
+public class EmployeeController extends UserController {
 import application.Main;
 import application.models.Film;
 import application.models.Screening;

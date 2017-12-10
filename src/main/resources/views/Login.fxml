@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -67,23 +68,31 @@
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="354.0" prefHeight="36.0" prefWidth="750.0">
                      <children>
                         <VBox alignment="CENTER" layoutX="332.0" layoutY="10.0" prefHeight="76.0" prefWidth="340.0" />
-                        <Button fx:id="btnToRegistration" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="234.0" text="Sign up">
+                        <Button fx:id="btnToRegistration" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="234.0" text="Sign Up">
                            <styleClass>
                               <String fx:value="success" />
                               <String fx:value="btn" />
+                              <String fx:value="lg" />
                            </styleClass>
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="18" />
+                           </graphic>
                         </Button>
                         <Button mnemonicParsing="false" onAction="#validateCredentials" prefWidth="234.0" text="Login">
                            <styleClass>
                               <String fx:value="primary" />
                               <String fx:value="btn" />
+                              <String fx:value="lg" />
                            </styleClass>
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
+                           <graphic>
+                              <FontAwesomeIconView fill="WHITE" glyphName="SIGN_IN" size="18" />
+                           </graphic>
                         </Button>
                         <VBox alignment="CENTER" prefHeight="76.0" prefWidth="340.0" />
                      </children>
@@ -102,17 +111,20 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="119.0" prefWidth="1280.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="1.0" text="Welcome to AZ Cinemas" textAlignment="CENTER" textFill="WHITE">
+                        <FontAwesomeIconView fill="WHITE" glyphName="FILM" size="42" />
+                        <Label text=" Welcome To AZ Cinemas " textFill="WHITE">
                            <font>
-                              <Font name="Lato Bold" size="42.0" />
+                              <Font name="Lato Regular" size="42.0" />
                            </font>
                         </Label>
+                        <FontAwesomeIconView fill="WHITE" glyphName="FILM" layoutX="393.0" layoutY="97.0" size="42" />
                      </children>
                      <padding>
                         <Insets top="25.0" />
                      </padding>
                   </HBox>
-               </children></Pane>
+               </children>
+            </Pane>
          </top>
          <bottom>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
