@@ -16,5 +16,7 @@
 		<level name="Maven: org.apache.httpcomponents:httpmime:4.5.2" value="project"/>
 		<level name="Maven: org.apache.commons:commons-lang3:3.7" value="project"/>
 		<level name="Maven: org.json:json:20171018" value="project"/>
+		<level name="Maven: com.jfoenix:jfoenix:1.10.0" value="project"/>
+		<level name="Maven: de.jensd:fontawesomefx:8.9" value="project"/>
 	</levels>
 </component>
