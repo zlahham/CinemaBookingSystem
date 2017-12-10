@@ -161,7 +161,7 @@ public class FilmController extends EmployeeController {
 				e.printStackTrace();
 			}		
 			
-			Film film = new Film(txtFilmTitle.getText().trim(), txtDescription.getText().trim(), "images/" + txtFilmTitle.getText().trim(), cbxAgeRating.getValue(), FXCollections.observableArrayList());
+			Film film = new Film(txtFilmTitle.getText().trim(), txtDescription.getText().trim(), txtFilmTitle.getText().trim(), cbxAgeRating.getValue(), FXCollections.observableArrayList());
 			Main.filmList.add(film);
 			filePicked = null;
 			image = null;	

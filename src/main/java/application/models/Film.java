@@ -28,14 +28,14 @@ public class Film {
 		this.imageFilepath = imageFilepath;
 		this.ageRating = ageRating;
 		this.screenings = screenings;
-		File imageFile = new File("src/main/resources/images/films/" + imageFilepath.split("/")[1]);
+		File imageFile = new File("src/main/resources/images/films/" + imageFilepath);
 		this.image = new Image(imageFile.toURI().toString(), 100, 100, true, true);
 		//this.image = new Image(Objects.requireNonNull(getClass().getClassLoader().getResource(imageFilepath)).toExternalForm(), 200, 200, true, true);
 	}
 	
 	// TODO: Refactor this constructor with the others
 	public Film(JSONObject filmJSON) {
-		this(filmJSON.getString("filmTitle"), filmJSON.getString("description"), filmJSON.getString("imageFilePath"),
+		this(filmJSON.getString("filmTitle"), filmJSON.getString("description"), filmJSON.getString("fileName"),
 				filmJSON.getString("ageRating"), FXCollections.<Screening>observableArrayList());
 		JSONObject screeningsJSON = filmJSON.getJSONObject("screenings");
 		JSONObject screeningI;
