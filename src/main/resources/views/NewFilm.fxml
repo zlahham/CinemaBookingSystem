@@ -25,7 +25,7 @@
          <bottom>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnToEmployee_FCDashboard" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back">
+                  <JFXButton fx:id="btnToEmployee" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="info" />
