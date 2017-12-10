@@ -53,7 +53,7 @@
                       <TableColumn fx:id="tblclmnFilmsImage" prefWidth="156.5374755859375" text="Image" />
                       <TableColumn fx:id="tblclmnFilmsFilmTitle" minWidth="7.0" prefWidth="133.4625244140625" text="Title" />
                         <TableColumn fx:id="tblclmnFilmsDescription" minWidth="0.0" prefWidth="247.21673583984375" text="Description" />
-                        <TableColumn prefWidth="106.7833251953125" resizable="false" text="Age Rating" />
+                        <TableColumn fx:id="tblclmnFilmsAgeRating" prefWidth="106.7833251953125" resizable="false" text="Age Rating" />
                         <TableColumn fx:id="tblclmnFilmsScreenings" prefWidth="235.14385986328125" text="Screenings" />
                     </columns>
                   </TableView>

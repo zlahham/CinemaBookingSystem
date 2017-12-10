@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -16,73 +19,94 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.LoginController">
 
    <children>
-      <GridPane prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label text="User Registration" textFill="WHITE" underline="true" GridPane.columnSpan="6">
-               <font>
-                  <Font name="System Bold" size="24.0" />
-               </font>
-            </Label>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="4" GridPane.valignment="CENTER">
+      <BorderPane prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <GridPane prefHeight="800.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
-                  <Label fx:id="lblUsername" prefHeight="30.0" text="Username" textFill="WHITE" />
-                  <Label fx:id="lblEmail" prefHeight="30.0" text="Email" textFill="WHITE" />
-                  <Label fx:id="lblPassword" prefHeight="30.0" text="Password" textFill="WHITE" />
-                  <Label fx:id="lblFirstname" prefHeight="30.0" text="First Name" textFill="WHITE" />
-                  <Label fx:id="lblLastname" prefHeight="30.0" text="Last Name" textFill="WHITE" />
+                  <Label text="User Registration" textFill="WHITE" underline="true" GridPane.columnSpan="6">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="4" GridPane.valignment="CENTER">
+                     <children>
+                        <Label fx:id="lblUsername" prefHeight="30.0" text="Username" textFill="WHITE" />
+                        <Label fx:id="lblEmail" prefHeight="30.0" text="Email" textFill="WHITE" />
+                        <Label fx:id="lblPassword" prefHeight="30.0" text="Password" textFill="WHITE" />
+                        <Label fx:id="lblFirstname" prefHeight="30.0" text="First Name" textFill="WHITE" />
+                        <Label fx:id="lblLastname" prefHeight="30.0" text="Last Name" textFill="WHITE" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets bottom="13.0" />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets top="-55.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" layoutX="244.0" layoutY="123.0" prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="4">
+                     <opaqueInsets>
+                        <Insets bottom="13.0" />
+                     </opaqueInsets>
+                     <children>
+                        <TextField fx:id="txtUsername" prefWidth="566.0" promptText="mickeyMouse21" />
+                        <TextField fx:id="txtEmail" prefWidth="358.0" promptText="email@domain.com" />
+                        <PasswordField fx:id="pwPassword" promptText="***********" />
+                        <TextField fx:id="txtFirstname" promptText="Mickey" />
+                        <TextField fx:id="txtLastname" promptText="Mouse" />
+                     </children>
+                     <GridPane.margin>
+                        <Insets top="-55.0" />
+                     </GridPane.margin>
+                  </VBox>
+                  <Label styleClass="success" stylesheets="@../application.css" text="Please fill in the following form to create your user acount" textFill="#31708f" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Label fx:id="lblFailure" layoutX="386.0" layoutY="193.0" styleClass="success" stylesheets="@../application.css" textFill="#d03030" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                  <Label fx:id="lblSuccess" layoutX="474.0" layoutY="122.0" styleClass="success" stylesheets="@../application.css" textFill="#398f32" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                  <JFXButton buttonType="RAISED" onAction="#createUser" prefWidth="150.0" ripplerFill="#b3b844" text="Submit" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="success" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnToLogin" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="info" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SHARE" size="15" />
+                     </graphic>
+                  </JFXButton>
                </children>
-               <opaqueInsets>
-                  <Insets bottom="13.0" />
-               </opaqueInsets>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-               <padding>
-                  <Insets top="-55.0" />
-               </padding>
-            </VBox>
-            <VBox alignment="CENTER" layoutX="244.0" layoutY="123.0" prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.columnIndex="2" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="4">
-               <opaqueInsets>
-                  <Insets bottom="13.0" />
-               </opaqueInsets>
-               <children>
-                  <TextField fx:id="txtUsername" prefWidth="566.0" promptText="mickeyMouse21" />
-                  <TextField fx:id="txtEmail" prefWidth="358.0" promptText="email@domain.com" />
-                  <PasswordField fx:id="pwPassword" promptText="***********" />
-                  <TextField fx:id="txtFirstname" promptText="Mickey" />
-                  <TextField fx:id="txtLastname" promptText="Mouse" />
-               </children>
-               <GridPane.margin>
-                  <Insets top="-55.0" />
-               </GridPane.margin>
-            </VBox>
-            <Button mnemonicParsing="false" onAction="#createUser" prefWidth="234.0" text="Submit" GridPane.columnIndex="4" GridPane.rowIndex="4">
-               <styleClass>
-                  <String fx:value="success" />
-                  <String fx:value="btn" />
-               </styleClass>
-            </Button>
-            <Button fx:id="btnToLogin" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="100.0" styleClass="primary" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label styleClass="success" stylesheets="@../application.css" text="Please fill in the following form to create your user acount" textFill="#31708f" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-            <Label fx:id="lblFailure" layoutX="386.0" layoutY="193.0" styleClass="success" stylesheets="@../application.css" textFill="#8f3232" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-            <Label fx:id="lblSuccess" layoutX="474.0" layoutY="122.0" styleClass="success" stylesheets="@../application.css" textFill="#398f32" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-         </children>
-      </GridPane>
+            </GridPane>
+         </center>
+         <left>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
    </children>
 </AnchorPane>
