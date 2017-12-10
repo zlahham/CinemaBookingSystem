@@ -1,5 +1,14 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
+@font-face {
+    font-family: "Material Icons";
+    src: url("./fonts/MaterialIcons-Regular.ttf");
+}
+
+.FontIcon{
+    -fx-font-family: "Material Icons";
+    -fx-font-size: 13px;
+}
 .root {
 	-fx-body-color : #F5F5F5;
 	-fx-outer-border : #cecece;
