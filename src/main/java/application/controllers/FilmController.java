@@ -187,21 +187,21 @@ public class FilmController extends EmployeeController {
 		fileChooser.setTitle("Choose image");
 		filePicked = fileChooser.showOpenDialog(Main.stage);
 		if (filePicked != null) {
-	        try {
-				String[] type = Files.probeContentType(filePicked.toPath()).split("/");
-				if (type[0].compareTo("image") == 0) {
+	        //try {
+				//String[] type = Files.probeContentType(filePicked.toPath()).split("/");
+				//if (type[0].compareTo("image") == 0) {
 					Image imagePicked = new Image(filePicked.toURI().toString());
 					image.setPreserveRatio(true);
 					image.setFitHeight(200);
 					image.setFitWidth(200);
 					image.setImage(imagePicked);
-				} else {
-					lblImageError.setText("The file you chose does not seem to be an image.");
-				}
-			} catch (IOException e) {
+				//} else {
+				//	lblImageError.setText("The file you chose does not seem to be an image.");
+				//}
+		//	} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			//	e.printStackTrace();
+			//}
 		}
 	}
 	
