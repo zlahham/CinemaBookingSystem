@@ -1,6 +1,5 @@
 package application.controllers;
 
-public class EmployeeController extends UserController {
 import application.Main;
 import application.models.Film;
 import application.models.Screening;
@@ -13,8 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Optional;
 
-public class EmployeeController extends MainController {
-
+public class EmployeeController extends UserController {
     public void exportFilms() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Export to TXT File");
@@ -68,8 +66,6 @@ public class EmployeeController extends MainController {
                 e.printStackTrace();
 
             }
-        } else {
-            // ... user chose CANCEL or closed the dialog
         }
     }
 }
