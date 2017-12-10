@@ -36,6 +36,8 @@ import java.util.HashMap;
 
 import javax.activation.MimetypesFileTypeMap;
 
+import org.apache.tika.Tika;
+
 public class FilmController extends EmployeeController {
 	
     public static final ObservableList<String> AGE_RATINGS = FXCollections
@@ -161,10 +163,6 @@ public class FilmController extends EmployeeController {
 			
 			Film film = new Film(txtFilmTitle.getText().trim(), txtDescription.getText().trim(), "images/" + txtFilmTitle.getText().trim(), cbxAgeRating.getValue(), FXCollections.observableArrayList());
 			Main.filmList.add(film);
-			// needed?
-			txtFilmTitle.clear();
-			txtDescription.clear();
-			cbxAgeRating.setValue("Choose Age Rating");
 			filePicked = null;
 			image = null;	
 			transition("Employee", "");
@@ -185,21 +183,23 @@ public class FilmController extends EmployeeController {
 		fileChooser.setTitle("Choose image");
 		filePicked = fileChooser.showOpenDialog(Main.stage);
 		if (filePicked != null) {
-	        //try {
-				//String[] type = Files.probeContentType(filePicked.toPath()).split("/");
-				//if (type[0].compareTo("image") == 0) {
-					Image imagePicked = new Image(filePicked.toURI().toString());
-					image.setPreserveRatio(true);
-					image.setFitHeight(200);
-					image.setFitWidth(200);
-					image.setImage(imagePicked);
-				//} else {
-				//	lblImageError.setText("The file you chose does not seem to be an image.");
-				//}
-		//	} catch (IOException e) {
+			
+			 Tika tika = new Tika();
+			 try {
+				String mimeType = tika.detect(filePicked).split("/")[0];		
+				if (mimeType.compareTo("image") == 0) {
+					 Image imagePicked = new Image(filePicked.toURI().toString());
+					 image.setPreserveRatio(true);
+					 image.setFitHeight(200);
+					 image.setFitWidth(200);
+					 image.setImage(imagePicked);
+				} else {
+					 lblImageError.setText("The file you chose does not seem to be an image.");
+				}
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
-			//	e.printStackTrace();
-			//}
+				e.printStackTrace();
+			}
 		}
 	}
 	
