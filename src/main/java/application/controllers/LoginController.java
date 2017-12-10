@@ -67,7 +67,7 @@ public class LoginController extends MainController {
 				}
 				Main.stage.setUserData(user);
 				
-				transition(StringUtils.capitalize(StringUtils.capitalize(user.getRole())), "FCDashboard");
+				transition(StringUtils.capitalize(StringUtils.capitalize(user.getRole())), "");
 
 			} else {
 				lblFailure.setText("Failure");

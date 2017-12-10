@@ -109,8 +109,6 @@ public class FilmController extends EmployeeController {
     public void initialize() {
 
         switch (mode) {
-            case "FCDashboard":
-                break;
             case "FCNewFilm":
                 initializeNewFilm();
                 break;
@@ -167,7 +165,7 @@ public class FilmController extends EmployeeController {
 			Main.filmList.add(film);
 			filePicked = null;
 			image = null;	
-			transition("Employee", "FCDashboard");
+			transition("Employee", "");
 		} else {
 			for (String error : errors) {
 				if (lblError.getText().trim().isEmpty()){
