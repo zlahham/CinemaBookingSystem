@@ -22,20 +22,20 @@ public class Film {
 	
 	private ObservableList<Screening> screenings = FXCollections.observableArrayList();
 
-	public Film(String filmTitle, String description, String imageFilepath, String ageRating, ObservableList<Screening> screenings) {
+	public Film(String filmTitle, String description, String imageFileName, String ageRating, ObservableList<Screening> screenings) {
 		this.filmTitle = filmTitle;
 		this.description = description;
-		this.imageFilepath = imageFilepath;
+		this.imageFilepath = imageFileName;
 		this.ageRating = ageRating;
 		this.screenings = screenings;
-		File imageFile = new File("src/main/resources/" + imageFilepath);
+		File imageFile = new File("src/main/resources/images/films/" + imageFileName);
 		this.image = new Image(imageFile.toURI().toString(), 100, 100, true, true);
 		//this.image = new Image(Objects.requireNonNull(getClass().getClassLoader().getResource(imageFilepath)).toExternalForm(), 200, 200, true, true);
 	}
 	
 	// TODO: Refactor this constructor with the others
 	public Film(JSONObject filmJSON) {
-		this(filmJSON.getString("filmTitle"), filmJSON.getString("description"), filmJSON.getString("imageFilePath"),
+		this(filmJSON.getString("filmTitle"), filmJSON.getString("description"), filmJSON.getString("imageFileName"),
 				filmJSON.getString("ageRating"), FXCollections.<Screening>observableArrayList());
 		JSONObject screeningsJSON = filmJSON.getJSONObject("screenings");
 		JSONObject screeningI;

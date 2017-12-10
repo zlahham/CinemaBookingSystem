@@ -155,13 +155,13 @@ public class FilmController extends EmployeeController {
 		if (errors.isEmpty()) {
 			
 			try {
-				Files.copy(filePicked.toPath(), Paths.get("src/main/resources/images/" + txtFilmTitle.getText().trim()));
+				Files.copy(filePicked.toPath(), Paths.get("src/main/resources/images/films/" + txtFilmTitle.getText().trim()));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}		
 			
-			Film film = new Film(txtFilmTitle.getText().trim(), txtDescription.getText().trim(), "images/" + txtFilmTitle.getText().trim(), cbxAgeRating.getValue(), FXCollections.observableArrayList());
+			Film film = new Film(txtFilmTitle.getText().trim(), txtDescription.getText().trim(), txtFilmTitle.getText().trim(), cbxAgeRating.getValue(), FXCollections.observableArrayList());
 			Main.filmList.add(film);
 			filePicked = null;
 			image = null;	
