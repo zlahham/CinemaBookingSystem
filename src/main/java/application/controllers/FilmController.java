@@ -19,8 +19,13 @@ import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -31,6 +36,9 @@ import java.util.HashMap;
 
 import javax.activation.MimetypesFileTypeMap;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.reflect.FieldUtils;
+
 public class FilmController extends EmployeeController {
 
 	public static final ObservableList<String> AGE_RATINGS = FXCollections
@@ -40,6 +48,7 @@ public class FilmController extends EmployeeController {
 	
 	private static ObservableList<LocalDateTime> screeningDateTimesToAdd = FXCollections.observableArrayList();
 	private static Film selectedFilm = null;
+	private static File filePicked;
 	private static ArrayList<String> errors =  new ArrayList<String>();
 
 	// dashboard view controls
@@ -167,6 +176,12 @@ public class FilmController extends EmployeeController {
 		if (txtFilmTitle.getText().trim().isEmpty()) {
 			errors.add("Film title is missing");
 		}
+		for (Film f : Main.filmList) {
+			if (f.getFilmTitle().compareTo(txtFilmTitle.getText().trim()) == 0) {
+				errors.add("A film with that title already exists. Please enter another title.");
+				break;
+			}
+		}
 		if (txtDescription.getText().trim().isEmpty()) {
 			errors.add("Description is missing");
 		}
@@ -178,12 +193,22 @@ public class FilmController extends EmployeeController {
 		}
 		if (errors.isEmpty()) {
 			
-			Film film = new Film(txtFilmTitle.getText(), txtDescription.getText(),"", cbxAgeRating.getValue(), FXCollections.observableArrayList());
+			try {
+				Files.copy(filePicked.toPath(), Paths.get("src/main/resources/images/" + txtFilmTitle.getText().trim()));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+			
+			Film film = new Film(txtFilmTitle.getText().trim(), txtDescription.getText().trim(), "images/" + txtFilmTitle.getText().trim(), cbxAgeRating.getValue(), FXCollections.observableArrayList());
 			Main.filmList.add(film);
-			//needed?
+			// needed?
 			txtFilmTitle.clear();
 			txtDescription.clear();
 			cbxAgeRating.setValue("Choose Age Rating");
+			filePicked = null;
+			image = null;	
+			transition("Employee", "FCDashboard");
 		} else {
 			for (String error : errors) {
 				if (lblError.getText().trim().isEmpty()){
@@ -191,6 +216,30 @@ public class FilmController extends EmployeeController {
 				} else {
 					lblError.setText(lblError.getText() + "\n" + error);
 				}
+			}
+		}
+	}
+	
+	public void pickImage() {
+		lblImageError.setText("");
+		final FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Choose image");
+		filePicked = fileChooser.showOpenDialog(Main.stage);
+		if (filePicked != null) {
+	        try {
+				String[] type = Files.probeContentType(filePicked.toPath()).split("/");
+				if (type[0].compareTo("image") == 0) {
+					Image imagePicked = new Image(filePicked.toURI().toString());
+					image.setPreserveRatio(true);
+					image.setFitHeight(200);
+					image.setFitWidth(200);
+					image.setImage(imagePicked);
+				} else {
+					lblImageError.setText("The file you chose does not seem to be an image.");
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
@@ -214,31 +263,7 @@ public class FilmController extends EmployeeController {
 	lblFilmTitle.setText(selectedFilm.getFilmTitle());
 	lblAgeRating.setText(selectedFilm.getAgeRating());
 	image.setImage(selectedFilm.getImage());
-}*/
-	
-	public void pickImage() {
-		lblImageError.setText("");
-		final FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Choose image");
-		File file = fileChooser.showOpenDialog(Main.stage);
-		if (file != null) {
-	        try {
-				String[] type = Files.probeContentType(file.toPath()).split("/");
-				if (type[0].compareTo("image") == 0) {
-					Image imagePicked = new Image(file.toURI().toString());
-					image.setPreserveRatio(true);
-					image.setFitHeight(200);
-					image.setFitWidth(200);
-					image.setImage(imagePicked);
-				} else {
-					lblImageError.setText("The file you chose does not seem to be an image.");
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+	}*/
 	
 	// new booking view initialisation
 	private void initializeNewBooking() {
