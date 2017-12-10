@@ -1,5 +1,5 @@
 package application.controllers;
 
-public class CustomerController extends MainController {
+public class CustomerController extends UserController {
 
 }
