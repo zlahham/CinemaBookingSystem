@@ -8,7 +8,9 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -63,11 +65,6 @@
                <children>
                   <VBox prefHeight="279.0" prefWidth="722.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
                      <children>
-                        <Label fx:id="lblError" textFill="#d03030">
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </Label>
                         <Label styleClass="success" stylesheets="@../application.css" text="Please fill in the following form to add a film" textFill="#31708f">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -79,8 +76,9 @@
                         <Separator prefWidth="200.0" />
                         <GridPane prefHeight="800.0" prefWidth="802.0">
                            <columnConstraints>
-                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="416.60772705078125" minWidth="10.0" prefWidth="184.0245361328125" />
-                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="666.6795043945312" minWidth="10.0" prefWidth="495.9754638671875" />
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="416.60772705078125" minWidth="10.0" prefWidth="165.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="666.6795043945312" minWidth="10.0" prefWidth="192.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="666.6795043945312" minWidth="10.0" prefWidth="324.0" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
@@ -89,6 +87,9 @@
                               <RowConstraints percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
                               <RowConstraints percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
                               <RowConstraints percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
                               <Label text="Title" textFill="WHITE" GridPane.halignment="LEFT">
@@ -96,52 +97,50 @@
                                     <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
                                  </padding>
                               </Label>
-                              <Label text="Description" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                              <Label text="Description" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="2">
                                  <padding>
                                     <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
                                  </padding>
                               </Label>
-                              <Label text="Age Rating" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                              <Label text="Age Rating" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                                  <padding>
                                     <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
                                  </padding>
                               </Label>
-                              <Label text="Image" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                              <Label text="Image" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="5">
                                  <padding>
                                     <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
                                  </padding>
                               </Label>
-                              <Label text="Screenings" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="4">
-                                 <padding>
-                                    <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
-                                 </padding>
-                              </Label>
-                              <TextField fx:id="txtFilmTitle" prefWidth="285.0" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+                              <TextField fx:id="txtFilmTitle" prefWidth="285.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT">
                                  <GridPane.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </GridPane.margin>
                               </TextField>
-                              <TextField fx:id="txtDescription" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-                                 <GridPane.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </GridPane.margin>
-                              </TextField>
-                              <ComboBox fx:id="cbxAgeRating" prefHeight="26.0" promptText="Choose Age Rating" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                              <ComboBox fx:id="cbxAgeRating" prefHeight="26.0" promptText="Choose Age Rating" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                                  <GridPane.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </GridPane.margin>
                               </ComboBox>
-                              <Button fx:id="btnUploadImage" mnemonicParsing="false" onAction="#pickImage" prefWidth="135.0" text="Upload" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                              <Button fx:id="btnUploadImage" mnemonicParsing="false" onAction="#pickImage" prefWidth="135.0" text="Upload" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
                                  <GridPane.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Button fx:id="btnToAddScreenings_FCAddScreenings" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="135.0" text="Add Screenings" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
-                                 <GridPane.margin>
+                              <Label fx:id="lblImageError" prefHeight="99.0" prefWidth="324.0" textFill="#d02727" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font></Label>
+                              <TextArea fx:id="txtDescription" prefWidth="285.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3" />
+                              <Label fx:id="lblError" prefHeight="140.0" prefWidth="337.0" textFill="#d03030" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.rowSpan="2">
+                                 <padding>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </GridPane.margin>
-                              </Button>
-                              <Label fx:id="lblImageError" prefHeight="59.0" prefWidth="193.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                 </padding>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fx:id="image" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                            </children>
                         </GridPane>
                      </children>
