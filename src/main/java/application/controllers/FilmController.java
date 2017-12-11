@@ -115,6 +115,9 @@ public class FilmController extends EmployeeController {
             case "FCNewBooking":
                 initializeNewBooking();
                 break;
+            case "FCScreenings":
+                initializeScreenings();
+                break;
             default:
                 System.err.println(mode);
                 System.err.println("Something has gone horribly wrong (FilmController) and it's probably Aleksi's fault");
@@ -233,6 +236,10 @@ public class FilmController extends EmployeeController {
 	lblAgeRating.setText(selectedFilm.getAgeRating());
 	image.setImage(selectedFilm.getImage());
 	}*/
+	
+	private void initializeScreenings() {
+		
+	}
 
     // new booking view initialisation
     private void initializeNewBooking() {
@@ -269,6 +276,8 @@ public class FilmController extends EmployeeController {
 
     // initialize addScreenings view
     private void initializeAddScreenings() {
+    	
+    	/* table with the times
         ObservableList<LocalTime> screeningTimesToAdd = FXCollections.observableArrayList();
         tblclmnTimesAdd.setCellValueFactory(new PropertyValueFactory<>("dummy"));
         Callback<TableColumn<LocalTime, String>, TableCell<LocalTime, String>> cellFactory =
@@ -299,6 +308,9 @@ public class FilmController extends EmployeeController {
                     }
                 };
         tblclmnTimesAdd.setCellFactory(cellFactory);
+        
+        */
+    	
     }
 
     // used in addScreenings view

@@ -73,7 +73,11 @@ public class UserController  extends MainController{
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
                         && event.getClickCount() == 1) {
                     Film selectedFilm = row.getItem();
-                    transition("NewFilm", "FCNewFilm");
+                    if (((User)(Main.stage.getUserData())).getRole().compareTo("employee") == 0) {
+                    	transition("Screenings", "FCScreenings");
+                    } else {
+                    	System.out.println("Add functionality here; maybe remove the if if the Customer can also get a screenings by film table");
+                    }
                 }
             });
             return row;
