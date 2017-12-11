@@ -38,11 +38,11 @@ public class EmployeeController extends UserController {
                     ObservableList<Screening> screenings = f.getScreenings();
                     for (int i = 0; i < screenings.size(); i++) {
                         Screening s = screenings.get(i);
-                        int bookedSeats = 0;
-                        int availableSeats = 0;
 
                         bw.write("Screening #" + (i + 1) + ": " + s.getDateTime().format(dateTimeFormatter));
                         bw.newLine();
+                        int bookedSeats = FilmController.countBookedSeats(s)[0];
+                        int availableSeats = FilmController.countBookedSeats(s)[1];
                         for(Boolean value: s.getSeats().values()) {
                             if (value.equals(true)) {
                                 bookedSeats++;

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -31,19 +30,13 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TableView fx:id="tblTimes2" prefHeight="311.0" prefWidth="413.0" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="3">
-              <columns>
-                <TableColumn fx:id="tblclmnTimes2Remove" minWidth="0.0" prefWidth="209.0" text="Remove" />
-                <TableColumn fx:id="tblclmnTimes2Time" prefWidth="213.0" text="Time" />
-              </columns>
-            </TableView>
             <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" prefWidth="100.0" styleClass="warning" text="Log out" GridPane.columnIndex="6" GridPane.halignment="RIGHT" />
-            <Button fx:id="btnToEmployee" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="135.0" styleClass="info" text="Back" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" />
-            <DatePicker fx:id="dtpckrDate" onAction="#showAvailableTimesOnSelectedDate" promptText="Choose date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-            <TableView fx:id="tblTimes" prefHeight="318.0" prefWidth="424.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.rowSpan="3">
+            <Button fx:id="btnToCustomer" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="135.0" styleClass="info" text="Back" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" />
+            <TableView fx:id="tblScreenings" prefHeight="402.0" prefWidth="964.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="3">
               <columns>
-                <TableColumn fx:id="tblclmnTimesTime" minWidth="0.0" prefWidth="222.1774673461914" text="Time" />
-                  <TableColumn fx:id="tblclmnTimesAdd" minWidth="0.0" prefWidth="212.82254028320312" text="Add" />
+                <TableColumn fx:id="tblclmnScreeningsDate" minWidth="0.0" prefWidth="234.0" text="Date" />
+                  <TableColumn fx:id="tblclmnScreeningsTime" maxWidth="440.0" minWidth="-1.0" prefWidth="209.0" text="Time" />
+                  <TableColumn fx:id="tblclmnScreeningsSeats" maxWidth="645.0" minWidth="-1.0" prefWidth="436.0" text="Seats booked" />
               </columns>
             </TableView>
          </children>
