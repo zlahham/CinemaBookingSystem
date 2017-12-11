@@ -4,7 +4,6 @@ import application.Main;
 import application.models.Booking;
 import application.models.Film;
 import application.models.Screening;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,22 +20,15 @@ import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-
-import javax.activation.MimetypesFileTypeMap;
 
 import org.apache.tika.Tika;
 
@@ -237,7 +229,6 @@ public class FilmController extends EmployeeController {
 
     // used in select screening view
     public void showScreeningsOnSelectedDate(ActionEvent event) {
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         ObservableList<Screening> screeningList = FilmController.filterScreeningsByDate(dtpckrDate.getValue());
         if (screeningList.size() > 0) {
             tblScreenings.getItems().addAll(screeningList);
@@ -298,7 +289,6 @@ public class FilmController extends EmployeeController {
 
     // used in addScreenings view
     public void showAvailableTimesOnSelectedDate(ActionEvent event) {
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         ObservableList<LocalTime> timesList = getAvailableTimesByDate(dtpckrDate.getValue());
         if (timesList.size() > 0) {
             tblTimes.getItems().addAll(timesList);
