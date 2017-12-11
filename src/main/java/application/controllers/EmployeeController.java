@@ -1,37 +1,39 @@
 package application.controllers;
 
+import application.Main;
+import application.services.Firebase;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.chart.PieChart;
+import javafx.scene.chart.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 public class EmployeeController extends UserController {
-    @FXML
-    private AnchorPane anchorpane;
     @FXML
     private JFXHamburger hamburger;
     @FXML
     private JFXDrawer drawer;
     @FXML
-    private PieChart chartBookings;
+    private BarChart<?, ?> chart;
+    @FXML
+    private CategoryAxis x;
+    @FXML
+    private NumberAxis y;
 
 
     public void initialize() {
         super.initialize();
-        PieChart.Data slice1 = new PieChart.Data("Desktop", 213);
-        PieChart.Data slice2 = new PieChart.Data("Phone"  , 67);
-        PieChart.Data slice3 = new PieChart.Data("Tablet" , 36);
-
-        chartBookings.getData().add(slice1);
-        chartBookings.getData().add(slice2);
-        chartBookings.getData().add(slice3);
         hamburgerInitializer();
+        chartInitializer();
+
     }
 
     private void hamburgerInitializer() {
@@ -53,5 +55,21 @@ public class EmployeeController extends UserController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void chartInitializer(){
+        XYChart.Series set = new XYChart.Series<>();
+        final int[] screenings = {0};
+        Main.filmList.forEach((f)-> screenings[0] = screenings[0] + f.getScreenings().size());
+        try {
+            set.getData().add(new XYChart.Data("Customers", Firebase.getList("users").length()));
+            set.getData().add(new XYChart.Data("Films", Main.filmList.size()));
+            set.getData().add(new XYChart.Data("Bookings", Main.bookingList.size()));
+            set.getData().add(new XYChart.Data("Screenings", screenings[0]));
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+        chart.getData().addAll(set);
+
     }
 }
