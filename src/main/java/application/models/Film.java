@@ -37,14 +37,16 @@ public class Film {
 	public Film(JSONObject filmJSON) {
 		this(filmJSON.getString("filmTitle"), filmJSON.getString("description"), filmJSON.getString("imageFileName"),
 				filmJSON.getString("ageRating"), FXCollections.<Screening>observableArrayList());
-		JSONObject screeningsJSON = filmJSON.getJSONObject("screenings");
-		JSONObject screeningI;
-		Iterator<String> iterator = screeningsJSON.keys();
-		String screeningKey = null;
-		while (iterator.hasNext()) {
-			screeningKey = iterator.next();
-			screeningI = screeningsJSON.getJSONObject(screeningKey);
-			this.screenings.add(new Screening(screeningI));
+		if(filmJSON.has("screenings")) {
+			JSONObject screeningsJSON = filmJSON.getJSONObject("screenings");
+			JSONObject screeningI;
+			Iterator<String> iterator = screeningsJSON.keys();
+			String screeningKey = null;
+			while (iterator.hasNext()) {
+				screeningKey = iterator.next();
+				screeningI = screeningsJSON.getJSONObject(screeningKey);
+				this.screenings.add(new Screening(screeningI));
+			}
 		}
 	}
 	

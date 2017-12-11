@@ -4,6 +4,8 @@ import application.Main;
 import application.models.Booking;
 import application.models.Film;
 import application.models.Screening;
+import application.services.Firebase;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -29,6 +31,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.tika.Tika;
 
@@ -151,11 +154,22 @@ public class FilmController extends EmployeeController {
 			try {
 				Files.copy(filePicked.toPath(), Paths.get("src/main/resources/images/films/" + txtFilmTitle.getText().trim()));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}		
-			
-			Film film = new Film(txtFilmTitle.getText().trim(), txtDescription.getText().trim(), txtFilmTitle.getText().trim(), cbxAgeRating.getValue(), FXCollections.observableArrayList());
+			}
+
+            Map<String, String> params = new HashMap<>();
+            params.put("filmID", txtFilmTitle.getText().trim());
+            params.put("ageRating", cbxAgeRating.getValue());
+            params.put("description", txtDescription.getText().replace("\n", " ").replace("\r", " "));
+            params.put("filmTitle", txtFilmTitle.getText());
+            params.put("imageFileName", txtFilmTitle.getText().trim());
+            try {
+                Firebase.createFilm(params);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+
+            Film film = new Film(txtFilmTitle.getText().trim(), txtDescription.getText().trim(), txtFilmTitle.getText().trim(), cbxAgeRating.getValue(), FXCollections.observableArrayList());
 			Main.filmList.add(film);
 			filePicked = null;
 			image = null;	
@@ -348,5 +362,4 @@ public class FilmController extends EmployeeController {
         }
         return seats;
     }
-
 }
