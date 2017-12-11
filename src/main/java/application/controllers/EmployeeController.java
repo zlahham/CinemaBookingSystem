@@ -10,14 +10,10 @@ import javafx.scene.control.ButtonType;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 public class EmployeeController extends UserController {
     public void exportFilms() {
-		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Export to TXT File");
         alert.setHeaderText("Please find the 'filmsExportList.txt' file under the root of the project directory!");

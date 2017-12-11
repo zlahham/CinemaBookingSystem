@@ -4,7 +4,6 @@ import application.Main;
 import application.models.Booking;
 import application.models.Film;
 import application.models.Screening;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,29 +11,24 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-
-import javax.activation.MimetypesFileTypeMap;
 
 import org.apache.tika.Tika;
 
@@ -56,7 +50,7 @@ public class FilmController extends EmployeeController {
     @FXML
     private TextField txtFilmTitle;
     @FXML
-    private TextField txtDescription;
+    private TextArea txtDescription;
     @FXML
     private ComboBox<String> cbxAgeRating;
     @FXML
@@ -190,9 +184,11 @@ public class FilmController extends EmployeeController {
 				if (mimeType.compareTo("image") == 0) {
 					 Image imagePicked = new Image(filePicked.toURI().toString());
 					 image.setPreserveRatio(true);
+					 //set in fxml instead?
 					 image.setFitHeight(200);
 					 image.setFitWidth(200);
 					 image.setImage(imagePicked);
+					 image.setEffect(new DropShadow(10,10,10,Color.rgb(0,0,0)));
 				} else {
 					 lblImageError.setText("The file you chose does not seem to be an image.");
 				}
@@ -233,7 +229,6 @@ public class FilmController extends EmployeeController {
 
     // used in select screening view
     public void showScreeningsOnSelectedDate(ActionEvent event) {
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         ObservableList<Screening> screeningList = FilmController.filterScreeningsByDate(dtpckrDate.getValue());
         if (screeningList.size() > 0) {
             tblScreenings.getItems().addAll(screeningList);
@@ -294,7 +289,6 @@ public class FilmController extends EmployeeController {
 
     // used in addScreenings view
     public void showAvailableTimesOnSelectedDate(ActionEvent event) {
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
         ObservableList<LocalTime> timesList = getAvailableTimesByDate(dtpckrDate.getValue());
         if (timesList.size() > 0) {
             tblTimes.getItems().addAll(timesList);
