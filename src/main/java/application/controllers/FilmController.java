@@ -160,10 +160,9 @@ public class FilmController extends EmployeeController {
             Map<String, String> params = new HashMap<>();
             params.put("filmID", txtFilmTitle.getText().trim());
             params.put("ageRating", cbxAgeRating.getValue());
-            params.put("description", txtDescription.getText());
+            params.put("description", txtDescription.getText().replace("\n", " ").replace("\r", " "));
             params.put("filmTitle", txtFilmTitle.getText());
             params.put("imageFileName", txtFilmTitle.getText().trim());
-
             try {
                 Firebase.createFilm(params);
             } catch (UnirestException e) {
