@@ -130,7 +130,6 @@ public class FilmController extends EmployeeController {
 		 image.setFitHeight(200);
 		 image.setFitWidth(200);
 		 image.setEffect(new DropShadow(10,10,10,Color.rgb(0,0,0)));
-	    
 	}
 
 	// initialize NewFilm view
