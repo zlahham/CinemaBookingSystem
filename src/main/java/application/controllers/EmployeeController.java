@@ -3,69 +3,69 @@ package application.controllers;
 import application.Main;
 import application.models.Film;
 import application.models.Screening;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class EmployeeController extends UserController {
-    public void exportFilms() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Export to TXT File");
-        alert.setHeaderText("Please find the 'filmsExportList.txt' file under the root of the project directory!");
-        alert.setContentText("Pressing OK will Export the following information for each Film: Title, Description, Age Rating, Screening Date & Time, Available & Booked Seats for each screening");
+    @FXML
+    private AnchorPane anchorpane;
+    @FXML
+    private JFXHamburger hamburger;
+    @FXML
+    private JFXDrawer drawer;
+    @FXML
+    private PieChart chartBookings;
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == ButtonType.OK){
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter("filmsExportList.txt"))) {
-                bw.write("AZ CINEMAS FILM LIST DETAILS:");
-                bw.newLine();
-                bw.write("=============================\n");
-                bw.newLine();
 
-                for (Film f : Main.filmList) {
-                    bw.write("Title: " + f.getFilmTitle());
-                    bw.newLine();
-                    bw.write("Description: " + f.getDescription());
-                    bw.newLine();
-                    bw.write("Age Rating : " + f.getAgeRating());
-                    bw.newLine();
+    public void initialize() {
+        super.initialize();
+        PieChart.Data slice1 = new PieChart.Data("Desktop", 213);
+        PieChart.Data slice2 = new PieChart.Data("Phone"  , 67);
+        PieChart.Data slice3 = new PieChart.Data("Tablet" , 36);
 
-                    ObservableList<Screening> screenings = f.getScreenings();
-                    for (int i = 0; i < screenings.size(); i++) {
-                        Screening s = screenings.get(i);
-                        int bookedSeats = 0;
-                        int availableSeats = 0;
+        chartBookings.getData().add(slice1);
+        chartBookings.getData().add(slice2);
+        chartBookings.getData().add(slice3);
+        hamburgerInitializer();
+    }
 
-                        bw.write("Screening #" + (i + 1) + ": " + s.getDateTime().format(dateTimeFormatter));
-                        bw.newLine();
-                        for(Boolean value: s.getSeats().values()) {
-                            if (value.equals(true)) {
-                                bookedSeats++;
-                            }else{
-                                availableSeats++;
-                            }
-                        }
-                        bw.write("\tAvailable Seats: " + availableSeats);
-                        bw.newLine();
-                        bw.write("\tBooked Seats: " + bookedSeats);
-                        bw.newLine();
-                        bw.write("\n");
-                    }
 
-                    bw.newLine();
-                    bw.write("----------------------------------------------");
-                    bw.newLine();
-                    bw.write("\n");
+    private void hamburgerInitializer() {
+        try {
+            VBox box = FXMLLoader.load(getClass().getResource("/views/EmployeeNavbar.fxml"));
+            drawer.setSidePane(box);
+            HamburgerBackArrowBasicTransition task = new HamburgerBackArrowBasicTransition(hamburger);
+            task.setRate(-1);
+            hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+                task.setRate(task.getRate() * -1);
+                task.play();
+
+                if (drawer.isShown()){
+                    drawer.close();
+                } else {
+                    drawer.open();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
 
-            }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
