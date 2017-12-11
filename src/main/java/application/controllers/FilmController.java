@@ -47,6 +47,15 @@ public class FilmController extends EmployeeController {
 	private static File filePicked;
 	private static ArrayList<String> errors =  new ArrayList<String>();
 
+	// controls shared across multiple views
+	// used in Film view, NewFilm view, 
+    @FXML
+    private ImageView image;
+	
+	//Film views controls
+    @FXML
+    private Label lblFilmTitle;
+	
     // AddFilm view controls
     @FXML
     private Label lblViewTitle;
@@ -56,8 +65,6 @@ public class FilmController extends EmployeeController {
     private TextArea txtDescription;
     @FXML
     private ComboBox<String> cbxAgeRating;
-    @FXML
-    private ImageView image = new ImageView();
     @FXML
     private Button btnUploadImage;
     @FXML
@@ -86,7 +93,13 @@ public class FilmController extends EmployeeController {
     public void initialize() {
 
         switch (mode) {
-            case "FCNewFilm":
+        	case "FCFilmEmployee":
+        		initializeFilm();
+        		break;
+        	case "FCFilmCustomer":
+        		initializeFilm();
+        		break;
+        	case "FCNewFilm":
                 initializeNewFilm();
                 break;
             case "FCAddScreenings":
@@ -107,9 +120,22 @@ public class FilmController extends EmployeeController {
                 break;
         }
     }
+    
+    //initialize Film views
+	private void initializeFilm() {
+	    lblFilmTitle.setText(selectedFilm.getFilmTitle());
+	    image.setPreserveRatio(true);
+	    image.setImage(selectedFilm.getImage());
+		 //set in fxml instead?
+		 image.setFitHeight(200);
+		 image.setFitWidth(200);
+		 image.setEffect(new DropShadow(10,10,10,Color.rgb(0,0,0)));
+	    
+	}
 
 	// initialize NewFilm view
 	private void initializeNewFilm() {
+	    image = new ImageView();
 		cbxAgeRating.getItems().addAll(AGE_RATINGS);
 	}
 

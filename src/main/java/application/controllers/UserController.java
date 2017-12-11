@@ -74,9 +74,9 @@ public class UserController  extends MainController{
                         && event.getClickCount() == 1) {
                     FilmController.selectedFilm = row.getItem();
                     if (((User)(Main.stage.getUserData())).getRole().compareTo("employee") == 0) {
-                    	transition("ScreeningsEmployee", "FCScreeningsEmployee");
+                    	transition("FilmEmployee", "FCFilmEmployee");
                     } else {
-                    	transition("ScreeningsCustomer", "FCScreeningsCustomer");
+                    	transition("FilmCustomer", "FCFilmCustomer");
                     }
                 }
             });
