@@ -1,6 +1,5 @@
 package application.controllers;
 
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Objects;
@@ -97,8 +96,6 @@ public class BookingController extends CustomerController {
 		// why does the lambda return a Callback, not a SimpleStringProperty?
 		// alternative to lambdas: PropertyValueFactory
 		// SimpleStringProperty is a Property wrapper for a String
-		DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
-		DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 		tblclmnBookingsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
 		tblclmnBookingsDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
 		tblclmnBookingsTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));

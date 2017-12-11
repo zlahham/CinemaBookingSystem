@@ -1,6 +1,7 @@
 package application.controllers;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 
 import application.models.Booking;
@@ -18,7 +19,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
 public class MainController {
-
+	
+	public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
+	public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
+    public static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+	
 	public void logout() {
 		Main.stage.setUserData(null);
 		transition("Login", "");
