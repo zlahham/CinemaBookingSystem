@@ -53,6 +53,8 @@ public class BookingController extends MainController {
     // view bookings view controls
     @FXML
     private TableView<Booking> tblBookings;
+	@FXML
+	private TableColumn<Booking, String> tblclmnBookingsFilmStatus;
     @FXML
     private TableColumn<Booking, String> tblclmnBookingsFilmTitle;
     @FXML
@@ -61,8 +63,6 @@ public class BookingController extends MainController {
     private TableColumn<Booking, String> tblclmnBookingsTime;
     @FXML
     private TableColumn<Booking, String> tblclmnBookingsSeats;
-    @FXML
-    private TableColumn<Booking, String> tblclmnBookingsDelete = new TableColumn<Booking, String>("Delete");
 
     // TODO: nicer icons; effects instead of new icons for booked and selected seats?
     // seats view controls
@@ -105,41 +105,12 @@ public class BookingController extends MainController {
 	private void initializeBookings() {
 		
 		tblBookings.getItems().addAll(getBookingsByCustomer((Customer)(Main.stage.getUserData())));
+		tblclmnBookingsFilmStatus.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().status()));
 		tblclmnBookingsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
 		tblclmnBookingsDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
 		tblclmnBookingsTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
-		tblclmnBookingsSeats.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSeats().keySet().toString()));
+		tblclmnBookingsSeats.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSeats().keySet().toString().replace("[", "").replace("]", "").toUpperCase()));
 
-		tblclmnBookingsDelete.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
-
-		Callback<TableColumn<Booking, String>, TableCell<Booking, String>> cellFactory = 
-				new Callback<TableColumn<Booking, String>, TableCell<Booking, String>>() {
-					@Override
-					public TableCell<Booking, String> call(final TableColumn<Booking, String> param) {
-						final TableCell<Booking, String> cell = new TableCell<Booking, String>() {
-
-							final Button btn = new Button("Delete");
-
-							@Override
-							public void updateItem(String item, boolean empty) {
-								super.updateItem(item, empty);
-								if (empty) {
-									setGraphic(null);
-									setText(null);
-								} else {
-									btn.setOnAction(event -> {
-										deleteBooking(getTableView().getItems().get(getIndex()).getBookingID());
-										getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
-									});
-									setGraphic(btn);
-									setText(null);
-								}
-							}
-						};
-						return cell;
-					}
-				};
-		tblclmnBookingsDelete.setCellFactory(cellFactory);
         tblBookings.setRowFactory(r -> {
             TableRow<Booking> row = new TableRow<>();
             row.setOnMouseClicked(rowClick -> {
