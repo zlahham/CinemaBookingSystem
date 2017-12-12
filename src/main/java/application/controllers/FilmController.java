@@ -381,7 +381,7 @@ public class FilmController extends MainController {
     public void addButtonPress(ActionEvent event) {
     	ArrayList<Screening> screeningsToAdd = new ArrayList<Screening>();
     	for (LocalDateTime dt : screeningDateTimesToAdd) {
-    		Screening s = new Screening(selectedFilm.getFilmTitle(), dt, emptySeatPlan(Screening.theatreDimensions));
+    		Screening s = new Screening(selectedFilm.getFilmTitle(), dt, getEmptySeatPlan(Screening.theatreDimensions));
     		screeningsToAdd.add(s);
     	}
     	selectedFilm.addScreenings(screeningsToAdd);
@@ -428,7 +428,7 @@ public class FilmController extends MainController {
         return returnList;
     }
 
-    public static HashMap<String, Boolean> emptySeatPlan(int[] dimensions) {
+    public static HashMap<String, Boolean> getEmptySeatPlan(int[] dimensions) {
         HashMap<String, Boolean> seats = new HashMap<String, Boolean>();
         for (int i = 0; i < dimensions[0]; i++) {
             for (int j = 0; j < dimensions[1]; j++) {
@@ -447,7 +447,7 @@ public class FilmController extends MainController {
                 	// This needs to come first (before removing the Screening)
                 	// because deleteBooking uses getScreeningForBooking, which uses the
                 	// FilmList screening
-                	for (Booking b : BookingController.filterBookingsByScreening(screening)) {
+                	for (Booking b : BookingController.getBookingsForScreening(screening)) {
                 		BookingController.deleteBooking(b.getBookingID());
                 	}
                 	f.removeScreening(screening);

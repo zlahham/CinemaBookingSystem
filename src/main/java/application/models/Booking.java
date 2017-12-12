@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map.Entry;
 
 import org.json.JSONObject;
 
@@ -52,7 +53,27 @@ public class Booking {
 	public HashMap<String, Boolean> getSeats() {
 		return this.seats;
 	}
-	public void addSeats(HashMap<String, Boolean> seats) {
-		this.seats.putAll(seats);
+	public boolean checkSeat(String seat) {
+		if (this.seats.containsKey(seat)) {
+			return seats.get(seat);
+		} else {
+			return false;
+		}
+	}
+	public void updateSeats(HashMap<String, Boolean> seats) {
+		Iterator<Entry<String, Boolean>> iterator = seats.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Entry<String, Boolean> seat = iterator.next();
+			if (seat.getValue()) {
+				System.out.println("Adding" + seat);
+				this.seats.put(seat.getKey(), seat.getValue());
+			} else {
+				System.out.println("Removing" + seat);
+				if (this.seats.containsKey(seat.getKey())) {
+					this.seats.remove(seat.getKey());
+				}
+			}
+		}
+		System.out.println("Seats in booking: " + this.seats);
 	}
 }

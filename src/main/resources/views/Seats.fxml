@@ -51,6 +51,7 @@
                   <Font size="30.0" />
                </font>
             </Label>
+            <Label fx:id="lblFailure" prefHeight="120.0" prefWidth="168.0" textFill="#da1313" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="6" />
          </children>
       </GridPane>
    </children>

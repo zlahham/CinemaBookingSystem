@@ -34,6 +34,7 @@ public class BookingController extends MainController {
     public static String mode = "";
 
 	public static Booking chosenBooking = null;
+	public static Booking existingBooking;
 	public static Screening chosenScreening = null;
     private static HashMap<String, Boolean> seatsBooked;
 
@@ -103,7 +104,7 @@ public class BookingController extends MainController {
 	// view bookings view initialisation
 	private void initializeViewBookings() {
 		
-		tblBookings.getItems().addAll(filterBookingsByCustomer((Customer)(Main.stage.getUserData())));
+		tblBookings.getItems().addAll(getBookingsByCustomer((Customer)(Main.stage.getUserData())));
 		tblclmnBookingsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
 		tblclmnBookingsDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
 		tblclmnBookingsTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
@@ -167,10 +168,18 @@ public class BookingController extends MainController {
 		int dimensions[] = (chosenScreening.getTheatreDimensions());
 		seatsArray = new ImageView[dimensions[0]][dimensions[1]];
 		seatsBooked = new HashMap<String, Boolean>();
+		existingBooking = getCustomerBookingForScreening((Customer)(Main.stage.getUserData()), chosenScreening);
 		for (int i = 0; i < seatsArray.length; i++) {
 			for (int j = 0; j < seatsArray[i].length; j++) {
 				if (chosenScreening.checkSeat((char) ('a' + i) + "" + (j + 1))) {
-					seatsArray[i][j] = new ImageView(booked);
+					if (mode.compareTo("BCSeats") == 0) {
+						if (existingBooking.checkSeat((char) ('a' + i) + "" + (j + 1))) {
+							seatsArray[i][j] = new ImageView(selected);
+							seatsBooked.put((char)('a' + i) + "" + (j+1), true);
+						}
+					} else {
+						seatsArray[i][j] = new ImageView(booked);
+					}
 				} else {
 					seatsArray[i][j] = new ImageView(unbooked);
 				}
@@ -210,7 +219,7 @@ public class BookingController extends MainController {
 				grdpnSeats.getChildren().remove(seatsArray[i][j]);
 				seatsArray[i][j] = new ImageView(unbooked);
 				grdpnSeats.add(seatsArray[i][j], j, i);
-				seatsBooked.remove((char)('a' + i) + "" + (j+1), true);
+				seatsBooked.put((char)('a' + i) + "" + (j+1), false);
 				gridPaneClick(i,j);
 			} else {
 				// display error message (seat already booked)
@@ -221,12 +230,15 @@ public class BookingController extends MainController {
 	// used in seats view
 	public void bookButtonPressed(ActionEvent event) {
 
-		if (!seatsBooked.isEmpty()) {
+		System.out.println(existingBooking.getSeats());
+		System.out.println(seatsBooked);
+		if (!existingBooking.getSeats().equals(seatsBooked)) {
+		//if (!seatsBooked.isEmpty()) {
 			// so this is huge mess (the part amending an existing booking)
 			// is why it would be good to have the Screening contain usernames in seats
 			// other things also need to be changed
 			// TODO: change the logic here, or change data structure
-            ObservableList<Booking> customerBookings = filterBookingsByCustomer((Customer)(Main.stage.getUserData()));
+            ObservableList<Booking> customerBookings = getBookingsByCustomer((Customer)(Main.stage.getUserData()));
 			// check if customer has bookings:
 			if (customerBookings != null) {
 				for (int i = 0; i < customerBookings.size(); i++) {
@@ -234,8 +246,10 @@ public class BookingController extends MainController {
 					if (customerBookings.get(i).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
 						// TODO: tell the customer they are amending an existing booking
 						// amend customer's booking in chosenScreening:
+						System.out.println("Amending existing");
 						chosenBooking = customerBookings.get(i);
-						updateBookingSeats(chosenBooking.getBookingID(), seatsBooked);
+						//updateBookingSeats(chosenBooking.getBookingID(), seatsBooked);
+						updateBookingSeats(chosenBooking.getBookingID(), getFullSeatPlan(seatsBooked));
 						seatsBooked = null;
 						break;
 					}
@@ -243,17 +257,23 @@ public class BookingController extends MainController {
 				if (seatsBooked != null) { // this if is a silly hack to prevent duplicate bookings; should maybe
 											// rewrite logic
                     chosenBooking = addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
+                    System.out.println("Creaating new (customer has bookings");
 					seatsBooked = null;
 				}
 			} else { // add a new booking if customer has no bookings:
                 chosenBooking = addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
+                System.out.println("Creaating new (customer has no bookings");
 				seatsBooked = null;
 			}
 			chosenScreening = null;
 			System.out.println("Chosen booking " + chosenBooking.getBookingID());
 			transition("Booking", "BCBooking");
 		} else {
-			lblFailure.setText("select some seats, man");
+			if (seatsBooked.size() == 0) {
+				lblFailure.setText("Please select seats to create a booking.");
+			} else {
+				lblFailure.setText("You have not modified your existing booking. Please either change your seats or press back to keep the booking as is.");
+			}
 		}
 	}
 	
@@ -266,7 +286,7 @@ public class BookingController extends MainController {
 		return null;
 	}
 	
-	public static ObservableList<Booking> filterBookingsByCustomer(Customer customer) {
+	public static ObservableList<Booking> getBookingsByCustomer(Customer customer) {
 		ObservableList<Booking> returnList = FXCollections.observableArrayList();
 		for (Booking b : Main.bookingList) {
 			if (customer.getUsername().equals(b.getUsername())){
@@ -281,7 +301,7 @@ public class BookingController extends MainController {
 		return returnList;
 	}
 	
-	public static ObservableList<Booking> filterBookingsByScreening(Screening screening) {
+	public static ObservableList<Booking> getBookingsForScreening(Screening screening) {
 		ObservableList<Booking> returnList = FXCollections.observableArrayList();
 		for (Booking b : Main.bookingList) {
 			if (b.getDateTime().compareTo(screening.getDateTime()) == 0){
@@ -289,6 +309,20 @@ public class BookingController extends MainController {
 			}
 		}
 		return returnList;
+	}
+	
+	
+	public static Booking getCustomerBookingForScreening(Customer customer, Screening screening) {
+		ObservableList<Booking> returnList = getBookingsByCustomer(customer);
+		returnList.retainAll(getBookingsForScreening(screening));
+		//A customer should only have one booking per screening, so the list should contain at 
+		//most one element
+		if (returnList.size() == 1) {
+			return returnList.get(0);
+		} else {
+			//TODO: print error message?
+			return null;
+		}
 	}
 	
 	// returns a reference to the Booking for convenience
@@ -299,12 +333,19 @@ public class BookingController extends MainController {
 		return getBooking(booking.getBookingID());
 	}
 	
+	public static HashMap<String, Boolean> getFullSeatPlan(HashMap<String, Boolean> seats) {
+		HashMap<String, Boolean> returnPlan = FilmController.getEmptySeatPlan(Screening.theatreDimensions);
+		returnPlan.putAll(seats);
+		return returnPlan;
+	}
+	
 	// TODO: remove this; or merge it with addSeats in Booking?
 	// add seat removal functionality to the same method
 	// make the interfaces uniform
 	public void updateBookingSeats(String bookingID, HashMap<String, Boolean> seats) {
 		Booking booking = getBooking(bookingID);
-		booking.addSeats(seats);
+		System.out.println("Updating with seats " + seats);
+		booking.updateSeats(seats);
 		FilmController.getScreeningForBooking(booking).updateSeats(seats);
 	}
 	
