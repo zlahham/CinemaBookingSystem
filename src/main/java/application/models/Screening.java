@@ -12,7 +12,7 @@ import org.json.JSONObject;
 public class Screening {
 	// used when a new Screening is created within the program;
 	// Screenings from the database get their dimensions from the database
-	public static final int[] theatreDimensions = {3, 3};	
+	public static final int[] theatreDimensions = {4, 6};	
 	//TODO: put this somewhere else?
 	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 	private String screeningID;
