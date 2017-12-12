@@ -77,11 +77,7 @@ public class LoginController extends MainController {
 
 	}
 
-	public void transitionToRegistrationView(ActionEvent event) {
-		transition("Registration", "");
-	}
-
-	public void createUser(ActionEvent event) throws UnirestException, InterruptedException {
+	public void createUser(ActionEvent event) throws UnirestException {
 		lblFailure.setText("");
 
 		if (txtEmail.getText().equals("") || 
