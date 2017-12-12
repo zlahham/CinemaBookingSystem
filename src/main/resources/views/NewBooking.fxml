@@ -1,54 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.FilmController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="customer" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.FilmController">
    <children>
-      <GridPane prefHeight="1080.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" prefWidth="100.0" styleClass="warning" text="Log out" GridPane.columnIndex="7" />
-            <Button fx:id="btnToCustomer" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="100.0" styleClass="success" text="Back" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <DatePicker fx:id="dtpckrDate" onAction="#showScreeningsOnSelectedDate" promptText="Choose date" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <TableView fx:id="tblScreenings" prefHeight="0.0" prefWidth="628.0" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.rowIndex="2" GridPane.rowSpan="3">
-              <columns>
-                <TableColumn fx:id="tblclmnScreeningsFilmTitle" prefWidth="400.0" text="Film Title" />
-                <TableColumn fx:id="tblclmnScreeningsTime" minWidth="0.0" prefWidth="165.85043334960938" text="Time" />
-                  <TableColumn fx:id="tblclmnScreeningsBook" minWidth="0.0" prefWidth="411.0" text="Book" />
-              </columns>
-            </TableView>
-            <Label text="New Booking" textFill="WHITE" underline="true" GridPane.columnIndex="3" GridPane.columnSpan="2">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-         </children>
-      </GridPane>
+      <BorderPane prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <GridPane prefHeight="1080.0" prefWidth="1920.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                  <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <DatePicker fx:id="dtpckrDate" onAction="#showScreeningsOnSelectedDate" promptText="Choose Screening Date" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                  <TableView fx:id="tblScreenings" prefHeight="0.0" prefWidth="628.0" GridPane.columnSpan="6" GridPane.rowIndex="2" GridPane.rowSpan="3">
+                    <columns>
+                        <TableColumn fx:id="tblclmnScreeningsFilmImage" editable="false" text="Image">
+                           <graphic>
+                              <OctIconView glyphName="FILE_MEDIA" />
+                           </graphic>
+                        </TableColumn>
+                      <TableColumn fx:id="tblclmnScreeningsFilmTitle" prefWidth="250.0" text="Film Title">
+                           <graphic>
+                              <OctIconView glyphName="TEXT_SIZE" />
+                           </graphic>
+                        </TableColumn>
+                      <TableColumn fx:id="tblclmnScreeningsTime" minWidth="0.0" prefWidth="181.9320068359375" text="Time">
+                           <graphic>
+                              <MaterialDesignIconView glyphName="CLOCK" />
+                           </graphic>
+                        </TableColumn>
+                        <TableColumn fx:id="tblclmnScreeningsFilmAge" prefWidth="123.06793212890625" text="Age">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="CHILD" />
+                           </graphic>
+                        </TableColumn>
+                        <TableColumn fx:id="tblclmnScreeningsSeats" minWidth="0.0" prefWidth="244.27178955078125" text="Seats Available">
+                           <graphic>
+                              <MaterialDesignIconView glyphName="SEAT_RECLINE_NORMAL" />
+                           </graphic>
+                        </TableColumn>
+                    </columns>
+                  </TableView>
+                  <Label text="New Booking" underline="true" GridPane.columnIndex="1" GridPane.columnSpan="4">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                     <graphic>
+                        <MaterialDesignIconView glyphName="PLAYLIST_PLUS" size="40" text="" />
+                     </graphic>
+                  </Label>
+                  <Label disable="true" text="Click on any row to view available seats for that screening:" textFill="#6b371c" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                     <graphic>
+                        <FontAwesomeIconView fill="#ff8548" glyphName="INFO_CIRCLE" />
+                     </graphic>
+                     <padding>
+                        <Insets bottom="6.0" />
+                     </padding>
+                  </Label>
+                  <Label disable="true" layoutX="10.0" layoutY="233.0" prefHeight="42.0" text="Please choose a date that you would like to make a booking for:" textFill="#6b371c" GridPane.columnSpan="4" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                     <graphic>
+                        <FontAwesomeIconView fill="#ff8548" glyphName="INFO_CIRCLE" />
+                     </graphic>
+                     <padding>
+                        <Insets top="21.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </GridPane>
+         </center>
+         <left>
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnLogout" buttonType="RAISED" layoutX="50.0" layoutY="92.0" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="warning" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="15" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </right>
+         <bottom>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnToCustomer" buttonType="RAISED" layoutX="223.0" layoutY="77.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.leftAnchor="200.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="info" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </bottom>
+      </BorderPane>
    </children>
 </AnchorPane>

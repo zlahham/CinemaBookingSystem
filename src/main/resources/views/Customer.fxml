@@ -70,17 +70,17 @@
                         <Insets left="27.0" top="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <TableView fx:id="tblFilms" prefHeight="530.0" prefWidth="860.0" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="2" GridPane.rowSpan="3">
+                  <TableView fx:id="tblFilms" prefHeight="500.0" prefWidth="860.0" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="2" GridPane.rowSpan="3">
                      <columns>
                         <TableColumn fx:id="tblclmnFilmsImage" editable="false" text="Image">
                            <graphic>
                               <OctIconView glyphName="FILE_MEDIA" />
                            </graphic></TableColumn>
-                        <TableColumn fx:id="tblclmnFilmsFilmTitle" minWidth="7.0" prefWidth="250.0" text="Title">
+                        <TableColumn fx:id="tblclmnFilmsFilmTitle" minWidth="7.0" prefWidth="250.0" text="Film Title">
                            <graphic>
                               <OctIconView glyphName="TEXT_SIZE" />
                            </graphic></TableColumn>
-                        <TableColumn fx:id="tblclmnFilmsDescription" minWidth="0.0" prefWidth="300.0" text="Description">
+                        <TableColumn fx:id="tblclmnFilmsDescription" minWidth="0.0" prefWidth="300.0" text="Film Description">
                            <graphic>
                               <FontAwesomeIconView glyphName="PENCIL" />
                            </graphic></TableColumn>
