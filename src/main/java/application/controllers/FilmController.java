@@ -97,9 +97,11 @@ public class FilmController extends EmployeeController {
     @FXML
     private TableColumn<LocalTime, String> tblclmnTimesTime;
     @FXML
-    private TableColumn<LocalTime, String> tblclmnTimesAdd = new TableColumn<LocalTime, String>("Add");
+    private TableView<LocalDateTime> tblDateTimesToAdd;
     @FXML
-    private Button btnAdd;
+    private TableColumn<LocalDateTime, String> tblclmnDateTimesToAddDate;
+    @FXML
+    private TableColumn<LocalDateTime, String> tblclmnDateTimesToAddTime;
     
     public void initialize() {
 
@@ -330,46 +332,53 @@ public class FilmController extends EmployeeController {
     private void initializeNewScreening() {
 
         screeningDateTimesToAdd = FXCollections.observableArrayList();
-        tblclmnTimesAdd.setCellValueFactory(new PropertyValueFactory<>("dummy"));
-        Callback<TableColumn<LocalTime, String>, TableCell<LocalTime, String>> cellFactory =
-                new Callback<TableColumn<LocalTime, String>, TableCell<LocalTime, String>>() {
-                    @Override
-                    public TableCell<LocalTime, String> call(final TableColumn<LocalTime, String> param) {
-                        final TableCell<LocalTime, String> cell = new TableCell<LocalTime, String>() {
-
-                            final Button btnAdd = new Button("Add");
-
-                            @Override
-                            public void updateItem(String item, boolean empty) {
-                                super.updateItem(item, empty);
-                                if (empty) {
-                                    setGraphic(null);
-                                    setText(null);
-                                } else {
-                                    btnAdd.setOnAction(event -> {
-                                        screeningDateTimesToAdd.add(LocalDateTime.of(dtpckrDate.getValue(),getTableView().getItems().get(getIndex())));
-                                        getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
-                                    });
-                                    setGraphic(btnAdd);
-                                    setText(null);
-                                }
-                            }
-                        };
-                        return cell;
-                    }
-                };
-        tblclmnTimesAdd.setCellFactory(cellFactory);
     }
     
     // used in addScreenings view
     public void showAvailableTimesOnSelectedDate(ActionEvent event) {
+    
+    	
+    	
+        tblTimes.getItems().clear();
         ObservableList<LocalTime> timesList = getAvailableTimesByDate(dtpckrDate.getValue());
         if (timesList.size() > 0) {
             tblTimes.getItems().addAll(timesList);
             tblclmnTimesTime.setCellValueFactory(
                     c -> new SimpleStringProperty(c.getValue().format(timeFormatter)));
+            tblTimes.setRowFactory(r -> {
+                TableRow<LocalTime> row = new TableRow<>();
+                row.setOnMouseClicked(rowClick -> {
+                    if (!row.isEmpty() && rowClick.getButton() == MouseButton.PRIMARY
+                            && rowClick.getClickCount() == 1) {
+                    	screeningDateTimesToAdd.add(LocalDateTime.of(dtpckrDate.getValue(), row.getItem()));
+                    	tblDateTimesToAdd.getItems().add(LocalDateTime.of(dtpckrDate.getValue(), row.getItem()));
+                        tblclmnDateTimesToAddDate.setCellValueFactory(
+                                c -> new SimpleStringProperty(c.getValue().format(dateFormatter)));
+                        tblclmnDateTimesToAddTime.setCellValueFactory(
+                                c -> new SimpleStringProperty(c.getValue().format(timeFormatter)));
+                    	tblTimes.getItems().remove(row.getIndex());
+                    }
+                });
+                return row;
+            });
+            
+            tblDateTimesToAdd.setRowFactory(r -> {
+                TableRow<LocalDateTime> row = new TableRow<>();
+                row.setOnMouseClicked(rowClick -> {
+                    if (!row.isEmpty() && rowClick.getButton() == MouseButton.PRIMARY
+                            && rowClick.getClickCount() == 1) {
+                    	screeningDateTimesToAdd.remove(row.getItem());
+                    	if (dtpckrDate.getValue().compareTo(row.getItem().toLocalDate()) == 0) {
+                    		tblTimes.getItems().add(row.getItem().toLocalTime());
+                    	}
+                    	tblDateTimesToAdd.getItems().remove(row.getItem());
+                    }
+                });
+                return row;
+            });
+            
+            
         } else {
-            tblTimes.getItems().clear();
         	lblTableInfo = new Label("No available times on selected date.");
             tblTimes.setPlaceholder(lblTableInfo);
         }
