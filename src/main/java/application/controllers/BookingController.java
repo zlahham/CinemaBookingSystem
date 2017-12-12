@@ -225,7 +225,7 @@ public class BookingController extends MainController {
 				seatsBooked.put((char)('a' + i) + "" + (j+1), false);
 				gridPaneClick(i,j);
 			} else {
-				// display error message (seat already booked)
+				// TODO:display error message (seat already booked)
 			}
 		});
 	}
@@ -235,36 +235,41 @@ public class BookingController extends MainController {
 
 		//debugging
 		if (existingBooking != null) {
-			System.out.println(existingBooking.getSeats());
+			System.out.println("Existing booking seats: " + existingBooking.getSeats());
 		}
-		System.out.println(seatsBooked);
+		System.out.println("SeatsBooked seats: " + seatsBooked);
 		//
 		//check if customer has a booking a for the screening:
 		if (existingBooking != null) {
 			//check if seats have been changed:
-			if (!existingBooking.getSeats().equals(seatsBooked)) {
+			if (!getFullSeatPlan(existingBooking.getSeats()).equals(getFullSeatPlan(seatsBooked))) {
 				// TODO: give the customer appropriate messages about whether they are amending
 				// a booking or creating one etc
 				// amend customer's booking in chosenScreening:
+				System.out.println("Amending existing");
 				chosenBooking = existingBooking;
 				updateBookingSeats(chosenBooking.getBookingID(), getFullSeatPlan(seatsBooked));
 				seatsBooked = null;
 				existingBooking = null;
+				// TODO: check the logic with this (chosenScreening) and the back buttons etc
+				// chosenScreening = null;
+				transition("Booking", "BCBooking");
 			} else {
 				lblFailure.setText("You have not modified your existing booking. Please either change your seats or press back to keep the booking as is.");
 			}
 		} else {
-			if (seatsBooked.size() != 0) {
+			if (seatsBooked.containsValue(true)) {
+				System.out.println("Creating new");
 				chosenBooking = addBooking(chosenScreening, (Customer) (Main.stage.getUserData()), seatsBooked);
 				seatsBooked = null;
 				existingBooking = null;
+				// TODO: check the logic with this (chosenScreening) and the back buttons etc
+				// chosenScreening = null;
+				transition("Booking", "BCBooking");
 			} else {
 				lblFailure.setText("Please select seats to create a booking.");
 			}
 		}
-		// TODO: check the logic with this (chosenScreening) and the back buttons etc
-		// chosenScreening = null;
-		transition("Booking", "BCBooking");
 	}
 	
 	public static Booking getBooking(String bookingID) {
