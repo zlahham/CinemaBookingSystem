@@ -230,51 +230,38 @@ public class BookingController extends MainController {
 	// used in seats view
 	public void bookButtonPressed(ActionEvent event) {
 
-		System.out.println(existingBooking.getSeats());
+		//debugging
+		if (existingBooking != null) {
+			System.out.println(existingBooking.getSeats());
+		}
 		System.out.println(seatsBooked);
-		if (!existingBooking.getSeats().equals(seatsBooked)) {
-		//if (!seatsBooked.isEmpty()) {
-			// so this is huge mess (the part amending an existing booking)
-			// is why it would be good to have the Screening contain usernames in seats
-			// other things also need to be changed
-			// TODO: change the logic here, or change data structure
-            ObservableList<Booking> customerBookings = getBookingsByCustomer((Customer)(Main.stage.getUserData()));
-			// check if customer has bookings:
-			if (customerBookings != null) {
-				for (int i = 0; i < customerBookings.size(); i++) {
-					// check if customer has bookings in chosenScreening:
-					if (customerBookings.get(i).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
-						// TODO: tell the customer they are amending an existing booking
-						// amend customer's booking in chosenScreening:
-						System.out.println("Amending existing");
-						chosenBooking = customerBookings.get(i);
-						//updateBookingSeats(chosenBooking.getBookingID(), seatsBooked);
-						updateBookingSeats(chosenBooking.getBookingID(), getFullSeatPlan(seatsBooked));
-						seatsBooked = null;
-						break;
-					}
-				} // add a new booking if customer has no bookings in chosenScreening:
-				if (seatsBooked != null) { // this if is a silly hack to prevent duplicate bookings; should maybe
-											// rewrite logic
-                    chosenBooking = addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
-                    System.out.println("Creaating new (customer has bookings");
-					seatsBooked = null;
-				}
-			} else { // add a new booking if customer has no bookings:
-                chosenBooking = addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
-                System.out.println("Creaating new (customer has no bookings");
+		//
+		//check if customer has a booking a for the screening:
+		if (existingBooking != null) {
+			//check if seats have been changed:
+			if (!existingBooking.getSeats().equals(seatsBooked)) {
+				// TODO: give the customer appropriate messages about whether they are amending
+				// a booking or creating one etc
+				// amend customer's booking in chosenScreening:
+				chosenBooking = existingBooking;
+				updateBookingSeats(chosenBooking.getBookingID(), getFullSeatPlan(seatsBooked));
 				seatsBooked = null;
-			}
-			chosenScreening = null;
-			System.out.println("Chosen booking " + chosenBooking.getBookingID());
-			transition("Booking", "BCBooking");
-		} else {
-			if (seatsBooked.size() == 0) {
-				lblFailure.setText("Please select seats to create a booking.");
+				existingBooking = null;
 			} else {
 				lblFailure.setText("You have not modified your existing booking. Please either change your seats or press back to keep the booking as is.");
 			}
+		} else {
+			if (seatsBooked.size() != 0) {
+				chosenBooking = addBooking(chosenScreening, (Customer) (Main.stage.getUserData()), seatsBooked);
+				seatsBooked = null;
+				existingBooking = null;
+			} else {
+				lblFailure.setText("Please select seats to create a booking.");
+			}
 		}
+		// TODO: check the logic with this (chosenScreening) and the back buttons etc
+		// chosenScreening = null;
+		transition("Booking", "BCBooking");
 	}
 	
 	public static Booking getBooking(String bookingID) {
@@ -344,7 +331,6 @@ public class BookingController extends MainController {
 	// make the interfaces uniform
 	public void updateBookingSeats(String bookingID, HashMap<String, Boolean> seats) {
 		Booking booking = getBooking(bookingID);
-		System.out.println("Updating with seats " + seats);
 		booking.updateSeats(seats);
 		FilmController.getScreeningForBooking(booking).updateSeats(seats);
 	}

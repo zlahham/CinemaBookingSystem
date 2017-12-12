@@ -432,7 +432,7 @@ public class FilmController extends MainController {
         HashMap<String, Boolean> seats = new HashMap<String, Boolean>();
         for (int i = 0; i < dimensions[0]; i++) {
             for (int j = 0; j < dimensions[1]; j++) {
-                seats.put((char) ('a' + i / 3) + "" + (j % 3 + 1), false);
+                seats.put((char) ('a' + i) + "" + (j + 1), false);
             }
         }
         return seats;
