@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
+import javafx.util.Callback;
 import org.apache.tika.Tika;
 
 import java.io.File;
@@ -351,12 +352,13 @@ public class FilmController extends MainController {
     private void initializeNewBooking() {
         lblTableInfo = new Label("Select a date.");
         tblScreenings.setPlaceholder(lblTableInfo);
+        disableDatesInThePast();
     }
 
     // used in new booking view
     public void showScreeningsOnSelectedDate(ActionEvent event) {
         tblScreenings.getItems().clear();
-        ObservableList<Screening> screeningList = FilmController.filterScreeningsByDate(dtpckrDate.getValue());
+        ObservableList<Screening> screeningList = filterScreeningsByDate(dtpckrDate.getValue());
         if (screeningList.size() > 0) {
             tblScreenings.getItems().addAll(screeningList);
             tblclmnScreeningsFilmImage.setCellValueFactory(c -> {
@@ -455,5 +457,25 @@ public class FilmController extends MainController {
         selectedFilm.addScreenings(screeningsToAdd);
         screeningDateTimesToAdd.clear();
         transition("ScreeningsEmployee", "FCScreeningsEmployee");
+    }
+
+    private void disableDatesInThePast() {
+        final Callback<DatePicker, DateCell> dayCellFactory =
+                new Callback<DatePicker, DateCell>() {
+                    @Override
+                    public DateCell call(final DatePicker datePicker) {
+                        return new DateCell() {
+                            @Override
+                            public void updateItem(LocalDate item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (item.isBefore(LocalDate.now())) {
+                                    setDisable(true);
+                                    setStyle("-fx-background-color: #ffc0cb;");
+                                }
+                            }
+                        };
+                    }
+                };
+        dtpckrDate.setDayCellFactory(dayCellFactory);
     }
 }
