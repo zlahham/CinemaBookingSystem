@@ -29,7 +29,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 
-public class BookingController extends CustomerController {
+public class BookingController extends MainController {
 
     //TODO: move variable definitions into initialisation methods?
 
@@ -93,6 +93,9 @@ public class BookingController extends CustomerController {
 			case "BCSeats":
 				initializeSeatPlan();
 				break;
+			case "BCScreening":
+				initializeSeatPlan();
+				break;
 			default:
 				System.err.println(mode);
 				System.err.println("Something has gone horribly wrong (BookingController) and it's probably Aleksi's fault");
@@ -102,17 +105,8 @@ public class BookingController extends CustomerController {
 
 	// view bookings view initialisation
 	private void initializeViewBookings() {
-		// tblBookings.getItems() is an ObservableList<Booking>;
-		// here we set it equal to the customer's bookings field
 		
 		tblBookings.getItems().addAll(filterBookingsByCustomer((Customer)(Main.stage.getUserData())));
-
-		// c is a TableColumn.CellDataFeatures<Booking, String> object, this class
-		// being a wrapper class for the cells in the TableView
-		// where does c come from?
-		// why does the lambda return a Callback, not a SimpleStringProperty?
-		// alternative to lambdas: PropertyValueFactory
-		// SimpleStringProperty is a Property wrapper for a String
 		tblclmnBookingsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
 		tblclmnBookingsDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
 		tblclmnBookingsTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
@@ -161,6 +155,7 @@ public class BookingController extends CustomerController {
         });
 	}
 
+	// booking view initialization
 	private void initializeBooking() {
 		lblFilmTitle.setText(chosenBooking.getFilmTitle());
 		lblDate.setText(chosenBooking.getDateTime().format(dateFormatter));
@@ -170,7 +165,7 @@ public class BookingController extends CustomerController {
 	    
 	}
 	
-	// seats view initialisation
+	// seats view and screening view initialisation
 	private void initializeSeatPlan() {
 		int dimensions[] = (chosenScreening.getTheatreDimensions());
 		seatsArray = new ImageView[dimensions[0]][dimensions[1]];
@@ -183,12 +178,26 @@ public class BookingController extends CustomerController {
 					seatsArray[i][j] = new ImageView(unbooked);
 				}
 
-				gridPaneClick(i, j);
+				if (mode.compareTo("BCSeats") == 0) {
+					gridPaneClick(i, j);
+				}
 
 				GridPane.setConstraints(seatsArray[i][j], j, i);
 				grdpnSeats.getChildren().add(seatsArray[i][j]);
 			}
 		}
+	}
+	
+	//used in Booking view
+	public void deleteBookingButtonPress(ActionEvent event) {
+		deleteBooking(chosenBooking.getBookingID());
+		transition("ViewBookings", "BCViewBookings");
+	}
+	
+	//used in Screening view
+	public void deleteScreeningButtonPress(ActionEvent event) {
+		FilmController.deleteScreening(chosenScreening);
+		transition("ScreeningsEmployee", "FCScreeningsEmployee");
 	}
 	
 	// used in seats view
@@ -251,7 +260,7 @@ public class BookingController extends CustomerController {
 		}
 	}
 	
-	public Booking getBooking(String bookingID) {
+	public static Booking getBooking(String bookingID) {
 		for (Booking b : Main.bookingList) {
 			if (b.getBookingID().compareTo(bookingID) == 0) {
 				return b;
@@ -262,9 +271,24 @@ public class BookingController extends CustomerController {
 	
 	public static ObservableList<Booking> filterBookingsByCustomer(Customer customer) {
 		ObservableList<Booking> returnList = FXCollections.observableArrayList();
+		for (Booking b : Main.bookingList) {
+			if (customer.getUsername().equals(b.getUsername())){
+				returnList.add(b);
+			}
+		}/*
 		for (int i = 0; i < Main.bookingList.size(); i++) {
 			if (customer.getUsername().equals(Main.bookingList.get(i).getUsername())){
 				returnList.add(Main.bookingList.get(i));
+			}
+		}*/
+		return returnList;
+	}
+	
+	public static ObservableList<Booking> filterBookingsByScreening(Screening screening) {
+		ObservableList<Booking> returnList = FXCollections.observableArrayList();
+		for (Booking b : Main.bookingList) {
+			if (b.getDateTime().compareTo(screening.getDateTime()) == 0){
+				returnList.add(b);
 			}
 		}
 		return returnList;
@@ -286,13 +310,8 @@ public class BookingController extends CustomerController {
 		booking.addSeats(seats);
 		FilmController.getScreeningForBooking(booking).updateSeats(seats);
 	}
-
-	public void deleteBookingButtonPress(ActionEvent event) {
-		deleteBooking(chosenBooking.getBookingID());
-		transition("ViewBookings", "BCViewBookings");
-	}
 	
-	public void deleteBooking(String bookingID) {
+	public static void deleteBooking(String bookingID) {
 		//TODO change data structure to make this less horrendous
 		//this first part removes the booked seats from the screening
 		Booking b = getBooking(bookingID);

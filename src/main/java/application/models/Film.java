@@ -89,5 +89,18 @@ public class Film {
 		this.screenings.addAll(screenings);
 	}
 	
+	//TODO change to use a List?
+	public void removeScreening(Screening screening) {
+		Iterator<Screening> iterator = this.screenings.iterator();
+		while (iterator.hasNext()) {
+			Screening s = iterator.next();
+			if (s.getScreeningID().compareTo(screening.getScreeningID()) == 0) {
+				iterator.remove();
+				return;
+			}
+		}
+		//TODO: print error message?
+	}
+	
 	
 }

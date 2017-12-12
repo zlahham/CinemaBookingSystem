@@ -31,11 +31,12 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.tika.Tika;
 
-public class FilmController extends EmployeeController {
+public class FilmController extends MainController {
 	
     public static final ObservableList<String> AGE_RATINGS = FXCollections
             .observableArrayList(Arrays.asList("U", "PG", "12A", "12", "15", "18", "R18"));
@@ -265,10 +266,10 @@ public class FilmController extends EmployeeController {
                 row.setOnMouseClicked(rowClick -> {
                     if (!row.isEmpty() && rowClick.getButton() == MouseButton.PRIMARY
                             && rowClick.getClickCount() == 1) {
+                    	BookingController.chosenScreening = row.getItem();
                     	if (mode.compareTo("FCScreeningsEmployee") == 0) {
-                    		System.out.println("Transition to screening view");
+                    		transition("Screening", "BCScreening");                    
                     	} else if (mode.compareTo("FCScreeningsCustomer") == 0) {
-                    		BookingController.chosenScreening = row.getItem();
                     		transition("Seats", "BCSeats");
                     	} else {
                     		//TODO: print error message?
@@ -330,15 +331,11 @@ public class FilmController extends EmployeeController {
     
     // initializeaddScreenings view
     private void initializeNewScreening() {
-
         screeningDateTimesToAdd = FXCollections.observableArrayList();
     }
     
     // used in addScreenings view
     public void showAvailableTimesOnSelectedDate(ActionEvent event) {
-    
-    	
-    	
         tblTimes.getItems().clear();
         ObservableList<LocalTime> timesList = getAvailableTimesByDate(dtpckrDate.getValue());
         if (timesList.size() > 0) {
@@ -376,8 +373,6 @@ public class FilmController extends EmployeeController {
                 });
                 return row;
             });
-            
-            
         } else {
         	lblTableInfo = new Label("No available times on selected date.");
             tblTimes.setPlaceholder(lblTableInfo);
@@ -396,8 +391,6 @@ public class FilmController extends EmployeeController {
     	transition("ScreeningsEmployee", "FCScreeningsEmployee");
     }
     
-
-
     // remove this and use some different way to accomplish things?
     public static Screening getScreeningForBooking(Booking booking) {
         for (Film f : Main.filmList) {
@@ -445,5 +438,24 @@ public class FilmController extends EmployeeController {
             }
         }
         return seats;
+    }
+    
+    public static void deleteScreening(Screening screening) {
+        for (Film f : Main.filmList) {
+        	Iterator<Screening> iterator = f.getScreenings().iterator();
+        	while (iterator.hasNext()) {
+        		Screening s = iterator.next();
+        		if (s.getScreeningID().compareTo(screening.getScreeningID()) == 0) {
+                	// This needs to come first (before removing the Screening)
+                	// because deleteBooking uses getScreeningForBooking, which uses the
+                	// FilmList screening
+                	for (Booking b : BookingController.filterBookingsByScreening(screening)) {
+                		BookingController.deleteBooking(b.getBookingID());
+                	}
+                	f.removeScreening(screening);
+                	return;
+        		}
+            }
+        }
     }
 }
