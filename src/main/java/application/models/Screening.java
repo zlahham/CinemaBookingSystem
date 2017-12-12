@@ -12,6 +12,7 @@ public class Screening {
 	// used when a new Screening is created within the program;
 	// Screenings from the database get their dimensions from the database
 	public static final int[] theatreDimensions = {3, 3};	
+	//TODO: put this somewhere else?
 	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 	private String screeningID;
 	private String filmTitle;
@@ -19,13 +20,14 @@ public class Screening {
 	private HashMap<String, Boolean> seats;
 
 	public Screening(String filmTitle, LocalDateTime dateTime, HashMap<String, Boolean> seats) {
-		// old version:
-		// this.screeningID = screeningID;
-		// the new version makes constructing screenings easier (no formatter needed)
 		this.screeningID = dateTime.format(formatter).toString() + " " + filmTitle;
+		System.out.println(this.screeningID);
 		this.filmTitle = filmTitle;
+		System.out.println(this.filmTitle);
 		this.dateTime = dateTime;
+		System.out.println(this.dateTime);
 		this.seats = seats;
+		System.out.println(this.seats);
 	}
 	
 	// TODO: Refactor this constructor with the others

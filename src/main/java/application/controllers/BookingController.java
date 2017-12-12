@@ -20,10 +20,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.util.Callback;
 
@@ -34,10 +36,22 @@ public class BookingController extends CustomerController {
     // variable for initialisation control;
     public static String mode = "";
 
-    // used in seats view
+	public static Booking chosenBooking = null;
 	public static Screening chosenScreening = null;
     private static HashMap<String, Boolean> seatsBooked;
 
+    // booking view controls
+    @FXML
+    private Label lblFilmTitle;
+    @FXML
+    private Label lblDate;
+    @FXML
+    private Label lblTime;
+    @FXML
+    private Label lblSeats;
+    @FXML
+    private ImageView image;
+    
     // view bookings view controls
     @FXML
     private TableView<Booking> tblBookings;
@@ -56,7 +70,7 @@ public class BookingController extends CustomerController {
     // seats view controls
     @FXML
     private GridPane grdpnSeats = new GridPane();
-    private ImageView[][] seats;
+    private ImageView[][] seatsArray;
 
     private Image unbooked = new Image(Objects.requireNonNull(getClass().getClassLoader().
             getResource("images/seat.png")).toExternalForm());
@@ -72,6 +86,9 @@ public class BookingController extends CustomerController {
 		switch (mode) {
 			case "BCViewBookings":
 				initializeViewBookings();
+				break;
+			case "BCBooking":
+				initializeBooking();
 				break;
 			case "BCSeats":
 				initializeSeatPlan();
@@ -131,42 +148,62 @@ public class BookingController extends CustomerController {
 					}
 				};
 		tblclmnBookingsDelete.setCellFactory(cellFactory);
+        tblBookings.setRowFactory(r -> {
+            TableRow<Booking> row = new TableRow<>();
+            row.setOnMouseClicked(rowClick -> {
+                if (!row.isEmpty() && rowClick.getButton() == MouseButton.PRIMARY
+                        && rowClick.getClickCount() == 1) {
+                    BookingController.chosenBooking = row.getItem();
+                    transition("Booking", "BCBooking");
+                }
+            });
+            return row;
+        });
 	}
 
+	private void initializeBooking() {
+		lblFilmTitle.setText(chosenBooking.getFilmTitle());
+		lblDate.setText(chosenBooking.getDateTime().format(dateFormatter));
+		lblTime.setText(chosenBooking.getDateTime().format(timeFormatter));
+		lblSeats.setText(chosenBooking.getSeats().keySet().toString());
+	   // image.setImage(Main.bookingList.get(index) chosenBooking.getFilmTitle());
+	    
+	}
+	
 	// seats view initialisation
 	private void initializeSeatPlan() {
 		int dimensions[] = (chosenScreening.getTheatreDimensions());
-		seats = new ImageView[dimensions[0]][dimensions[1]];
+		seatsArray = new ImageView[dimensions[0]][dimensions[1]];
 		seatsBooked = new HashMap<String, Boolean>();
-		for (int i = 0; i < seats.length; i++) {
-			for (int j = 0; j < seats[i].length; j++) {
+		for (int i = 0; i < seatsArray.length; i++) {
+			for (int j = 0; j < seatsArray[i].length; j++) {
 				if (chosenScreening.checkSeat((char) ('a' + i) + "" + (j + 1))) {
-					seats[i][j] = new ImageView(booked);
+					seatsArray[i][j] = new ImageView(booked);
 				} else {
-					seats[i][j] = new ImageView(unbooked);
+					seatsArray[i][j] = new ImageView(unbooked);
 				}
 
 				gridPaneClick(i, j);
 
-				GridPane.setConstraints(seats[i][j], j, i);
-				grdpnSeats.getChildren().add(seats[i][j]);
+				GridPane.setConstraints(seatsArray[i][j], j, i);
+				grdpnSeats.getChildren().add(seatsArray[i][j]);
 			}
 		}
 	}
 	
 	// used in seats view
 	public void gridPaneClick(int i, int j) {
-		seats[i][j].setOnMouseClicked(event -> {
-			if (seats[i][j].getImage().equals(unbooked)) {
-				grdpnSeats.getChildren().remove(seats[i][j]);
-				seats[i][j] = new ImageView(selected);
-				grdpnSeats.add(seats[i][j], j, i);
+		seatsArray[i][j].setOnMouseClicked(event -> {
+			if (seatsArray[i][j].getImage().equals(unbooked)) {
+				grdpnSeats.getChildren().remove(seatsArray[i][j]);
+				seatsArray[i][j] = new ImageView(selected);
+				grdpnSeats.add(seatsArray[i][j], j, i);
 				seatsBooked.put((char)('a' + i) + "" + (j+1), true);
 				gridPaneClick(i,j);
-			} else if (seats[i][j].getImage().equals(selected)) {
-				grdpnSeats.getChildren().remove(seats[i][j]);
-				seats[i][j] = new ImageView(unbooked);
-				grdpnSeats.add(seats[i][j], j, i);
+			} else if (seatsArray[i][j].getImage().equals(selected)) {
+				grdpnSeats.getChildren().remove(seatsArray[i][j]);
+				seatsArray[i][j] = new ImageView(unbooked);
+				grdpnSeats.add(seatsArray[i][j], j, i);
 				seatsBooked.remove((char)('a' + i) + "" + (j+1), true);
 				gridPaneClick(i,j);
 			} else {
@@ -189,23 +226,26 @@ public class BookingController extends CustomerController {
 				for (int i = 0; i < customerBookings.size(); i++) {
 					// check if customer has bookings in chosenScreening:
 					if (customerBookings.get(i).getDateTime().compareTo(chosenScreening.getDateTime()) == 0) {
+						// TODO: tell the customer they are amending an existing booking
 						// amend customer's booking in chosenScreening:
-						updateBookingSeats(customerBookings.get(i).getBookingID(), seatsBooked);
+						chosenBooking = customerBookings.get(i);
+						updateBookingSeats(chosenBooking.getBookingID(), seatsBooked);
 						seatsBooked = null;
 						break;
 					}
 				} // add a new booking if customer has no bookings in chosenScreening:
 				if (seatsBooked != null) { // this if is a silly hack to prevent duplicate bookings; should maybe
 											// rewrite logic
-                    addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
+                    chosenBooking = addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
 					seatsBooked = null;
 				}
 			} else { // add a new booking if customer has no bookings:
-                addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
+                chosenBooking = addBooking(chosenScreening, (Customer)(Main.stage.getUserData()), seatsBooked);
 				seatsBooked = null;
 			}
 			chosenScreening = null;
-			transition(StringUtils.capitalize(((User)(Main.stage.getUserData())).getRole()), "");
+			System.out.println("Chosen booking " + chosenBooking.getBookingID());
+			transition("Booking", "BCBooking");
 		} else {
 			lblFailure.setText("select some seats, man");
 		}
@@ -230,10 +270,12 @@ public class BookingController extends CustomerController {
 		return returnList;
 	}
 	
-	public void addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
+	// returns a reference to the Booking for convenience
+	public Booking addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
 		Booking booking = new Booking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
 		Main.bookingList.add(booking);
 		screening.updateSeats(seats);
+		return getBooking(booking.getBookingID());
 	}
 	
 	// TODO: remove this; or merge it with addSeats in Booking?
@@ -245,6 +287,11 @@ public class BookingController extends CustomerController {
 		FilmController.getScreeningForBooking(booking).updateSeats(seats);
 	}
 
+	public void deleteBookingButtonPress(ActionEvent event) {
+		deleteBooking(chosenBooking.getBookingID());
+		transition("ViewBookings", "BCViewBookings");
+	}
+	
 	public void deleteBooking(String bookingID) {
 		//TODO change data structure to make this less horrendous
 		//this first part removes the booked seats from the screening

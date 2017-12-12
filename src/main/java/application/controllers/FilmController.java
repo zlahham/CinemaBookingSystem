@@ -42,7 +42,7 @@ public class FilmController extends EmployeeController {
 
     public static String mode;
 
-    private static ObservableList<LocalDateTime> screeningDateTimesToAdd = FXCollections.observableArrayList();
+    private static ObservableList<LocalDateTime> screeningDateTimesToAdd;
     public static Film selectedFilm = null;
 	private static File filePicked;
 	private static ArrayList<String> errors =  new ArrayList<String>();
@@ -51,12 +51,15 @@ public class FilmController extends EmployeeController {
 	// used in Film view, NewFilm view, 
     @FXML
     private ImageView image;
+    //used in NewBooking view, NewScreening view
+    @FXML
+    private DatePicker dtpckrDate;
 	
 	//Film views controls
     @FXML
     private Label lblFilmTitle;
 	
-    // AddFilm view controls
+    // NewFilm view controls
     @FXML
     private Label lblViewTitle;
     @FXML
@@ -86,9 +89,19 @@ public class FilmController extends EmployeeController {
 	
     // NewBooking view controls
     @FXML
-    private DatePicker dtpckrDate;
-    @FXML
     private TableColumn<Screening, String> tblclmnScreeningsFilmTitle;
+    
+    // NewScreening view controls
+    @FXML
+    private TableView<LocalTime> tblTimes;
+    @FXML
+    private TableColumn<LocalTime, String> tblclmnTimesTime;
+    @FXML
+    private TableView<LocalDateTime> tblDateTimesToAdd;
+    @FXML
+    private TableColumn<LocalDateTime, String> tblclmnDateTimesToAddDate;
+    @FXML
+    private TableColumn<LocalDateTime, String> tblclmnDateTimesToAddTime;
     
     public void initialize() {
 
@@ -102,8 +115,8 @@ public class FilmController extends EmployeeController {
         	case "FCNewFilm":
                 initializeNewFilm();
                 break;
-            case "FCAddScreenings":
-                initializeAddScreenings();
+            case "FCNewScreening":
+                initializeNewScreening();
                 break;
             case "FCNewBooking":
                 initializeNewBooking();
@@ -314,104 +327,76 @@ public class FilmController extends EmployeeController {
             lblTableInfo.setText("No screenings on this date.");
         }
     }
-
-    
-	
-	// film view stuff
-	/*if (selectedFilm != null) {
-	(reference these in the fxml to get them to work)
-	lblViewTitle.setText("Edit film details");
-	lblFilmTitle.setText(selectedFilm.getFilmTitle());
-	lblDescription.setText(selectedFilm.getDescription());
-	lblFilmTitle.setText(selectedFilm.getFilmTitle());
-	lblAgeRating.setText(selectedFilm.getAgeRating());
-	image.setImage(selectedFilm.getImage());
-	}*/
-
-    // AddScreening view stuff
-    /*
-    // AddScreening view controls
-    @FXML
-    private TableView<LocalTime> tblTimes;
-    @FXML
-    private TableColumn<LocalTime, String> tblclmnTimesTime;
-    @FXML
-    private TableColumn<LocalTime, String> tblclmnTimesAdd = new TableColumn<LocalTime, String>("Add");
-    @FXML
-    private Button btnAdd;
-    @FXML
-    private TableView<LocalTime> tblTimes2;
-    @FXML
-    private TableColumn<LocalTime, String> tblclmnTimes2Time;
-    @FXML
-    private TableColumn<LocalTime, String> tblclmnTimes2Remove = new TableColumn<LocalTime, String>("Remove");
-    @FXML
-    private Button btnRemove;
-    */
-    
     
     // initializeaddScreenings view
-    private void initializeAddScreenings() {
-    	
-    	/* table with the times
-        ObservableList<LocalTime> screeningTimesToAdd = FXCollections.observableArrayList();
-        tblclmnTimesAdd.setCellValueFactory(new PropertyValueFactory<>("dummy"));
-        Callback<TableColumn<LocalTime, String>, TableCell<LocalTime, String>> cellFactory =
-                new Callback<TableColumn<LocalTime, String>, TableCell<LocalTime, String>>() {
-                    @Override
-                    public TableCell<LocalTime, String> call(final TableColumn<LocalTime, String> param) {
-                        final TableCell<LocalTime, String> cell = new TableCell<LocalTime, String>() {
+    private void initializeNewScreening() {
 
-                            final Button btnAdd = new Button("Add");
-
-                            @Override
-                            public void updateItem(String item, boolean empty) {
-                                super.updateItem(item, empty);
-                                if (empty) {
-                                    setGraphic(null);
-                                    setText(null);
-                                } else {
-                                    btnAdd.setOnAction(event -> {
-                                        screeningTimesToAdd.add(getTableView().getItems().get(getIndex()));
-                                        getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
-                                    });
-                                    setGraphic(btnAdd);
-                                    setText(null);
-                                }
-                            }
-                        };
-                        return cell;
-                    }
-                };
-        tblclmnTimesAdd.setCellFactory(cellFactory);
-        
-        */
-    	
+        screeningDateTimesToAdd = FXCollections.observableArrayList();
     }
-
-	// screening stuff
-	/* get this later
-	ArrayList<Screening> screeningsToAdd = new ArrayList<Screening>();
-	screeningDateTimesToAdd.add(LocalDateTime.now()); // for testing
-	for (LocalDateTime dt : screeningDateTimesToAdd) {
-		screeningsToAdd.add(new Screening(film.getFilmTitle(), dt, emptySeatPlan(Screening.theatreDimensions)));
-	}
-	film.addScreenings(screeningsToAdd);
-	screeningDateTimesToAdd.clear(); (after other stuff)*/
     
-    /*
     // used in addScreenings view
     public void showAvailableTimesOnSelectedDate(ActionEvent event) {
+    
+    	
+    	
+        tblTimes.getItems().clear();
         ObservableList<LocalTime> timesList = getAvailableTimesByDate(dtpckrDate.getValue());
         if (timesList.size() > 0) {
             tblTimes.getItems().addAll(timesList);
             tblclmnTimesTime.setCellValueFactory(
                     c -> new SimpleStringProperty(c.getValue().format(timeFormatter)));
+            tblTimes.setRowFactory(r -> {
+                TableRow<LocalTime> row = new TableRow<>();
+                row.setOnMouseClicked(rowClick -> {
+                    if (!row.isEmpty() && rowClick.getButton() == MouseButton.PRIMARY
+                            && rowClick.getClickCount() == 1) {
+                    	screeningDateTimesToAdd.add(LocalDateTime.of(dtpckrDate.getValue(), row.getItem()));
+                    	tblDateTimesToAdd.getItems().add(LocalDateTime.of(dtpckrDate.getValue(), row.getItem()));
+                        tblclmnDateTimesToAddDate.setCellValueFactory(
+                                c -> new SimpleStringProperty(c.getValue().format(dateFormatter)));
+                        tblclmnDateTimesToAddTime.setCellValueFactory(
+                                c -> new SimpleStringProperty(c.getValue().format(timeFormatter)));
+                    	tblTimes.getItems().remove(row.getIndex());
+                    }
+                });
+                return row;
+            });
+            
+            tblDateTimesToAdd.setRowFactory(r -> {
+                TableRow<LocalDateTime> row = new TableRow<>();
+                row.setOnMouseClicked(rowClick -> {
+                    if (!row.isEmpty() && rowClick.getButton() == MouseButton.PRIMARY
+                            && rowClick.getClickCount() == 1) {
+                    	screeningDateTimesToAdd.remove(row.getItem());
+                    	if (dtpckrDate.getValue().compareTo(row.getItem().toLocalDate()) == 0) {
+                    		tblTimes.getItems().add(row.getItem().toLocalTime());
+                    	}
+                    	tblDateTimesToAdd.getItems().remove(row.getItem());
+                    }
+                });
+                return row;
+            });
+            
+            
         } else {
-            tblTimes.getItems().clear();
-            lblDateInfo.setText("No available times on this date.");
+        	lblTableInfo = new Label("No available times on selected date.");
+            tblTimes.setPlaceholder(lblTableInfo);
         }
-    }*/
+    }
+
+	//used in AddScreenings view
+    public void addButtonPress(ActionEvent event) {
+    	ArrayList<Screening> screeningsToAdd = new ArrayList<Screening>();
+    	for (LocalDateTime dt : screeningDateTimesToAdd) {
+    		Screening s = new Screening(selectedFilm.getFilmTitle(), dt, emptySeatPlan(Screening.theatreDimensions));
+    		screeningsToAdd.add(s);
+    	}
+    	selectedFilm.addScreenings(screeningsToAdd);
+    	screeningDateTimesToAdd.clear();
+    	transition("ScreeningsEmployee", "FCScreeningsEmployee");
+    }
+    
+
 
     // remove this and use some different way to accomplish things?
     public static Screening getScreeningForBooking(Booking booking) {
@@ -455,7 +440,7 @@ public class FilmController extends EmployeeController {
     public static HashMap<String, Boolean> emptySeatPlan(int[] dimensions) {
         HashMap<String, Boolean> seats = new HashMap<String, Boolean>();
         for (int i = 0; i < dimensions[0]; i++) {
-            for (int j = 0; i < dimensions[1]; j++) {
+            for (int j = 0; j < dimensions[1]; j++) {
                 seats.put((char) ('a' + i / 3) + "" + (j % 3 + 1), false);
             }
         }

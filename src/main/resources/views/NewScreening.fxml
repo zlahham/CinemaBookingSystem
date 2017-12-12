@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.FilmController">
+   <children>
+      <Button fx:id="btnToEmployee" layoutX="410.0" layoutY="672.0" mnemonicParsing="false" onAction="#buttonTransition" text="Back" />
+      <TableView fx:id="tblTimes" layoutX="266.0" layoutY="146.0" prefHeight="436.0" prefWidth="277.0">
+        <columns>
+          <TableColumn fx:id="tblclmnTimesTime" maxWidth="277.0" minWidth="-1.0" prefWidth="277.0" text="Time" />
+        </columns>
+      </TableView>
+      <DatePicker fx:id="dtpckrDate" layoutX="317.0" layoutY="94.0" onAction="#showAvailableTimesOnSelectedDate" />
+      <Button layoutX="766.0" layoutY="674.0" mnemonicParsing="false" onAction="#addButtonPress" text="Add" />
+      <TableView fx:id="tblDateTimesToAdd" layoutX="583.0" layoutY="146.0" prefHeight="420.0" prefWidth="400.0">
+         <columns>
+            <TableColumn fx:id="tblclmnDateTimesToAddDate" maxWidth="501.0" minWidth="-1.0" prefWidth="200.0" text="Date" />
+            <TableColumn fx:id="tblclmnDateTimesToAddTime" maxWidth="356.0" minWidth="-1.0" prefWidth="200.0" text="Time" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>
