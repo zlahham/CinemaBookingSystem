@@ -11,144 +11,141 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.LoginController">
-   <children>
-      <BorderPane prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <center>
-            <VBox prefHeight="500.0" prefWidth="750.0" BorderPane.alignment="CENTER">
+<BorderPane maxHeight="750.0" maxWidth="1280.0" minHeight="750.0" prefHeight="750.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.LoginController">
+   <center>
+      <VBox maxHeight="450.0" minHeight="500.0" prefHeight="500.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="76.0" prefWidth="750.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="76.0" prefWidth="750.0">
+                  <VBox alignment="CENTER" prefHeight="76.0" prefWidth="804.0">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="76.0" prefWidth="804.0">
-                           <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="1.0" text="The Home of UCL Entertainment" textAlignment="CENTER" textFill="WHITE">
-                                 <font>
-                                    <Font name="Lato Regular" size="24.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="lblFailure" textFill="#c23e3e">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Label>
-                           </children>
-                        </VBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="25.0" top="40.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="86.0" prefHeight="67.0" prefWidth="750.0">
-                     <children>
-                        <VBox alignment="CENTER" layoutX="36.0" layoutY="10.0" prefHeight="76.0" prefWidth="340.0">
-                           <children>
-                              <Label prefHeight="30.0" text="Username:" textFill="WHITE" />
-                              <TextField fx:id="txtUsername" alignment="CENTER" prefWidth="380.0" promptText="Username" />
-                           </children></VBox>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="162.0" prefHeight="67.0" prefWidth="750.0">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="76.0" prefWidth="340.0">
-                           <children>
-                              <Label prefHeight="30.0" text="Password:" textFill="WHITE" />
-                              <PasswordField fx:id="pwPassword" alignment="CENTER" prefWidth="380.0" promptText="Password" />
-                           </children></VBox>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="22.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="354.0" prefHeight="36.0" prefWidth="750.0">
-                     <children>
-                        <VBox alignment="CENTER" layoutX="332.0" layoutY="10.0" prefHeight="76.0" prefWidth="340.0" />
-                        <Button fx:id="btnToRegistration" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="234.0" text="Sign Up">
-                           <styleClass>
-                              <String fx:value="success" />
-                              <String fx:value="btn" />
-                              <String fx:value="lg" />
-                           </styleClass>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="18" />
-                           </graphic>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#validateCredentials" prefWidth="234.0" text="Login">
-                           <styleClass>
-                              <String fx:value="primary" />
-                              <String fx:value="btn" />
-                              <String fx:value="lg" />
-                           </styleClass>
-                           <HBox.margin>
-                              <Insets left="5.0" />
-                           </HBox.margin>
-                           <graphic>
-                              <FontAwesomeIconView fill="WHITE" glyphName="SIGN_IN" size="18" />
-                           </graphic>
-                        </Button>
-                        <VBox alignment="CENTER" prefHeight="76.0" prefWidth="340.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="319.0" prefHeight="35.0" prefWidth="750.0">
-                     <children>
-                        <VBox alignment="CENTER" layoutX="332.0" layoutY="10.0" prefHeight="76.0" prefWidth="340.0" />
-                        <VBox alignment="CENTER" prefHeight="76.0" prefWidth="340.0" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </center>
-         <top>
-            <Pane prefHeight="151.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="119.0" prefWidth="1280.0">
-                     <children>
-                        <FontAwesomeIconView fill="#64d999" glyphName="FILM" size="42" />
-                        <Label text=" Welcome To AZ Cinemas " textFill="WHITE">
+                        <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="1.0" text="The Home of UCL Entertainment" textAlignment="CENTER" textFill="WHITE">
                            <font>
-                              <Font name="Lato Regular" size="42.0" />
+                              <Font name="Lato Regular" size="24.0" />
                            </font>
                         </Label>
-                        <FontAwesomeIconView fill="#64d999" glyphName="FILM" layoutX="393.0" layoutY="97.0" size="42" />
+                        <Label fx:id="lblFailure" textFill="#c23e3e">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Label>
                      </children>
-                     <padding>
-                        <Insets top="25.0" />
-                     </padding>
-                  </HBox>
+                  </VBox>
                </children>
-            </Pane>
-         </top>
-         <left>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </left>
-         <right>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </right>
-         <bottom>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <VBox.margin>
+                  <Insets bottom="25.0" top="40.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="86.0" prefHeight="67.0" prefWidth="750.0">
                <children>
-                  <Label layoutX="403.0" layoutY="45.0" prefHeight="94.0" prefWidth="629.0" text="AZ Cinemas is a leader in the premium entertainment cinema sector in the UK.Committed to continued growth and development of its premium entertainment ‘big screen’ experience, AZ Cinemas delivers the best choice of content, combined with the best technology in the best environment." textAlignment="JUSTIFY" textFill="#cfcfcf" wrapText="true" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="45.0" />
-                  <HBox layoutX="440.0" layoutY="157.0" prefHeight="25.0" prefWidth="416.0">
+                  <VBox alignment="CENTER" layoutX="36.0" layoutY="10.0" prefHeight="76.0" prefWidth="340.0">
                      <children>
-                        <Label prefWidth="105.0" text="Built with lots of" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" />
-                        <OctIconView fill="RED" glyphName="HEART" />
-                        <Label layoutX="10.0" layoutY="10.0" text=" and " textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" />
-                        <OctIconView fill="#fffb00" glyphName="ZAP" />
-                        <Label layoutX="10.0" layoutY="10.0" text="  by Aleksi Anttila and Zaid Lahham at UCL" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" />
+                        <Label prefHeight="30.0" text="Username:" textFill="WHITE" />
+                        <TextField fx:id="txtUsername" alignment="CENTER" prefWidth="380.0" promptText="Username" />
                      </children>
-                  </HBox>
+                  </VBox>
                </children>
-            </AnchorPane>
-         </bottom>
-      </BorderPane>
-   </children>
-</AnchorPane>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="162.0" prefHeight="67.0" prefWidth="750.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="76.0" prefWidth="340.0">
+                     <children>
+                        <Label prefHeight="30.0" text="Password:" textFill="WHITE" />
+                        <PasswordField fx:id="pwPassword" alignment="CENTER" prefWidth="380.0" promptText="Password" />
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="22.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="354.0" prefHeight="36.0" prefWidth="750.0">
+               <children>
+                  <VBox alignment="CENTER" layoutX="332.0" layoutY="10.0" prefHeight="76.0" prefWidth="340.0" />
+                  <Button fx:id="btnToRegistration" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="234.0" text="Sign Up">
+                     <styleClass>
+                        <String fx:value="success" />
+                        <String fx:value="btn" />
+                        <String fx:value="lg" />
+                     </styleClass>
+                     <HBox.margin>
+                        <Insets right="5.0" />
+                     </HBox.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="18" />
+                     </graphic>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#validateCredentials" prefWidth="234.0" text="Login">
+                     <styleClass>
+                        <String fx:value="primary" />
+                        <String fx:value="btn" />
+                        <String fx:value="lg" />
+                     </styleClass>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SIGN_IN" size="18" />
+                     </graphic>
+                  </Button>
+                  <VBox alignment="CENTER" prefHeight="76.0" prefWidth="340.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" layoutX="10.0" layoutY="319.0" prefHeight="35.0" prefWidth="750.0">
+               <children>
+                  <VBox alignment="CENTER" layoutX="332.0" layoutY="10.0" prefHeight="76.0" prefWidth="340.0" />
+                  <VBox alignment="CENTER" prefHeight="76.0" prefWidth="340.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <AnchorPane maxHeight="150.0" minHeight="150.0" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="403.0" layoutY="45.0" prefHeight="94.0" prefWidth="629.0" text="AZ Cinemas is a leader in the premium entertainment cinema sector in the UK.Committed to continued growth and development of its premium entertainment ‘big screen’ experience, AZ Cinemas delivers the best choice of content, combined with the best technology in the best environment." textAlignment="JUSTIFY" textFill="#cfcfcf" wrapText="true" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="0.0" />
+            <HBox layoutX="440.0" layoutY="157.0" prefHeight="25.0" prefWidth="416.0" AnchorPane.bottomAnchor="0.0">
+               <children>
+                  <Label prefWidth="105.0" text="Built with lots of" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" />
+                  <OctIconView fill="RED" glyphName="HEART" />
+                  <Label layoutX="10.0" layoutY="10.0" text=" and " textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" />
+                  <OctIconView fill="#fffb00" glyphName="ZAP" />
+                  <Label layoutX="10.0" layoutY="10.0" text="  by Aleksi Anttila and Zaid Lahham at UCL" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </bottom>
+   <top>
+      <AnchorPane maxHeight="150.0" minHeight="150.0" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="119.0" prefWidth="1280.0">
+               <children>
+                  <FontAwesomeIconView fill="#64d999" glyphName="FILM" size="42" />
+                  <Label text=" Welcome To AZ Cinemas " textFill="WHITE">
+                     <font>
+                        <Font name="Lato Regular" size="42.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIconView fill="#64d999" glyphName="FILM" layoutX="393.0" layoutY="97.0" size="42" />
+               </children>
+               <padding>
+                  <Insets top="25.0" />
+               </padding>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </top>
+   <left>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </left>
+   <right>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </right>
+</BorderPane>
