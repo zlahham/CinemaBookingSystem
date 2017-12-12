@@ -94,7 +94,7 @@
                            </graphic></TableColumn>
                      </columns>
                   </TableView>
-                  <JFXButton fx:id="btnToNewBooking_FCNewBooking" buttonType="RAISED" onAction="#buttonTransition" prefWidth="150.0" ripplerFill="#b3b844" text="New Booking" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                  <JFXButton fx:id="btnToNewBooking_FCNewBooking" buttonType="RAISED" onAction="#buttonTransition" prefWidth="155.0" ripplerFill="#b3b844" text="New Booking" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="success" />
@@ -103,7 +103,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnToViewBookings_BCViewBookings" buttonType="RAISED" layoutX="136.0" layoutY="294.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="All Bookings" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <JFXButton fx:id="btnToViewBookings_BCViewBookings" buttonType="RAISED" layoutX="136.0" layoutY="294.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="155.0" ripplerFill="#4476b8" text="All Bookings" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="info" />
@@ -112,7 +112,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="LIST" size="15" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnToProfile_CCProfile" buttonType="RAISED" layoutX="60.0" layoutY="265.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Edit Profile" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <JFXButton fx:id="btnToProfile_CCProfile" buttonType="RAISED" layoutX="60.0" layoutY="265.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="155.0" ripplerFill="#4476b8" text="Edit Profile" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="primary" />
@@ -121,6 +121,12 @@
                         <MaterialDesignIconView fill="WHITE" glyphName="TABLE_EDIT" size="15" />
                      </graphic>
                   </JFXButton>
+                  <Label text="Click on any row to view more detailed information about that Film or to make a booking" textFill="#ff8548" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.rowIndex="1">
+                     <graphic>
+                        <FontAwesomeIconView fill="#ff8548" glyphName="INFO_CIRCLE" />
+                     </graphic>
+                  </Label>
+                  <MaterialDesignIconView fill="#fff900" glyphName="EMOTICON_COOL" text="" GridPane.columnIndex="7" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </center>
