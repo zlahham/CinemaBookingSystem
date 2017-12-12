@@ -2,6 +2,8 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -65,16 +67,31 @@
                         <Font size="18.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="20.0" top="10.0" />
+                        <Insets left="27.0" top="10.0" />
                      </GridPane.margin>
                   </Label>
-                  <TableView fx:id="tblFilms" tableMenuButtonVisible="true" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="2" GridPane.rowSpan="3">
+                  <TableView fx:id="tblFilms" prefHeight="530.0" prefWidth="860.0" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.rowIndex="2" GridPane.rowSpan="3">
                      <columns>
-                        <TableColumn fx:id="tblclmnFilmsImage" prefWidth="156.5374755859375" text="Image" />
-                        <TableColumn fx:id="tblclmnFilmsFilmTitle" minWidth="7.0" prefWidth="133.4625244140625" text="Title" />
-                        <TableColumn fx:id="tblclmnFilmsDescription" minWidth="0.0" prefWidth="247.21673583984375" text="Description" />
-                        <TableColumn fx:id="tblclmnFilmsAgeRating" prefWidth="106.7833251953125" resizable="false" text="Age Rating" />
-                        <TableColumn fx:id="tblclmnFilmsScreenings" prefWidth="235.14385986328125" text="Screenings" />
+                        <TableColumn fx:id="tblclmnFilmsImage" editable="false" text="Image">
+                           <graphic>
+                              <OctIconView glyphName="FILE_MEDIA" />
+                           </graphic></TableColumn>
+                        <TableColumn fx:id="tblclmnFilmsFilmTitle" minWidth="7.0" prefWidth="250.0" text="Title">
+                           <graphic>
+                              <OctIconView glyphName="TEXT_SIZE" />
+                           </graphic></TableColumn>
+                        <TableColumn fx:id="tblclmnFilmsDescription" minWidth="0.0" prefWidth="300.0" text="Description">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="PENCIL" />
+                           </graphic></TableColumn>
+                        <TableColumn fx:id="tblclmnFilmsAgeRating" prefWidth="60.0" resizable="false" text="Age">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="CHILD" />
+                           </graphic></TableColumn>
+                        <TableColumn fx:id="tblclmnFilmsScreenings" editable="false" prefWidth="179.0" text="Screenings">
+                           <graphic>
+                              <MaterialDesignIconView glyphName="PROJECTOR_SCREEN" />
+                           </graphic></TableColumn>
                      </columns>
                   </TableView>
                   <JFXButton fx:id="btnToNewBooking_FCNewBooking" buttonType="RAISED" onAction="#buttonTransition" prefWidth="150.0" ripplerFill="#b3b844" text="New Booking" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
@@ -92,7 +109,7 @@
                         <String fx:value="info" />
                      </styleClass>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="SHARE" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="LIST" size="15" />
                      </graphic>
                   </JFXButton>
                   <JFXButton fx:id="btnToProfile_CCProfile" buttonType="RAISED" layoutX="60.0" layoutY="265.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Edit Profile" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
@@ -101,7 +118,7 @@
                         <String fx:value="primary" />
                      </styleClass>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="LIST" size="15" />
+                        <MaterialDesignIconView fill="WHITE" glyphName="TABLE_EDIT" size="15" />
                      </graphic>
                   </JFXButton>
                </children>
@@ -110,21 +127,24 @@
          <top>
             <GridPane prefHeight="50.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.381103515625" minWidth="10.0" prefWidth="490.381103515625" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="419.31744384765625" minWidth="10.0" prefWidth="363.618896484375" />
                   <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="lblTitle" alignment="CENTER" prefHeight="52.0" prefWidth="447.0" text="CUSTOMER Dashboard" textFill="WHITE" underline="true">
+                  <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="10.0" prefHeight="44.0" prefWidth="468.0" text="CUSTOMER Dashboard" textFill="WHITE" underline="true">
                      <font>
                         <Font size="36.0" />
                      </font>
                      <GridPane.margin>
                         <Insets left="20.0" top="10.0" />
                      </GridPane.margin>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="DASHBOARD" size="42" />
+                     </graphic>
                   </Label>
                   <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT" GridPane.columnIndex="2">
                      <styleClass>
