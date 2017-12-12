@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
@@ -111,13 +112,13 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="119.0" prefWidth="1280.0">
                      <children>
-                        <FontAwesomeIconView fill="WHITE" glyphName="FILM" size="42" />
+                        <FontAwesomeIconView fill="#64d999" glyphName="FILM" size="42" />
                         <Label text=" Welcome To AZ Cinemas " textFill="WHITE">
                            <font>
                               <Font name="Lato Regular" size="42.0" />
                            </font>
                         </Label>
-                        <FontAwesomeIconView fill="WHITE" glyphName="FILM" layoutX="393.0" layoutY="97.0" size="42" />
+                        <FontAwesomeIconView fill="#64d999" glyphName="FILM" layoutX="393.0" layoutY="97.0" size="42" />
                      </children>
                      <padding>
                         <Insets top="25.0" />
@@ -126,15 +127,28 @@
                </children>
             </Pane>
          </top>
-         <bottom>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </bottom>
          <left>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </left>
          <right>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </right>
+         <bottom>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="403.0" layoutY="45.0" prefHeight="94.0" prefWidth="629.0" text="AZ Cinemas is a leader in the premium entertainment cinema sector in the UK.Committed to continued growth and development of its premium entertainment ‘big screen’ experience, AZ Cinemas delivers the best choice of content, combined with the best technology in the best environment." textAlignment="JUSTIFY" textFill="#cfcfcf" wrapText="true" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="45.0" />
+                  <HBox layoutX="440.0" layoutY="157.0" prefHeight="25.0" prefWidth="416.0">
+                     <children>
+                        <Label prefWidth="105.0" text="Built with lots of" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" />
+                        <OctIconView fill="RED" glyphName="HEART" />
+                        <Label layoutX="10.0" layoutY="10.0" text=" and " textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" />
+                        <OctIconView fill="#fffb00" glyphName="ZAP" />
+                        <Label layoutX="10.0" layoutY="10.0" text="  by Aleksi Anttila and Zaid Lahham at UCL" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>
