@@ -60,25 +60,24 @@ public class LoginController extends MainController {
 			if (userJSON != null) {
 				User user = null;
 
+				String mode = "";
 				if (userJSON.getString("role").compareTo("employee") == 0) {
 					user = new Employee(userJSON);
+					mode = "ECDashboard";
 				} else if (userJSON.getString("role").compareTo("customer") == 0) {
 					user = new Customer(userJSON);
+					mode = "CCDashboard";
 				}
 				Main.stage.setUserData(user);
-				
-				transition(StringUtils.capitalize(StringUtils.capitalize(user.getRole())), "");
 
+				assert user != null;
+				transition(StringUtils.capitalize(StringUtils.capitalize(user.getRole())), mode);
 			} else {
 				lblFailure.setText("Failure");
 			}
 
 		}
 
-	}
-
-	public void transitionToRegistrationView(ActionEvent event) {
-		transition("Registration", "");
 	}
 
 	public void createUser(ActionEvent event) throws UnirestException, InterruptedException {

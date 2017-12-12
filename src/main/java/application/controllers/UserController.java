@@ -23,6 +23,8 @@ import java.util.Date;
 
 public class UserController  extends MainController{
 
+    public static String mode = "";
+
     @FXML
     private Label lblDate;
     @FXML

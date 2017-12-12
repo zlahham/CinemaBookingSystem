@@ -39,6 +39,8 @@ public class MainController {
 				FilmController.mode = mode;
 			} else if (mode.substring(0, 1).compareTo("B") == 0) {
 				BookingController.mode = mode;
+			} else if (mode.substring(0, 1).compareTo("C") == 0 || mode.substring(0, 1).compareTo("E") == 0) {
+				UserController.mode = mode;
 			}
 		}
 		try {
