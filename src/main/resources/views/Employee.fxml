@@ -3,7 +3,10 @@
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -21,7 +24,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.EmployeeController">
+<AnchorPane fx:id="anchorpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" styleClass="employee" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.EmployeeController">
    <children>
       <BorderPane layoutX="201.0" prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -51,28 +54,55 @@
                     <tabs>
                       <Tab closable="false" text="Films On Show">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="510.0" prefWidth="880.0">
                                  <children>
-                                    <TableView fx:id="tblFilms" prefHeight="510.0" prefWidth="880.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <TableView fx:id="tblFilms" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
                                       <columns>
-                                        <TableColumn fx:id="tblclmnFilmsImage" prefWidth="156.5374755859375" text="Image" />
-                                        <TableColumn fx:id="tblclmnFilmsFilmTitle" minWidth="7.0" prefWidth="133.4625244140625" text="Title" />
-                                          <TableColumn fx:id="tblclmnFilmsDescription" minWidth="0.0" prefWidth="247.21673583984375" text="Description" />
-                                          <TableColumn fx:id="tblclmnFilmsAgeRating" prefWidth="106.7833251953125" resizable="false" text="Age Rating" />
-                                          <TableColumn fx:id="tblclmnFilmsScreenings" prefWidth="233.0" text="Screenings" />
+                                        <TableColumn fx:id="tblclmnFilmsImage" editable="false" resizable="false" text="Image">
+                                             <graphic>
+                                                <OctIconView glyphName="FILE_MEDIA" />
+                                             </graphic></TableColumn>
+                                        <TableColumn fx:id="tblclmnFilmsFilmTitle" editable="false" minWidth="7.0" prefWidth="250.0" resizable="false" text="Title">
+                                             <graphic>
+                                                <OctIconView glyphName="TEXT_SIZE" />
+                                             </graphic></TableColumn>
+                                          <TableColumn fx:id="tblclmnFilmsDescription" editable="false" minWidth="0.0" prefWidth="300.0" resizable="false" text="Description">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="PENCIL" rotate="180.0">
+                                                   <rotationAxis>
+                                                      <Point3D y="90.0" z="1.0" />
+                                                   </rotationAxis>
+                                                </FontAwesomeIconView>
+                                             </graphic></TableColumn>
+                                          <TableColumn fx:id="tblclmnFilmsAgeRating" editable="false" prefWidth="58.72491455078125" resizable="false" text="Age">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="CHILD" />
+                                             </graphic></TableColumn>
+                                          <TableColumn fx:id="tblclmnFilmsScreenings" editable="false" prefWidth="171.27508544921875" resizable="false" text="Screenings">
+                                             <graphic>
+                                                <MaterialDesignIconView glyphName="PROJECTOR_SCREEN" />
+                                             </graphic></TableColumn>
                                       </columns>
                                     </TableView>
+                                    <Label layoutX="10.0" layoutY="14.0" text="Click on any row to view more detailed information about that Film" textFill="#ff8548">
+                                       <graphic>
+                                          <FontAwesomeIconView fill="#ff8548" glyphName="INFO_CIRCLE" />
+                                       </graphic>
+                                    </Label>
                                  </children>
                               </AnchorPane>
                         </content>
+                           <graphic>
+                              <MaterialDesignIconView glyphName="MOVIE" />
+                           </graphic>
                       </Tab>
-                      <Tab closable="false" text="Basic Statistics">
+                      <Tab closable="false" text="Realtime Statistics">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <BarChart fx:id="chart" layoutX="190.0" layoutY="55.0" title="AZ Cinemas Statistics">
+                                    <BarChart fx:id="chart" layoutX="190.0" layoutY="55.0" legendVisible="false" title="AZ Cinemas Statistics">
                                       <xAxis>
-                                        <CategoryAxis label="Category" side="BOTTOM" fx:id="x" />
+                                        <CategoryAxis side="BOTTOM" fx:id="x" />
                                       </xAxis>
                                       <yAxis>
                                         <NumberAxis fx:id="y" side="LEFT" />
@@ -81,6 +111,9 @@
                                  </children>
                               </AnchorPane>
                         </content>
+                           <graphic>
+                              <MaterialDesignIconView glyphName="CHART_BAR" />
+                           </graphic>
                       </Tab>
                     </tabs>
                   </TabPane>
@@ -90,9 +123,8 @@
          <top>
             <GridPane prefHeight="50.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="843.2280883789062" minWidth="10.0" prefWidth="791.3054809570312" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="395.16497802734375" minWidth="10.0" prefWidth="370.82275390625" />
                   <ColumnConstraints />
                   <ColumnConstraints />
                   <ColumnConstraints />
@@ -104,13 +136,16 @@
                 <RowConstraints minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label fx:id="lblTitle" alignment="CENTER" text="STAFF Dashboard" textFill="WHITE" underline="true">
+                  <Label fx:id="lblTitle" alignment="CENTER" contentDisplay="RIGHT" graphicTextGap="10.0" prefHeight="52.0" prefWidth="418.0" text="STAFF Dashboard" textFill="WHITE" underline="true">
                      <font>
                         <Font size="42.0" />
                      </font>
                      <GridPane.margin>
                         <Insets left="20.0" top="10.0" />
                      </GridPane.margin>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="DASHBOARD" size="42" />
+                     </graphic>
                   </Label>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <children>
@@ -131,7 +166,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <JFXHamburger fx:id="hamburger" GridPane.columnIndex="8">
+                  <JFXHamburger fx:id="hamburger" GridPane.columnIndex="7">
                      <GridPane.margin>
                         <Insets right="20.0" />
                      </GridPane.margin>
