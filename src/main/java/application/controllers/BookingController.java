@@ -169,7 +169,9 @@ public class BookingController extends MainController {
 		int dimensions[] = (chosenScreening.getTheatreDimensions());
 		seatsArray = new ImageView[dimensions[0]][dimensions[1]];
 		seatsBooked = new HashMap<String, Boolean>();
-		existingBooking = getCustomerBookingForScreening((Customer)(Main.stage.getUserData()), chosenScreening);
+		if (mode.compareTo("BCSeats") == 0) {
+			existingBooking = getCustomerBookingForScreening((Customer)(Main.stage.getUserData()), chosenScreening);
+		}
 		for (int i = 0; i < seatsArray.length; i++) {
 			for (int j = 0; j < seatsArray[i].length; j++) {
 				if (chosenScreening.checkSeat((char) ('a' + i) + "" + (j + 1))) {
