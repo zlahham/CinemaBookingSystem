@@ -176,9 +176,15 @@ public class BookingController extends MainController {
 			for (int j = 0; j < seatsArray[i].length; j++) {
 				if (chosenScreening.checkSeat((char) ('a' + i) + "" + (j + 1))) {
 					if (mode.compareTo("BCBookingSeats") == 0) {
-						if (existingBooking.checkSeat((char) ('a' + i) + "" + (j + 1))) {
-							seatsArray[i][j] = new ImageView(selected);
-							seatsBooked.put((char)('a' + i) + "" + (j+1), true);
+						if (existingBooking != null) {
+							if (existingBooking.checkSeat((char) ('a' + i) + "" + (j + 1))) {
+								seatsArray[i][j] = new ImageView(selected);
+								seatsBooked.put((char) ('a' + i) + "" + (j + 1), true);
+							} else {
+								seatsArray[i][j] = new ImageView(booked);
+							}
+						} else {
+							seatsArray[i][j] = new ImageView(booked);
 						}
 					} else {
 						seatsArray[i][j] = new ImageView(booked);
@@ -186,7 +192,6 @@ public class BookingController extends MainController {
 				} else {
 					seatsArray[i][j] = new ImageView(unbooked);
 				}
-
 				if (mode.compareTo("BCBookingSeats") == 0) {
 					gridPaneClick(i, j);
 				}
