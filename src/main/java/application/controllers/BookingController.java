@@ -82,8 +82,8 @@ public class BookingController extends MainController {
 	public void initialize() {
 
 		switch (mode) {
-			case "BCViewBookings":
-				initializeViewBookings();
+			case "BCBookings":
+				initializeBookings();
 				break;
 			case "BCBooking":
 				initializeBooking();
@@ -102,7 +102,7 @@ public class BookingController extends MainController {
 	}
 
 	// view bookings view initialisation
-	private void initializeViewBookings() {
+	private void initializeBookings() {
 		
 		tblBookings.getItems().addAll(getBookingsByCustomer((Customer)(Main.stage.getUserData())));
 		tblclmnBookingsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
@@ -200,7 +200,7 @@ public class BookingController extends MainController {
 	//used in Booking view
 	public void deleteBookingButtonPress(ActionEvent event) {
 		deleteBooking(chosenBooking.getBookingID());
-		transition("ViewBookings", "BCViewBookings");
+		transition("Bookings", "BCBookings");
 	}
 	
 	//used in Screening view

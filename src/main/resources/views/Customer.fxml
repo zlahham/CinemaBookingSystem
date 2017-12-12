@@ -86,7 +86,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnToViewBookings_BCViewBookings" buttonType="RAISED" layoutX="136.0" layoutY="294.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="All Bookings" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                  <JFXButton fx:id="btnToBookings_BCBookings" buttonType="RAISED" layoutX="136.0" layoutY="294.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="All Bookings" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="info" />
