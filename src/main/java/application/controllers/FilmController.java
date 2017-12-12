@@ -268,7 +268,7 @@ public class FilmController extends MainController {
                     	if (mode.compareTo("FCScreeningsEmployee") == 0) {
                     		transition("Screening", "BCScreening");                    
                     	} else if (mode.compareTo("FCScreeningsCustomer") == 0) {
-                    		transition("Seats", "BCSeats");
+                    		transition("BookingSeats", "BCBookingSeats");
                     	} else {
                     		//TODO: print error message?
                     	}
@@ -316,7 +316,7 @@ public class FilmController extends MainController {
                     if (!row.isEmpty() && rowClick.getButton() == MouseButton.PRIMARY
                             && rowClick.getClickCount() == 1) {
                         BookingController.chosenScreening = row.getItem();
-                        transition("Seats", "BCSeats");
+                        transition("BookingSeats", "BCBookingSeats");
                     }
                 });
                 return row;

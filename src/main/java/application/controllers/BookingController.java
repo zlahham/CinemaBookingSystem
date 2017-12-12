@@ -88,7 +88,7 @@ public class BookingController extends MainController {
 			case "BCBooking":
 				initializeBooking();
 				break;
-			case "BCSeats":
+			case "BCBookingSeats":
 				initializeSeatPlan();
 				break;
 			case "BCScreening":
@@ -169,13 +169,13 @@ public class BookingController extends MainController {
 		int dimensions[] = (chosenScreening.getTheatreDimensions());
 		seatsArray = new ImageView[dimensions[0]][dimensions[1]];
 		seatsBooked = new HashMap<String, Boolean>();
-		if (mode.compareTo("BCSeats") == 0) {
+		if (mode.compareTo("BCBookingSeats") == 0) {
 			existingBooking = getCustomerBookingForScreening((Customer)(Main.stage.getUserData()), chosenScreening);
 		}
 		for (int i = 0; i < seatsArray.length; i++) {
 			for (int j = 0; j < seatsArray[i].length; j++) {
 				if (chosenScreening.checkSeat((char) ('a' + i) + "" + (j + 1))) {
-					if (mode.compareTo("BCSeats") == 0) {
+					if (mode.compareTo("BCBookingSeats") == 0) {
 						if (existingBooking.checkSeat((char) ('a' + i) + "" + (j + 1))) {
 							seatsArray[i][j] = new ImageView(selected);
 							seatsBooked.put((char)('a' + i) + "" + (j+1), true);
@@ -187,7 +187,7 @@ public class BookingController extends MainController {
 					seatsArray[i][j] = new ImageView(unbooked);
 				}
 
-				if (mode.compareTo("BCSeats") == 0) {
+				if (mode.compareTo("BCBookingSeats") == 0) {
 					gridPaneClick(i, j);
 				}
 
