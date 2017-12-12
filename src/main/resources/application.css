@@ -932,3 +932,7 @@ VBox > .split-menu-button.last > .arrow-button {
 .slider:vertical .track {
 	-fx-pref-width: 5;
 }
+
+.jfx-hamburger StackPane {
+    -fx-background-color: white;
+}

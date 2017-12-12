@@ -17,7 +17,6 @@ import java.util.Objects;
 
 public class Main extends Application {
     public static Stage stage = new Stage();
-    public static User user;
 
     public static ObservableList<Film> filmList = FXCollections.observableArrayList();
     public static ObservableList<Booking> bookingList = FXCollections.observableArrayList();

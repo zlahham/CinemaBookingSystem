@@ -95,7 +95,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="SHARE" size="15" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="60.0" layoutY="265.0" maxHeight="213.0" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Edit Profile" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+                  <JFXButton fx:id="btnToProfile_CCProfile" buttonType="RAISED" layoutX="60.0" layoutY="265.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Edit Profile" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="primary" />
