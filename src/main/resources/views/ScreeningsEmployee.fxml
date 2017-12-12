@@ -39,7 +39,7 @@
                   <TableColumn fx:id="tblclmnScreeningsSeats" maxWidth="645.0" minWidth="-1.0" prefWidth="436.0" text="Seats booked" />
               </columns>
             </TableView>
-            <Button fx:id="btnToAddScreening_FCAddScreening" mnemonicParsing="false" onAction="#buttonTransition" text="Add Screening" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <Button fx:id="btnToNewScreening_FCNewScreening" mnemonicParsing="false" onAction="#buttonTransition" text="Add Screening" GridPane.columnIndex="3" GridPane.rowIndex="5" />
          </children>
       </GridPane>
    </children>
