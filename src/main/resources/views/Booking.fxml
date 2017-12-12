@@ -8,7 +8,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.BookingController">
    <children>
       <Button fx:id="btnToCustomer" layoutX="410.0" layoutY="672.0" mnemonicParsing="false" onAction="#buttonTransition" text="Back" />
-      <Button layoutX="505.0" layoutY="672.0" mnemonicParsing="false" text="Edit" />
+      <Button fx:id="btnToSeats_BCSeats" layoutX="505.0" layoutY="672.0" mnemonicParsing="false" onAction="#buttonTransition" text="Edit" />
       <Button layoutX="598.0" layoutY="672.0" mnemonicParsing="false" onAction="#deleteBookingButtonPress" text="Delete" />
       <Label fx:id="lblFilmTitle" layoutX="22.0" layoutY="407.0" prefHeight="110.0" prefWidth="281.0" textFill="#29c65b" />
       <Label fx:id="lblDate" layoutX="365.0" layoutY="201.0" prefHeight="110.0" prefWidth="281.0" textFill="#c63297" />

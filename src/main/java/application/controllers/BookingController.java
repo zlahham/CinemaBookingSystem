@@ -145,7 +145,8 @@ public class BookingController extends MainController {
             row.setOnMouseClicked(rowClick -> {
                 if (!row.isEmpty() && rowClick.getButton() == MouseButton.PRIMARY
                         && rowClick.getClickCount() == 1) {
-                    BookingController.chosenBooking = row.getItem();
+                    chosenBooking = row.getItem();
+                    chosenScreening = FilmController.getScreeningForBooking(chosenBooking);
                     transition("Booking", "BCBooking");
                 }
             });
