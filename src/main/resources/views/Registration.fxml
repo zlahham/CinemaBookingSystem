@@ -2,8 +2,11 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -39,18 +42,25 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="User Registration" textFill="WHITE" underline="true" GridPane.columnSpan="6">
+                  <Label graphicTextGap="10.0" text="Customer Registration" textFill="WHITE" underline="true" GridPane.columnSpan="6">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="System Bold" size="40.0" />
                      </font>
+                     <graphic>
+                        <MaterialDesignIconView fill="#64d999" glyphName="ACCOUNT_MULTIPLE_PLUS" size="40" text="">
+                           <rotationAxis>
+                              <Point3D y="90.0" />
+                           </rotationAxis>
+                        </MaterialDesignIconView>
+                     </graphic>
                   </Label>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="4" GridPane.valignment="CENTER">
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="4" GridPane.valignment="CENTER">
                      <children>
-                        <Label fx:id="lblUsername" prefHeight="30.0" text="Username" textFill="WHITE" />
-                        <Label fx:id="lblEmail" prefHeight="30.0" text="Email" textFill="WHITE" />
-                        <Label fx:id="lblPassword" prefHeight="30.0" text="Password" textFill="WHITE" />
-                        <Label fx:id="lblFirstname" prefHeight="30.0" text="First Name" textFill="WHITE" />
-                        <Label fx:id="lblLastname" prefHeight="30.0" text="Last Name" textFill="WHITE" />
+                        <Label fx:id="lblUsername" prefHeight="30.0" text="Username *" textFill="WHITE" />
+                        <Label fx:id="lblEmail" prefHeight="30.0" text="Email *" textFill="WHITE" />
+                        <Label fx:id="lblPassword" prefHeight="30.0" text="Password *" textFill="WHITE" />
+                        <Label fx:id="lblFirstname" prefHeight="30.0" text="First Name *" textFill="WHITE" />
+                        <Label fx:id="lblLastname" prefHeight="30.0" text="Last Name *" textFill="WHITE" />
                      </children>
                      <opaqueInsets>
                         <Insets bottom="13.0" />
@@ -95,7 +105,7 @@
                         <String fx:value="info" />
                      </styleClass>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="SHARE" size="15" />
+                        <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
                      </graphic>
                   </JFXButton>
                </children>
