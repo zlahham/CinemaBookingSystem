@@ -11,14 +11,12 @@ public class Firebase {
 
     public static JSONObject getList(String className) throws UnirestException {
         String response = httpRequester(className, "");
-        JSONObject json = new JSONObject(response);
-        return json;
+        return new JSONObject(response);
     }
 
     public static JSONObject getItem(String className, String id) throws UnirestException {
         String response = httpRequester(className, id);
-        JSONObject json = new JSONObject(response);
-        return json;
+        return new JSONObject(response);
     }
 
     public static void createUser(Map<String, String> params) throws UnirestException {
