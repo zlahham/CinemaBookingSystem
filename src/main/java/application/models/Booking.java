@@ -14,14 +14,15 @@ public class Booking {
 	private String filmTitle;
 	private LocalDateTime dateTime;
 	private String username;
-	private HashMap<String, Boolean> seats = new HashMap<String, Boolean>(9);
+	private HashMap<String, Boolean> seats;
 	
 	public Booking(String filmTitle, LocalDateTime dateTime, String username, HashMap<String, Boolean> seats) {
 		this.filmTitle = filmTitle;
 		this.dateTime = dateTime;
 		this.username = username;
 		this.bookingID = dateTime.format(formatter) + " " + username;
-		this.seats = seats;
+		this.seats = new HashMap<String, Boolean>();
+		updateSeats(seats);
 	}
 	
 	// TODO: Refactor this constructor with the others
