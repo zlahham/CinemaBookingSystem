@@ -12,14 +12,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,11 +29,12 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.tika.Tika;
 
-public class FilmController extends EmployeeController {
+public class FilmController extends MainController {
 	
     public static final ObservableList<String> AGE_RATINGS = FXCollections
             .observableArrayList(Arrays.asList("U", "PG", "12A", "12", "15", "18", "R18"));
@@ -229,7 +228,7 @@ public class FilmController extends EmployeeController {
 					 image.setImage(imagePicked);
 					 image.setEffect(new DropShadow(10,10,10,Color.rgb(0,0,0)));
 				} else {
-					 lblImageError.setText("The file you chose does not seem to be an image.");
+					 lblImageError.setText("The file you cheose does not seem to be an image.");
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -265,11 +264,11 @@ public class FilmController extends EmployeeController {
                 row.setOnMouseClicked(rowClick -> {
                     if (!row.isEmpty() && rowClick.getButton() == MouseButton.PRIMARY
                             && rowClick.getClickCount() == 1) {
+                    	BookingController.chosenScreening = row.getItem();
                     	if (mode.compareTo("FCScreeningsEmployee") == 0) {
-                    		System.out.println("Transition to screening view");
+                    		transition("Screening", "BCScreening");                    
                     	} else if (mode.compareTo("FCScreeningsCustomer") == 0) {
-                    		BookingController.chosenScreening = row.getItem();
-                    		transition("Seats", "BCSeats");
+                    		transition("BookingSeats", "BCBookingSeats");
                     	} else {
                     		//TODO: print error message?
                     	}
@@ -317,7 +316,7 @@ public class FilmController extends EmployeeController {
                     if (!row.isEmpty() && rowClick.getButton() == MouseButton.PRIMARY
                             && rowClick.getClickCount() == 1) {
                         BookingController.chosenScreening = row.getItem();
-                        transition("Seats", "BCSeats");
+                        transition("BookingSeats", "BCBookingSeats");
                     }
                 });
                 return row;
@@ -330,15 +329,11 @@ public class FilmController extends EmployeeController {
     
     // initializeaddScreenings view
     private void initializeNewScreening() {
-
         screeningDateTimesToAdd = FXCollections.observableArrayList();
     }
     
     // used in addScreenings view
     public void showAvailableTimesOnSelectedDate(ActionEvent event) {
-    
-    	
-    	
         tblTimes.getItems().clear();
         ObservableList<LocalTime> timesList = getAvailableTimesByDate(dtpckrDate.getValue());
         if (timesList.size() > 0) {
@@ -376,8 +371,6 @@ public class FilmController extends EmployeeController {
                 });
                 return row;
             });
-            
-            
         } else {
         	lblTableInfo = new Label("No available times on selected date.");
             tblTimes.setPlaceholder(lblTableInfo);
@@ -388,7 +381,7 @@ public class FilmController extends EmployeeController {
     public void addButtonPress(ActionEvent event) {
     	ArrayList<Screening> screeningsToAdd = new ArrayList<Screening>();
     	for (LocalDateTime dt : screeningDateTimesToAdd) {
-    		Screening s = new Screening(selectedFilm.getFilmTitle(), dt, emptySeatPlan(Screening.theatreDimensions));
+    		Screening s = new Screening(selectedFilm.getFilmTitle(), dt, getEmptySeatPlan(Screening.theatreDimensions));
     		screeningsToAdd.add(s);
     	}
     	selectedFilm.addScreenings(screeningsToAdd);
@@ -396,8 +389,6 @@ public class FilmController extends EmployeeController {
     	transition("ScreeningsEmployee", "FCScreeningsEmployee");
     }
     
-
-
     // remove this and use some different way to accomplish things?
     public static Screening getScreeningForBooking(Booking booking) {
         for (Film f : Main.filmList) {
@@ -437,13 +428,32 @@ public class FilmController extends EmployeeController {
         return returnList;
     }
 
-    public static HashMap<String, Boolean> emptySeatPlan(int[] dimensions) {
+    public static HashMap<String, Boolean> getEmptySeatPlan(int[] dimensions) {
         HashMap<String, Boolean> seats = new HashMap<String, Boolean>();
         for (int i = 0; i < dimensions[0]; i++) {
             for (int j = 0; j < dimensions[1]; j++) {
-                seats.put((char) ('a' + i / 3) + "" + (j % 3 + 1), false);
+                seats.put((char) ('a' + i) + "" + (j + 1), false);
             }
         }
         return seats;
+    }
+    
+    public static void deleteScreening(Screening screening) {
+        for (Film f : Main.filmList) {
+        	Iterator<Screening> iterator = f.getScreenings().iterator();
+        	while (iterator.hasNext()) {
+        		Screening s = iterator.next();
+        		if (s.getScreeningID().compareTo(screening.getScreeningID()) == 0) {
+                	// This needs to come first (before removing the Screening)
+                	// because deleteBooking uses getScreeningForBooking, which uses the
+                	// FilmList screening
+                	for (Booking b : BookingController.getBookingsForScreening(screening)) {
+                		BookingController.deleteBooking(b.getBookingID());
+                	}
+                	f.removeScreening(screening);
+                	return;
+        		}
+            }
+        }
     }
 }

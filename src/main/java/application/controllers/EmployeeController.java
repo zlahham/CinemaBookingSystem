@@ -9,10 +9,8 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import org.json.JSONObject;
 
 import java.io.IOException;
 

@@ -1,11 +1,8 @@
 package application.models;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 import org.json.JSONObject;
 
@@ -87,6 +84,19 @@ public class Film {
 	}
 	public void addScreenings(List<Screening> screenings) {
 		this.screenings.addAll(screenings);
+	}
+	
+	//TODO change to use a List?
+	public void removeScreening(Screening screening) {
+		Iterator<Screening> iterator = this.screenings.iterator();
+		while (iterator.hasNext()) {
+			Screening s = iterator.next();
+			if (s.getScreeningID().compareTo(screening.getScreeningID()) == 0) {
+				iterator.remove();
+				return;
+			}
+		}
+		//TODO: print error message?
 	}
 	
 	
