@@ -167,7 +167,7 @@ public class BookingController extends MainController {
 	// seats view and screening view initialisation
 	private void initializeSeatPlan() {
 		int dimensions[] = (chosenScreening.getTheatreDimensions());
-		seatsArray = new ImageView[dimensions[0]][dimensions[1]];
+		seatsArray = new ImageView[dimensions[0]][dimensions[1] + 1];
 		seatsBooked = new HashMap<String, Boolean>();
 		if (mode.compareTo("BCBookingSeats") == 0) {
 			existingBooking = getCustomerBookingForScreening((Customer)(Main.stage.getUserData()), chosenScreening);
@@ -212,17 +212,19 @@ public class BookingController extends MainController {
 	// used in seats view
 	public void gridPaneClick(int i, int j) {
 		seatsArray[i][j].setOnMouseClicked(event -> {
+			if (j != (chosenScreening.getTheatreDimensions()[1] + 1 ) / 2) { //divider in the middle
+			}
 			if (seatsArray[i][j].getImage().equals(unbooked)) {
 				grdpnSeats.getChildren().remove(seatsArray[i][j]);
 				seatsArray[i][j] = new ImageView(selected);
 				grdpnSeats.add(seatsArray[i][j], j, i);
-				seatsBooked.put((char)('a' + i) + "" + (j+1), true);
+				seatsBooked.put(getSeatKeyInGridPane(i,j), true);
 				gridPaneClick(i,j);
 			} else if (seatsArray[i][j].getImage().equals(selected)) {
 				grdpnSeats.getChildren().remove(seatsArray[i][j]);
 				seatsArray[i][j] = new ImageView(unbooked);
 				grdpnSeats.add(seatsArray[i][j], j, i);
-				seatsBooked.put((char)('a' + i) + "" + (j+1), false);
+				seatsBooked.put(getSeatKeyInGridPane(i,j), false);
 				gridPaneClick(i,j);
 			} else {
 				// TODO:display error message (seat already booked)
@@ -230,6 +232,15 @@ public class BookingController extends MainController {
 		});
 	}
 
+	//used in BookingSeats view
+	private String getSeatKeyInGridPane(int i, int j) {
+		if (j < (Screening.theatreDimensions[1] / 2) + 1) {
+			return ((char) ('a' + i) + "" + (j + 1));
+		} else {
+			return ((char) ('a' + i) + "" + j);
+		}
+	}
+	
 	// used in seats view
 	public void bookButtonPressed(ActionEvent event) {
 
