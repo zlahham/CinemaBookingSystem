@@ -1,19 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.BookingController">
+<AnchorPane maxHeight="750.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1280.0" styleClass="customer" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.BookingController">
    <children>
-      <Button fx:id="btnToCustomer" layoutX="410.0" layoutY="672.0" mnemonicParsing="false" onAction="#buttonTransition" text="Back" />
-      <Button fx:id="btnToBookingSeats_BCBookingSeats" layoutX="505.0" layoutY="672.0" mnemonicParsing="false" onAction="#buttonTransition" text="Edit" />
-      <Button layoutX="598.0" layoutY="672.0" mnemonicParsing="false" onAction="#deleteBookingButtonPress" text="Delete" />
-      <Label fx:id="lblFilmTitle" layoutX="22.0" layoutY="407.0" prefHeight="110.0" prefWidth="281.0" textFill="#29c65b" />
-      <Label fx:id="lblDate" layoutX="365.0" layoutY="201.0" prefHeight="110.0" prefWidth="281.0" textFill="#c63297" />
-      <Label fx:id="lblTime" layoutX="658.0" layoutY="181.0" prefHeight="110.0" prefWidth="281.0" textFill="#d3910e" />
-      <Label fx:id="lblSeats" layoutX="799.0" layoutY="358.0" prefHeight="110.0" prefWidth="281.0" textFill="#d3910e" />
-      <ImageView fx:id="image" fitHeight="190.0" fitWidth="200.0" layoutX="56.0" pickOnBounds="true" preserveRatio="true" />
+      <BorderPane prefHeight="750.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="image" fitHeight="190.0" fitWidth="200.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
+               </children>
+            </AnchorPane>
+         </left>
+         <right>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="image" fitHeight="190.0" fitWidth="200.0" layoutX="5.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+               </children>
+            </AnchorPane>
+         </right>
+         <top>
+            <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" layoutX="482.0" layoutY="13.0" text="Booking Summary" textAlignment="CENTER" underline="true" AnchorPane.leftAnchor="435.0" AnchorPane.rightAnchor="435.0" AnchorPane.topAnchor="20.0">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView glyphName="INFO_CIRCLE" size="30" />
+                     </graphic>
+                  </Label>
+                  <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="warning" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="15" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </top>
+         <bottom>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnToCustomer" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="20.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="info" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" layoutX="597.0" layoutY="25.0" maxHeight="213.0" onAction="#deleteBookingButtonPress" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Delete" AnchorPane.leftAnchor="565.0" AnchorPane.rightAnchor="565.0" AnchorPane.topAnchor="20.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="danger" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="TRASHCAN" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnToBookingSeats_BCBookingSeats" buttonType="RAISED" layoutX="605.0" layoutY="66.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Edit" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="20.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="success" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="PENCIL" size="15" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <center>
+            <VBox maxWidth="500.0" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <GridPane>
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.53717041015625" minWidth="10.0" prefWidth="244.53717041015625" />
+                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="294.3958740234375" minWidth="10.0" prefWidth="253.46282958984375" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <VBox.margin>
+                        <Insets top="50.0" />
+                     </VBox.margin>
+                     <children>
+                        <Label fx:id="lblTime" text="Screening Time" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblFilmTitle" text="Film Title" GridPane.columnIndex="1">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblSeats" text="Seats Booked" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblDate" text="Screening Date" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <padding>
+                              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label text="Film Title:" underline="true">
+                           <padding>
+                              <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text="Screening Time" underline="true" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="76.0" text="Screening Date:" underline="true" GridPane.rowIndex="2">
+                           <padding>
+                              <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="142.0" text="Seats Booked:" underline="true" GridPane.rowIndex="3">
+                           <padding>
+                              <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

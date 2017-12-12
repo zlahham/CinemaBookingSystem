@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import application.Main;
 import org.json.JSONObject;
 
 public class Booking {
@@ -80,5 +81,14 @@ public class Booking {
 		}else {
 			return "Past";
 		}
+	}
+
+	public Film getFilm() {
+		for (Film f : Main.filmList) {
+			if (f.getFilmTitle().compareTo(this.filmTitle) == 0) {
+				return f;
+			}
+		}
+		return null;
 	}
 }

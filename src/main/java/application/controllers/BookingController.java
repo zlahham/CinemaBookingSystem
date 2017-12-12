@@ -13,18 +13,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
-import javafx.util.Callback;
 
 public class BookingController extends MainController {
 
@@ -130,9 +126,8 @@ public class BookingController extends MainController {
 		lblFilmTitle.setText(chosenBooking.getFilmTitle());
 		lblDate.setText(chosenBooking.getDateTime().format(dateFormatter));
 		lblTime.setText(chosenBooking.getDateTime().format(timeFormatter));
-		lblSeats.setText(chosenBooking.getSeats().keySet().toString());
-	   // image.setImage(Main.bookingList.get(index) chosenBooking.getFilmTitle());
-	    
+		lblSeats.setText(chosenBooking.getSeats().keySet().toString().replace("[", "").replace("]", "").toUpperCase());
+	    image.setImage(chosenBooking.getFilm().getImage());
 	}
 	
 	// seats view and screening view initialisation
