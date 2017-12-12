@@ -21,13 +21,9 @@ public class Screening {
 
 	public Screening(String filmTitle, LocalDateTime dateTime, HashMap<String, Boolean> seats) {
 		this.screeningID = dateTime.format(formatter).toString() + " " + filmTitle;
-		System.out.println(this.screeningID);
 		this.filmTitle = filmTitle;
-		System.out.println(this.filmTitle);
 		this.dateTime = dateTime;
-		System.out.println(this.dateTime);
 		this.seats = seats;
-		System.out.println(this.seats);
 	}
 	
 	// TODO: Refactor this constructor with the others

@@ -4,13 +4,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Objects;
 
-import org.apache.commons.lang3.StringUtils;
-
 import application.*;
 import application.models.Booking;
 import application.models.Customer;
 import application.models.Screening;
-import application.models.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -1,11 +1,8 @@
 package application.models;
 
 import java.io.File;
-import java.net.URI;
-import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 import org.json.JSONObject;
 
