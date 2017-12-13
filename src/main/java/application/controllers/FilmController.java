@@ -320,18 +320,16 @@ public class FilmController extends MainController {
                     c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
             tblclmnScreeningsTime.setCellValueFactory(
                     c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
-            if (mode.compareTo("ScreeningsEmployee") == 0) {
-                tblclmnScreeningsSeats.setText("Seats booked");
+            if (mode.compareTo("FCScreeningsEmployee") == 0) {
+                tblclmnScreeningsSeats.setText("Seats Booked");
                 tblclmnScreeningsSeats
                         .setCellValueFactory(c -> new SimpleStringProperty(countBookedSeats(c.getValue())[0] + "/"
                                 + (countBookedSeats(c.getValue())[0] + countBookedSeats(c.getValue())[1])
                                 + " seats booked"));
             } else if (mode.compareTo("FCScreeningsCustomer") == 0) {
-                tblclmnScreeningsSeats.setText("Seats available");
+                tblclmnScreeningsSeats.setText("Seats Available");
                 tblclmnScreeningsSeats.setCellValueFactory(
                         c -> new SimpleStringProperty(countBookedSeats(c.getValue())[1] + " seats available"));
-            } else {
-                // TODO: print error message?
             }
 
             tblScreenings.setRowFactory(r -> {
