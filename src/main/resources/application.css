@@ -2,7 +2,11 @@
 	-fx-body-color : #F5F5F5;
 	-fx-outer-border : #cecece;
 	-fx-background-color:
-	    linear-gradient(#09203f, #537895)
+	    linear-gradient(#2193b0, #6dd5ed)
+
+	    /*linear-gradient(#09203f, #537895) */
+	    /*linear-gradient(#09203f, #52e0c6) */
+
 }
 
 .root.customer {
