@@ -6,62 +6,67 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="800.0" prefWidth="200.0" spacing="20.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.NavbarController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="200.0" style="-fx-border-color: #f1602c; -fx-border-width: 4 4 4 4; -fx-background-color: #f1602c;" styleClass="login" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.NavbarController">
    <children>
-      <ImageView fitHeight="164.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/nav.jpg" />
-         </image>
-      </ImageView>
-      <JFXButton fx:id="btnToNewFilm_FCNewFilm" buttonType="RAISED" onAction="#buttonTransition" prefWidth="150.0" ripplerFill="#b3b844" text="Add Films">
-         <styleClass>
-            <String fx:value="lg" />
-            <String fx:value="success" />
-         </styleClass>
-         <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
-         </graphic>
-         <VBox.margin>
-            <Insets left="25.0" right="25.0" top="10.0" />
-         </VBox.margin>
-      </JFXButton>
-      <JFXButton accessibleText="T" alignment="CENTER" buttonType="RAISED" layoutX="10.0" maxHeight="213.0" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Bookings">
-         <styleClass>
-            <String fx:value="lg" />
-            <String fx:value="primary" />
-         </styleClass>
-         <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="LIST" size="15" />
-         </graphic>
-         <VBox.margin>
-            <Insets left="25.0" right="25.0" top="10.0" />
-         </VBox.margin>
-      </JFXButton>
-      <JFXButton fx:id="btnExportFilms" buttonType="RAISED" maxHeight="213.0" onAction="#exportFilms" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Export Films">
-         <styleClass>
-            <String fx:value="lg" />
-            <String fx:value="info" />
-         </styleClass>
-         <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="SHARE" size="15" />
-         </graphic>
-         <VBox.margin>
-            <Insets left="25.0" right="25.0" top="10.0" />
-         </VBox.margin>
-      </JFXButton>
-      <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT">
-         <styleClass>
-            <String fx:value="lg" />
-            <String fx:value="warning" />
-         </styleClass>
-         <graphic>
-            <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="15" />
-         </graphic>
-         <VBox.margin>
-            <Insets left="25.0" right="25.0" top="10.0" />
-         </VBox.margin>
-      </JFXButton>
+      <VBox prefHeight="800.0" prefWidth="200.0" spacing="20.0" stylesheets="@../application.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="164.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/nav.jpg" />
+               </image>
+            </ImageView>
+            <JFXButton fx:id="btnToNewFilm_FCNewFilm" buttonType="RAISED" onAction="#buttonTransition" prefWidth="150.0" ripplerFill="#b3b844" text="Add Films">
+               <styleClass>
+                  <String fx:value="lg" />
+                  <String fx:value="success" />
+               </styleClass>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="25.0" right="25.0" top="10.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton accessibleText="T" alignment="CENTER" buttonType="RAISED" layoutX="10.0" maxHeight="213.0" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Bookings">
+               <styleClass>
+                  <String fx:value="lg" />
+                  <String fx:value="primary" />
+               </styleClass>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="LIST" size="15" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="25.0" right="25.0" top="10.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="btnExportFilms" buttonType="RAISED" maxHeight="213.0" onAction="#exportFilms" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Export Films">
+               <styleClass>
+                  <String fx:value="lg" />
+                  <String fx:value="info" />
+               </styleClass>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SHARE" size="15" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="25.0" right="25.0" top="10.0" />
+               </VBox.margin>
+            </JFXButton>
+            <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT">
+               <styleClass>
+                  <String fx:value="lg" />
+                  <String fx:value="warning" />
+               </styleClass>
+               <graphic>
+                  <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="15" />
+               </graphic>
+               <VBox.margin>
+                  <Insets left="25.0" right="25.0" top="10.0" />
+               </VBox.margin>
+            </JFXButton>
+         </children>
+      </VBox>
    </children>
-</VBox>
+</AnchorPane>

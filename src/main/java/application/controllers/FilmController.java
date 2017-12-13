@@ -30,7 +30,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class FilmController extends MainController {
 
@@ -61,8 +60,6 @@ public class FilmController extends MainController {
     private TextArea txtDescription;
     @FXML
     private ComboBox<String> cbxAgeRating;
-    @FXML
-    private Button btnUploadImage;
     @FXML
     private Label lblError;
 	@FXML
@@ -230,7 +227,7 @@ public class FilmController extends MainController {
 
     private void initializeNewFilm() {
         cbxAgeRating.getItems().addAll(AGE_RATINGS);
-        errors = new ArrayList<String>();
+        errors = new ArrayList<>();
     }
 
     // used in NewFilm view
@@ -238,22 +235,22 @@ public class FilmController extends MainController {
         errors.clear();
         lblError.setText("");
         if (txtFilmTitle.getText().trim().isEmpty()) {
-            errors.add("Film title is missing");
+            errors.add("* Film title is missing");
         }
         for (Film f : Main.filmList) {
             if (f.getFilmTitle().compareTo(txtFilmTitle.getText().trim()) == 0) {
-                errors.add("A film with that title already exists. Please enter another title.");
+                errors.add("* A film with that title already exists. Please enter another title.");
                 break;
             }
         }
         if (txtDescription.getText().trim().isEmpty()) {
-            errors.add("Description is missing");
+            errors.add("* Description is missing");
         }
         if (cbxAgeRating.getValue() == null) {
-            errors.add("Age Rating is missing");
+            errors.add("* Age Rating is missing");
         }
         if (image.getImage() == null) {
-            errors.add("Image is missing");
+            errors.add("* Image is missing");
         }
         if (errors.isEmpty()) {
 
@@ -304,14 +301,9 @@ public class FilmController extends MainController {
                 String mimeType = tika.detect(chosenFile).split("/")[0];
                 if (mimeType.compareTo("image") == 0) {
                     Image imagePicked = new Image(chosenFile.toURI().toString());
-                    image.setPreserveRatio(true);
-                    //set in fxml instead?
-                    image.setFitHeight(200);
-                    image.setFitWidth(200);
                     image.setImage(imagePicked);
-                    image.setEffect(new DropShadow(10, 10, 10, Color.rgb(0, 0, 0)));
                 } else {
-                    lblImageError.setText("The file you chose does not seem to be an image.");
+                    lblImageError.setText("* The file you chose does not seem to be an image.");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -328,18 +320,16 @@ public class FilmController extends MainController {
                     c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
             tblclmnScreeningsTime.setCellValueFactory(
                     c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
-            if (mode.compareTo("ScreeningsEmployee") == 0) {
-                tblclmnScreeningsSeats.setText("Seats booked");
+            if (mode.compareTo("FCScreeningsEmployee") == 0) {
+                tblclmnScreeningsSeats.setText("Seats Booked");
                 tblclmnScreeningsSeats
                         .setCellValueFactory(c -> new SimpleStringProperty(countBookedSeats(c.getValue())[0] + "/"
                                 + (countBookedSeats(c.getValue())[0] + countBookedSeats(c.getValue())[1])
                                 + " seats booked"));
             } else if (mode.compareTo("FCScreeningsCustomer") == 0) {
-                tblclmnScreeningsSeats.setText("Seats available");
+                tblclmnScreeningsSeats.setText("Seats Available");
                 tblclmnScreeningsSeats.setCellValueFactory(
                         c -> new SimpleStringProperty(countBookedSeats(c.getValue())[1] + " seats available"));
-            } else {
-                // TODO: print error message?
             }
 
             tblScreenings.setRowFactory(r -> {
@@ -414,9 +404,10 @@ public class FilmController extends MainController {
         }
     }
 
-    // initializeaddScreenings view
+    // initialize addScreenings view
     private void initializeNewScreening() {
         screeningDateTimesToAdd = FXCollections.observableArrayList();
+        disableDatesInThePast();
     }
 
     // used in addScreenings view

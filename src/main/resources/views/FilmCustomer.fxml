@@ -35,7 +35,7 @@
          <top>
             <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" layoutX="482.0" layoutY="13.0" text="Film Details" textAlignment="CENTER" underline="true" AnchorPane.leftAnchor="435.0" AnchorPane.rightAnchor="435.0" AnchorPane.topAnchor="20.0">
+                  <Label alignment="CENTER" graphicTextGap="10.0" layoutX="482.0" layoutY="13.0" text="Film Details" textAlignment="CENTER" underline="true" AnchorPane.leftAnchor="435.0" AnchorPane.rightAnchor="435.0" AnchorPane.topAnchor="20.0">
                      <font>
                         <Font size="40.0" />
                      </font>

@@ -1,46 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.FilmController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.FilmController">
    <children>
-      <GridPane prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" prefWidth="100.0" styleClass="warning" text="Log out" GridPane.columnIndex="6" GridPane.halignment="RIGHT" />
-            <Button fx:id="btnToFilmEmployee_FCFilmEmployee" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="135.0" styleClass="info" text="Back" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" />
-            <TableView fx:id="tblScreenings" prefHeight="402.0" prefWidth="964.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="3">
-              <columns>
-                <TableColumn fx:id="tblclmnScreeningsDate" minWidth="0.0" prefWidth="234.0" text="Date" />
-                  <TableColumn fx:id="tblclmnScreeningsTime" maxWidth="440.0" minWidth="-1.0" prefWidth="209.0" text="Time" />
-                  <TableColumn fx:id="tblclmnScreeningsSeats" maxWidth="645.0" minWidth="-1.0" prefWidth="436.0" text="Seats booked" />
-              </columns>
-            </TableView>
-            <Button fx:id="btnToNewScreening_FCNewScreening" mnemonicParsing="false" onAction="#buttonTransition" text="Add Screening" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-         </children>
-      </GridPane>
+      <BorderPane prefHeight="750.0" prefWidth="1280.0">
+         <center>
+            <GridPane prefHeight="750.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <TableView fx:id="tblScreenings" prefHeight="402.0" prefWidth="964.0" GridPane.columnSpan="6" GridPane.rowIndex="1" GridPane.rowSpan="4">
+                     <columns>
+                        <TableColumn fx:id="tblclmnScreeningsFilmTitle" prefWidth="271.94415283203125" text="Film Title">
+                           <graphic>
+                              <OctIconView glyphName="TEXT_SIZE" />
+                           </graphic>
+                        </TableColumn>
+                        <TableColumn fx:id="tblclmnScreeningsDate" minWidth="0.0" prefWidth="225.05584716796875" text="Date">
+                           <graphic>
+                              <MaterialDesignIconView glyphName="CALENDAR" />
+                           </graphic>
+                        </TableColumn>
+                        <TableColumn fx:id="tblclmnScreeningsTime" maxWidth="449.02557373046875" minWidth="-1.0" prefWidth="197.4979248046875" text="Time">
+                           <graphic>
+                              <MaterialDesignIconView glyphName="CLOCK" />
+                           </graphic>
+                        </TableColumn>
+                        <TableColumn fx:id="tblclmnScreeningsSeats" maxWidth="645.0" minWidth="-1.0" prefWidth="185.5064697265625" text="Seats Available">
+                           <graphic>
+                              <MaterialDesignIconView glyphName="SEAT_RECLINE_NORMAL" />
+                           </graphic>
+                        </TableColumn>
+                     </columns>
+                  </TableView>
+               </children>
+            </GridPane>
+         </center>
+         <left>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <AnchorPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnToFilmEmployee_FCFilmEmployee" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="200.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="primary" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnToNewScreening_FCNewScreening" buttonType="RAISED" layoutX="210.0" layoutY="74.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="166.0" ripplerFill="#4476b8" text="Add Screening" AnchorPane.bottomAnchor="40.0" AnchorPane.rightAnchor="200.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="success" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="PLUS" size="15" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <top>
+            <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="warning" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <Label graphicTextGap="10.0" prefHeight="50.0" prefWidth="438.0" text="Screenings Available" textFill="WHITE" underline="true" AnchorPane.leftAnchor="421.0" AnchorPane.rightAnchor="421.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="FILM" size="30" />
+                     </graphic>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </top>
+      </BorderPane>
    </children>
 </AnchorPane>
