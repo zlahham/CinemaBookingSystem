@@ -72,6 +72,10 @@ public class BookingController extends MainController {
     private GridPane grdpnSeats = new GridPane();
 	@FXML
 	private Label lblFailure;
+	@FXML
+	private Label lblBookingSeatsTitle;
+	@FXML
+	private Button btnBook;
 	
 	//BookingSeats view variables
     private ImageView[][] seatsArray;
@@ -102,7 +106,7 @@ public class BookingController extends MainController {
 				//accessed from Bookings, BookingSeats
 				//uses: chosenBooking
 				//changes:
-				backFromSeats = new String[] {"Booking, BCBooking"};
+				backFromSeats = new String[] {"Booking", "BCBooking"};
 				initializeBooking();
 				break;
 			case "BCBookingSeats": //Customer
@@ -110,7 +114,6 @@ public class BookingController extends MainController {
 				//accessed from Booking, 
 				//uses: chosenBooking, chosenScreening
 				//changes: chosBooking
-				chosenBooking = null;
 				initializeSeatPlan();
 				break;
 			case "BCScreening": //Employee
@@ -135,7 +138,7 @@ public class BookingController extends MainController {
 		tblclmnBookingsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
 		tblclmnBookingsDate.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
 		tblclmnBookingsTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
-		tblclmnBookingsSeats.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSeats().keySet().toString().replace("[", "").replace("]", "").toUpperCase()));
+		tblclmnBookingsSeats.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSeatsString()));
 
         tblBookings.setRowFactory(r -> {
             TableRow<Booking> row = new TableRow<>();
@@ -160,7 +163,7 @@ public class BookingController extends MainController {
 		lblFilmTitle.setText(chosenBooking.getFilmTitle());
 		lblDate.setText(chosenBooking.getDateTime().format(dateFormatter));
 		lblTime.setText(chosenBooking.getDateTime().format(timeFormatter));
-		lblSeats.setText(chosenBooking.getSeats().keySet().toString().replace("[", "").replace("]", "").toUpperCase());
+		lblSeats.setText(chosenBooking.getSeatsString());
 	    image.setImage(chosenBooking.getFilm().getImage());
         image1.setImage(chosenBooking.getFilm().getImage());
 	}
@@ -173,7 +176,14 @@ public class BookingController extends MainController {
 		existingBooking = null;
 		if (mode.compareTo("BCBookingSeats") == 0) {
 			existingBooking = getCustomerBookingForScreening((Customer)(Main.stage.getUserData()), chosenScreening);
+			chosenBooking = existingBooking; //update for Booking view
 		}
+		
+		if (existingBooking != null) {
+			btnBook.setText("Confirm");
+			lblBookingSeatsTitle.setText("Choose new seats!\n(Editing existing booking)");
+		}
+		
 		for (int i = 0; i < seatsArray.length; i++) {
 			for (int j = 0; j < seatsArray[i].length; j++) {
 				//divider in the middle -> don't populate
@@ -259,42 +269,19 @@ public class BookingController extends MainController {
 	
 	// used in BookingSeats view
 	public void bookButtonPressed(ActionEvent event) {
-
-		//debugging
-		if (existingBooking != null) {
-			System.out.println("Existing booking seats: " + existingBooking.getSeats());
-		}
-		System.out.println("SeatsBooked seats: " + seatsBooked);
-		//
 		
 		if (seatsBooked.containsValue(true)) {
 			// check if customer has a booking a for the screening:
 			if (existingBooking != null) {
-				// check if seats have been changed:
-				if (!getFullSeatPlan(existingBooking.getSeats()).equals(getFullSeatPlan(seatsBooked))) {
-					// TODO: give the customer appropriate messages about whether they are amending
-					// a booking or creating one etc
-					// amend customer's booking in chosenScreening:
-					System.out.println("Amending existing");
-					chosenBooking = existingBooking;
-					updateBookingSeats(chosenBooking.getBookingID(), seatsBooked);
-					System.out.println("Updated seats: " + chosenBooking.getSeats());
-					seatsBooked = null;
-					existingBooking = null;
-					// TODO: check the logic with this (chosenScreening) and the back buttons etc
-					// chosenScreening = null;
-					transition("Booking", "BCBooking");
-				} else {
-					lblFailure.setText(
-							"You have not modified your existing booking. Please either change your seats or press back to keep the booking as is.");
-				}
-			} else {
-				System.out.println("Creating new");
-				chosenBooking = addBooking(chosenScreening, (Customer) (Main.stage.getUserData()), seatsBooked);
+				// amend customer's booking in chosenScreening:
+				chosenBooking = existingBooking;
+				updateBookingSeats(chosenBooking.getBookingID(), seatsBooked);
 				seatsBooked = null;
 				existingBooking = null;
-				// TODO: check the logic with this (chosenScreening) and the back buttons etc
-				// chosenScreening = null;
+				transition("Booking", "BCBooking");
+			} else {
+				chosenBooking = addBooking(chosenScreening, (Customer) (Main.stage.getUserData()), seatsBooked);
+				seatsBooked = null;
 				transition("Booking", "BCBooking");
 			}
 		} else {
@@ -348,6 +335,10 @@ public class BookingController extends MainController {
 			//TODO: print error message?
 			return null;
 		}
+	}
+	
+	public void backFromSeats(ActionEvent event) {
+		transition(backFromSeats[0],backFromSeats[1]);
 	}
 	
 	// returns a reference to the Booking for convenience

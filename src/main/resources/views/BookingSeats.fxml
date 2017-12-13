@@ -22,7 +22,7 @@
          <top>
             <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Choose your Seat!" underline="true" AnchorPane.leftAnchor="466.0" AnchorPane.rightAnchor="466.0" AnchorPane.topAnchor="20.0">
+                  <Label fx:id="lblBookingSeatsTitle" text="Choose your Seats!" underline="true" AnchorPane.leftAnchor="466.0" AnchorPane.rightAnchor="466.0" AnchorPane.topAnchor="20.0">
                      <font>
                         <Font size="40.0" />
                      </font>
@@ -93,7 +93,7 @@
          <bottom>
             <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnToNewBooking_FCNewBooking" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="300.0">
+                  <JFXButton buttonType="RAISED" maxHeight="213.0" onAction="#backFromSeats" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="300.0">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="info" />

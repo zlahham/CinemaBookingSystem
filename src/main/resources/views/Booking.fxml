@@ -58,7 +58,7 @@
          <bottom>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnToBookings_BCBookings" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="20.0">
+                  <JFXButton fx:id="btnToBookings_BCBookings" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="46.0" prefWidth="220.0" ripplerFill="#4476b8" text="View all bookings" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="20.0">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="info" />
@@ -76,13 +76,22 @@
                         <OctIconView fill="WHITE" glyphName="TRASHCAN" size="15" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnToBookingSeats_BCBookingSeats" buttonType="RAISED" layoutX="605.0" layoutY="66.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Edit" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="20.0">
+                  <JFXButton fx:id="btnToBookingSeats_BCBookingSeats" buttonType="RAISED" layoutX="605.0" layoutY="66.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="46.0" prefWidth="177.0" ripplerFill="#4476b8" text="Change Seats" AnchorPane.rightAnchor="273.0" AnchorPane.topAnchor="20.0">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="success" />
                      </styleClass>
                      <graphic>
                         <OctIconView fill="WHITE" glyphName="PENCIL" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnToCustomer_CCDashboard" buttonType="RAISED" layoutX="300.0" layoutY="85.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="46.0" prefWidth="220.0" ripplerFill="#4476b8" text="Back to main menu">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="primary" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
                      </graphic>
                   </JFXButton>
                </children>

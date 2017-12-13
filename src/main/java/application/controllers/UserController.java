@@ -47,6 +47,10 @@ public class UserController  extends MainController{
 
 
     public void initialize() {
+    	BookingController.chosenBooking = null;
+    	BookingController.chosenScreening = null;
+    	FilmController.chosenFilm = null;
+    	
         initializeFilmTable();
         setName();
 
