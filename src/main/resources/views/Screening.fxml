@@ -1,57 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.BookingController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.BookingController">
    <children>
-      <GridPane prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <columnConstraints>
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <GridPane fx:id="grdpnSeats" gridLinesVisible="true" prefHeight="326.0" prefWidth="750.0" GridPane.columnIndex="2" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="3">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-            </GridPane>
-            <Button fx:id="btnToScreeningsEmployee_FCScreeningsEmployee" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="100.0" style="-fx-background-insets: 0,0,-1,0;" styleClass="primary" text="Back" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Button minWidth="100.0" mnemonicParsing="false" onAction="#deleteScreeningButtonPress" prefWidth="100.0" style="-fx-background-insets: 0,0,-1,0;" styleClass="success" text="Delete" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-            <Label fx:id="lblScreeningInfo" textFill="WHITE" underline="true" GridPane.columnIndex="3" GridPane.columnSpan="2">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-         </children>
-      </GridPane>
+      <BorderPane prefHeight="750.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Available/Booked Seats" textFill="WHITE" underline="true" AnchorPane.leftAnchor="419.0" AnchorPane.topAnchor="20.0">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="warning" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="15" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </top>
+         <left>
+            <AnchorPane prefHeight="492.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Rectangle arcHeight="30.0" arcWidth="30.0" fill="#1f93ff00" height="210.0" layoutX="8.0" layoutY="12.0" stroke="WHITE" strokeType="INSIDE" width="189.0" />
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="58.0" layoutY="69.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0">
+                     <image>
+                        <Image url="@../images/bookedseat.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="10.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="120.0">
+                     <image>
+                        <Image url="@../images/seat.png" />
+                     </image>
+                  </ImageView>
+                  <Label text="LEGEND" textFill="WHITE" underline="true" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="10.0" text="Unavailable" textFill="WHITE" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="70.0">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="124.0" layoutY="110.0" text="Available" textFill="WHITE" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="140.0">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="10.0" top="20.0" />
+               </padding>
+               <BorderPane.margin>
+                  <Insets top="70.0" />
+               </BorderPane.margin>
+            </AnchorPane>
+         </left>
+         <right>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnToScreeningsEmployee_FCScreeningsEmployee" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="300.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="info" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" maxHeight="213.0" onAction="#deleteScreeningButtonPress" prefHeight="213.0" prefWidth="187.0" ripplerFill="#4476b8" text="Delete Screening" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="300.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="danger" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="TRASHCAN" size="15" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <GridPane fx:id="grdpnSeats" prefHeight="326.0" prefWidth="750.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+                  <Label fx:id="lblFailure" layoutX="421.0" layoutY="20.0" textFill="#da1313" wrapText="true" AnchorPane.bottomAnchor="20.0" />
+                  <Label layoutX="840.0" layoutY="125.0" text="D" textFill="WHITE" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="100.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="871.0" layoutY="100.0" text="C" textFill="WHITE" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="200.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="871.0" layoutY="200.0" text="B" textFill="WHITE" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="300.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="871.0" layoutY="300.0" text="A" textFill="WHITE" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="400.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="871.0" layoutY="400.0" text="6" textFill="WHITE" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="100.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="783.0" layoutY="493.0" text="5" textFill="WHITE" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="210.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="683.0" layoutY="493.0" text="4" textFill="WHITE" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="325.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="563.0" layoutY="493.0" text="3" textFill="WHITE" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="545.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="338.0" layoutY="493.0" text="2" textFill="WHITE" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="655.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="228.0" layoutY="493.0" text="1" textFill="WHITE" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="770.0">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Rectangle fill="#a0adb9" height="10.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="750.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0" />
+                  <Label layoutX="402.0" layoutY="478.0" text="SCREEN" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>
