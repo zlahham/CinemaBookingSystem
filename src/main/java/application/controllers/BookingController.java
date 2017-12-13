@@ -240,9 +240,9 @@ public class BookingController extends MainController {
 	//used in BookingSeats view
 	private String getSeatKeyInGridPane(int i, int j) {
 		if (j < (chosenScreening.getTheatreDimensions()[1] + 1) / 2) {
-			return ((char) ('a' + i) + "" + (j + 1));
+			return ((char) ('d' - i) + "" + (j + 1));
 		} else {
-			return ((char) ('a' + i) + "" + j);
+			return ((char) ('d' - i) + "" + j);
 		}
 	}
 	
