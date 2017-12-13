@@ -33,7 +33,7 @@ public class BookingController extends MainController {
     //variable for initialisation control
     public static String mode = "";
 
-    // used in: Booking, BookingSeats
+    // used in: Booking
     // changed in: Bookings, Booking, BookingSeats
 	public static Booking chosenBooking = null;
     // used in: BookingSeats, Screening
@@ -90,6 +90,8 @@ public class BookingController extends MainController {
 				//accessed from Dashboard, Booking
 				//uses:
 				//changes: chosenBooking, chosenScreening
+				chosenScreening = null;
+				chosenBooking = null;
 				initializeBookings();
 				break;
 			case "BCBooking": //Customer
@@ -104,6 +106,7 @@ public class BookingController extends MainController {
 				//accessed from Booking, 
 				//uses: chosenBooking, chosenScreening
 				//changes: chosenBooking
+				chosenBooking = null;
 				initializeSeatPlan();
 				break;
 			case "BCScreening": //Employee
@@ -206,7 +209,6 @@ public class BookingController extends MainController {
 	//used in Booking view
 	public void deleteBookingButtonPress(ActionEvent event) {
 		deleteBooking(chosenBooking.getBookingID());
-		chosenBooking = null;
 		transition("Bookings", "BCBookings");
 	}
 	
@@ -266,7 +268,7 @@ public class BookingController extends MainController {
 					// amend customer's booking in chosenScreening:
 					System.out.println("Amending existing");
 					chosenBooking = existingBooking;
-					updateBookingSeats(chosenBooking.getBookingID(), getFullSeatPlan(seatsBooked));
+					updateBookingSeats(chosenBooking.getBookingID(), seatsBooked);
 					System.out.println("Updated seats: " + chosenBooking.getSeats());
 					seatsBooked = null;
 					existingBooking = null;
@@ -347,9 +349,12 @@ public class BookingController extends MainController {
 		return getBooking(booking.getBookingID());
 	}
 	
-	public static HashMap<String, Boolean> getFullSeatPlan(HashMap<String, Boolean> seats) {
+	//Gets a full seat plan after updating with parameters
+	public static HashMap<String, Boolean> getFullSeatPlan(HashMap<String, Boolean>... seats) {
 		HashMap<String, Boolean> returnPlan = FilmController.getEmptySeatPlan(Screening.theatreDimensions);
-		returnPlan.putAll(seats);
+		for (HashMap<String, Boolean> s : seats) {
+			returnPlan.putAll(s);
+		}
 		return returnPlan;
 	}
 	
@@ -359,7 +364,8 @@ public class BookingController extends MainController {
 	public void updateBookingSeats(String bookingID, HashMap<String, Boolean> seats) {
 		Booking booking = getBooking(bookingID);
 		booking.updateSeats(seats);
-		FilmController.getScreeningForBooking(booking).updateSeats(seats);
+		Screening screening = FilmController.getScreeningForBooking(booking);
+		screening.updateSeats(getFullSeatPlan(screening.getSeats(), seats));
 	}
 	
 	public static void deleteBooking(String bookingID) {

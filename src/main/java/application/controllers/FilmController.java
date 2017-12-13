@@ -124,12 +124,15 @@ public class FilmController extends MainController {
                 initializeNewScreening();
                 break;
             case "FCNewBooking":
+            	BookingController.chosenScreening = null;
                 initializeNewBooking();
                 break;
             case "FCScreeningsEmployee":
+            	BookingController.chosenScreening = null;
                 initializeScreenings();
                 break;
             case "FCScreeningsCustomer":
+            	BookingController.chosenScreening = null;
                 initializeScreenings();
                 break;
             default:
