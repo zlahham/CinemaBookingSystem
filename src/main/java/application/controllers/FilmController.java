@@ -209,13 +209,9 @@ public class FilmController extends MainController {
 
     //initialize Film views
     private void initializeFilm() {
-
         lblFilmTitle.setText(selectedFilm.getFilmTitle());
         lblFilmDescription.setText(selectedFilm.getDescription());
         lblFilmAge.setText(selectedFilm.getAgeRating());
-        lblFilmScreenings.setText(selectedFilm.getScreenings()
-                        .stream().map(s -> s.getDateTime().format(dateTimeFormatter)).collect(Collectors.joining("\n")));
-
         image.setImage(selectedFilm.getImage());
         image1.setImage(selectedFilm.getImage());
     }
@@ -316,6 +312,7 @@ public class FilmController extends MainController {
     private void initializeScreenings() {
         if (selectedFilm.getScreenings().size() > 0) {
             tblScreenings.getItems().addAll(selectedFilm.getScreenings());
+            tblclmnScreeningsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
             tblclmnScreeningsDate.setCellValueFactory(
                     c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
             tblclmnScreeningsTime.setCellValueFactory(

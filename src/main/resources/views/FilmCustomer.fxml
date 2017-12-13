@@ -80,23 +80,23 @@
             </AnchorPane>
          </bottom>
          <center>
-            <VBox maxWidth="630.0" prefHeight="450.0" prefWidth="630.0" BorderPane.alignment="CENTER">
+            <VBox maxHeight="450.0" maxWidth="630.0" prefHeight="450.0" prefWidth="630.0" BorderPane.alignment="CENTER">
                <children>
-                  <GridPane prefHeight="281.0" prefWidth="630.0" VBox.vgrow="ALWAYS">
+                  <GridPane prefHeight="457.0" prefWidth="630.0" VBox.vgrow="ALWAYS">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.53717041015625" minWidth="10.0" prefWidth="144.548828125" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="377.13946533203125" minWidth="10.0" prefWidth="355.451171875" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="1000.0" minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                      <children>
-                        <Label fx:id="lblFilmDescription" maxHeight="1000.0" maxWidth="1000.0" text="A case of mistaken identity puts a man named Slevin (Josh Hartnett) in the middle of a war between two rival New York crime lords: The Rabbi (Ben Kingsley) and the Boss (Morgan Freeman). While under the watchful eyes of Detective Brikowski (Stanley Tucci) and well-known assassin Goodkat (Bruce Willis), Slevin must quickly devise a plan to save his skin before his luck runs out." wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                        <Label fx:id="lblFilmDescription" maxHeight="1000.0" maxWidth="1000.0" text="A case of mistaken identity puts a man named Slevin (Josh Hartnett) in the middle of a war between two rival New York crime lords: The Rabbi (Ben Kingsley) and the Boss (Morgan Freeman). While under the watchful eyes of Detective Brikowski (Stanley Tucci) and well-known assassin Goodkat (Bruce Willis), Slevin must quickly devise a plan to save his skin before his luck runs out." textAlignment="JUSTIFY" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -106,7 +106,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblFilmAge" text="Age rating" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                        <Label fx:id="lblFilmAge" text="Age rating" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -119,7 +119,7 @@
                               <Font name="System Bold" size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="10.0" text="Description:" underline="true" GridPane.rowIndex="1">
+                        <Label layoutX="10.0" layoutY="10.0" text="Description:" underline="true" GridPane.rowIndex="2">
                            <padding>
                               <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
                            </padding>
@@ -127,7 +127,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label layoutX="10.0" layoutY="76.0" text="Age Rating:" underline="true" GridPane.rowIndex="2">
+                        <Label layoutX="10.0" layoutY="76.0" text="Age Rating:" underline="true" GridPane.rowIndex="1">
                            <padding>
                               <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
                            </padding>
