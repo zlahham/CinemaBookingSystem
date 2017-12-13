@@ -299,10 +299,9 @@ public class FilmController extends MainController {
                     image.setImage(imagePicked);
                     image.setEffect(new DropShadow(10, 10, 10, Color.rgb(0, 0, 0)));
                 } else {
-                    lblImageError.setText("The file you cheose does not seem to be an image.");
+                    lblImageError.setText("The file you chose does not seem to be an image.");
                 }
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
