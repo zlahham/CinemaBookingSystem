@@ -24,8 +24,6 @@ import javafx.scene.control.Button;
 
 public class MainController {
 	
-	public static ArrayList<String[]> history = new ArrayList<String[]>();
-	
 	public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 	public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
     public static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -44,12 +42,6 @@ public class MainController {
 	}
 	
 	public void transition(String viewName, String mode) {
-		//if (history.size() == 0) {
-			//history.set(0, new String[] { String((User)Main.stage.getUserData()).getRole(), "asda"});
-		///} else {
-			//history.set(0, history.get(1));
-	//	}
-	//	history.set(1, new String[] {viewName, mode});
 		//transition debugging
 		System.out.println("transition method; view: " + viewName);
 		System.out.println("transition method; mode: " + mode);
