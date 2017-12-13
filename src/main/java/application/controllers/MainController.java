@@ -2,11 +2,15 @@ package application.controllers;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import application.models.Booking;
 import application.models.Film;
+import application.models.User;
 import application.Main;
+
+import org.apache.commons.codec.binary.StringUtils;
 import org.json.JSONObject;
 
 import com.mashape.unirest.http.exceptions.UnirestException;

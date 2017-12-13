@@ -55,7 +55,10 @@
             </HBox>
          </bottom>
          <left>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="image" fitHeight="200.0" fitWidth="200.0" layoutX="91.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" />
+               </children></Pane>
          </left>
          <right>
             <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
@@ -140,7 +143,6 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <ImageView fx:id="image" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                            </children>
                         </GridPane>
                      </children>
