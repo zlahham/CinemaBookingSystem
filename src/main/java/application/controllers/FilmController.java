@@ -237,22 +237,22 @@ public class FilmController extends MainController {
         errors.clear();
         lblError.setText("");
         if (txtFilmTitle.getText().trim().isEmpty()) {
-            errors.add("Film title is missing");
+            errors.add("* Film title is missing");
         }
         for (Film f : Main.filmList) {
             if (f.getFilmTitle().compareTo(txtFilmTitle.getText().trim()) == 0) {
-                errors.add("A film with that title already exists. Please enter another title.");
+                errors.add("* A film with that title already exists. Please enter another title.");
                 break;
             }
         }
         if (txtDescription.getText().trim().isEmpty()) {
-            errors.add("Description is missing");
+            errors.add("* Description is missing");
         }
         if (cbxAgeRating.getValue() == null) {
-            errors.add("Age Rating is missing");
+            errors.add("* Age Rating is missing");
         }
         if (image.getImage() == null) {
-            errors.add("Image is missing");
+            errors.add("* Image is missing");
         }
         if (errors.isEmpty()) {
 
