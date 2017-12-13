@@ -1,20 +1,145 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.FilmController">
+<AnchorPane maxHeight="750.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1280.0" styleClass="customer" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.FilmController">
    <children>
-      <ImageView fx:id="image" fitHeight="260.0" fitWidth="200.0" layoutX="1036.0" layoutY="483.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="lblFilmTitle" layoutX="135.0" layoutY="62.0" prefHeight="486.0" prefWidth="786.0" textFill="#ee1414" wrapText="true">
-         <font>
-            <Font size="86.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnToCustomer" layoutX="354.0" layoutY="672.0" mnemonicParsing="false" onAction="#buttonTransition" text="Back" />
-      <Button fx:id="btnToScreeningsCustomer_FCScreeningsCustomer" layoutX="744.0" layoutY="661.0" mnemonicParsing="false" onAction="#buttonTransition" text="Screenings" />
+      <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="750.0" prefWidth="1280.0">
+         <left>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="image" fitHeight="190.0" fitWidth="200.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0" />
+               </children>
+            </AnchorPane>
+         </left>
+         <right>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fx:id="image1" fitHeight="190.0" fitWidth="200.0" layoutX="5.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0" />
+               </children>
+            </AnchorPane>
+         </right>
+         <top>
+            <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" layoutX="482.0" layoutY="13.0" text="Film Details" textAlignment="CENTER" underline="true" AnchorPane.leftAnchor="435.0" AnchorPane.rightAnchor="435.0" AnchorPane.topAnchor="20.0">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView glyphName="INFO_CIRCLE" size="30" />
+                     </graphic>
+                  </Label>
+                  <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="warning" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="15" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </top>
+         <bottom>
+            <AnchorPane prefHeight="129.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnToCustomer" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="info" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="btnToScreeningsCustomer_FCScreeningsCustomer" buttonType="RAISED" layoutX="605.0" layoutY="66.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Screenings" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="300.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="success" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="FILM" size="15" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <center>
+            <VBox maxWidth="630.0" prefHeight="450.0" prefWidth="630.0" BorderPane.alignment="CENTER">
+               <children>
+                  <GridPane prefHeight="281.0" prefWidth="630.0" VBox.vgrow="ALWAYS">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="244.53717041015625" minWidth="10.0" prefWidth="144.548828125" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="377.13946533203125" minWidth="10.0" prefWidth="355.451171875" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="1000.0" minHeight="10.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <children>
+                        <Label fx:id="lblFilmDescription" maxHeight="1000.0" maxWidth="1000.0" text="A case of mistaken identity puts a man named Slevin (Josh Hartnett) in the middle of a war between two rival New York crime lords: The Rabbi (Ben Kingsley) and the Boss (Morgan Freeman). While under the watchful eyes of Detective Brikowski (Stanley Tucci) and well-known assassin Goodkat (Bruce Willis), Slevin must quickly devise a plan to save his skin before his luck runs out." wrapText="true" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblFilmTitle" text="Film Title" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblFilmAge" text="Age rating" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label text="Film Title:" underline="true">
+                           <padding>
+                              <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text="Description:" underline="true" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="76.0" text="Age Rating:" underline="true" GridPane.rowIndex="2">
+                           <padding>
+                              <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
+                           </padding>
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

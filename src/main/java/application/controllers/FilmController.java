@@ -30,6 +30,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FilmController extends MainController {
 
@@ -45,9 +46,15 @@ public class FilmController extends MainController {
     @FXML
     private ImageView image;
     @FXML
+    private ImageView image1;
+    @FXML
     private DatePicker dtpckrDate;
     @FXML
+    private Label lblFilmDescription;
+    @FXML
     private Label lblFilmTitle;
+    @FXML
+    private Label lblFilmAge;
     @FXML
     private TextField txtFilmTitle;
     @FXML
@@ -202,13 +209,15 @@ public class FilmController extends MainController {
 
     //initialize Film views
     private void initializeFilm() {
+
         lblFilmTitle.setText(selectedFilm.getFilmTitle());
-        image.setPreserveRatio(true);
+        lblFilmDescription.setText(selectedFilm.getDescription());
+        lblFilmAge.setText(selectedFilm.getAgeRating());
+        lblFilmScreenings.setText(selectedFilm.getScreenings()
+                        .stream().map(s -> s.getDateTime().format(dateTimeFormatter)).collect(Collectors.joining("\n")));
+
         image.setImage(selectedFilm.getImage());
-        //set in fxml instead?
-        image.setFitHeight(200);
-        image.setFitWidth(200);
-        image.setEffect(new DropShadow(10, 10, 10, Color.rgb(0, 0, 0)));
+        image1.setImage(selectedFilm.getImage());
     }
 
     private void initializeNewFilm() {
