@@ -26,9 +26,7 @@ public class Film {
 		this.ageRating = ageRating;
 		this.screenings = screenings;
 		File imageFile = new File("src/main/resources/images/films/" + imageFileName);
-		// TODO: don't resize image here, resize it when fetched
-		this.image = new Image(imageFile.toURI().toString(), 100, 100, true, true);
-		//this.image = new Image(Objects.requireNonNull(getClass().getClassLoader().getResource(imageFilepath)).toExternalForm(), 200, 200, true, true);
+		this.image = new Image(imageFile.toURI().toString());
 	}
 	
 	// TODO: Refactor this constructor with the others
@@ -57,7 +55,6 @@ public class Film {
 	}
 	public void setImage(String imageFilepath) {
 		this.imageFilepath = imageFilepath;
-		//this.image = new Image("File:" + imageFilepath, 200, 200, true, true);
 	}
 	public void setAgeRating(String ageRating) {
 		this.ageRating = ageRating;

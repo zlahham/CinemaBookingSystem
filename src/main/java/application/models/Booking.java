@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
+import application.Main;
 import org.json.JSONObject;
 
 public class Booking {
@@ -15,7 +16,7 @@ public class Booking {
 	private LocalDateTime dateTime;
 	private String username;
 	private HashMap<String, Boolean> seats;
-	
+
 	public Booking(String filmTitle, LocalDateTime dateTime, String username, HashMap<String, Boolean> seats) {
 		this.filmTitle = filmTitle;
 		this.dateTime = dateTime;
@@ -24,12 +25,12 @@ public class Booking {
 		this.seats = new HashMap<String, Boolean>();
 		updateSeats(seats);
 	}
-	
+
 	// TODO: Refactor this constructor with the others
 	public Booking(JSONObject bookingJSON) {
 		this(bookingJSON.getString("filmTitle"), LocalDateTime.parse(bookingJSON.getString("dateTime"), formatter),
 				bookingJSON.getString("username"), new HashMap<String, Boolean>(9));
-		
+
 		JSONObject seats = bookingJSON.getJSONObject("seats");
 		Iterator<String> iterator = seats.keys();
 		String seatKey = null;
@@ -38,7 +39,7 @@ public class Booking {
 			this.seats.put(seatKey, seats.getBoolean(seatKey));
 		}
 	}
-	
+
 	public String getBookingID() {
 		return this.bookingID;
 	}
@@ -73,5 +74,21 @@ public class Booking {
 				}
 			}
 		}
+	}
+	public String status() {
+		if (this.dateTime.isAfter(LocalDateTime.now())) {
+			return "Upcoming";
+		}else {
+			return "Past";
+		}
+	}
+
+	public Film getFilm() {
+		for (Film f : Main.filmList) {
+			if (f.getFilmTitle().compareTo(this.filmTitle) == 0) {
+				return f;
+			}
+		}
+		return null;
 	}
 }
