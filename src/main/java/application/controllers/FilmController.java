@@ -407,6 +407,7 @@ public class FilmController extends MainController {
     // initialize addScreenings view
     private void initializeNewScreening() {
         screeningDateTimesToAdd = FXCollections.observableArrayList();
+        disableDatesInThePast();
     }
 
     // used in addScreenings view

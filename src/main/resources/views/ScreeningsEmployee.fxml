@@ -105,7 +105,7 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="15" />
                      </graphic>
                   </JFXButton>
-                  <Label graphicTextGap="10.0" prefHeight="50.0" prefWidth="438.0" text="Screenings Available" textFill="WHITE" underline="true" AnchorPane.leftAnchor="429.0" AnchorPane.rightAnchor="413.0" AnchorPane.topAnchor="10.0">
+                  <Label graphicTextGap="10.0" prefHeight="50.0" prefWidth="438.0" text="Screenings Available" textFill="WHITE" underline="true" AnchorPane.leftAnchor="421.0" AnchorPane.rightAnchor="421.0" AnchorPane.topAnchor="10.0">
                      <font>
                         <Font size="40.0" />
                      </font>

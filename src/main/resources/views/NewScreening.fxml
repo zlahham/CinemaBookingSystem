@@ -1,26 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import java.lang.String?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.FilmController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.FilmController">
    <children>
-      <Button fx:id="btnToEmployee" layoutX="410.0" layoutY="672.0" mnemonicParsing="false" onAction="#buttonTransition" text="Back" />
-      <TableView fx:id="tblTimes" layoutX="266.0" layoutY="146.0" prefHeight="436.0" prefWidth="277.0">
-        <columns>
-          <TableColumn fx:id="tblclmnTimesTime" maxWidth="277.0" minWidth="-1.0" prefWidth="277.0" text="Time" />
-        </columns>
-      </TableView>
-      <DatePicker fx:id="dtpckrDate" layoutX="317.0" layoutY="94.0" onAction="#showAvailableTimesOnSelectedDate" />
-      <Button layoutX="766.0" layoutY="674.0" mnemonicParsing="false" onAction="#addButtonPress" text="Add" />
-      <TableView fx:id="tblDateTimesToAdd" layoutX="583.0" layoutY="146.0" prefHeight="420.0" prefWidth="400.0">
-         <columns>
-            <TableColumn fx:id="tblclmnDateTimesToAddDate" maxWidth="501.0" minWidth="-1.0" prefWidth="200.0" text="Date" />
-            <TableColumn fx:id="tblclmnDateTimesToAddTime" maxWidth="356.0" minWidth="-1.0" prefWidth="200.0" text="Time" />
-         </columns>
-      </TableView>
+      <BorderPane prefHeight="750.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="warning" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <Label graphicTextGap="10.0" prefHeight="50.0" prefWidth="438.0" text="Add New Screenings" textFill="WHITE" underline="true" AnchorPane.leftAnchor="421.0" AnchorPane.rightAnchor="421.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="FILM" size="30" />
+                     </graphic>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </top>
+         <left>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </left>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <DatePicker fx:id="dtpckrDate" onAction="#showAvailableTimesOnSelectedDate" prefWidth="250.0" promptText="Select a date" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
+                  <TableView fx:id="tblTimes" prefHeight="375.0" prefWidth="270.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0">
+                    <columns>
+                      <TableColumn fx:id="tblclmnTimesTime" maxWidth="270.0" minWidth="-1.0" prefWidth="270.0" text="Time" />
+                    </columns>
+                  </TableView>
+                  <TableView fx:id="tblDateTimesToAdd" layoutX="151.0" layoutY="30.0" prefHeight="375.0" prefWidth="400.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="100.0">
+                     <columns>
+                        <TableColumn fx:id="tblclmnDateTimesToAddDate" maxWidth="200.0" minWidth="-1.0" prefWidth="200.0" text="Date" />
+                        <TableColumn fx:id="tblclmnDateTimesToAddTime" maxWidth="200.0" minWidth="-1.0" prefWidth="200.0" text="Time" />
+                     </columns>
+                  </TableView>
+                  <Label styleClass="success" stylesheets="@../application.css" text="1. Please select a date:" textFill="#4fbaeb" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="10.0" />
+                  <Label layoutX="40.0" layoutY="10.0" styleClass="success" stylesheets="@../application.css" text="2. Click on a row to choose a time slot" textFill="#4fbaeb" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="80.0" />
+                  <Label layoutX="40.0" layoutY="90.0" styleClass="success" stylesheets="@../application.css" text="3. Click on a row if you want to deselect your time slot choice:" textFill="#4fbaeb" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="80.0" />
+               </children>
+            </AnchorPane>
+         </center>
+         <right>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </right>
+         <bottom>
+            <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnToEmployee" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="0.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="info" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" maxHeight="213.0" onAction="#addButtonPress" prefHeight="213.0" prefWidth="176.0" ripplerFill="#4476b8" text="Add Screenings" AnchorPane.rightAnchor="230.0" AnchorPane.topAnchor="0.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="success" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="PLUS" size="15" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </bottom>
+      </BorderPane>
    </children>
 </AnchorPane>
