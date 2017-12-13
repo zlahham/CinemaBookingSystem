@@ -109,7 +109,7 @@
    <bottom>
       <AnchorPane maxHeight="150.0" minHeight="150.0" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="403.0" layoutY="45.0" prefHeight="94.0" prefWidth="629.0" text="AZ Cinemas is a leader in the premium entertainment cinema sector in the UK.Committed to continued growth and development of its premium entertainment ‘big screen’ experience, AZ Cinemas delivers the best choice of content, combined with the best technology in the best environment." textAlignment="JUSTIFY" textFill="#cfcfcf" wrapText="true" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="0.0" />
+            <Label layoutX="403.0" layoutY="45.0" prefHeight="94.0" prefWidth="629.0" text="AZ Cinemas is a leader in the premium entertainment cinema sector in the UK. Committed to continued growth and development of its premium entertainment ‘big screen’ experience, AZ Cinemas delivers the best choice of content, combined with the best technology in the best environment." textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="340.0" AnchorPane.rightAnchor="313.0" AnchorPane.topAnchor="0.0" />
             <HBox layoutX="440.0" layoutY="157.0" prefHeight="25.0" prefWidth="416.0" AnchorPane.bottomAnchor="0.0">
                <children>
                   <Label prefWidth="105.0" text="Built with lots of" textAlignment="JUSTIFY" textFill="WHITE" wrapText="true" />
