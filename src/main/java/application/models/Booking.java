@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 
 import application.Main;
+import javafx.beans.property.SimpleStringProperty;
+
 import org.json.JSONObject;
 
 public class Booking {
@@ -54,6 +56,9 @@ public class Booking {
 	}
 	public HashMap<String, Boolean> getSeats() {
 		return this.seats;
+	}
+	public String getSeatsString() {
+		return this.getSeats().keySet().toString().replace("[", "").replace("]", "").toUpperCase();
 	}
 	public boolean checkSeat(String seat) {
 		if (this.seats.containsKey(seat)) {

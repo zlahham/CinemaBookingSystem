@@ -2,6 +2,7 @@ package application.controllers;
 
 import application.Main;
 import application.models.Booking;
+import application.models.Customer;
 import application.models.Film;
 import application.models.Screening;
 import application.services.Firebase;
@@ -17,6 +18,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
@@ -119,7 +121,8 @@ public class FilmController extends MainController {
                 break;
             case "FCNewBooking":
             	BookingController.chosenScreening = null;
-            	BookingController.backFromSeats = new String[] {"NewBooking, FCNewBooking"};
+				BookingController.chosenBooking = null;
+            	BookingController.backFromSeats = new String[] {"NewBooking", "FCNewBooking"};
                 initializeNewBooking();
                 break;
             case "FCScreeningsEmployee":
@@ -128,7 +131,8 @@ public class FilmController extends MainController {
                 break;
             case "FCScreeningsCustomer":
             	BookingController.chosenScreening = null;
-            	BookingController.backFromSeats = new String[] {"ScreeningsCustomer, FCScreeningsCustomer"};
+				BookingController.chosenBooking = null;
+            	BookingController.backFromSeats = new String[] {"ScreeningsCustomer", "FCScreeningsCustomer"};
                 initializeScreenings();
                 break;
             default:
@@ -336,12 +340,12 @@ public class FilmController extends MainController {
                                 + " seats booked"));
             } else if (mode.compareTo("FCScreeningsCustomer") == 0) {
                 tblclmnScreeningsSeats.setText("Seats available");
-                tblclmnScreeningsSeats.setCellValueFactory(
-                        c -> new SimpleStringProperty(countBookedSeats(c.getValue())[1] + " seats available"));
+                tblclmnScreeningsSeats.setCellValueFactory(c -> new SimpleStringProperty(countBookedSeats(c.getValue())[1] +""));
             } else {
                 // TODO: print error message?
             }
 
+            //clicking a row takes a customer to seats selection; an employee to Screening view
             tblScreenings.setRowFactory(r -> {
                 TableRow<Screening> row = new TableRow<>();
                 row.setOnMouseClicked(rowClick -> {
@@ -351,7 +355,9 @@ public class FilmController extends MainController {
                         if (mode.compareTo("FCScreeningsEmployee") == 0) {
                             transition("Screening", "BCScreening");
                         } else if (mode.compareTo("FCScreeningsCustomer") == 0) {
-                            transition("BookingSeats", "BCBookingSeats");
+                        	if (row.getItem().getDateTime().isAfter(LocalDateTime.now())) {
+                        		transition("BookingSeats", "BCBookingSeats");
+                        	}
                         } else {
                             //TODO: print error message?
                         }
@@ -359,6 +365,36 @@ public class FilmController extends MainController {
                 });
                 return row;
             });
+            
+            //change row background colour if customer has bookings in the screening
+            tblclmnScreeningsSeats.setCellFactory(column -> {
+                return new TableCell<Screening, String>() {
+                    protected void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+						setText(empty ? "" : getItem().toString());
+						setGraphic(null);
+						TableRow<Screening> row = getTableRow();
+						if (!isEmpty()) {
+							if (mode.compareTo("FCScreeningsCustomer") == 0) {
+								Customer customer = (Customer) (Main.stage.getUserData());
+								Booking booking = BookingController.getCustomerBookingForScreening(customer,
+										row.getItem());
+								if (booking != null) {
+									row.setStyle("-fx-background-color:lightgreen");
+									setText(empty ? ""
+											: getItem().toString() + "; Your seats: " + booking.getSeatsString());
+								}
+								if (row.getItem().getDateTime().isBefore(LocalDateTime.now())) {
+									row.setStyle("-fx-background-color:lightcoral");
+								}
+							}
+						}
+					}
+				};
+            });
+            
+            
+            
         } else {
             lblTableInfo = new Label("This film has no screenings.");
             tblScreenings.setPlaceholder(lblTableInfo);
