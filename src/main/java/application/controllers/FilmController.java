@@ -30,7 +30,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class FilmController extends MainController {
 
@@ -217,7 +216,6 @@ public class FilmController extends MainController {
     }
 
     private void initializeNewFilm() {
-        image = new ImageView();
         cbxAgeRating.getItems().addAll(AGE_RATINGS);
     }
 
@@ -292,14 +290,10 @@ public class FilmController extends MainController {
                 String mimeType = tika.detect(filePicked).split("/")[0];
                 if (mimeType.compareTo("image") == 0) {
                     Image imagePicked = new Image(filePicked.toURI().toString());
-                    image.setPreserveRatio(true);
-                    //set in fxml instead?
-                    image.setFitHeight(200);
-                    image.setFitWidth(200);
+                    System.out.println(imagePicked);
                     image.setImage(imagePicked);
-                    image.setEffect(new DropShadow(10, 10, 10, Color.rgb(0, 0, 0)));
                 } else {
-                    lblImageError.setText("The file you chose does not seem to be an image.");
+                    lblImageError.setText("* The file you chose does not seem to be an image.");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -402,7 +396,7 @@ public class FilmController extends MainController {
         }
     }
 
-    // initializeaddScreenings view
+    // initialize addScreenings view
     private void initializeNewScreening() {
         screeningDateTimesToAdd = FXCollections.observableArrayList();
     }

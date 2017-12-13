@@ -15,57 +15,19 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.FilmController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.FilmController">
    <children>
-      <BorderPane prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <bottom>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <JFXButton fx:id="btnToEmployee" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back">
-                     <styleClass>
-                        <String fx:value="lg" />
-                        <String fx:value="info" />
-                     </styleClass>
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="SHARE" size="15" />
-                     </graphic>
-                     <HBox.margin>
-                        <Insets bottom="100.0" right="100.0" />
-                     </HBox.margin>
-                  </JFXButton>
-                  <JFXButton buttonType="RAISED" onAction="#addFilmButtonPressed" prefWidth="150.0" ripplerFill="#b3b844" text="Create Film">
-                     <styleClass>
-                        <String fx:value="lg" />
-                        <String fx:value="success" />
-                     </styleClass>
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
-                     </graphic>
-                     <HBox.margin>
-                        <Insets bottom="100.0" />
-                     </HBox.margin>
-                  </JFXButton>
-               </children>
-            </HBox>
-         </bottom>
-         <left>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </left>
-         <right>
-            <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </right>
+      <BorderPane prefHeight="750.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="279.0" prefWidth="722.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="50.0">
+                  <VBox prefHeight="509.0" prefWidth="670.0" AnchorPane.bottomAnchor="91.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="35.0">
                      <children>
-                        <Label styleClass="success" stylesheets="@../application.css" text="Please fill in the following form to add a film" textFill="#31708f">
+                        <Label styleClass="success" stylesheets="@../application.css" text="Please fill in the following form to add a film" textFill="#4fbaeb">
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
@@ -85,62 +47,70 @@
                               <RowConstraints percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
                               <RowConstraints percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
                               <RowConstraints percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                              <RowConstraints percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                              <RowConstraints percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
-                              <RowConstraints minHeight="10.0" percentHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="88.41619873046875" minHeight="75.66650390625" percentHeight="0.0" prefHeight="88.41619873046875" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="64.33349609375" minHeight="51.58380126953125" percentHeight="0.0" prefHeight="51.58380126953125" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Label text="Title" textFill="WHITE" GridPane.halignment="LEFT">
+                              <Label text="Title:" textFill="WHITE" GridPane.halignment="LEFT">
                                  <padding>
                                     <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
                                  </padding>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
                               </Label>
-                              <Label text="Description" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="2">
+                              <Label text="Description:" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
                                  <padding>
-                                    <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
+                                    <Insets bottom="20.0" left="10.0" right="20.0" />
                                  </padding>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
                               </Label>
-                              <Label text="Age Rating" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+                              <Label text="Age Rating:" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                                  <padding>
                                     <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
                                  </padding>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
                               </Label>
-                              <Label text="Image" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="5">
+                              <Label text="Image:" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="5">
                                  <padding>
                                     <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
                                  </padding>
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
                               </Label>
                               <TextField fx:id="txtFilmTitle" prefWidth="285.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="LEFT">
                                  <GridPane.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets bottom="10.0" top="10.0" />
                                  </GridPane.margin>
                               </TextField>
+                              <TextArea fx:id="txtDescription" prefWidth="285.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3" />
                               <ComboBox fx:id="cbxAgeRating" prefHeight="26.0" promptText="Choose Age Rating" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                                  <GridPane.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets bottom="10.0" right="10.0" top="10.0" />
                                  </GridPane.margin>
                               </ComboBox>
                               <Button fx:id="btnUploadImage" mnemonicParsing="false" onAction="#pickImage" prefWidth="135.0" text="Upload" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5">
                                  <GridPane.margin>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    <Insets bottom="10.0" right="10.0" top="10.0" />
                                  </GridPane.margin>
                               </Button>
-                              <Label fx:id="lblImageError" prefHeight="99.0" prefWidth="324.0" textFill="#d02727" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                              <Label fx:id="lblImageError" prefHeight="99.0" prefWidth="324.0" textFill="#d03030" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="5">
                                  <font>
-                                    <Font size="20.0" />
+                                    <Font size="12.0" />
                                  </font></Label>
-                              <TextArea fx:id="txtDescription" prefWidth="285.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.rowSpan="3" />
-                              <Label fx:id="lblError" prefHeight="140.0" prefWidth="337.0" textFill="#d03030" GridPane.columnIndex="2" GridPane.rowIndex="6" GridPane.rowSpan="2">
-                                 <padding>
-                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                                 </padding>
+                              <Label fx:id="lblError" alignment="TOP_LEFT" contentDisplay="TOP" textFill="#d03030" wrapText="true" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="4" GridPane.valignment="TOP" GridPane.vgrow="SOMETIMES">
                                  <font>
-                                    <Font size="20.0" />
+                                    <Font size="12.0" />
                                  </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
                               </Label>
-                              <ImageView fx:id="image" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                            </children>
                         </GridPane>
                      </children>
@@ -148,43 +118,62 @@
                </children>
             </AnchorPane>
          </center>
-         <top>
-            <GridPane prefHeight="50.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
-               </rowConstraints>
+         <left>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT" GridPane.columnIndex="2">
+                  <ImageView fx:id="image" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0" />
+               </children>
+            </AnchorPane>
+         </right>
+         <bottom>
+            <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnToEmployee" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="0.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="info" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="SHARE" size="15" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton buttonType="RAISED" onAction="#addFilmButtonPressed" prefWidth="150.0" ripplerFill="#b3b844" text="Create Film" AnchorPane.rightAnchor="300.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="success" />
+                     </styleClass>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" size="15" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </AnchorPane>
+         </bottom>
+         <top>
+            <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="warning" />
                      </styleClass>
-                     <GridPane.margin>
-                        <Insets right="20.0" top="10.0" />
-                     </GridPane.margin>
                      <graphic>
                         <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="15" />
                      </graphic>
                   </JFXButton>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-                     <children>
-                        <Label fx:id="lblTitle" alignment="CENTER" prefHeight="52.0" prefWidth="447.0" text="Add New Film" textFill="WHITE" underline="true">
-                           <font>
-                              <Font size="36.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
+                  <Label fx:id="lblTitle" alignment="CENTER" text="Add New Film" textFill="WHITE" underline="true" AnchorPane.rightAnchor="486.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="FILM" size="40" />
+                     </graphic>
+                  </Label>
                </children>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </GridPane>
+            </AnchorPane>
          </top>
       </BorderPane>
    </children>
