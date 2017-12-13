@@ -17,9 +17,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.CustomerController">
+<AnchorPane maxHeight="750.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1280.0" styleClass="customer" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.CustomerController">
    <children>
-      <BorderPane prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="750.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <GridPane prefHeight="800.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
                <columnConstraints>
@@ -39,20 +39,20 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label contentDisplay="RIGHT" text="Edit Profile Information" textFill="WHITE" underline="true" GridPane.columnSpan="6">
+                  <Label contentDisplay="RIGHT" text="Edit Profile Information" underline="true" GridPane.columnSpan="6">
                      <font>
                         <Font name="System Bold" size="40.0" />
                      </font>
                      <graphic>
-                        <OctIconView fill="WHITE" glyphName="PENCIL" size="40" />
+                        <OctIconView glyphName="PENCIL" size="40" />
                      </graphic>
                   </Label>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="4" GridPane.valignment="CENTER">
                      <children>
-                        <Label fx:id="lblEmail" alignment="CENTER" prefHeight="30.0" text="Email" textFill="WHITE" />
-                        <Label fx:id="lblPassword" alignment="CENTER" prefHeight="30.0" text="Password" textFill="WHITE" />
-                        <Label fx:id="lblFirstname" alignment="CENTER" prefHeight="30.0" text="First Name" textFill="WHITE" />
-                        <Label fx:id="lblLastname" alignment="CENTER" prefHeight="30.0" text="Last Name" textFill="WHITE" />
+                        <Label fx:id="lblEmail" alignment="CENTER" prefHeight="30.0" text="Email" />
+                        <Label fx:id="lblPassword" alignment="CENTER" prefHeight="30.0" text="Password" />
+                        <Label fx:id="lblFirstname" alignment="CENTER" prefHeight="30.0" text="First Name" />
+                        <Label fx:id="lblLastname" alignment="CENTER" prefHeight="30.0" text="Last Name" />
                      </children>
                      <opaqueInsets>
                         <Insets bottom="13.0" />

@@ -42,12 +42,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label fx:id="lblDate" text="DateTime" GridPane.columnSpan="2" GridPane.halignment="LEFT">
+                  <Label fx:id="lblDate" text="DateTime" GridPane.columnSpan="3" GridPane.halignment="LEFT">
                      <font>
                         <Font size="18.0" />
                      </font>
                      <GridPane.margin>
-                        <Insets left="27.0" top="10.0" />
+                        <Insets left="30.0" />
                      </GridPane.margin>
                   </Label>
                   <TableView fx:id="tblFilms" maxHeight="500.0" prefHeight="500.0" prefWidth="860.0" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.rowSpan="4" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
@@ -111,7 +111,7 @@
             </GridPane>
          </center>
          <top>
-            <GridPane maxHeight="50.0" prefHeight="50.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+            <GridPane maxHeight="50.0" prefHeight="100.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.381103515625" minWidth="10.0" prefWidth="490.381103515625" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="419.31744384765625" minWidth="10.0" prefWidth="363.618896484375" />
