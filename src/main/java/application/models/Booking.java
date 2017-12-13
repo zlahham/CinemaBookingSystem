@@ -1,18 +1,15 @@
 package application.models;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
 import application.Main;
-import javafx.beans.property.SimpleStringProperty;
 
 import org.json.JSONObject;
 
-public class Booking {
-	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+public class Booking extends SuperModel {
 	private String bookingID;
 	private String filmTitle;
 	private LocalDateTime dateTime;
@@ -23,15 +20,15 @@ public class Booking {
 		this.filmTitle = filmTitle;
 		this.dateTime = dateTime;
 		this.username = username;
-		this.bookingID = dateTime.format(formatter) + " " + username;
-		this.seats = new HashMap<String, Boolean>();
+		this.bookingID = dateTime.format(firebaseDateTimeFormatter) + " " + username;
+		this.seats = new HashMap<>();
 		updateSeats(seats);
 	}
 
 	// TODO: Refactor this constructor with the others
 	public Booking(JSONObject bookingJSON) {
-		this(bookingJSON.getString("filmTitle"), LocalDateTime.parse(bookingJSON.getString("dateTime"), formatter),
-				bookingJSON.getString("username"), new HashMap<String, Boolean>(9));
+		this(bookingJSON.getString("filmTitle"), LocalDateTime.parse(bookingJSON.getString("dateTime"), firebaseDateTimeFormatter),
+				bookingJSON.getString("username"), new HashMap<>(9));
 
 		JSONObject seats = bookingJSON.getJSONObject("seats");
 		Iterator<String> iterator = seats.keys();

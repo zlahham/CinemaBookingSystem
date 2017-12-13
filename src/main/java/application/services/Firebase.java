@@ -36,6 +36,19 @@ public class Firebase {
                 .asString();
     }
 
+    // Params needed: dateTime, filmTitle
+    public static void createScreening(Map<String, String> params) throws UnirestException {
+        Unirest.patch(URL + "films/" + params.get("filmTitle") + "/screenings.json").header("accept", "application/json")
+                .body("{\"" + params.get("dateTime") + "\":{\"dateTime\":\"" + params.get("dateTime") + "\","
+                        + "\"screeningID\":\"" + params.get("dateTime") + "\"," + "\"filmTitle\":\""
+                        + params.get("filmTitle") + "\"," +
+                        "\"seats\":" + "{\"a1\" : false, \"a2\" : false, \"a3\" : false, \"a4\" : false, \"a5\" : false, \"a6\" : false," +
+                                        "\"b1\" : false, \"b2\" : false, \"b3\" : false, \"b4\" : false, \"b5\" : false, \"b6\" : false," +
+                                        "\"c1\" : false, \"c2\" : false, \"c3\" : false, \"c4\" : false, \"c5\" : false, \"c6\" : false," +
+                                        "\"d1\" : false, \"d2\" : false, \"d3\" : false, \"d4\" : false, \"d5\" : false, \"d6\" : false}"
+                        + "}}")
+                .asString();
+    }
     public static boolean destroy() {
         return false;
     }

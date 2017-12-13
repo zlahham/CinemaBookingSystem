@@ -31,6 +31,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class FilmController extends MainController {
@@ -500,6 +501,7 @@ public class FilmController extends MainController {
         for (LocalDateTime dt : screeningDateTimesToAdd) {
             Screening s = new Screening(chosenFilm.getFilmTitle(), dt, getEmptySeatPlan(Screening.theatreDimensions));
             screeningsToAdd.add(s);
+            createFirebaseScreening(chosenFilm.getFilmTitle(), dt.format(Screening.firebaseDateTimeFormatter));
         }
         chosenFilm.addScreenings(screeningsToAdd);
         screeningDateTimesToAdd.clear();
@@ -524,5 +526,16 @@ public class FilmController extends MainController {
                     }
                 };
         dtpckrDate.setDayCellFactory(dayCellFactory);
+    }
+
+    private void createFirebaseScreening(String filmTitle, String dateTime) {
+        Map<String, String> params = new HashMap<>();
+        params.put("filmTitle", filmTitle);
+        params.put("dateTime", dateTime);
+        try {
+            Firebase.createScreening(params);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
     }
 }

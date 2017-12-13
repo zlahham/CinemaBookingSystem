@@ -1,7 +1,6 @@
 package application.models;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,19 +8,18 @@ import java.util.Iterator;
 import application.Main;
 import org.json.JSONObject;
 
-public class Screening {
+public class Screening extends SuperModel{
 	// used when a new Screening is created within the program;
 	// Screenings from the database get their dimensions from the database
 	public static final int[] theatreDimensions = {4, 6};	
 	//TODO: put this somewhere else?
-	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 	private String screeningID;
 	private String filmTitle;
 	private LocalDateTime dateTime;
 	private HashMap<String, Boolean> seats;
 
 	public Screening(String filmTitle, LocalDateTime dateTime, HashMap<String, Boolean> seats) {
-		this.screeningID = dateTime.format(formatter).toString() + " " + filmTitle;
+		this.screeningID = dateTime.format(firebaseDateTimeFormatter) + " " + filmTitle;
 		this.filmTitle = filmTitle;
 		this.dateTime = dateTime;
 		this.seats = seats;
@@ -30,7 +28,7 @@ public class Screening {
 	// TODO: Refactor this constructor with the others
 	public Screening(JSONObject screeningJSON) {
 		this(screeningJSON.getString("filmTitle"),
-				LocalDateTime.parse(screeningJSON.getString("dateTime"), formatter), new HashMap<String, Boolean>());
+				LocalDateTime.parse(screeningJSON.getString("dateTime"), firebaseDateTimeFormatter ), new HashMap<String, Boolean>());
 		// construct seats HashMap
 		JSONObject seats = screeningJSON.getJSONObject("seats");
 		Iterator<String> iterator = seats.keys();
