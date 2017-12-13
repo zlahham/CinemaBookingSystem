@@ -25,13 +25,16 @@ public class BookingController extends MainController {
 
     //TODO: move variable definitions into initialisation methods?
 
-    // variable for initialisation control;
+    //variable for initialisation control
     public static String mode = "";
+    public static String backFromSeats[];
 
+    // used in: Booking
+    // changed in: Bookings, Booking, BookingSeats
 	public static Booking chosenBooking = null;
-	public static Booking existingBooking;
+    // used in: BookingSeats, Screening
+    // changed in: Bookings, Screening, Screenings, NewBooking
 	public static Screening chosenScreening = null;
-    private static HashMap<String, Boolean> seatsBooked;
 
     // booking view controls
     @FXML
@@ -64,34 +67,57 @@ public class BookingController extends MainController {
     @FXML
     private TableColumn<Booking, String> tblclmnBookingsSeats;
 
-    // TODO: nicer icons; effects instead of new icons for booked and selected seats?
-    // seats view controls
+    // BookingSeats view controls
     @FXML
     private GridPane grdpnSeats = new GridPane();
+	@FXML
+	private Label lblFailure;
+	
+	//BookingSeats view variables
     private ImageView[][] seatsArray;
-
+	private Booking existingBooking;
+    private HashMap<String, Boolean> seatsBooked;
+    // TODO: nicer icons; effects instead of new icons for booked and selected seats?
     private Image unbooked = new Image(Objects.requireNonNull(getClass().getClassLoader().
             getResource("images/seat.png")).toExternalForm());
     private Image booked = new Image(Objects.requireNonNull(getClass().getClassLoader().
             getResource("images/bookedseat.png")).toExternalForm());
     private Image selected = new Image(Objects.requireNonNull(getClass().getClassLoader().
             getResource("images/selectedseat.png")).toExternalForm());
-	@FXML
-	private Label lblFailure;
 
 	public void initialize() {
 
 		switch (mode) {
-			case "BCBookings":
+			case "BCBookings": //Customer
+				//access to Dashboard, Booking
+				//accessed from Dashboard, Booking
+				//uses:
+				//changes: chosenBooking, chosenScreening
+				chosenScreening = null;
+				chosenBooking = null;
 				initializeBookings();
 				break;
-			case "BCBooking":
+			case "BCBooking": //Customer
+				//access to Dashboard, Bookings (via back to Bookings and delete), BookingSeats (via edit)
+				//accessed from Bookings, BookingSeats
+				//uses: chosenBooking
+				//changes:
+				backFromSeats = new String[] {"Booking, BCBooking"};
 				initializeBooking();
 				break;
-			case "BCBookingSeats":
+			case "BCBookingSeats": //Customer
+				//access to Dashboard, NewBooking (via back), Screenings (via back), Booking (via Book)
+				//accessed from Booking, 
+				//uses: chosenBooking, chosenScreening
+				//changes: chosBooking
+				chosenBooking = null;
 				initializeSeatPlan();
 				break;
-			case "BCScreening":
+			case "BCScreening": //Employee
+				//access to Dashboard, Screenings (via back and delete)
+				//accessed from Screenings
+				//uses: chosenScreening
+				//changes: chosenScreening
 				initializeSeatPlan();
 				break;
 			default:
@@ -101,7 +127,7 @@ public class BookingController extends MainController {
 		}
 	}
 
-	// view bookings view initialisation
+	// bookings view initialisation
 	private void initializeBookings() {
 		
 		tblBookings.getItems().addAll(getBookingsByCustomer((Customer)(Main.stage.getUserData())));
@@ -139,11 +165,12 @@ public class BookingController extends MainController {
         image1.setImage(chosenBooking.getFilm().getImage());
 	}
 	
-	// seats view and screening view initialisation
+	//BookingSeats view and Screening view initialisation
 	private void initializeSeatPlan() {
 		int dimensions[] = (chosenScreening.getTheatreDimensions());
 		seatsArray = new ImageView[dimensions[0]][dimensions[1] + 1];
 		seatsBooked = new HashMap<String, Boolean>();
+		existingBooking = null;
 		if (mode.compareTo("BCBookingSeats") == 0) {
 			existingBooking = getCustomerBookingForScreening((Customer)(Main.stage.getUserData()), chosenScreening);
 		}
@@ -200,7 +227,7 @@ public class BookingController extends MainController {
 		transition("ScreeningsEmployee", "FCScreeningsEmployee");
 	}
 
-	// used in seats view
+	// used in BookingSeats view
 	public void gridPaneClick(int i, int j) {
 		seatsArray[i][j].setOnMouseClicked(event -> {
 			if (seatsArray[i][j].getImage().equals(unbooked)) {
@@ -224,13 +251,13 @@ public class BookingController extends MainController {
 	//used in BookingSeats view
 	private String getSeatKeyInGridPane(int i, int j) {
 		if (j < (chosenScreening.getTheatreDimensions()[1] + 1) / 2) {
-			return ((char) ('a' + i) + "" + (j + 1));
+			return ((char) ('d' - i) + "" + (j + 1));
 		} else {
-			return ((char) ('a' + i) + "" + j);
+			return ((char) ('d' - i) + "" + j);
 		}
 	}
 	
-	// used in seats view
+	// used in BookingSeats view
 	public void bookButtonPressed(ActionEvent event) {
 
 		//debugging
@@ -250,7 +277,7 @@ public class BookingController extends MainController {
 					// amend customer's booking in chosenScreening:
 					System.out.println("Amending existing");
 					chosenBooking = existingBooking;
-					updateBookingSeats(chosenBooking.getBookingID(), getFullSeatPlan(seatsBooked));
+					updateBookingSeats(chosenBooking.getBookingID(), seatsBooked);
 					System.out.println("Updated seats: " + chosenBooking.getSeats());
 					seatsBooked = null;
 					existingBooking = null;
@@ -331,9 +358,12 @@ public class BookingController extends MainController {
 		return getBooking(booking.getBookingID());
 	}
 	
-	public static HashMap<String, Boolean> getFullSeatPlan(HashMap<String, Boolean> seats) {
+	//Gets a full seat plan after updating with parameters
+	public static HashMap<String, Boolean> getFullSeatPlan(HashMap<String, Boolean>... seats) {
 		HashMap<String, Boolean> returnPlan = FilmController.getEmptySeatPlan(Screening.theatreDimensions);
-		returnPlan.putAll(seats);
+		for (HashMap<String, Boolean> s : seats) {
+			returnPlan.putAll(s);
+		}
 		return returnPlan;
 	}
 	
@@ -343,7 +373,8 @@ public class BookingController extends MainController {
 	public void updateBookingSeats(String bookingID, HashMap<String, Boolean> seats) {
 		Booking booking = getBooking(bookingID);
 		booking.updateSeats(seats);
-		FilmController.getScreeningForBooking(booking).updateSeats(seats);
+		Screening screening = FilmController.getScreeningForBooking(booking);
+		screening.updateSeats(getFullSeatPlan(screening.getSeats(), seats));
 	}
 	
 	public static void deleteBooking(String bookingID) {

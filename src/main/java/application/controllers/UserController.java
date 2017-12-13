@@ -83,7 +83,7 @@ public class UserController  extends MainController{
             row.setOnMouseClicked(event -> {
                 if (!row.isEmpty() && event.getButton() == MouseButton.PRIMARY
                         && event.getClickCount() == 1) {
-                    FilmController.selectedFilm = row.getItem();
+                    FilmController.chosenFilm = row.getItem();
                     if (((User)(Main.stage.getUserData())).getRole().compareTo("employee") == 0) {
                     	transition("FilmEmployee", "FCFilmEmployee");
                     } else {
