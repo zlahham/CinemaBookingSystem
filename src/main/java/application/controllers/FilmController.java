@@ -41,10 +41,9 @@ public class FilmController extends MainController {
 
     public static String mode;
 
-    private static ObservableList<LocalDateTime> screeningDateTimesToAdd;
-    public static Film selectedFilm = null;
-	private static File filePicked;
-	private static ArrayList<String> errors =  new ArrayList<String>();
+    //used in: Film views, Screening views, NewScreening view
+    //changed in: Dashboard views
+    public static Film chosenFilm = null;
 
 	// controls shared across multiple views
 	// used in Film view, NewFilm view, 
@@ -73,6 +72,10 @@ public class FilmController extends MainController {
     private Label lblError;
 	@FXML
 	private Label lblImageError;
+	
+	//NewFilm view variables
+	private File chosenFile;
+	private ArrayList<String> errors;
 
     // NewBooking/Screenings views shared controls
     @FXML
@@ -101,6 +104,9 @@ public class FilmController extends MainController {
     private TableColumn<LocalDateTime, String> tblclmnDateTimesToAddDate;
     @FXML
     private TableColumn<LocalDateTime, String> tblclmnDateTimesToAddTime;
+    
+    //NewScreening view variables
+    private ObservableList<LocalDateTime> screeningDateTimesToAdd;
     
     public void initialize() {
 
@@ -135,9 +141,9 @@ public class FilmController extends MainController {
     
     //initialize Film views
 	private void initializeFilm() {
-	    lblFilmTitle.setText(selectedFilm.getFilmTitle());
+	    lblFilmTitle.setText(chosenFilm.getFilmTitle());
 	    image.setPreserveRatio(true);
-	    image.setImage(selectedFilm.getImage());
+	    image.setImage(chosenFilm.getImage());
 		 //set in fxml instead?
 		 image.setFitHeight(200);
 		 image.setFitWidth(200);
@@ -146,6 +152,7 @@ public class FilmController extends MainController {
 
 	// initialize NewFilm view
 	private void initializeNewFilm() {
+		errors =  new ArrayList<String>();
 	    image = new ImageView();
 		cbxAgeRating.getItems().addAll(AGE_RATINGS);
 	}
@@ -175,7 +182,7 @@ public class FilmController extends MainController {
 		if (errors.isEmpty()) {
 			
 			try {
-				Files.copy(filePicked.toPath(), Paths.get("src/main/resources/images/films/" + txtFilmTitle.getText().trim()));
+				Files.copy(chosenFile.toPath(), Paths.get("src/main/resources/images/films/" + txtFilmTitle.getText().trim()));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -194,7 +201,7 @@ public class FilmController extends MainController {
 
             Film film = new Film(txtFilmTitle.getText().trim(), txtDescription.getText().trim(), txtFilmTitle.getText().trim(), cbxAgeRating.getValue(), FXCollections.observableArrayList());
 			Main.filmList.add(film);
-			filePicked = null;
+			chosenFile = null;
 			image = null;	
 			transition("Employee", "");
 		} else {
@@ -213,14 +220,14 @@ public class FilmController extends MainController {
 		lblImageError.setText("");
 		final FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Choose image");
-		filePicked = fileChooser.showOpenDialog(Main.stage);
-		if (filePicked != null) {
+		chosenFile = fileChooser.showOpenDialog(Main.stage);
+		if (chosenFile != null) {
 			
 			 Tika tika = new Tika();
 			 try {
-				String mimeType = tika.detect(filePicked).split("/")[0];		
+				String mimeType = tika.detect(chosenFile).split("/")[0];		
 				if (mimeType.compareTo("image") == 0) {
-					 Image imagePicked = new Image(filePicked.toURI().toString());
+					 Image imagePicked = new Image(chosenFile.toURI().toString());
 					 image.setPreserveRatio(true);
 					 //set in fxml instead?
 					 image.setFitHeight(200);
@@ -239,8 +246,8 @@ public class FilmController extends MainController {
 	
 	// initialize Screenings views
 	private void initializeScreenings() {
-		if (selectedFilm.getScreenings().size() > 0) {
-			tblScreenings.getItems().addAll(selectedFilm.getScreenings());
+		if (chosenFilm.getScreenings().size() > 0) {
+			tblScreenings.getItems().addAll(chosenFilm.getScreenings());
 			tblclmnScreeningsDate.setCellValueFactory(
 					c -> new SimpleStringProperty(c.getValue().getDateTime().format(dateFormatter)));
 			tblclmnScreeningsTime.setCellValueFactory(
@@ -377,14 +384,14 @@ public class FilmController extends MainController {
         }
     }
 
-	//used in AddScreenings view
+	//used in NewScreening view
     public void addButtonPress(ActionEvent event) {
     	ArrayList<Screening> screeningsToAdd = new ArrayList<Screening>();
     	for (LocalDateTime dt : screeningDateTimesToAdd) {
-    		Screening s = new Screening(selectedFilm.getFilmTitle(), dt, getEmptySeatPlan(Screening.theatreDimensions));
+    		Screening s = new Screening(chosenFilm.getFilmTitle(), dt, getEmptySeatPlan(Screening.theatreDimensions));
     		screeningsToAdd.add(s);
     	}
-    	selectedFilm.addScreenings(screeningsToAdd);
+    	chosenFilm.addScreenings(screeningsToAdd);
     	screeningDateTimesToAdd.clear();
     	transition("ScreeningsEmployee", "FCScreeningsEmployee");
     }

@@ -43,7 +43,6 @@
                 <TableColumn fx:id="tblclmnBookingsDate" editable="false" prefWidth="150.0" text="Date" />
                 <TableColumn fx:id="tblclmnBookingsTime" editable="false" prefWidth="130.0" text="Time" />
                   <TableColumn fx:id="tblclmnBookingsSeats" editable="false" prefWidth="225.86346435546875" text="Seats" />
-                  <TableColumn fx:id="tblclmnBookingsDelete" editable="false" prefWidth="283.136474609375" text="Action" />
               </columns>
             </TableView>
             <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" prefWidth="100.0" style="-fx-background-insets: 0,0,-1,0;" styleClass="warning" text="Log out" GridPane.columnIndex="7" />

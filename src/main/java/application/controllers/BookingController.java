@@ -30,13 +30,15 @@ public class BookingController extends MainController {
 
     //TODO: move variable definitions into initialisation methods?
 
-    // variable for initialisation control;
+    //variable for initialisation control
     public static String mode = "";
 
+    // used in: Booking, BookingSeats
+    // changed in: Bookings, Booking, BookingSeats
 	public static Booking chosenBooking = null;
-	public static Booking existingBooking;
+    // used in: BookingSeats, Screening
+    // changed in: Bookings, Screening, Screenings, NewBooking
 	public static Screening chosenScreening = null;
-    private static HashMap<String, Boolean> seatsBooked;
 
     // booking view controls
     @FXML
@@ -61,37 +63,54 @@ public class BookingController extends MainController {
     private TableColumn<Booking, String> tblclmnBookingsTime;
     @FXML
     private TableColumn<Booking, String> tblclmnBookingsSeats;
-    @FXML
-    private TableColumn<Booking, String> tblclmnBookingsDelete = new TableColumn<Booking, String>("Delete");
 
-    // TODO: nicer icons; effects instead of new icons for booked and selected seats?
-    // seats view controls
+    // BookingSeats view controls
     @FXML
     private GridPane grdpnSeats = new GridPane();
+	@FXML
+	private Label lblFailure;
+	
+	//BookingSeats view variables
     private ImageView[][] seatsArray;
-
+	private Booking existingBooking;
+    private HashMap<String, Boolean> seatsBooked;
+    // TODO: nicer icons; effects instead of new icons for booked and selected seats?
     private Image unbooked = new Image(Objects.requireNonNull(getClass().getClassLoader().
             getResource("images/seat.png")).toExternalForm());
     private Image booked = new Image(Objects.requireNonNull(getClass().getClassLoader().
             getResource("images/bookedseat.png")).toExternalForm());
     private Image selected = new Image(Objects.requireNonNull(getClass().getClassLoader().
             getResource("images/selectedseat.png")).toExternalForm());
-	@FXML
-	private Label lblFailure;
 
 	public void initialize() {
 
 		switch (mode) {
-			case "BCBookings":
+			case "BCBookings": //Customer
+				//access to Dashboard, Booking
+				//accessed from Dashboard, Booking
+				//uses:
+				//changes: chosenBooking, chosenScreening
 				initializeBookings();
 				break;
-			case "BCBooking":
+			case "BCBooking": //Customer
+				//access to Dashboard, Bookings (via back to Bookings and delete), BookingSeats (via edit)
+				//accessed from Bookings, BookingSeats
+				//uses: chosenBooking
+				//changes:
 				initializeBooking();
 				break;
-			case "BCBookingSeats":
+			case "BCBookingSeats": //Customer
+				//access to Dashboard, NewBooking (via back), Screenings (via back), Booking (via Book)
+				//accessed from Booking, 
+				//uses: chosenBooking, chosenScreening
+				//changes: chosenBooking
 				initializeSeatPlan();
 				break;
-			case "BCScreening":
+			case "BCScreening": //Employee
+				//access to Dashboard, Screenings (via back and delete)
+				//accessed from Screenings
+				//uses: chosenScreening
+				//changes: chosenScreening
 				initializeSeatPlan();
 				break;
 			default:
@@ -101,7 +120,7 @@ public class BookingController extends MainController {
 		}
 	}
 
-	// view bookings view initialisation
+	// bookings view initialisation
 	private void initializeBookings() {
 		
 		tblBookings.getItems().addAll(getBookingsByCustomer((Customer)(Main.stage.getUserData())));
@@ -110,36 +129,6 @@ public class BookingController extends MainController {
 		tblclmnBookingsTime.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
 		tblclmnBookingsSeats.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getSeats().keySet().toString()));
 
-		tblclmnBookingsDelete.setCellValueFactory(new PropertyValueFactory<>("DUMMY"));
-
-		Callback<TableColumn<Booking, String>, TableCell<Booking, String>> cellFactory = 
-				new Callback<TableColumn<Booking, String>, TableCell<Booking, String>>() {
-					@Override
-					public TableCell<Booking, String> call(final TableColumn<Booking, String> param) {
-						final TableCell<Booking, String> cell = new TableCell<Booking, String>() {
-
-							final Button btn = new Button("Delete");
-
-							@Override
-							public void updateItem(String item, boolean empty) {
-								super.updateItem(item, empty);
-								if (empty) {
-									setGraphic(null);
-									setText(null);
-								} else {
-									btn.setOnAction(event -> {
-										deleteBooking(getTableView().getItems().get(getIndex()).getBookingID());
-										getTableView().getItems().remove(getTableView().getItems().get(getIndex()));
-									});
-									setGraphic(btn);
-									setText(null);
-								}
-							}
-						};
-						return cell;
-					}
-				};
-		tblclmnBookingsDelete.setCellFactory(cellFactory);
         tblBookings.setRowFactory(r -> {
             TableRow<Booking> row = new TableRow<>();
             row.setOnMouseClicked(rowClick -> {
@@ -164,11 +153,12 @@ public class BookingController extends MainController {
 	    
 	}
 	
-	// seats view and screening view initialisation
+	//BookingSeats view and Screening view initialisation
 	private void initializeSeatPlan() {
 		int dimensions[] = (chosenScreening.getTheatreDimensions());
 		seatsArray = new ImageView[dimensions[0]][dimensions[1] + 1];
 		seatsBooked = new HashMap<String, Boolean>();
+		existingBooking = null;
 		if (mode.compareTo("BCBookingSeats") == 0) {
 			existingBooking = getCustomerBookingForScreening((Customer)(Main.stage.getUserData()), chosenScreening);
 		}
@@ -216,6 +206,7 @@ public class BookingController extends MainController {
 	//used in Booking view
 	public void deleteBookingButtonPress(ActionEvent event) {
 		deleteBooking(chosenBooking.getBookingID());
+		chosenBooking = null;
 		transition("Bookings", "BCBookings");
 	}
 	
@@ -225,7 +216,7 @@ public class BookingController extends MainController {
 		transition("ScreeningsEmployee", "FCScreeningsEmployee");
 	}
 
-	// used in seats view
+	// used in BookingSeats view
 	public void gridPaneClick(int i, int j) {
 		seatsArray[i][j].setOnMouseClicked(event -> {
 			if (seatsArray[i][j].getImage().equals(unbooked)) {
@@ -255,7 +246,7 @@ public class BookingController extends MainController {
 		}
 	}
 	
-	// used in seats view
+	// used in BookingSeats view
 	public void bookButtonPressed(ActionEvent event) {
 
 		//debugging
