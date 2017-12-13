@@ -3,13 +3,16 @@ package application.controllers;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
 
 import application.*;
 import application.models.Booking;
 import application.models.Customer;
 import application.models.Screening;
+import application.services.Firebase;
 import com.jfoenix.controls.JFXButton;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
+import org.json.JSONObject;
 
 public class BookingController extends MainController {
 
@@ -345,6 +349,21 @@ public class BookingController extends MainController {
 	public Booking addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
 		Booking booking = new Booking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
 		Main.bookingList.add(booking);
+
+
+		Map<String, String> params = new HashMap<>();
+		params.put("filmTitle", screening.getFilmTitle());
+		params.put("dateTime", screening.getDateTime().format(Screening.firebaseDateTimeFormatter));
+		params.put("username", customer.getUsername());
+		JSONObject seatsObj = new JSONObject(seats);
+		params.put("seats", seatsObj.toString());
+
+		try {
+			Firebase.createBooking(params);
+		} catch (UnirestException e) {
+			e.printStackTrace();
+		}
+
 		screening.updateSeats(seats);
 		return getBooking(booking.getBookingID());
 	}

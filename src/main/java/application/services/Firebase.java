@@ -49,6 +49,22 @@ public class Firebase {
                         + "}}")
                 .asString();
     }
+
+
+    // Params needed: dateTime, filmTitle, username, seats
+    public static void createBooking(Map<String, String> params) throws UnirestException {
+        String bookingID = params.get("dateTime") + " " + params.get("username");
+        String seats = params.get("seats").replace(":", " : ");
+
+        Unirest.patch(URL + "bookings.json").header("accept", "application/json")
+                .body("{\"" + bookingID + "\":{\"dateTime\":\"" + params.get("dateTime") + "\","
+                        + "\"bookingID\":\"" + bookingID + "\"," + "\"username\":\"" + params.get("username") + "\","
+                        + "\"filmTitle\":\"" + params.get("filmTitle") + "\","
+                        + "\"seats\":" + seats + "}}")
+                .asString();
+    }
+
+
     public static boolean destroy() {
         return false;
     }
