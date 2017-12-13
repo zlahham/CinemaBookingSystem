@@ -31,7 +31,7 @@
         </rowConstraints>
          <children>
             <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#logout" prefWidth="100.0" styleClass="warning" text="Log out" GridPane.columnIndex="6" GridPane.halignment="RIGHT" />
-            <Button fx:id="btnToEmployee" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="135.0" styleClass="info" text="Back" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" />
+            <Button fx:id="btnToFilmEmployee_FCFilmEmployee" mnemonicParsing="false" onAction="#buttonTransition" prefWidth="135.0" styleClass="info" text="Back" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="5" />
             <TableView fx:id="tblScreenings" prefHeight="402.0" prefWidth="964.0" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="2" GridPane.rowSpan="3">
               <columns>
                 <TableColumn fx:id="tblclmnScreeningsDate" minWidth="0.0" prefWidth="234.0" text="Date" />

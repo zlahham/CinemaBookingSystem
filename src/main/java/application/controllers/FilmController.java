@@ -119,6 +119,7 @@ public class FilmController extends MainController {
                 break;
             case "FCNewBooking":
             	BookingController.chosenScreening = null;
+            	BookingController.backFromSeats = new String[] {"NewBooking, FCNewBooking"};
                 initializeNewBooking();
                 break;
             case "FCScreeningsEmployee":
@@ -127,6 +128,7 @@ public class FilmController extends MainController {
                 break;
             case "FCScreeningsCustomer":
             	BookingController.chosenScreening = null;
+            	BookingController.backFromSeats = new String[] {"ScreeningsCustomer, FCScreeningsCustomer"};
                 initializeScreenings();
                 break;
             default:
@@ -227,8 +229,8 @@ public class FilmController extends MainController {
     }
 
     private void initializeNewFilm() {
-        image = new ImageView();
         cbxAgeRating.getItems().addAll(AGE_RATINGS);
+        errors = new ArrayList<String>();
     }
 
     // used in NewFilm view
