@@ -375,7 +375,7 @@ public class BookingController extends MainController {
 		Screening screening = FilmController.getScreeningForBooking(booking);
 		screening.updateSeats(getFullSeatPlan(screening.getSeats(), seats));
 
-//        updateFirebaseBooking(screening.getFilmTitle(), screening.getDateTime(), booking.getUsername(), seats);
+        updateFirebaseBooking(screening.getFilmTitle(), screening.getDateTime(), booking.getUsername(), seats,bookingID);
 
     }
 	
@@ -424,21 +424,36 @@ public class BookingController extends MainController {
         }
     }
 
-//    private void updateFirebaseBooking(String filmTitle, LocalDateTime dateTime, String username, HashMap<String, Boolean> seats) {
-//        Map<String, String> params = new HashMap<>();
-//        params.put("filmTitle", filmTitle);
-//        params.put("dateTime", dateTime.format(Screening.firebaseDateTimeFormatter));
-//        params.put("username", username);
-//        JSONObject seatsObj = new JSONObject(seats);
-//        params.put("seats", seatsObj.toString());
-//
-//        try {
-//            Firebase.updateBooking(params);
-//            Firebase.updateScreening(params);
-//        } catch (UnirestException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void updateFirebaseBooking(String filmTitle, LocalDateTime dateTime, String username, HashMap<String, Boolean> seats, String bookingID) {
+        Map<String, String> params = new HashMap<>();
+        params.put("filmTitle", filmTitle);
+        params.put("dateTime", dateTime.format(Screening.firebaseDateTimeFormatter));
+        params.put("username", username);
+        JSONObject seatsObj = new JSONObject(seats);
+        params.put("seats", seatsObj.toString());
+
+        Screening s = FilmController.getScreeningForBooking(getBooking(bookingID));
+        HashMap<String, Boolean> seatsToUpdate = new HashMap<String, Boolean>();
+        assert s != null;
+        Iterator<String> iterator = s.getSeats().keySet().iterator();
+        String seatI = null;
+        while (iterator.hasNext()) {
+            seatI = iterator.next();
+            if (seats.containsKey(seatI)) {
+                seatsToUpdate.put(seatI, false);
+            }
+        }
+
+        try {
+            Firebase.deleteBooking(bookingID);
+            Firebase.createBooking(params);
+            JSONObject smth = new JSONObject(seatsToUpdate);
+            params.put("seats", smth.toString());
+            Firebase.updateScreening(params);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+    }
 
 	private static void createFirebaseBooking(String filmTitle, LocalDateTime dateTime, String username, HashMap<String, Boolean> seats) {
 		Map<String, String> params = new HashMap<>();
