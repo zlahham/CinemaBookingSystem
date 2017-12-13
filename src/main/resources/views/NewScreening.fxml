@@ -56,9 +56,9 @@
                         <TableColumn fx:id="tblclmnDateTimesToAddTime" maxWidth="200.0" minWidth="-1.0" prefWidth="200.0" text="Time" />
                      </columns>
                   </TableView>
-                  <Label styleClass="success" stylesheets="@../application.css" text="1. Please select a date:" textFill="#4fbaeb" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="10.0" />
-                  <Label layoutX="40.0" layoutY="10.0" styleClass="success" stylesheets="@../application.css" text="2. Click on a row to choose a time slot" textFill="#4fbaeb" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="80.0" />
-                  <Label layoutX="40.0" layoutY="90.0" styleClass="success" stylesheets="@../application.css" text="3. Click on a row if you want to deselect your time slot choice:" textFill="#4fbaeb" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="80.0" />
+                  <Label styleClass="success" stylesheets="@../application.css" text="1. Please select a date:" textFill="#b3e8ff" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="10.0" />
+                  <Label layoutX="40.0" layoutY="10.0" styleClass="success" stylesheets="@../application.css" text="2. Click on a row to choose a time slot" textFill="#b3e8ff" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="80.0" />
+                  <Label layoutX="40.0" layoutY="90.0" styleClass="success" stylesheets="@../application.css" text="3. Click on a row if you want to deselect your time slot choice:" textFill="#b3e8ff" AnchorPane.leftAnchor="450.0" AnchorPane.topAnchor="80.0" />
                </children>
             </AnchorPane>
          </center>
@@ -71,7 +71,7 @@
                   <JFXButton fx:id="btnToEmployee" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="0.0">
                      <styleClass>
                         <String fx:value="lg" />
-                        <String fx:value="info" />
+                        <String fx:value="primary" />
                      </styleClass>
                      <graphic>
                         <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />

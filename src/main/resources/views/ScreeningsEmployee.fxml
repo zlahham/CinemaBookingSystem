@@ -75,7 +75,7 @@
                   <JFXButton fx:id="btnToFilmEmployee_FCFilmEmployee" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="200.0">
                      <styleClass>
                         <String fx:value="lg" />
-                        <String fx:value="info" />
+                        <String fx:value="primary" />
                      </styleClass>
                      <graphic>
                         <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />

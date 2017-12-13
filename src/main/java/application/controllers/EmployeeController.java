@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class EmployeeController extends UserController {
 
     private void hamburgerInitializer() {
         try {
-            VBox box = FXMLLoader.load(getClass().getResource("/views/EmployeeNavbar.fxml"));
+            AnchorPane box = FXMLLoader.load(getClass().getResource("/views/EmployeeNavbar.fxml"));
             drawer.setSidePane(box);
             HamburgerBackArrowBasicTransition task = new HamburgerBackArrowBasicTransition(hamburger);
             task.setRate(-1);
