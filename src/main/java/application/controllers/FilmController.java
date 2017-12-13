@@ -61,8 +61,6 @@ public class FilmController extends MainController {
     @FXML
     private ComboBox<String> cbxAgeRating;
     @FXML
-    private Button btnUploadImage;
-    @FXML
     private Label lblError;
 	@FXML
 	private Label lblImageError;
@@ -229,7 +227,7 @@ public class FilmController extends MainController {
 
     private void initializeNewFilm() {
         cbxAgeRating.getItems().addAll(AGE_RATINGS);
-        errors = new ArrayList<String>();
+        errors = new ArrayList<>();
     }
 
     // used in NewFilm view
