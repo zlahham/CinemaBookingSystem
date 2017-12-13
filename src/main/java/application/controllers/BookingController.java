@@ -349,22 +349,11 @@ public class BookingController extends MainController {
 	public Booking addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
 		Booking booking = new Booking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
 		Main.bookingList.add(booking);
-
-
-		Map<String, String> params = new HashMap<>();
-		params.put("filmTitle", screening.getFilmTitle());
-		params.put("dateTime", screening.getDateTime().format(Screening.firebaseDateTimeFormatter));
-		params.put("username", customer.getUsername());
-		JSONObject seatsObj = new JSONObject(seats);
-		params.put("seats", seatsObj.toString());
-
-		try {
-			Firebase.createBooking(params);
-		} catch (UnirestException e) {
-			e.printStackTrace();
-		}
-
 		screening.updateSeats(seats);
+
+		createFirebaseBooking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
+
+		
 		return getBooking(booking.getBookingID());
 	}
 	
@@ -406,5 +395,23 @@ public class BookingController extends MainController {
 		}
 		s.updateSeats(seatsToUnbook);				
 		Main.bookingList.remove(b);
+	}
+
+
+
+	private void createFirebaseBooking(String filmTitle, LocalDateTime dateTime, String username, HashMap<String, Boolean> seats) {
+		Map<String, String> params = new HashMap<>();
+		params.put("filmTitle", filmTitle);
+		params.put("dateTime", dateTime.format(Screening.firebaseDateTimeFormatter));
+		params.put("username", username);
+		JSONObject seatsObj = new JSONObject(seats);
+		params.put("seats", seatsObj.toString());
+
+		try {
+			Firebase.createBooking(params);
+			Firebase.updateScreening(params);
+		} catch (UnirestException e) {
+			e.printStackTrace();
+		}
 	}
 }

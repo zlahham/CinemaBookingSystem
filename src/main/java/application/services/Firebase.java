@@ -51,6 +51,16 @@ public class Firebase {
     }
 
 
+    public static void updateScreening(Map<String, String> params) throws UnirestException {
+        String localURL = "films/" + params.get("filmTitle") + "/screenings/" + params.get("dateTime") + "/seats.json";
+        String seats = params.get("seats").replace(":", " : ");
+
+        Unirest.patch(URL + localURL).header("accept", "application/json")
+                .body(seats)
+                .asString();
+    }
+
+
     // Params needed: dateTime, filmTitle, username, seats
     public static void createBooking(Map<String, String> params) throws UnirestException {
         String bookingID = params.get("dateTime") + " " + params.get("username");
