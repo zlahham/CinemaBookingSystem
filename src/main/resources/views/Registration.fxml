@@ -2,8 +2,11 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -16,10 +19,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1280.0" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.LoginController">
+<AnchorPane maxHeight="750.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="750.0" prefWidth="1280.0" styleClass="login" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.LoginController">
 
    <children>
-      <BorderPane prefHeight="800.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane prefHeight="750.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
             <GridPane prefHeight="800.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
               <columnConstraints>
@@ -39,18 +42,25 @@
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="User Registration" textFill="WHITE" underline="true" GridPane.columnSpan="6">
+                  <Label graphicTextGap="10.0" text="Customer Registration" textFill="WHITE" underline="true" GridPane.columnSpan="6">
                      <font>
-                        <Font name="System Bold" size="24.0" />
+                        <Font name="System Bold" size="40.0" />
                      </font>
+                     <graphic>
+                        <MaterialDesignIconView fill="#64d999" glyphName="ACCOUNT_MULTIPLE_PLUS" size="40" text="">
+                           <rotationAxis>
+                              <Point3D y="90.0" />
+                           </rotationAxis>
+                        </MaterialDesignIconView>
+                     </graphic>
                   </Label>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="4" GridPane.valignment="CENTER">
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="40.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="4" GridPane.valignment="CENTER">
                      <children>
-                        <Label fx:id="lblUsername" prefHeight="30.0" text="Username" textFill="WHITE" />
-                        <Label fx:id="lblEmail" prefHeight="30.0" text="Email" textFill="WHITE" />
-                        <Label fx:id="lblPassword" prefHeight="30.0" text="Password" textFill="WHITE" />
-                        <Label fx:id="lblFirstname" prefHeight="30.0" text="First Name" textFill="WHITE" />
-                        <Label fx:id="lblLastname" prefHeight="30.0" text="Last Name" textFill="WHITE" />
+                        <Label fx:id="lblUsername" prefHeight="30.0" text="Username *" textFill="WHITE" />
+                        <Label fx:id="lblEmail" prefHeight="30.0" text="Email *" textFill="WHITE" />
+                        <Label fx:id="lblPassword" prefHeight="30.0" text="Password *" textFill="WHITE" />
+                        <Label fx:id="lblFirstname" prefHeight="30.0" text="First Name *" textFill="WHITE" />
+                        <Label fx:id="lblLastname" prefHeight="30.0" text="Last Name *" textFill="WHITE" />
                      </children>
                      <opaqueInsets>
                         <Insets bottom="13.0" />
@@ -77,9 +87,9 @@
                         <Insets top="-55.0" />
                      </GridPane.margin>
                   </VBox>
-                  <Label styleClass="success" stylesheets="@../application.css" text="Please fill in the following form to create your user acount" textFill="#31708f" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-                  <Label fx:id="lblFailure" layoutX="386.0" layoutY="193.0" styleClass="success" stylesheets="@../application.css" textFill="#d03030" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-                  <Label fx:id="lblSuccess" layoutX="474.0" layoutY="122.0" styleClass="success" stylesheets="@../application.css" textFill="#398f32" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                  <Label styleClass="success" stylesheets="@../application.css" text="Please fill in the following form to create your user acount" textFill="#77d2fc" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+                  <Label fx:id="lblFailure" layoutX="386.0" layoutY="193.0" styleClass="success" stylesheets="@../application.css" textFill="#ff4141" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                  <Label fx:id="lblSuccess" layoutX="474.0" layoutY="122.0" styleClass="success" stylesheets="@../application.css" textFill="#5cda51" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                   <JFXButton buttonType="RAISED" onAction="#createUser" prefWidth="150.0" ripplerFill="#b3b844" text="Submit" GridPane.columnIndex="4" GridPane.rowIndex="4">
                      <styleClass>
                         <String fx:value="lg" />
@@ -95,7 +105,7 @@
                         <String fx:value="info" />
                      </styleClass>
                      <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="SHARE" size="15" />
+                        <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
                      </graphic>
                   </JFXButton>
                </children>

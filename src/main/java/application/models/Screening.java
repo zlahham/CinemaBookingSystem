@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import application.Main;
 import org.json.JSONObject;
 
 public class Screening {
@@ -47,6 +48,15 @@ public class Screening {
 	
 	public String getFilmTitle() {
 		return this.filmTitle;
+	}
+
+	public Film getFilm() {
+		for (Film f : Main.filmList) {
+			if (this.filmTitle.compareTo(f.getFilmTitle()) == 0) {
+				return f;
+			}
+		}
+		return null;
 	}
 
 	public LocalDateTime getDateTime() {

@@ -9,17 +9,19 @@ import javafx.animation.Timeline;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 public class UserController  extends MainController{
 
@@ -45,11 +47,11 @@ public class UserController  extends MainController{
 
 
     public void initialize() {
-        initializeDashboard();
+        initializeFilmTable();
         setName();
 
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
-            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            DateFormat dateFormat = new SimpleDateFormat("MM/dd/MM/yyyy HH:mm:ss");
             Date date = new Date();
 
             lblDate.setText(dateFormat.format(date));
@@ -60,14 +62,21 @@ public class UserController  extends MainController{
         clock.play();
     }
 
-    private void initializeDashboard() {
-
+    private void initializeFilmTable() {
         tblFilms.getItems().addAll(Main.filmList);
-        tblclmnFilmsImage.setCellValueFactory(c -> new SimpleObjectProperty<ImageView>(new ImageView(c.getValue().getImage())));
+        tblclmnFilmsImage.setCellValueFactory(c -> {
+            ImageView iv = new ImageView();
+            iv.setFitHeight(75);
+            iv.setFitWidth(75);
+            iv.setImage(c.getValue().getImage());
+            return new SimpleObjectProperty<>(iv);
+        });
         tblclmnFilmsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
         tblclmnFilmsDescription.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDescription()));
         tblclmnFilmsAgeRating.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getAgeRating()));
-        tblclmnFilmsScreenings.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getScreenings().toString()));
+        tblclmnFilmsScreenings.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getScreenings()
+                .stream().map(s -> s.getDateTime().format(dateTimeFormatter)).collect(Collectors.joining("\n"))));
+
 
         tblFilms.setRowFactory(r -> {
             TableRow<Film> row = new TableRow<>();

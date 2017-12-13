@@ -26,7 +26,15 @@ public class MainController {
 	
 	public void logout() {
 		Main.stage.setUserData(null);
-		transition("Login", "");
+		Parent view;
+		try {
+			view = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
+			Scene scene = new Scene(view);
+			Main.stage.setScene(scene);
+			Main.stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void transition(String viewName, String mode) {

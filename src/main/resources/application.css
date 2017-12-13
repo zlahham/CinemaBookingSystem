@@ -1,11 +1,24 @@
-.root {
+.root, .root.employee {
 	-fx-body-color : #F5F5F5;
 	-fx-outer-border : #cecece;
 	-fx-background-color:
-	    /* linear-gradient(to bottom right, #89f7fe, #66a6ff) */
 	    linear-gradient(#09203f, #537895)
-
 }
+
+.root.customer {
+	-fx-body-color : #F5F5F5;
+	-fx-outer-border : #cecece;
+	-fx-background-color:
+	    linear-gradient(#ffc3a0, #ffafbd)
+}
+
+.root.login {
+	-fx-body-color : #F5F5F5;
+	-fx-outer-border : #cecece;
+	-fx-background-color:
+	    linear-gradient(#09203f, #ffafbd)
+}
+
 .button:focused, .toggle-button:focused,
 .split-menu-button:focused, .menu-button:focused,
 .number-button:focused,
@@ -795,6 +808,7 @@ VBox > .split-menu-button.last > .arrow-button {
 
 /*table view columns*/
 .filler,.column-header,.show-hide-columns-button {
+    /*This changes the color of the Column headers*/
 	-fx-background-color: #dddddd, white, white;
 }
 .show-hide-columns-button {
@@ -802,14 +816,17 @@ VBox > .split-menu-button.last > .arrow-button {
 	-fx-background-insets: 0 0 1 1;
 }
 .column-header:hover,.show-hide-columns-button:hover {
+    /*This changes the color of the Column headers when hovering*/
 	-fx-background-color: #dddddd, white, #f8f8f8;
 }
 .column-header-background > .filler {
 	-fx-border-color: transparent #dddddd transparent transparent;
+	-fx-background-color: GREEN;
 	-fx-border-insets: 0 1 0 0;
 }
 .column-drag-header {
 	-fx-background-color: #2fb254;
+	-fx-background-color: PINK;
 }
 
 /*split pane*/
