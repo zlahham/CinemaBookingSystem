@@ -353,7 +353,7 @@ public class BookingController extends MainController {
 
 		createFirebaseBooking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
 
-		
+
 		return getBooking(booking.getBookingID());
 	}
 	
@@ -374,7 +374,10 @@ public class BookingController extends MainController {
 		booking.updateSeats(seats);
 		Screening screening = FilmController.getScreeningForBooking(booking);
 		screening.updateSeats(getFullSeatPlan(screening.getSeats(), seats));
-	}
+
+//        updateFirebaseBooking(screening.getFilmTitle(), screening.getDateTime(), booking.getUsername(), seats);
+
+    }
 	
 	public static void deleteBooking(String bookingID) {
 		//TODO change data structure to make this less horrendous
@@ -385,7 +388,8 @@ public class BookingController extends MainController {
 		// with the seats
 		//TODO clean this up
 		HashMap<String, Boolean> seatsToUnbook = new HashMap<String, Boolean>();
-		Iterator<String> iterator = s.getSeats().keySet().iterator();
+        assert s != null;
+        Iterator<String> iterator = s.getSeats().keySet().iterator();
 		String seatI = null;
 		while (iterator.hasNext()) {
 			seatI = iterator.next();
@@ -395,11 +399,48 @@ public class BookingController extends MainController {
 		}
 		s.updateSeats(seatsToUnbook);				
 		Main.bookingList.remove(b);
-	}
 
+        Map<String, String> params = new HashMap<>();
+        params.put("filmTitle", b.getFilmTitle());
+        params.put("dateTime", b.getDateTime().format(Screening.firebaseDateTimeFormatter));
+        params.put("username", b.getUsername());
+        JSONObject seatsObj = new JSONObject(seatsToUnbook);
+        params.put("seats", seatsObj.toString());
 
+        assert b != null;
+        deleteFirebaseBooking(b.getBookingID());
+        try {
+            Firebase.updateScreening(params);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+    }
 
-	private void createFirebaseBooking(String filmTitle, LocalDateTime dateTime, String username, HashMap<String, Boolean> seats) {
+    private static void deleteFirebaseBooking(String bookingID) {
+        try {
+            Firebase.deleteBooking(bookingID);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    private void updateFirebaseBooking(String filmTitle, LocalDateTime dateTime, String username, HashMap<String, Boolean> seats) {
+//        Map<String, String> params = new HashMap<>();
+//        params.put("filmTitle", filmTitle);
+//        params.put("dateTime", dateTime.format(Screening.firebaseDateTimeFormatter));
+//        params.put("username", username);
+//        JSONObject seatsObj = new JSONObject(seats);
+//        params.put("seats", seatsObj.toString());
+//
+//        try {
+//            Firebase.updateBooking(params);
+//            Firebase.updateScreening(params);
+//        } catch (UnirestException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+	private static void createFirebaseBooking(String filmTitle, LocalDateTime dateTime, String username, HashMap<String, Boolean> seats) {
 		Map<String, String> params = new HashMap<>();
 		params.put("filmTitle", filmTitle);
 		params.put("dateTime", dateTime.format(Screening.firebaseDateTimeFormatter));

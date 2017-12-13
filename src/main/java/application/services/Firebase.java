@@ -2,6 +2,7 @@ package application.services;
 
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.HttpRequestWithBody;
 import org.json.JSONObject;
 
 import java.util.Map;
@@ -74,7 +75,13 @@ public class Firebase {
                 .asString();
     }
 
+//    public static void updateBooking(Map<String, String> params) throws UnirestException {
+//        deleteBooking(params);
+//    }
 
+    public static void deleteBooking(String bookingID) throws UnirestException {
+        Unirest.delete(URL + "bookings/" + bookingID +".json").asString();
+    }
     public static boolean destroy() {
         return false;
     }
