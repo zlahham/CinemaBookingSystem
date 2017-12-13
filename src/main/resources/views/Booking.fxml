@@ -21,14 +21,14 @@
          <left>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="image" fitHeight="190.0" fitWidth="200.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="100.0" />
+                  <ImageView fx:id="image" fitHeight="190.0" fitWidth="200.0" layoutY="98.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0" />
                </children>
             </AnchorPane>
          </left>
          <right>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="image" fitHeight="190.0" fitWidth="200.0" layoutX="5.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0" />
+                  <ImageView fx:id="image1" fitHeight="190.0" fitWidth="200.0" layoutX="5.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0" />
                </children>
             </AnchorPane>
          </right>
@@ -67,7 +67,7 @@
                         <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" layoutX="597.0" layoutY="25.0" maxHeight="213.0" onAction="#deleteBookingButtonPress" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Delete" AnchorPane.leftAnchor="565.0" AnchorPane.rightAnchor="565.0" AnchorPane.topAnchor="20.0">
+                  <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="597.0" layoutY="25.0" maxHeight="213.0" onAction="#deleteBookingButtonPress" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Delete" AnchorPane.leftAnchor="565.0" AnchorPane.rightAnchor="565.0" AnchorPane.topAnchor="20.0">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="danger" />

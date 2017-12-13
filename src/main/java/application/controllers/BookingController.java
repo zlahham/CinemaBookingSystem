@@ -1,5 +1,6 @@
 package application.controllers;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Objects;
@@ -8,15 +9,13 @@ import application.*;
 import application.models.Booking;
 import application.models.Customer;
 import application.models.Screening;
+import com.jfoenix.controls.JFXButton;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -44,8 +43,13 @@ public class BookingController extends MainController {
     @FXML
     private Label lblSeats;
     @FXML
-    private ImageView image;
-    
+    private ImageView image, image1;
+    @FXML
+    private JFXButton btnDelete;
+    @FXML
+    private JFXButton btnToBookingSeats_BCBookingSeats;
+
+
     // view bookings view controls
     @FXML
     private TableView<Booking> tblBookings;
@@ -123,11 +127,16 @@ public class BookingController extends MainController {
 
 	// booking view initialization
 	private void initializeBooking() {
+        if (chosenBooking.getDateTime().isBefore(LocalDateTime.now())) {
+            btnDelete.setDisable(true);
+            btnToBookingSeats_BCBookingSeats.setDisable(true);
+        }
 		lblFilmTitle.setText(chosenBooking.getFilmTitle());
 		lblDate.setText(chosenBooking.getDateTime().format(dateFormatter));
 		lblTime.setText(chosenBooking.getDateTime().format(timeFormatter));
 		lblSeats.setText(chosenBooking.getSeats().keySet().toString().replace("[", "").replace("]", "").toUpperCase());
 	    image.setImage(chosenBooking.getFilm().getImage());
+        image1.setImage(chosenBooking.getFilm().getImage());
 	}
 	
 	// seats view and screening view initialisation
