@@ -307,7 +307,7 @@ public class FilmController extends MainController {
 									//customer has bookings: blue
 									row.setStyle("-fx-background-color:lightblue");
 									setText(empty ? ""
-											: getItem().toString() + "; Your seats: " + booking.getSeatsString());
+											: getItem().toString() + "; Your seat(s): " + booking.getSeatsString());
 								} 
 							}
 							//date is in the past: red
@@ -355,7 +355,7 @@ public class FilmController extends MainController {
             tblclmnScreeningsFilmAge.setCellValueFactory(
                     c -> new SimpleStringProperty(c.getValue().getFilm().getAgeRating()));
             tblclmnScreeningsSeats.setCellValueFactory(
-                    c -> new SimpleStringProperty(countBookedSeats(c.getValue())[1] + " seats available"));
+                    c -> new SimpleStringProperty(countBookedSeats(c.getValue())[1] + ""));
 
             tblScreenings.setRowFactory(r -> {
                 TableRow<Screening> row = new TableRow<>();
@@ -368,8 +368,7 @@ public class FilmController extends MainController {
                 });
                 return row;
             });
-//TODO: this
-		/*	// change row background colour if customer has bookings in the screening
+			// change row background colour if customer has bookings in the screening
 			tblclmnScreeningsSeats.setCellFactory(column -> {
 				return new TableCell<Screening, String>() {
 					protected void updateItem(String item, boolean empty) {
@@ -386,16 +385,12 @@ public class FilmController extends MainController {
 								// customer has bookings: blue
 								row.setStyle("-fx-background-color:lightblue");
 								setText(empty ? ""
-										: getItem().toString() + "; Your seats: " + booking.getSeatsString());
+										: getItem().toString() + "; Your seat(s): " + booking.getSeatsString());
 							}
-						}
-						// date is in the past: red
-						if (row.getItem().getDateTime().isBefore(LocalDateTime.now())) {
-							row.setStyle("-fx-background-color:lightcoral");
 						}
 					}
 				};
-			});*/
+			});
 
 		} else {
             tblScreenings.getItems().clear();
