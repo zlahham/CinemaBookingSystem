@@ -146,7 +146,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
-                  <Label fx:id="lblFailure" layoutX="421.0" layoutY="20.0" textFill="#da1313" wrapText="true" AnchorPane.bottomAnchor="20.0" />
+                  <Label fx:id="lblFailure" layoutX="421.0" layoutY="20.0" prefHeight="17.0" prefWidth="467.0" textFill="#da1313" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="234.0" AnchorPane.rightAnchor="181.0" />
                   <Label disable="true" text="To choose your seats, please click on any selection of available seats and then click the &quot;Book&quot; button" textFill="#6b371c" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="0.0">
                      <graphic>
                         <FontAwesomeIconView fill="#ff8548" glyphName="INFO_CIRCLE" />
