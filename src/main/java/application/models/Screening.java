@@ -19,7 +19,7 @@ public class Screening extends SuperModel{
 	private HashMap<String, Boolean> seats;
 
 	public Screening(String filmTitle, LocalDateTime dateTime, HashMap<String, Boolean> seats) {
-		this.screeningID = dateTime.format(firebaseDateTimeFormatter) + " " + filmTitle;
+		this.screeningID = dateTime.format(firebaseDateTimeFormatter);
 		this.filmTitle = filmTitle;
 		this.dateTime = dateTime;
 		this.seats = seats;

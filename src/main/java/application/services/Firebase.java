@@ -61,8 +61,8 @@ public class Firebase {
                 .asString();
     }
 
-    public static void deleteScreening(String screeningID) throws UnirestException {
-        Unirest.delete(URL + "bookings/" + screeningID +".json").asString();
+    public static void deleteScreening(String screeningID, String filmTitle) throws UnirestException {
+        Unirest.delete(URL + "films/" + filmTitle + "/screenings/" + screeningID +".json").asString();
     }
 
     // Params needed: dateTime, filmTitle, username, seats
@@ -78,10 +78,6 @@ public class Firebase {
                         + "\"seats\":" + seats + "}}")
                 .asString();
     }
-
-//    public static void updateBooking(Map<String, String> params) throws UnirestException {
-//        deleteBooking(params);
-//    }
 
     public static void deleteBooking(String bookingID) throws UnirestException {
         Unirest.delete(URL + "bookings/" + bookingID +".json").asString();

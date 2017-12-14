@@ -140,87 +140,6 @@ public class FilmController extends MainController {
         }
     }
 
-    // used in Screenings views and export
-    public static int[] countBookedSeats(Screening s) {
-        int[] bookedAvailable = {0, 0};
-        for (Boolean value : s.getSeats().values()) {
-            if (value.equals(true)) {
-                bookedAvailable[0]++;
-            } else {
-                bookedAvailable[1]++;
-            }
-        }
-        return bookedAvailable;
-    }
-
-    // remove this and use some different way to accomplish things?
-    public static Screening getScreeningForBooking(Booking booking) {
-        for (Film f : Main.filmList) {
-            for (Screening s : f.getScreenings()) {
-                if (s.getDateTime().compareTo(booking.getDateTime()) == 0) {
-                    return s;
-                }
-            }
-        }
-        return null;
-    }
-
-    public static ObservableList<Screening> filterScreeningsByDate(LocalDate date) {
-        ObservableList<Screening> returnList = FXCollections.observableArrayList();
-        for (int i = 0; i < Main.filmList.size(); i++) {
-            for (int j = 0; j < Main.filmList.get(i).getScreenings().size(); j++) {
-                if (date.equals(Main.filmList.get(i).getScreenings().get(j).getDateTime().toLocalDate())) {
-                    returnList.add(Main.filmList.get(i).getScreenings().get(j));
-                }
-            }
-        }
-        return returnList;
-    }
-
-    public static ObservableList<LocalTime> getAvailableTimesByDate(LocalDate date) {
-        ObservableList<LocalTime> returnList = FXCollections.observableArrayList();
-        for (int i = 12; i < 24; i++) {
-            returnList.add(LocalTime.parse(i + ":00"));
-        }
-        for (Film f : Main.filmList) {
-            for (Screening s : f.getScreenings()) {
-                if (s.getDateTime().toLocalDate().compareTo(date) == 0) {
-                    returnList.remove(s.getDateTime().toLocalTime());
-                }
-            }
-        }
-        return returnList;
-    }
-
-    public static HashMap<String, Boolean> getEmptySeatPlan(int[] dimensions) {
-        HashMap<String, Boolean> seats = new HashMap<String, Boolean>();
-        for (int i = 0; i < dimensions[0]; i++) {
-            for (int j = 0; j < dimensions[1]; j++) {
-                seats.put((char) ('a' + i) + "" + (j + 1), false);
-            }
-        }
-        return seats;
-    }
-
-    public static void deleteScreening(Screening screening) {
-        for (Film f : Main.filmList) {
-            Iterator<Screening> iterator = f.getScreenings().iterator();
-            while (iterator.hasNext()) {
-                Screening s = iterator.next();
-                if (s.getScreeningID().compareTo(screening.getScreeningID()) == 0) {
-                    // This needs to come first (before removing the Screening)
-                    // because deleteBooking uses getScreeningForBooking, which uses the
-                    // FilmList screening
-                    for (Booking b : BookingController.getBookingsForScreening(screening)) {
-                        BookingController.deleteBooking(b.getBookingID());
-                    }
-                    f.removeScreening(screening);
-                    return;
-                }
-            }
-        }
-    }
-
     //initialize Film views
     private void initializeFilm() {
         lblFilmTitle.setText(chosenFilm.getFilmTitle());
@@ -540,6 +459,89 @@ public class FilmController extends MainController {
         transition("ScreeningsEmployee", "FCScreeningsEmployee");
     }
 
+    // used in Screenings views and export
+    public static int[] countBookedSeats(Screening s) {
+        int[] bookedAvailable = {0, 0};
+        for (Boolean value : s.getSeats().values()) {
+            if (value.equals(true)) {
+                bookedAvailable[0]++;
+            } else {
+                bookedAvailable[1]++;
+            }
+        }
+        return bookedAvailable;
+    }
+
+    public static Screening getScreeningForBooking(Booking booking) {
+        for (Film f : Main.filmList) {
+            for (Screening s : f.getScreenings()) {
+                if (s.getDateTime().compareTo(booking.getDateTime()) == 0) {
+                    return s;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static ObservableList<Screening> filterScreeningsByDate(LocalDate date) {
+        ObservableList<Screening> returnList = FXCollections.observableArrayList();
+        for (int i = 0; i < Main.filmList.size(); i++) {
+            for (int j = 0; j < Main.filmList.get(i).getScreenings().size(); j++) {
+                if (date.equals(Main.filmList.get(i).getScreenings().get(j).getDateTime().toLocalDate())) {
+                    returnList.add(Main.filmList.get(i).getScreenings().get(j));
+                }
+            }
+        }
+        return returnList;
+    }
+
+    public static ObservableList<LocalTime> getAvailableTimesByDate(LocalDate date) {
+        ObservableList<LocalTime> returnList = FXCollections.observableArrayList();
+        for (int i = 12; i < 24; i++) {
+            returnList.add(LocalTime.parse(i + ":00"));
+        }
+        for (Film f : Main.filmList) {
+            for (Screening s : f.getScreenings()) {
+                if (s.getDateTime().toLocalDate().compareTo(date) == 0) {
+                    returnList.remove(s.getDateTime().toLocalTime());
+                }
+            }
+        }
+        return returnList;
+    }
+
+    public static HashMap<String, Boolean> getEmptySeatPlan(int[] dimensions) {
+        HashMap<String, Boolean> seats = new HashMap<String, Boolean>();
+        for (int i = 0; i < dimensions[0]; i++) {
+            for (int j = 0; j < dimensions[1]; j++) {
+                seats.put((char) ('a' + i) + "" + (j + 1), false);
+            }
+        }
+        return seats;
+    }
+
+    public static void deleteScreening(Screening screening) {
+        for (Film f : Main.filmList) {
+            Iterator<Screening> iterator = f.getScreenings().iterator();
+            while (iterator.hasNext()) {
+                Screening s = iterator.next();
+                if (s.getScreeningID().compareTo(screening.getScreeningID()) == 0) {
+                    // This needs to come first (before removing the Screening)
+                    // because deleteBooking uses getScreeningForBooking, which uses the
+                    // FilmList screening
+                	deleteFirebaseScreening(screening);
+                	//deleteFirebaseScreening needs Bookinglist bookings to function, so it 
+                	//needs to be called before the bookings are deleted in the following loop
+                    for (Booking b : BookingController.getBookingsForScreening(screening)) {
+                        BookingController.deleteBooking(b.getBookingID());
+                    }
+                    f.removeScreening(screening);
+                    return;
+                }
+            }
+        }
+    }
+    
     private void disableDatesInThePast() {
         final Callback<DatePicker, DateCell> dayCellFactory =
                 new Callback<DatePicker, DateCell>() {
@@ -576,7 +578,7 @@ public class FilmController extends MainController {
         	for (Booking b : BookingController.getBookingsForScreening(screening)) {
         		Firebase.deleteBooking(b.getBookingID());
         	}
-            Firebase.deleteScreening(screening.getScreeningID());
+            Firebase.deleteScreening(screening.getScreeningID(), screening.getFilmTitle());
         } catch (UnirestException e) {
             e.printStackTrace();
         }
