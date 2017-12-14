@@ -357,13 +357,26 @@ public class BookingController extends MainController {
 		return getBooking(booking.getBookingID());
 	}
 	
-	//Gets a full seat plan after updating with parameters
+	//Gets a full seat plan after updating with parameters (for screenings)
 	public static HashMap<String, Boolean> getFullSeatPlan(HashMap<String, Boolean>... seats) {
 		HashMap<String, Boolean> returnPlan = FilmController.getEmptySeatPlan(Screening.theatreDimensions);
 		for (HashMap<String, Boolean> s : seats) {
 			returnPlan.putAll(s);
 		}
 		return returnPlan;
+	}
+	
+	//Gets a seat plan with the false-valued entries removed (for bookings)
+	HashMap<String, Boolean> getTrueOnlySeatPlan(HashMap<String, Boolean> seats) {
+        Iterator<String> iterator = seats.keySet().iterator();
+		String seatI = null;
+		while (iterator.hasNext()) {
+			seatI = iterator.next();
+			if (!seats.get(seatI)) {
+				iterator.remove();
+			}
+		}
+		return seats;
 	}
 	
 	// TODO: remove this; or merge it with addSeats in Booking?
@@ -375,18 +388,14 @@ public class BookingController extends MainController {
 		Screening screening = FilmController.getScreeningForBooking(booking);
 		screening.updateSeats(getFullSeatPlan(screening.getSeats(), seats));
 
-        updateFirebaseBooking(screening.getFilmTitle(), screening.getDateTime(), booking.getUsername(), seats,bookingID);
-
+		//call firebase with the updated seats from screening
+        updateFirebaseBooking(screening.getFilmTitle(), screening.getDateTime(), booking.getUsername(), seats, bookingID);
     }
 	
 	public static void deleteBooking(String bookingID) {
-		//TODO change data structure to make this less horrendous
-		//this first part removes the booked seats from the screening
 		Booking b = getBooking(bookingID);
 		Screening s = FilmController.getScreeningForBooking(b);
-		// this is why we should convert from key-value pairs to strings
-		// with the seats
-		//TODO clean this up
+		//invert the values in seats
 		HashMap<String, Boolean> seatsToUnbook = new HashMap<String, Boolean>();
         assert s != null;
         Iterator<String> iterator = s.getSeats().keySet().iterator();
@@ -397,7 +406,8 @@ public class BookingController extends MainController {
 				seatsToUnbook.put(seatI, false);
 			}
 		}
-		s.updateSeats(seatsToUnbook);				
+		//
+		s.updateSeats(getFullSeatPlan(seatsToUnbook));				
 		Main.bookingList.remove(b);
 
         Map<String, String> params = new HashMap<>();
@@ -406,7 +416,6 @@ public class BookingController extends MainController {
         params.put("username", b.getUsername());
         JSONObject seatsObj = new JSONObject(seatsToUnbook);
         params.put("seats", seatsObj.toString());
-
         assert b != null;
         deleteFirebaseBooking(b.getBookingID());
         try {
@@ -429,32 +438,24 @@ public class BookingController extends MainController {
         params.put("filmTitle", filmTitle);
         params.put("dateTime", dateTime.format(Screening.firebaseDateTimeFormatter));
         params.put("username", username);
-        JSONObject seatsObj = new JSONObject(seats);
+        JSONObject seatsObj = new JSONObject(getTrueOnlySeatPlan(seats));
         params.put("seats", seatsObj.toString());
 
         Screening s = FilmController.getScreeningForBooking(getBooking(bookingID));
-        HashMap<String, Boolean> seatsToUpdate = new HashMap<String, Boolean>();
-        assert s != null;
-        Iterator<String> iterator = s.getSeats().keySet().iterator();
-        String seatI = null;
-        while (iterator.hasNext()) {
-            seatI = iterator.next();
-            if (seats.containsKey(seatI)) {
-                seatsToUpdate.put(seatI, false);
-            }
-        }
+        HashMap<String, Boolean> fullScreeningSeats = getFullSeatPlan(s.getSeats(),seats);
 
         try {
             Firebase.deleteBooking(bookingID);
             Firebase.createBooking(params);
-            JSONObject smth = new JSONObject(seatsToUpdate);
-            params.put("seats", smth.toString());
+            seatsObj= new JSONObject(fullScreeningSeats);
+            params.put("seats", seatsObj.toString());
             Firebase.updateScreening(params);
         } catch (UnirestException e) {
             e.printStackTrace();
         }
     }
 
+    //works with incomplete seat map
 	private static void createFirebaseBooking(String filmTitle, LocalDateTime dateTime, String username, HashMap<String, Boolean> seats) {
 		Map<String, String> params = new HashMap<>();
 		params.put("filmTitle", filmTitle);

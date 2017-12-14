@@ -51,7 +51,7 @@ public class Firebase {
                 .asString();
     }
 
-
+    //works with incomplete seat map (with true/false configured correctly)
     public static void updateScreening(Map<String, String> params) throws UnirestException {
         String localURL = "films/" + params.get("filmTitle") + "/screenings/" + params.get("dateTime") + "/seats.json";
         String seats = params.get("seats").replace(":", " : ");
@@ -63,6 +63,7 @@ public class Firebase {
 
 
     // Params needed: dateTime, filmTitle, username, seats
+    //works with incomplete seat map
     public static void createBooking(Map<String, String> params) throws UnirestException {
         String bookingID = params.get("dateTime") + " " + params.get("username");
         String seats = params.get("seats").replace(":", " : ");
