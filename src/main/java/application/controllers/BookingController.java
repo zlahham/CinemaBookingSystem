@@ -306,12 +306,7 @@ public class BookingController extends MainController {
 				transition("Booking", "BCBooking");
 			}
 		} else {
-			if (existingBooking == null) {
-				lblFailure.setText("Cannot create booking without any seats. Please select some seats.");
-			} else {
-				lblFailure.setText(
-						"Cannot create booking without any seats. Please select some seats. If you wish to delete an existing booking, please do so on the Booking page.");
-			}
+			lblFailure.setText("Cannot create booking without any seats. Please select some seats.");
 		}
 	}
 	
