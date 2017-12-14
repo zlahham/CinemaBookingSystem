@@ -26,7 +26,7 @@ public abstract class User extends SuperModel{
 	 * Given a JSONObject, sets the username, password, and role based
 	 * on the corresponding  key(string)-value(string) pairs in the JSONObject
 	 * @param userJSON JSONObject for the user with at least the following keys:
-	 * username, password, role
+	 *        username, password, role
 	 */
 	protected User(JSONObject userJSON) {
 		this.username = userJSON.getString("username");

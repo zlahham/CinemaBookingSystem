@@ -17,7 +17,7 @@ import org.json.JSONObject;
  * 	<dt> Description:
  * 	<dd> Contains information about the screening in the form of String fields,
  *  <dd> a list of seats in the screening (with information on whether or not
- *  <dd> each seat is booked); along with setter/getter methods and methods
+ *  <dd> each seat is booked); along with getter methods and methods
  *  <dd> for managing the list of seats.
  * </dl>
  * 
@@ -45,8 +45,8 @@ public class Screening extends SuperModel{
 	 * @param filmTitle Film title String to be set
 	 * @param dateTime LocalDateTime to be set
 	 * @param seats A Hashmap<String, Boolean>; the key is a letter followed
-	 * by a number (in the current  version, "a1" to "d6"),
-	 * and the value is true iff the seat is booked.
+	 *        by a number (in the current  version, "a1" to "d6"),
+	 *        and the value is true iff the seat is booked.
 	 */
 	public Screening(String filmTitle, LocalDateTime dateTime, HashMap<String, Boolean> seats) {
 		this.screeningID = dateTime.format(firebaseDateTimeFormatter);
@@ -59,9 +59,9 @@ public class Screening extends SuperModel{
 	 * Given a JSONObject, sets the fields of the Screening object based on the 
 	 * corresponding key-value pairs in the JSONOBject; parses the JSONObject
 	 * and calls the constructor above.
-	 * @param screeningJSON JSONObject for the screening the following keys:
-	 * filmTitle, dateTime, seats; the seats object should consist of
-	 * key(String)-value(boolean) pairs in the same fashion as the seats field
+	 * @param screeningJSON JSONObject for the screening containing the following keys:
+	 *        filmTitle, dateTime, seats; the seats object should consist of
+	 *        key(String)-value(boolean) pairs in the same fashion as the seats field
 	 */
 	public Screening(JSONObject screeningJSON) {
 		this(screeningJSON.getString("filmTitle"),
@@ -148,8 +148,8 @@ public class Screening extends SuperModel{
 	 * of seat columns. Assumes that the seat plan is a rectangle,
 	 * and that the row index is a single character.
 	 * @return A two-element integer array; the first element is the number
-	 * of seat rows in the theatre, and the second is the number
-	 * of seat columns.
+	 *         of seat rows in the theatre, and the second is the number
+	 *         of seat columns.
 	 */
 	public int[] getTheatreDimensions() {
 		Iterator<String> iterator = this.getSeats().keySet().iterator();

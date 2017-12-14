@@ -27,7 +27,7 @@ public class Customer extends User {
 	 * password and role, and sets the firstName, lastName, and email based
 	 * on the corresponding  key(string)-value(string) pairs in the JSONObject.
 	 * @param userJSON JSONObject for the user with the following keys:
-	 * username, password, role, firstName, lastName, email
+	 *        username, password, role, firstName, lastName, email
 	 */
 	public Customer(JSONObject userJSON) {
 		super(userJSON);

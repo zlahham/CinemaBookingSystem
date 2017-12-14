@@ -17,16 +17,14 @@ import org.json.JSONObject;
  * 
  */
 public class Employee extends User {
-
 	/**
 	 * Constructor
 	 * Given a JSONObject, calls User's JSON constructor to set username,
 	 * password and role.
 	 * @param userJSON JSONObject for the user with the following keys:
-	 * username, password, role
+	 *        username, password, role
 	 */
 	public Employee(JSONObject user) {
 		super(user);
 	}
-
 }
