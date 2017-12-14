@@ -155,6 +155,28 @@ public class BookingController extends MainController {
             });
             return row;
         });
+        
+		// change row background colour if booking is in the past
+		tblclmnBookingsFilmStatus.setCellFactory(column -> {
+			return new TableCell<Booking, String>() {
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+					setText(empty ? "" : getItem().toString());
+					setGraphic(null);
+					TableRow<Screening> row = getTableRow();
+					if (!isEmpty()) {
+						if (getItem().compareTo("Upcoming") == 0) {
+							// upcoming colour: green
+						row.setStyle("-fx-background-color:lightgreen");
+						} else if (getItem().compareTo("Past") == 0) {
+							// past colour: red
+							row.setStyle("-fx-background-color:lightcoral");
+						}
+					}
+				}
+			};
+		});
+        
 	}
 
 	//initialize Booking view
