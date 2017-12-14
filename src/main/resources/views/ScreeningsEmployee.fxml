@@ -72,7 +72,7 @@
          <bottom>
             <AnchorPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnToFilmEmployee_FCFilmEmployee" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="200.0">
+                  <JFXButton fx:id="btnToFilmEmployee_FCFilmEmployee" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back to Film" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="200.0">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="primary" />
@@ -113,6 +113,15 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="FILM" size="30" />
                      </graphic>
                   </Label>
+                  <JFXButton fx:id="btnToEmployee" buttonType="RAISED" layoutX="67.0" layoutY="46.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="46.0" prefWidth="150.0" ripplerFill="#4476b8" text="Dashboard" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="info" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
+                     </graphic>
+                  </JFXButton>
                </children>
             </AnchorPane>
          </top>

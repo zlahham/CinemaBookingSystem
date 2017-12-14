@@ -214,7 +214,7 @@ public class BookingController extends MainController {
 		
 		if (existingBooking != null) {
 			btnBook.setText("Confirm");
-			lblBookingSeatsTitle.setText("Choose new seats!\n(Editing existing booking)");
+			lblBookingSeatsTitle.setText("Edit Existing Booking");
 		}
 		
 		for (int i = 0; i < seatsArray.length; i++) {
