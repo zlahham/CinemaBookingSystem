@@ -27,7 +27,15 @@ public class MainController {
 	public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
 	public static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy");
     public static final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
-	
+
+    public void loggerBegin(String category, String msg) {
+		Main.LOGGER.info("INIT - " + category + " - " + msg + "\n");
+	}
+
+	public void loggerComplete(String category, String msg) {
+		Main.LOGGER.info("COMPLETED - " + category + " - " + msg + "\n");
+	}
+
 	public void logout() {
 		Main.stage.setUserData(null);
 		Parent view;
