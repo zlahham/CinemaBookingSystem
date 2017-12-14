@@ -135,7 +135,7 @@ public class FilmController extends MainController {
                 break;
             default:
                 System.err.println(mode);
-                System.err.println("Something has gone horribly wrong (FilmController) and it's probably Aleksi's fault");
+                System.err.println("FilmController mode error");
                 break;
         }
     }
@@ -149,12 +149,13 @@ public class FilmController extends MainController {
         image1.setImage(chosenFilm.getImage());
     }
 
+    //initialize NewFilm view
     private void initializeNewFilm() {
         cbxAgeRating.getItems().addAll(AGE_RATINGS);
         errors = new ArrayList<>();
     }
 
-    // used in NewFilm view
+    //used in NewFilm view
     public void addFilmButtonPressed(ActionEvent event) {
         errors.clear();
         lblError.setText("");
@@ -212,7 +213,7 @@ public class FilmController extends MainController {
         }
     }
 
-    // used in NewFilm view
+    //used in NewFilm view
     public void pickImage() {
         lblImageError.setText("");
         final FileChooser fileChooser = new FileChooser();
@@ -235,7 +236,7 @@ public class FilmController extends MainController {
         }
     }
 
-    // initialize Screenings views
+    //initialize Screenings views
     private void initializeScreenings() {
         if (chosenFilm.getScreenings().size() > 0) {
             tblScreenings.getItems().addAll(chosenFilm.getScreenings());
@@ -317,7 +318,7 @@ public class FilmController extends MainController {
         }
     }
 
-    // NewBooking view initialisation
+    //initialize NewBooking view
     private void initializeNewBooking() {
         lblTableInfo = new Label("Select a date.");
         tblScreenings.setPlaceholder(lblTableInfo);
@@ -327,7 +328,7 @@ public class FilmController extends MainController {
     // used in NewBooking view
     public void showScreeningsOnSelectedDate(ActionEvent event) {
         tblScreenings.getItems().clear();
-        ObservableList<Screening> screeningList = filterScreeningsByDate(dtpckrDate.getValue());
+        ObservableList<Screening> screeningList = getScreeningsByDate(dtpckrDate.getValue());
         if (screeningList.size() > 0) {
             tblScreenings.getItems().addAll(screeningList);
             tblclmnScreeningsFilmImage.setCellValueFactory(c -> {
@@ -395,13 +396,13 @@ public class FilmController extends MainController {
         }
     }
 
-    // initialize addScreenings view
+    //initialize addScreenings view
     private void initializeNewScreening() {
         screeningDateTimesToAdd = FXCollections.observableArrayList();
         disableDatesInThePast();
     }
 
-    // used in addScreenings view
+    //used in addScreenings view
     public void showAvailableTimesOnSelectedDate(ActionEvent event) {
         tblTimes.getItems().clear();
         ObservableList<LocalTime> timesList = getAvailableTimesByDate(dtpckrDate.getValue());
@@ -459,7 +460,6 @@ public class FilmController extends MainController {
         transition("ScreeningsEmployee", "FCScreeningsEmployee");
     }
 
-    // used in Screenings views and export
     public static int[] countBookedSeats(Screening s) {
         int[] bookedAvailable = {0, 0};
         for (Boolean value : s.getSeats().values()) {
@@ -483,7 +483,7 @@ public class FilmController extends MainController {
         return null;
     }
 
-    public static ObservableList<Screening> filterScreeningsByDate(LocalDate date) {
+    public static ObservableList<Screening> getScreeningsByDate(LocalDate date) {
         ObservableList<Screening> returnList = FXCollections.observableArrayList();
         for (int i = 0; i < Main.filmList.size(); i++) {
             for (int j = 0; j < Main.filmList.get(i).getScreenings().size(); j++) {
@@ -529,12 +529,10 @@ public class FilmController extends MainController {
                     // This needs to come first (before removing the Screening)
                     // because deleteBooking uses getScreeningForBooking, which uses the
                     // FilmList screening
-                	deleteFirebaseScreening(screening);
-                	//deleteFirebaseScreening needs Bookinglist bookings to function, so it 
-                	//needs to be called before the bookings are deleted in the following loop
                     for (Booking b : BookingController.getBookingsForScreening(screening)) {
                         BookingController.deleteBooking(b.getBookingID());
                     }
+                    deleteFirebaseScreening(screening);
                     f.removeScreening(screening);
                     return;
                 }
@@ -574,10 +572,9 @@ public class FilmController extends MainController {
     }
     
     private static void deleteFirebaseScreening(Screening screening) {
+       	//deleteBooking already calls deleteFirebaseBooking, so no need to 
+    	//delete Firebase bookings here
         try {
-        	for (Booking b : BookingController.getBookingsForScreening(screening)) {
-        		Firebase.deleteBooking(b.getBookingID());
-        	}
             Firebase.deleteScreening(screening.getScreeningID(), screening.getFilmTitle());
         } catch (UnirestException e) {
             e.printStackTrace();

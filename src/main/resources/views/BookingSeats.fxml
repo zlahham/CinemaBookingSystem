@@ -102,13 +102,13 @@
                         <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnBook" buttonType="RAISED" maxHeight="213.0" onAction="#bookButtonPressed" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Book" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="300.0">
+                  <JFXButton fx:id="btnBook" buttonType="RAISED" maxHeight="213.0" onAction="#bookButtonPress" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Book" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="300.0">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="success" />
                      </styleClass>
                      <graphic>
-                        <OctIconView fill="WHITE" glyphName="PLUS" size="15" />
+                        <OctIconView fx:id="bookButtonPressed" fill="WHITE" glyphName="PLUS" size="15" />
                      </graphic>
                   </JFXButton>
                </children>

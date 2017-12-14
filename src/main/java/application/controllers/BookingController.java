@@ -30,7 +30,7 @@ public class BookingController extends MainController {
     //TODO: move variable definitions into initialisation methods?
 
     //variable for initialisation control
-    public static String mode = "";
+    public static String mode;
     public static String backFromSeats[];
 
     // used in: Booking
@@ -85,7 +85,6 @@ public class BookingController extends MainController {
     private ImageView[][] seatsArray;
 	private Booking existingBooking;
     private HashMap<String, Boolean> seatsBooked;
-    // TODO: nicer icons; effects instead of new icons for booked and selected seats?
     private Image unbooked = new Image(Objects.requireNonNull(getClass().getClassLoader().
             getResource("images/seat.png")).toExternalForm());
     private Image booked = new Image(Objects.requireNonNull(getClass().getClassLoader().
@@ -129,12 +128,12 @@ public class BookingController extends MainController {
 				break;
 			default:
 				System.err.println(mode);
-				System.err.println("Something has gone horribly wrong (BookingController) and it's probably Aleksi's fault");
+				System.err.println("BookingController mode error");
 				break;
 		}
 	}
 
-	// bookings view initialisation
+	//initialize Bookings view
 	private void initializeBookings() {
 		
 		tblBookings.getItems().addAll(getBookingsByCustomer((Customer)(Main.stage.getUserData())));
@@ -158,7 +157,7 @@ public class BookingController extends MainController {
         });
 	}
 
-	// booking view initialization
+	//initialize Booking view
 	private void initializeBooking() {
         if (chosenBooking.getDateTime().isBefore(LocalDateTime.now())) {
             btnDelete.setDisable(true);
@@ -172,7 +171,13 @@ public class BookingController extends MainController {
         image1.setImage(chosenBooking.getFilm().getImage());
 	}
 	
-	//BookingSeats view and Screening view initialisation
+	//used in Booking view
+	public void deleteBookingButtonPress(ActionEvent event) {
+		deleteBooking(chosenBooking.getBookingID());
+		transition("Bookings", "BCBookings");
+	}
+	
+	//initialize BookingSeats and Screening views
 	private void initializeSeatPlan() {
 		int dimensions[] = (chosenScreening.getTheatreDimensions());
 		seatsArray = new ImageView[dimensions[0]][dimensions[1] + 1];
@@ -229,19 +234,7 @@ public class BookingController extends MainController {
 		}
 	}
 	
-	//used in Booking view
-	public void deleteBookingButtonPress(ActionEvent event) {
-		deleteBooking(chosenBooking.getBookingID());
-		transition("Bookings", "BCBookings");
-	}
-	
-	//used in Screening view
-	public void deleteScreeningButtonPress(ActionEvent event) {
-		FilmController.deleteScreening(chosenScreening);
-		transition("ScreeningsEmployee", "FCScreeningsEmployee");
-	}
-
-	// used in BookingSeats view
+	//used in BookingSeats view
 	public void gridPaneClick(int i, int j) {
 		seatsArray[i][j].setOnMouseClicked(event -> {
 			if (seatsArray[i][j].getImage().equals(unbooked)) {
@@ -272,7 +265,7 @@ public class BookingController extends MainController {
 	}
 	
 	// used in BookingSeats view
-	public void bookButtonPressed(ActionEvent event) {
+	public void bookButtonPress(ActionEvent event) {
 		
 		if (seatsBooked.containsValue(true)) {
 			// check if customer has a booking a for the screening:
@@ -296,6 +289,16 @@ public class BookingController extends MainController {
 						"Cannot create booking without any seats. Please select some seats. If you wish to delete an existing booking, please do so on the Booking page.");
 			}
 		}
+	}
+	
+	public void backFromSeats(ActionEvent event) {
+		transition(backFromSeats[0],backFromSeats[1]);
+	}
+	
+	//used in Screening view
+	public void deleteScreeningButtonPress(ActionEvent event) {
+		FilmController.deleteScreening(chosenScreening);
+		transition("ScreeningsEmployee", "FCScreeningsEmployee");
 	}
 	
 	public static Booking getBooking(String bookingID) {
@@ -327,7 +330,6 @@ public class BookingController extends MainController {
 		return returnList;
 	}
 	
-	
 	public static Booking getCustomerBookingForScreening(Customer customer, Screening screening) {
 		ObservableList<Booking> returnList = getBookingsByCustomer(customer);
 		returnList.retainAll(getBookingsForScreening(screening));
@@ -339,10 +341,6 @@ public class BookingController extends MainController {
 			//TODO: print error message?
 			return null;
 		}
-	}
-	
-	public void backFromSeats(ActionEvent event) {
-		transition(backFromSeats[0],backFromSeats[1]);
 	}
 	
 	// returns a reference to the Booking for convenience
