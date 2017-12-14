@@ -26,11 +26,7 @@ public class Film extends SuperModel {
 		this.imageFilepath = imageFileName;
 		this.ageRating = ageRating;
 		this.screenings = screenings;
-        try {
-			this.image = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("images/films/" + imageFilepath)));
-		}catch (Exception e) {
-			this.image = new Image("file:src/main/resources/images/films/" + imageFileName);
-		}
+        this.image = new Image("file:" + System.getProperty("user.dir") + "/images/" +  imageFileName);
 	}
 	
 	// TODO: Refactor this constructor with the others
