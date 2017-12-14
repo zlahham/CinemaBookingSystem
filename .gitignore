@@ -6,4 +6,5 @@
 .DS_Store
 .idea/
 filmsExportList.txt
+filmsExportList.csv
 out/
