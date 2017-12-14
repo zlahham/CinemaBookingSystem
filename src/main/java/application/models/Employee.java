@@ -8,7 +8,8 @@ import org.json.JSONObject;
  * 	<dd> Employee model
  * 
  * 	<dt> Description:
- * 	<dd> 
+ * 	<dd> Extends user; used to identify when a cinema employee
+ * 	<dd> (as opposed to a customer) is logged in
  * </dl>
  * 
  * @author Zaid Al Lahham and Aleksi Anttila
@@ -17,6 +18,13 @@ import org.json.JSONObject;
  */
 public class Employee extends User {
 
+	/**
+	 * Constructor
+	 * Given a JSONObject, calls User's JSON constructor to set username,
+	 * password and role.
+	 * @param userJSON JSONObject for the user with the following keys:
+	 * username, password, role
+	 */
 	public Employee(JSONObject user) {
 		super(user);
 	}

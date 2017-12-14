@@ -5,9 +5,8 @@ import java.time.format.DateTimeFormatter;
 /**
  * <dl>
  * 	<dt> Purpose:
- * 	<dd>
- * 
- * 	<dt> Description:
+ * 	<dd> Ancestor/parent class for all models; meant to contain
+ * 	<dd> fields and methods potentially useful to all models.
  * 	<dd> 
  * </dl>
  * 
