@@ -3,6 +3,7 @@ package application.models;
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import org.json.JSONObject;
 
@@ -25,8 +26,11 @@ public class Film extends SuperModel {
 		this.imageFilepath = imageFileName;
 		this.ageRating = ageRating;
 		this.screenings = screenings;
-		File imageFile = new File("src/main/resources/images/films/" + imageFileName);
-		this.image = new Image(imageFile.toURI().toString());
+        try {
+			this.image = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("images/films/" + imageFilepath)));
+		}catch (Exception e) {
+			this.image = new Image("file:src/main/resources/images/films/" + imageFileName);
+		}
 	}
 	
 	// TODO: Refactor this constructor with the others
