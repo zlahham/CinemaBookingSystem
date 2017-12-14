@@ -151,6 +151,10 @@ public class FilmController extends MainController {
         image1.setImage(chosenFilm.getImage());
     }
 
+	public void backFromFilmEmployee(ActionEvent event) {
+		transition(backFromFilmEmployee[0],backFromFilmEmployee[1]);
+	}
+    
     //initialize NewFilm view
     private void initializeNewFilm() {
         cbxAgeRating.getItems().addAll(AGE_RATINGS);

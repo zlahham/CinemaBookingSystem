@@ -58,7 +58,7 @@
          <bottom>
             <AnchorPane prefHeight="129.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnToEmployee" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0">
+                  <JFXButton buttonType="RAISED" maxHeight="213.0" onAction="#backFromFilmEmployee" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="300.0">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="primary" />
