@@ -6,7 +6,6 @@
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Point3D?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -58,27 +57,19 @@
                                  <children>
                                     <TableView fx:id="tblFilms" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
                                       <columns>
-                                        <TableColumn fx:id="tblclmnFilmsImage" editable="false" resizable="false" text="Image">
+                                        <TableColumn fx:id="tblclmnFilmsImage" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Image">
                                              <graphic>
                                                 <OctIconView glyphName="FILE_MEDIA" />
                                              </graphic></TableColumn>
-                                        <TableColumn fx:id="tblclmnFilmsFilmTitle" editable="false" minWidth="7.0" prefWidth="250.0" resizable="false" text="Title">
+                                        <TableColumn fx:id="tblclmnFilmsFilmTitle" editable="false" minWidth="7.0" prefWidth="368.0" resizable="false" text="Title">
                                              <graphic>
                                                 <OctIconView glyphName="TEXT_SIZE" />
                                              </graphic></TableColumn>
-                                          <TableColumn fx:id="tblclmnFilmsDescription" editable="false" minWidth="0.0" prefWidth="300.0" resizable="false" text="Description">
-                                             <graphic>
-                                                <FontAwesomeIconView glyphName="PENCIL" rotate="180.0">
-                                                   <rotationAxis>
-                                                      <Point3D y="90.0" z="1.0" />
-                                                   </rotationAxis>
-                                                </FontAwesomeIconView>
-                                             </graphic></TableColumn>
-                                          <TableColumn fx:id="tblclmnFilmsAgeRating" editable="false" prefWidth="58.72491455078125" resizable="false" text="Age">
+                                          <TableColumn fx:id="tblclmnFilmsAgeRating" editable="false" prefWidth="143.0" resizable="false" text="Age">
                                              <graphic>
                                                 <FontAwesomeIconView glyphName="CHILD" />
                                              </graphic></TableColumn>
-                                          <TableColumn fx:id="tblclmnFilmsScreenings" editable="false" prefWidth="171.27508544921875" resizable="false" text="Screenings">
+                                          <TableColumn fx:id="tblclmnFilmsScreenings" editable="false" prefWidth="228.0" resizable="false" text="Screenings">
                                              <graphic>
                                                 <MaterialDesignIconView glyphName="PROJECTOR_SCREEN" />
                                              </graphic></TableColumn>

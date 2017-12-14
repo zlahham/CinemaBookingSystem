@@ -131,7 +131,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblSeats" text="Seats Booked" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Label fx:id="lblSeats" text="Seats Booked" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>

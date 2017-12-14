@@ -38,22 +38,22 @@
                <children>
                   <TableView fx:id="tblScreenings" prefHeight="402.0" prefWidth="964.0" GridPane.columnSpan="6" GridPane.rowIndex="1" GridPane.rowSpan="4">
                     <columns>
-                        <TableColumn fx:id="tblclmnScreeningsFilmTitle" prefWidth="271.94415283203125" text="Film Title">
+                        <TableColumn fx:id="tblclmnScreeningsFilmTitle" prefWidth="351.0" resizable="false" text="Film Title">
                            <graphic>
                               <OctIconView glyphName="TEXT_SIZE" />
                            </graphic>
                         </TableColumn>
-                      <TableColumn fx:id="tblclmnScreeningsDate" minWidth="0.0" prefWidth="225.05584716796875" text="Date">
+                      <TableColumn fx:id="tblclmnScreeningsDate" minWidth="0.0" prefWidth="126.0" resizable="false" text="Date">
                            <graphic>
                               <MaterialDesignIconView glyphName="CALENDAR" />
                            </graphic>
                         </TableColumn>
-                        <TableColumn fx:id="tblclmnScreeningsTime" maxWidth="449.02557373046875" minWidth="-1.0" prefWidth="197.4979248046875" text="Time">
+                        <TableColumn fx:id="tblclmnScreeningsTime" maxWidth="449.02557373046875" minWidth="-1.0" prefWidth="83.0" resizable="false" text="Time">
                            <graphic>
                               <MaterialDesignIconView glyphName="CLOCK" />
                            </graphic>
                         </TableColumn>
-                        <TableColumn fx:id="tblclmnScreeningsSeats" maxWidth="645.0" minWidth="-1.0" prefWidth="185.5064697265625" text="Seats Available">
+                        <TableColumn fx:id="tblclmnScreeningsSeats" maxWidth="645.0" minWidth="-1.0" prefWidth="322.0" resizable="false" text="Seats Available">
                            <graphic>
                               <MaterialDesignIconView glyphName="SEAT_RECLINE_NORMAL" />
                            </graphic>

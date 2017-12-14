@@ -42,27 +42,27 @@
                   <DatePicker fx:id="dtpckrDate" onAction="#datePickerChoose" promptText="Choose Screening Date" GridPane.columnSpan="2" GridPane.rowIndex="1" />
                   <TableView fx:id="tblScreenings" prefHeight="0.0" prefWidth="628.0" GridPane.columnSpan="6" GridPane.rowIndex="2" GridPane.rowSpan="3">
                     <columns>
-                        <TableColumn fx:id="tblclmnScreeningsFilmImage" editable="false" text="Image">
+                        <TableColumn fx:id="tblclmnScreeningsFilmImage" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Image">
                            <graphic>
                               <OctIconView glyphName="FILE_MEDIA" />
                            </graphic>
                         </TableColumn>
-                      <TableColumn fx:id="tblclmnScreeningsFilmTitle" prefWidth="250.0" text="Film Title">
+                      <TableColumn fx:id="tblclmnScreeningsFilmTitle" prefWidth="292.0" resizable="false" text="Film Title">
                            <graphic>
                               <OctIconView glyphName="TEXT_SIZE" />
                            </graphic>
                         </TableColumn>
-                      <TableColumn fx:id="tblclmnScreeningsTime" minWidth="0.0" prefWidth="181.9320068359375" text="Time">
+                      <TableColumn fx:id="tblclmnScreeningsTime" minWidth="0.0" prefWidth="102.0" resizable="false" text="Time">
                            <graphic>
                               <MaterialDesignIconView glyphName="CLOCK" />
                            </graphic>
                         </TableColumn>
-                        <TableColumn fx:id="tblclmnScreeningsFilmAge" prefWidth="123.06793212890625" text="Age">
+                        <TableColumn fx:id="tblclmnScreeningsFilmAge" prefWidth="90.0" resizable="false" text="Age">
                            <graphic>
                               <FontAwesomeIconView glyphName="CHILD" />
                            </graphic>
                         </TableColumn>
-                        <TableColumn fx:id="tblclmnScreeningsSeats" minWidth="0.0" prefWidth="244.27178955078125" text="Seats Available">
+                        <TableColumn fx:id="tblclmnScreeningsSeats" minWidth="0.0" prefWidth="275.0" resizable="false" text="Seats Available">
                            <graphic>
                               <MaterialDesignIconView glyphName="SEAT_RECLINE_NORMAL" />
                            </graphic>

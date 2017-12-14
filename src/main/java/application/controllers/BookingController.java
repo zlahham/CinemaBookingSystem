@@ -346,6 +346,7 @@ public class BookingController extends MainController {
 	
 	public static ObservableList<Booking> getBookingsForScreening(Screening screening) {
 		ObservableList<Booking> returnList = FXCollections.observableArrayList();
+		System.out.println(screening.getDateTime());
 		for (Booking b : Main.bookingList) {
 			if (b.getDateTime().compareTo(screening.getDateTime()) == 0){
 				returnList.add(b);

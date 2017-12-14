@@ -50,25 +50,21 @@
                         <Insets left="30.0" />
                      </GridPane.margin>
                   </Label>
-                  <TableView fx:id="tblFilms" maxHeight="500.0" prefHeight="500.0" prefWidth="860.0" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.rowSpan="4" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
+                  <TableView fx:id="tblFilms" maxHeight="500.0" maxWidth="870.0" minWidth="870.0" prefHeight="500.0" prefWidth="870.0" GridPane.columnIndex="3" GridPane.columnSpan="5" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.rowSpan="4" GridPane.valignment="TOP" GridPane.vgrow="NEVER">
                      <columns>
-                        <TableColumn fx:id="tblclmnFilmsImage" editable="false" text="Image">
+                        <TableColumn fx:id="tblclmnFilmsImage" editable="false" maxWidth="120.0" minWidth="120.0" prefWidth="120.0" resizable="false" text="Image">
                            <graphic>
                               <OctIconView glyphName="FILE_MEDIA" />
                            </graphic></TableColumn>
-                        <TableColumn fx:id="tblclmnFilmsFilmTitle" minWidth="7.0" prefWidth="250.0" text="Film Title">
+                        <TableColumn fx:id="tblclmnFilmsFilmTitle" maxWidth="350.0" minWidth="350.0" prefWidth="350.0" resizable="false" text="Film Title">
                            <graphic>
                               <OctIconView glyphName="TEXT_SIZE" />
                            </graphic></TableColumn>
-                        <TableColumn fx:id="tblclmnFilmsDescription" minWidth="0.0" prefWidth="300.0" text="Film Description">
-                           <graphic>
-                              <FontAwesomeIconView glyphName="PENCIL" />
-                           </graphic></TableColumn>
-                        <TableColumn fx:id="tblclmnFilmsAgeRating" prefWidth="60.0" resizable="false" text="Age">
+                        <TableColumn fx:id="tblclmnFilmsAgeRating" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" resizable="false" text="Age">
                            <graphic>
                               <FontAwesomeIconView glyphName="CHILD" />
                            </graphic></TableColumn>
-                        <TableColumn fx:id="tblclmnFilmsScreenings" editable="false" prefWidth="179.0" text="Screenings">
+                        <TableColumn fx:id="tblclmnFilmsScreenings" editable="false" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" resizable="false" text="Screenings">
                            <graphic>
                               <MaterialDesignIconView glyphName="PROJECTOR_SCREEN" />
                            </graphic></TableColumn>

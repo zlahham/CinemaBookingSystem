@@ -22,9 +22,9 @@
          <top>
             <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="lblBookingSeatsTitle" text="Choose your Seats!" underline="true" AnchorPane.leftAnchor="466.0" AnchorPane.rightAnchor="466.0" AnchorPane.topAnchor="20.0">
+                  <Label fx:id="lblBookingSeatsTitle" layoutX="312.0" prefHeight="98.0" prefWidth="551.0" text="Choose your Seats!" underline="true" wrapText="true" AnchorPane.leftAnchor="466.0" AnchorPane.rightAnchor="265.0" AnchorPane.topAnchor="20.0">
                      <font>
-                        <Font size="40.0" />
+                        <Font size="35.0" />
                      </font>
                   </Label>
                   <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">

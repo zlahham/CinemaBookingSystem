@@ -255,10 +255,9 @@ public class FilmController extends MainController {
                     c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
             if (mode.compareTo("FCScreeningsEmployee") == 0) {
                 tblclmnScreeningsSeats.setText("Seats Booked");
-                tblclmnScreeningsSeats
-                        .setCellValueFactory(c -> new SimpleStringProperty(countBookedSeats(c.getValue())[0] + "/"
-                                + (countBookedSeats(c.getValue())[0] + countBookedSeats(c.getValue())[1])
-                                + " seats booked"));
+				tblclmnScreeningsSeats
+						.setCellValueFactory(c -> new SimpleStringProperty(countBookedSeats(c.getValue())[0] + "/"
+								+ (countBookedSeats(c.getValue())[0] + countBookedSeats(c.getValue())[1]) + ""));
             } else if (mode.compareTo("FCScreeningsCustomer") == 0) {
                 tblclmnScreeningsSeats.setText("Seats Available");
                 tblclmnScreeningsSeats.setCellValueFactory(c -> new SimpleStringProperty(countBookedSeats(c.getValue())[1] +""));
@@ -348,8 +347,8 @@ public class FilmController extends MainController {
             tblScreenings.getItems().addAll(screeningList);
             tblclmnScreeningsFilmImage.setCellValueFactory(c -> {
                 ImageView iv = new ImageView();
-                iv.setFitHeight(75);
-                iv.setFitWidth(75);
+                iv.setFitWidth(120);
+                iv.setPreserveRatio(true);
                 try {
                     iv.setImage(c.getValue().getFilm().getImage());
                 } catch (NullPointerException e) {
@@ -372,7 +371,9 @@ public class FilmController extends MainController {
                             && rowClick.getClickCount() == 1) {
                         BookingController.chosenScreening = row.getItem();
                         chosenDate = date;
-                        transition("BookingSeats", "BCBookingSeats");
+                        if (row.getItem().getDateTime().isAfter(LocalDateTime.now())) {
+                        	transition("BookingSeats", "BCBookingSeats");
+                        }
                     }
                 });
                 return row;
@@ -385,7 +386,7 @@ public class FilmController extends MainController {
 						setText(empty ? "" : getItem().toString());
 						setGraphic(null);
 						TableRow<Screening> row = getTableRow();
-						if (!isEmpty()) {
+						if (row.getItem() != null) {
 							// default colour: green
 							row.setStyle("-fx-background-color:lightgreen");
 							Customer customer = (Customer) (Main.stage.getUserData());
@@ -395,6 +396,10 @@ public class FilmController extends MainController {
 								row.setStyle("-fx-background-color:lightblue");
 								setText(empty ? ""
 										: getItem().toString() + "; Your seat(s): " + booking.getSeatsString());
+							}
+							//date is in the past: red
+							if (row.getItem().getDateTime().isBefore(LocalDateTime.now())) {
+								row.setStyle("-fx-background-color:lightcoral");
 							}
 						}
 					}
