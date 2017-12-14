@@ -3,13 +3,16 @@ package application.controllers;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
 
 import application.*;
 import application.models.Booking;
 import application.models.Customer;
 import application.models.Screening;
+import application.services.Firebase;
 import com.jfoenix.controls.JFXButton;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,14 +23,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
+import org.json.JSONObject;
 
 public class BookingController extends MainController {
 
     //TODO: move variable definitions into initialisation methods?
 
     //variable for initialisation control
-    public static String mode = "";
-    public static String backFromSeats[];
+    public static String mode;
+    public static String backFromBookingSeats[];
 
     // used in: Booking
     // changed in: Bookings, Booking, BookingSeats
@@ -81,7 +85,6 @@ public class BookingController extends MainController {
     private ImageView[][] seatsArray;
 	private Booking existingBooking;
     private HashMap<String, Boolean> seatsBooked;
-    // TODO: nicer icons; effects instead of new icons for booked and selected seats?
     private Image unbooked = new Image(Objects.requireNonNull(getClass().getClassLoader().
             getResource("images/seat.png")).toExternalForm());
     private Image booked = new Image(Objects.requireNonNull(getClass().getClassLoader().
@@ -106,7 +109,7 @@ public class BookingController extends MainController {
 				//accessed from Bookings, BookingSeats
 				//uses: chosenBooking
 				//changes:
-				backFromSeats = new String[] {"Booking", "BCBooking"};
+				backFromBookingSeats = new String[] {"Booking", "BCBooking"};
 				initializeBooking();
 				break;
 			case "BCBookingSeats": //Customer
@@ -125,12 +128,12 @@ public class BookingController extends MainController {
 				break;
 			default:
 				System.err.println(mode);
-				System.err.println("Something has gone horribly wrong (BookingController) and it's probably Aleksi's fault");
+				System.err.println("BookingController mode error");
 				break;
 		}
 	}
 
-	// bookings view initialisation
+	//initialize Bookings view
 	private void initializeBookings() {
 		
 		tblBookings.getItems().addAll(getBookingsByCustomer((Customer)(Main.stage.getUserData())));
@@ -154,7 +157,7 @@ public class BookingController extends MainController {
         });
 	}
 
-	// booking view initialization
+	//initialize Booking view
 	private void initializeBooking() {
         if (chosenBooking.getDateTime().isBefore(LocalDateTime.now())) {
             btnDelete.setDisable(true);
@@ -168,7 +171,13 @@ public class BookingController extends MainController {
         image1.setImage(chosenBooking.getFilm().getImage());
 	}
 	
-	//BookingSeats view and Screening view initialisation
+	//used in Booking view
+	public void deleteBookingButtonPress(ActionEvent event) {
+		deleteBooking(chosenBooking.getBookingID());
+		transition("Bookings", "BCBookings");
+	}
+	
+	//initialize BookingSeats and Screening views
 	private void initializeSeatPlan() {
 		int dimensions[] = (chosenScreening.getTheatreDimensions());
 		seatsArray = new ImageView[dimensions[0]][dimensions[1] + 1];
@@ -225,19 +234,7 @@ public class BookingController extends MainController {
 		}
 	}
 	
-	//used in Booking view
-	public void deleteBookingButtonPress(ActionEvent event) {
-		deleteBooking(chosenBooking.getBookingID());
-		transition("Bookings", "BCBookings");
-	}
-	
-	//used in Screening view
-	public void deleteScreeningButtonPress(ActionEvent event) {
-		FilmController.deleteScreening(chosenScreening);
-		transition("ScreeningsEmployee", "FCScreeningsEmployee");
-	}
-
-	// used in BookingSeats view
+	//used in BookingSeats view
 	public void gridPaneClick(int i, int j) {
 		seatsArray[i][j].setOnMouseClicked(event -> {
 			if (seatsArray[i][j].getImage().equals(unbooked)) {
@@ -268,7 +265,7 @@ public class BookingController extends MainController {
 	}
 	
 	// used in BookingSeats view
-	public void bookButtonPressed(ActionEvent event) {
+	public void bookButtonPress(ActionEvent event) {
 		
 		if (seatsBooked.containsValue(true)) {
 			// check if customer has a booking a for the screening:
@@ -292,6 +289,16 @@ public class BookingController extends MainController {
 						"Cannot create booking without any seats. Please select some seats. If you wish to delete an existing booking, please do so on the Booking page.");
 			}
 		}
+	}
+	
+	public void backFromBookingSeats(ActionEvent event) {
+		transition(backFromBookingSeats[0],backFromBookingSeats[1]);
+	}
+	
+	//used in Screening view
+	public void deleteScreeningButtonPress(ActionEvent event) {
+		FilmController.deleteScreening(chosenScreening);
+		transition("ScreeningsEmployee", "FCScreeningsEmployee");
 	}
 	
 	public static Booking getBooking(String bookingID) {
@@ -323,7 +330,6 @@ public class BookingController extends MainController {
 		return returnList;
 	}
 	
-	
 	public static Booking getCustomerBookingForScreening(Customer customer, Screening screening) {
 		ObservableList<Booking> returnList = getBookingsByCustomer(customer);
 		returnList.retainAll(getBookingsForScreening(screening));
@@ -337,25 +343,38 @@ public class BookingController extends MainController {
 		}
 	}
 	
-	public void backFromSeats(ActionEvent event) {
-		transition(backFromSeats[0],backFromSeats[1]);
-	}
-	
 	// returns a reference to the Booking for convenience
 	public Booking addBooking(Screening screening, Customer customer, HashMap<String, Boolean> seats) {
 		Booking booking = new Booking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
 		Main.bookingList.add(booking);
 		screening.updateSeats(seats);
+
+		createFirebaseBooking(screening.getFilmTitle(), screening.getDateTime(), customer.getUsername(), seats);
+
+
 		return getBooking(booking.getBookingID());
 	}
 	
-	//Gets a full seat plan after updating with parameters
+	//Gets a full seat plan after updating with parameters (for screenings)
 	public static HashMap<String, Boolean> getFullSeatPlan(HashMap<String, Boolean>... seats) {
 		HashMap<String, Boolean> returnPlan = FilmController.getEmptySeatPlan(Screening.theatreDimensions);
 		for (HashMap<String, Boolean> s : seats) {
 			returnPlan.putAll(s);
 		}
 		return returnPlan;
+	}
+	
+	//Gets a seat plan with the false-valued entries removed (for bookings)
+	HashMap<String, Boolean> getTrueOnlySeatPlan(HashMap<String, Boolean> seats) {
+        Iterator<String> iterator = seats.keySet().iterator();
+		String seatI = null;
+		while (iterator.hasNext()) {
+			seatI = iterator.next();
+			if (!seats.get(seatI)) {
+				iterator.remove();
+			}
+		}
+		return seats;
 	}
 	
 	// TODO: remove this; or merge it with addSeats in Booking?
@@ -366,18 +385,18 @@ public class BookingController extends MainController {
 		booking.updateSeats(seats);
 		Screening screening = FilmController.getScreeningForBooking(booking);
 		screening.updateSeats(getFullSeatPlan(screening.getSeats(), seats));
-	}
+
+		//call firebase with the updated seats from screening
+        updateFirebaseBooking(screening.getFilmTitle(), screening.getDateTime(), booking.getUsername(), seats, bookingID);
+    }
 	
 	public static void deleteBooking(String bookingID) {
-		//TODO change data structure to make this less horrendous
-		//this first part removes the booked seats from the screening
 		Booking b = getBooking(bookingID);
 		Screening s = FilmController.getScreeningForBooking(b);
-		// this is why we should convert from key-value pairs to strings
-		// with the seats
-		//TODO clean this up
+		//invert the values in seats
 		HashMap<String, Boolean> seatsToUnbook = new HashMap<String, Boolean>();
-		Iterator<String> iterator = s.getSeats().keySet().iterator();
+        assert s != null;
+        Iterator<String> iterator = s.getSeats().keySet().iterator();
 		String seatI = null;
 		while (iterator.hasNext()) {
 			seatI = iterator.next();
@@ -385,7 +404,69 @@ public class BookingController extends MainController {
 				seatsToUnbook.put(seatI, false);
 			}
 		}
-		s.updateSeats(seatsToUnbook);				
+		//
+		s.updateSeats(getFullSeatPlan(seatsToUnbook));				
 		Main.bookingList.remove(b);
+
+        Map<String, String> params = new HashMap<>();
+        params.put("filmTitle", b.getFilmTitle());
+        params.put("dateTime", b.getDateTime().format(Screening.firebaseDateTimeFormatter));
+        params.put("username", b.getUsername());
+        JSONObject seatsObj = new JSONObject(seatsToUnbook);
+        params.put("seats", seatsObj.toString());
+        assert b != null;
+        deleteFirebaseBooking(b.getBookingID());
+        try {
+            Firebase.updateScreening(params);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void deleteFirebaseBooking(String bookingID) {
+        try {
+            Firebase.deleteBooking(bookingID);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateFirebaseBooking(String filmTitle, LocalDateTime dateTime, String username, HashMap<String, Boolean> seats, String bookingID) {
+        Map<String, String> params = new HashMap<>();
+        params.put("filmTitle", filmTitle);
+        params.put("dateTime", dateTime.format(Screening.firebaseDateTimeFormatter));
+        params.put("username", username);
+        JSONObject seatsObj = new JSONObject(getTrueOnlySeatPlan(seats));
+        params.put("seats", seatsObj.toString());
+
+        Screening s = FilmController.getScreeningForBooking(getBooking(bookingID));
+        HashMap<String, Boolean> fullScreeningSeats = getFullSeatPlan(s.getSeats(),seats);
+
+        try {
+            Firebase.deleteBooking(bookingID);
+            Firebase.createBooking(params);
+            seatsObj= new JSONObject(fullScreeningSeats);
+            params.put("seats", seatsObj.toString());
+            Firebase.updateScreening(params);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //works with incomplete seat map
+	private static void createFirebaseBooking(String filmTitle, LocalDateTime dateTime, String username, HashMap<String, Boolean> seats) {
+		Map<String, String> params = new HashMap<>();
+		params.put("filmTitle", filmTitle);
+		params.put("dateTime", dateTime.format(Screening.firebaseDateTimeFormatter));
+		params.put("username", username);
+		JSONObject seatsObj = new JSONObject(seats);
+		params.put("seats", seatsObj.toString());
+
+		try {
+			Firebase.createBooking(params);
+			Firebase.updateScreening(params);
+		} catch (UnirestException e) {
+			e.printStackTrace();
+		}
 	}
 }

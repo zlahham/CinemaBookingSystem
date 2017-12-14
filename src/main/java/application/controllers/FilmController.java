@@ -31,6 +31,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class FilmController extends MainController {
@@ -39,6 +40,7 @@ public class FilmController extends MainController {
             .observableArrayList(Arrays.asList("U", "PG", "12A", "12", "15", "18", "R18"));
 
     public static String mode;
+    public static String backFromFilmEmployee[];
     
     //used in: Film views, Screening views, NewScreening view
     //changed in: Dashboard views
@@ -111,6 +113,7 @@ public class FilmController extends MainController {
                 initializeFilm();
                 break;
             case "FCNewFilm":
+				backFromFilmEmployee = new String[] {"NewFilm", "FCNewFilm"};
                 initializeNewFilm();
                 break;
             case "FCNewScreening":
@@ -119,7 +122,7 @@ public class FilmController extends MainController {
             case "FCNewBooking":
             	BookingController.chosenScreening = null;
 				BookingController.chosenBooking = null;
-            	BookingController.backFromSeats = new String[] {"NewBooking", "FCNewBooking"};
+            	BookingController.backFromBookingSeats = new String[] {"NewBooking", "FCNewBooking"};
                 initializeNewBooking();
                 break;
             case "FCScreeningsEmployee":
@@ -129,94 +132,13 @@ public class FilmController extends MainController {
             case "FCScreeningsCustomer":
             	BookingController.chosenScreening = null;
 				BookingController.chosenBooking = null;
-            	BookingController.backFromSeats = new String[] {"ScreeningsCustomer", "FCScreeningsCustomer"};
+            	BookingController.backFromBookingSeats = new String[] {"ScreeningsCustomer", "FCScreeningsCustomer"};
                 initializeScreenings();
                 break;
             default:
                 System.err.println(mode);
-                System.err.println("Something has gone horribly wrong (FilmController) and it's probably Aleksi's fault");
+                System.err.println("FilmController mode error");
                 break;
-        }
-    }
-
-    // used in Screenings views and export
-    public static int[] countBookedSeats(Screening s) {
-        int[] bookedAvailable = {0, 0};
-        for (Boolean value : s.getSeats().values()) {
-            if (value.equals(true)) {
-                bookedAvailable[0]++;
-            } else {
-                bookedAvailable[1]++;
-            }
-        }
-        return bookedAvailable;
-    }
-
-    // remove this and use some different way to accomplish things?
-    public static Screening getScreeningForBooking(Booking booking) {
-        for (Film f : Main.filmList) {
-            for (Screening s : f.getScreenings()) {
-                if (s.getDateTime().compareTo(booking.getDateTime()) == 0) {
-                    return s;
-                }
-            }
-        }
-        return null;
-    }
-
-    public static ObservableList<Screening> filterScreeningsByDate(LocalDate date) {
-        ObservableList<Screening> returnList = FXCollections.observableArrayList();
-        for (int i = 0; i < Main.filmList.size(); i++) {
-            for (int j = 0; j < Main.filmList.get(i).getScreenings().size(); j++) {
-                if (date.equals(Main.filmList.get(i).getScreenings().get(j).getDateTime().toLocalDate())) {
-                    returnList.add(Main.filmList.get(i).getScreenings().get(j));
-                }
-            }
-        }
-        return returnList;
-    }
-
-    public static ObservableList<LocalTime> getAvailableTimesByDate(LocalDate date) {
-        ObservableList<LocalTime> returnList = FXCollections.observableArrayList();
-        for (int i = 12; i < 24; i++) {
-            returnList.add(LocalTime.parse(i + ":00"));
-        }
-        for (Film f : Main.filmList) {
-            for (Screening s : f.getScreenings()) {
-                if (s.getDateTime().toLocalDate().compareTo(date) == 0) {
-                    returnList.remove(s.getDateTime().toLocalTime());
-                }
-            }
-        }
-        return returnList;
-    }
-
-    public static HashMap<String, Boolean> getEmptySeatPlan(int[] dimensions) {
-        HashMap<String, Boolean> seats = new HashMap<String, Boolean>();
-        for (int i = 0; i < dimensions[0]; i++) {
-            for (int j = 0; j < dimensions[1]; j++) {
-                seats.put((char) ('a' + i) + "" + (j + 1), false);
-            }
-        }
-        return seats;
-    }
-
-    public static void deleteScreening(Screening screening) {
-        for (Film f : Main.filmList) {
-            Iterator<Screening> iterator = f.getScreenings().iterator();
-            while (iterator.hasNext()) {
-                Screening s = iterator.next();
-                if (s.getScreeningID().compareTo(screening.getScreeningID()) == 0) {
-                    // This needs to come first (before removing the Screening)
-                    // because deleteBooking uses getScreeningForBooking, which uses the
-                    // FilmList screening
-                    for (Booking b : BookingController.getBookingsForScreening(screening)) {
-                        BookingController.deleteBooking(b.getBookingID());
-                    }
-                    f.removeScreening(screening);
-                    return;
-                }
-            }
         }
     }
 
@@ -229,12 +151,13 @@ public class FilmController extends MainController {
         image1.setImage(chosenFilm.getImage());
     }
 
+    //initialize NewFilm view
     private void initializeNewFilm() {
         cbxAgeRating.getItems().addAll(AGE_RATINGS);
         errors = new ArrayList<>();
     }
 
-    // used in NewFilm view
+    //used in NewFilm view
     public void addFilmButtonPressed(ActionEvent event) {
         errors.clear();
         lblError.setText("");
@@ -278,9 +201,10 @@ public class FilmController extends MainController {
 
             Film film = new Film(txtFilmTitle.getText().trim(), txtDescription.getText().trim(), txtFilmTitle.getText().trim(), cbxAgeRating.getValue(), FXCollections.observableArrayList());
             Main.filmList.add(film);
+            chosenFilm = film;
             chosenFile = null;
             image = null;
-            transition("Employee", "");
+            transition("FilmEmployee", "FCFilmEmployee");
         } else {
             for (String error : errors) {
                 if (lblError.getText().trim().isEmpty()) {
@@ -292,7 +216,7 @@ public class FilmController extends MainController {
         }
     }
 
-    // used in NewFilm view
+    //used in NewFilm view
     public void pickImage() {
         lblImageError.setText("");
         final FileChooser fileChooser = new FileChooser();
@@ -315,7 +239,7 @@ public class FilmController extends MainController {
         }
     }
 
-    // initialize Screenings views
+    //initialize Screenings views
     private void initializeScreenings() {
         if (chosenFilm.getScreenings().size() > 0) {
             tblScreenings.getItems().addAll(chosenFilm.getScreenings());
@@ -348,6 +272,7 @@ public class FilmController extends MainController {
                         if (mode.compareTo("FCScreeningsEmployee") == 0) {
                             transition("Screening", "BCScreening");
                         } else if (mode.compareTo("FCScreeningsCustomer") == 0) {
+                        	//customer can only click on date if it is the future
                         	if (row.getItem().getDateTime().isAfter(LocalDateTime.now())) {
                         		transition("BookingSeats", "BCBookingSeats");
                         	}
@@ -368,25 +293,27 @@ public class FilmController extends MainController {
 						setGraphic(null);
 						TableRow<Screening> row = getTableRow();
 						if (!isEmpty()) {
+							// default colour: green
+							row.setStyle("-fx-background-color:lightgreen");
 							if (mode.compareTo("FCScreeningsCustomer") == 0) {
 								Customer customer = (Customer) (Main.stage.getUserData());
 								Booking booking = BookingController.getCustomerBookingForScreening(customer,
 										row.getItem());
 								if (booking != null) {
-									row.setStyle("-fx-background-color:lightgreen");
+									//customer has bookings: blue
+									row.setStyle("-fx-background-color:lightblue");
 									setText(empty ? ""
 											: getItem().toString() + "; Your seats: " + booking.getSeatsString());
-								}
-								if (row.getItem().getDateTime().isBefore(LocalDateTime.now())) {
-									row.setStyle("-fx-background-color:lightcoral");
-								}
+								} 
+							}
+							//date is in the past: red
+							if (row.getItem().getDateTime().isBefore(LocalDateTime.now())) {
+								row.setStyle("-fx-background-color:lightcoral");
 							}
 						}
 					}
 				};
             });
-            
-            
             
         } else {
             lblTableInfo = new Label("This film has no screenings.");
@@ -394,17 +321,17 @@ public class FilmController extends MainController {
         }
     }
 
-    // new booking view initialisation
+    //initialize NewBooking view
     private void initializeNewBooking() {
         lblTableInfo = new Label("Select a date.");
         tblScreenings.setPlaceholder(lblTableInfo);
         disableDatesInThePast();
     }
 
-    // used in new booking view
+    // used in NewBooking view
     public void showScreeningsOnSelectedDate(ActionEvent event) {
         tblScreenings.getItems().clear();
-        ObservableList<Screening> screeningList = filterScreeningsByDate(dtpckrDate.getValue());
+        ObservableList<Screening> screeningList = getScreeningsByDate(dtpckrDate.getValue());
         if (screeningList.size() > 0) {
             tblScreenings.getItems().addAll(screeningList);
             tblclmnScreeningsFilmImage.setCellValueFactory(c -> {
@@ -437,19 +364,48 @@ public class FilmController extends MainController {
                 });
                 return row;
             });
-        } else {
+//TODO: this
+		/*	// change row background colour if customer has bookings in the screening
+			tblclmnScreeningsSeats.setCellFactory(column -> {
+				return new TableCell<Screening, String>() {
+					protected void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+						setText(empty ? "" : getItem().toString());
+						setGraphic(null);
+						TableRow<Screening> row = getTableRow();
+						if (!isEmpty()) {
+							// default colour: green
+							row.setStyle("-fx-background-color:lightgreen");
+							Customer customer = (Customer) (Main.stage.getUserData());
+							Booking booking = BookingController.getCustomerBookingForScreening(customer, row.getItem());
+							if (booking != null) {
+								// customer has bookings: blue
+								row.setStyle("-fx-background-color:lightblue");
+								setText(empty ? ""
+										: getItem().toString() + "; Your seats: " + booking.getSeatsString());
+							}
+						}
+						// date is in the past: red
+						if (row.getItem().getDateTime().isBefore(LocalDateTime.now())) {
+							row.setStyle("-fx-background-color:lightcoral");
+						}
+					}
+				};
+			});*/
+
+		} else {
             tblScreenings.getItems().clear();
             lblTableInfo.setText("No screenings on this date.");
         }
     }
 
-    // initialize addScreenings view
+    //initialize addScreenings view
     private void initializeNewScreening() {
         screeningDateTimesToAdd = FXCollections.observableArrayList();
         disableDatesInThePast();
     }
 
-    // used in addScreenings view
+    //used in addScreenings view
     public void showAvailableTimesOnSelectedDate(ActionEvent event) {
         tblTimes.getItems().clear();
         ObservableList<LocalTime> timesList = getAvailableTimesByDate(dtpckrDate.getValue());
@@ -500,12 +456,93 @@ public class FilmController extends MainController {
         for (LocalDateTime dt : screeningDateTimesToAdd) {
             Screening s = new Screening(chosenFilm.getFilmTitle(), dt, getEmptySeatPlan(Screening.theatreDimensions));
             screeningsToAdd.add(s);
+            createFirebaseScreening(chosenFilm.getFilmTitle(), dt.format(Screening.firebaseDateTimeFormatter));
         }
         chosenFilm.addScreenings(screeningsToAdd);
         screeningDateTimesToAdd.clear();
         transition("ScreeningsEmployee", "FCScreeningsEmployee");
     }
 
+    public static int[] countBookedSeats(Screening s) {
+        int[] bookedAvailable = {0, 0};
+        for (Boolean value : s.getSeats().values()) {
+            if (value.equals(true)) {
+                bookedAvailable[0]++;
+            } else {
+                bookedAvailable[1]++;
+            }
+        }
+        return bookedAvailable;
+    }
+
+    public static Screening getScreeningForBooking(Booking booking) {
+        for (Film f : Main.filmList) {
+            for (Screening s : f.getScreenings()) {
+                if (s.getDateTime().compareTo(booking.getDateTime()) == 0) {
+                    return s;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static ObservableList<Screening> getScreeningsByDate(LocalDate date) {
+        ObservableList<Screening> returnList = FXCollections.observableArrayList();
+        for (int i = 0; i < Main.filmList.size(); i++) {
+            for (int j = 0; j < Main.filmList.get(i).getScreenings().size(); j++) {
+                if (date.equals(Main.filmList.get(i).getScreenings().get(j).getDateTime().toLocalDate())) {
+                    returnList.add(Main.filmList.get(i).getScreenings().get(j));
+                }
+            }
+        }
+        return returnList;
+    }
+
+    public static ObservableList<LocalTime> getAvailableTimesByDate(LocalDate date) {
+        ObservableList<LocalTime> returnList = FXCollections.observableArrayList();
+        for (int i = 12; i < 24; i++) {
+            returnList.add(LocalTime.parse(i + ":00"));
+        }
+        for (Film f : Main.filmList) {
+            for (Screening s : f.getScreenings()) {
+                if (s.getDateTime().toLocalDate().compareTo(date) == 0) {
+                    returnList.remove(s.getDateTime().toLocalTime());
+                }
+            }
+        }
+        return returnList;
+    }
+
+    public static HashMap<String, Boolean> getEmptySeatPlan(int[] dimensions) {
+        HashMap<String, Boolean> seats = new HashMap<String, Boolean>();
+        for (int i = 0; i < dimensions[0]; i++) {
+            for (int j = 0; j < dimensions[1]; j++) {
+                seats.put((char) ('a' + i) + "" + (j + 1), false);
+            }
+        }
+        return seats;
+    }
+
+    public static void deleteScreening(Screening screening) {
+        for (Film f : Main.filmList) {
+            Iterator<Screening> iterator = f.getScreenings().iterator();
+            while (iterator.hasNext()) {
+                Screening s = iterator.next();
+                if (s.getScreeningID().compareTo(screening.getScreeningID()) == 0) {
+                    // This needs to come first (before removing the Screening)
+                    // because deleteBooking uses getScreeningForBooking, which uses the
+                    // FilmList screening
+                    for (Booking b : BookingController.getBookingsForScreening(screening)) {
+                        BookingController.deleteBooking(b.getBookingID());
+                    }
+                    deleteFirebaseScreening(screening);
+                    f.removeScreening(screening);
+                    return;
+                }
+            }
+        }
+    }
+    
     private void disableDatesInThePast() {
         final Callback<DatePicker, DateCell> dayCellFactory =
                 new Callback<DatePicker, DateCell>() {
@@ -524,5 +561,26 @@ public class FilmController extends MainController {
                     }
                 };
         dtpckrDate.setDayCellFactory(dayCellFactory);
+    }
+
+    private static void createFirebaseScreening(String filmTitle, String dateTime) {
+        Map<String, String> params = new HashMap<>();
+        params.put("filmTitle", filmTitle);
+        params.put("dateTime", dateTime);
+        try {
+            Firebase.createScreening(params);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private static void deleteFirebaseScreening(Screening screening) {
+       	//deleteBooking already calls deleteFirebaseBooking, so no need to 
+    	//delete Firebase bookings here
+        try {
+            Firebase.deleteScreening(screening.getScreeningID(), screening.getFilmTitle());
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
     }
 }
