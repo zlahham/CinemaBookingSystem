@@ -1,6 +1,7 @@
 package application.models;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -54,8 +55,13 @@ public class Booking extends SuperModel {
 	public HashMap<String, Boolean> getSeats() {
 		return this.seats;
 	}
+
 	public String getSeatsString() {
-		return this.getSeats().keySet().toString().replace("[", "").replace("]", "").toUpperCase();
+		String[] seatsToSort = this.getSeats().keySet().toString().replace("[", "").replace("]", "").replace(",", "")
+				.toUpperCase().split(" ");
+		Arrays.sort(seatsToSort);
+		return String.join(" ", seatsToSort);
+
 	}
 	public boolean checkSeat(String seat) {
 		if (this.seats.containsKey(seat)) {
