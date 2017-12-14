@@ -73,27 +73,27 @@
                   </Label>
                   <TableView fx:id="tblBookings" maxHeight="400.0" prefHeight="300.0" prefWidth="880.0" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.rowSpan="3" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
                      <columns>
-                        <TableColumn fx:id="tblclmnBookingsFilmStatus" prefWidth="75.0" text="Status">
+                        <TableColumn fx:id="tblclmnBookingsFilmStatus" prefWidth="75.0" resizable="false" text="Status">
                            <graphic>
                               <MaterialDesignIconView glyphName="DETAILS" />
                            </graphic>
                         </TableColumn>
-                        <TableColumn fx:id="tblclmnBookingsFilmTitle" editable="false" prefWidth="321.9669189453125" text="Film Title">
+                        <TableColumn fx:id="tblclmnBookingsFilmTitle" editable="false" prefWidth="288.0" resizable="false" text="Film Title">
                            <graphic>
                               <OctIconView glyphName="TEXT_SIZE" />
                            </graphic>
                         </TableColumn>
-                        <TableColumn fx:id="tblclmnBookingsDate" editable="false" prefWidth="169.03302001953125" text="Date">
+                        <TableColumn fx:id="tblclmnBookingsDate" editable="false" prefWidth="145.0" resizable="false" text="Date">
                            <graphic>
                               <MaterialDesignIconView glyphName="CALENDAR" />
                            </graphic>
                         </TableColumn>
-                        <TableColumn fx:id="tblclmnBookingsTime" editable="false" prefWidth="145.010986328125" text="Time">
+                        <TableColumn fx:id="tblclmnBookingsTime" editable="false" prefWidth="85.0" resizable="false" text="Time">
                            <graphic>
                               <MaterialDesignIconView glyphName="CLOCK" />
                            </graphic>
                         </TableColumn>
-                        <TableColumn fx:id="tblclmnBookingsSeats" editable="false" prefWidth="168.00872802734375" text="Seats">
+                        <TableColumn fx:id="tblclmnBookingsSeats" editable="false" prefWidth="289.0" resizable="false" text="Seats">
                            <graphic>
                               <MaterialDesignIconView glyphName="SEAT_RECLINE_NORMAL" />
                            </graphic>

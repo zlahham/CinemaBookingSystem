@@ -52,13 +52,22 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="15" />
                      </graphic>
                   </JFXButton>
+                  <JFXButton fx:id="btnToCustomer_CCDashboard" buttonType="RAISED" layoutX="66.0" layoutY="40.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="46.0" prefWidth="150.0" ripplerFill="#4476b8" text="Dashboard" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="primary" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
+                     </graphic>
+                  </JFXButton>
                </children>
             </AnchorPane>
          </top>
          <bottom>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnToBookings_BCBookings" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="46.0" prefWidth="220.0" ripplerFill="#4476b8" text="View all bookings" AnchorPane.leftAnchor="300.0" AnchorPane.topAnchor="20.0">
+                  <JFXButton fx:id="btnToBookings_BCBookings" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="46.0" prefWidth="201.0" ripplerFill="#4476b8" text="Back to Bookings" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="20.0">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="info" />
@@ -67,7 +76,7 @@
                         <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnDelete" buttonType="RAISED" layoutX="597.0" layoutY="25.0" maxHeight="213.0" onAction="#deleteBookingButtonPress" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Delete" AnchorPane.leftAnchor="565.0" AnchorPane.rightAnchor="565.0" AnchorPane.topAnchor="20.0">
+                  <JFXButton fx:id="btnDelete" buttonType="RAISED" maxHeight="213.0" onAction="#deleteBookingButtonPress" prefHeight="213.0" ripplerFill="#4476b8" text="Delete Booking" AnchorPane.leftAnchor="555.0" AnchorPane.topAnchor="20.0">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="danger" />
@@ -76,22 +85,13 @@
                         <OctIconView fill="WHITE" glyphName="TRASHCAN" size="15" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="btnToBookingSeats_BCBookingSeats" buttonType="RAISED" layoutX="605.0" layoutY="66.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="46.0" prefWidth="177.0" ripplerFill="#4476b8" text="Change Seats" AnchorPane.rightAnchor="273.0" AnchorPane.topAnchor="20.0">
+                  <JFXButton fx:id="btnToBookingSeats_BCBookingSeats" buttonType="RAISED" layoutX="605.0" layoutY="66.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="46.0" prefWidth="172.0" ripplerFill="#4476b8" text="Change Seats" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="20.0">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="success" />
                      </styleClass>
                      <graphic>
                         <OctIconView fill="WHITE" glyphName="PENCIL" size="15" />
-                     </graphic>
-                  </JFXButton>
-                  <JFXButton fx:id="btnToCustomer_CCDashboard" buttonType="RAISED" layoutX="300.0" layoutY="85.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="46.0" prefWidth="220.0" ripplerFill="#4476b8" text="Back to main menu">
-                     <styleClass>
-                        <String fx:value="lg" />
-                        <String fx:value="primary" />
-                     </styleClass>
-                     <graphic>
-                        <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
                      </graphic>
                   </JFXButton>
                </children>
@@ -131,7 +131,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblSeats" text="Seats Booked" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <Label fx:id="lblSeats" text="Seats Booked" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
                            <padding>
                               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                            </padding>

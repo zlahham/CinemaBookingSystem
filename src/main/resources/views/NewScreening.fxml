@@ -35,6 +35,15 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="FILM" size="30" />
                      </graphic>
                   </Label>
+                  <JFXButton fx:id="btnToEmployee" buttonType="RAISED" layoutX="60.0" layoutY="12.0" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Dashboard" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="lg" />
+                        <String fx:value="info" />
+                     </styleClass>
+                     <graphic>
+                        <OctIconView fill="WHITE" glyphName="ARROW_LEFT" size="15" />
+                     </graphic>
+                  </JFXButton>
                </children>
             </AnchorPane>
          </top>
@@ -47,13 +56,13 @@
                   <DatePicker fx:id="dtpckrDate" onAction="#showAvailableTimesOnSelectedDate" prefWidth="250.0" promptText="Select a date" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0" />
                   <TableView fx:id="tblTimes" prefHeight="375.0" prefWidth="270.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="100.0">
                     <columns>
-                      <TableColumn fx:id="tblclmnTimesTime" maxWidth="270.0" minWidth="-1.0" prefWidth="270.0" text="Time" />
+                      <TableColumn fx:id="tblclmnTimesTime" maxWidth="270.0" minWidth="-1.0" prefWidth="270.0" resizable="false" text="Time" />
                     </columns>
                   </TableView>
                   <TableView fx:id="tblDateTimesToAdd" layoutX="151.0" layoutY="30.0" prefHeight="375.0" prefWidth="400.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="100.0">
                      <columns>
-                        <TableColumn fx:id="tblclmnDateTimesToAddDate" maxWidth="200.0" minWidth="-1.0" prefWidth="200.0" text="Date" />
-                        <TableColumn fx:id="tblclmnDateTimesToAddTime" maxWidth="200.0" minWidth="-1.0" prefWidth="200.0" text="Time" />
+                        <TableColumn fx:id="tblclmnDateTimesToAddDate" maxWidth="200.0" minWidth="-1.0" prefWidth="200.0" resizable="false" text="Date" />
+                        <TableColumn fx:id="tblclmnDateTimesToAddTime" maxWidth="200.0" minWidth="-1.0" prefWidth="200.0" resizable="false" text="Time" />
                      </columns>
                   </TableView>
                   <Label styleClass="success" stylesheets="@../application.css" text="1. Please select a date:" textFill="#b3e8ff" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="10.0" />
@@ -68,7 +77,7 @@
          <bottom>
             <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnToEmployee" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="0.0">
+                  <JFXButton fx:id="btnToScreeningsEmployee_FCScreeningsEmployee" buttonType="RAISED" maxHeight="213.0" onAction="#buttonTransition" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Back" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="0.0">
                      <styleClass>
                         <String fx:value="lg" />
                         <String fx:value="primary" />

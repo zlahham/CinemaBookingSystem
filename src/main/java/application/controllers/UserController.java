@@ -13,6 +13,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
@@ -22,6 +24,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.stream.Collectors;
+
+import com.sun.prism.paint.Color;
 
 public class UserController  extends MainController{
 
@@ -39,8 +43,6 @@ public class UserController  extends MainController{
     @FXML
     private TableColumn<Film, String> tblclmnFilmsFilmTitle;
     @FXML
-    private TableColumn<Film, String> tblclmnFilmsDescription;
-    @FXML
     private TableColumn<Film, String> tblclmnFilmsAgeRating;
     @FXML
     private TableColumn<Film, String> tblclmnFilmsScreenings;
@@ -50,6 +52,7 @@ public class UserController  extends MainController{
     	BookingController.chosenBooking = null;
     	BookingController.chosenScreening = null;
     	FilmController.chosenFilm = null;
+    	FilmController.chosenDate = null;
     	FilmController.backFromFilmEmployee = new String[] {"Employee", ""};
     	
         initializeFilmTable();
@@ -71,13 +74,12 @@ public class UserController  extends MainController{
         tblFilms.getItems().addAll(Main.filmList);
         tblclmnFilmsImage.setCellValueFactory(c -> {
             ImageView iv = new ImageView();
-            iv.setFitHeight(75);
-            iv.setFitWidth(75);
+            iv.setFitWidth(120);
+            iv.setPreserveRatio(true);
             iv.setImage(c.getValue().getImage());
             return new SimpleObjectProperty<>(iv);
         });
         tblclmnFilmsFilmTitle.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getFilmTitle()));
-        tblclmnFilmsDescription.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getDescription()));
         tblclmnFilmsAgeRating.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getAgeRating()));
         tblclmnFilmsScreenings.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getScreenings()
                 .stream().map(s -> s.getDateTime().format(dateTimeFormatter)).collect(Collectors.joining("\n"))));

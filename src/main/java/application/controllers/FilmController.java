@@ -45,6 +45,7 @@ public class FilmController extends MainController {
     //used in: Film views, Screening views, NewScreening view
     //changed in: Dashboard views
     public static Film chosenFilm = null;
+    public static LocalDate chosenDate;
 
     @FXML
     private ImageView image;
@@ -151,6 +152,10 @@ public class FilmController extends MainController {
         image1.setImage(chosenFilm.getImage());
     }
 
+	public void backFromFilmEmployee(ActionEvent event) {
+		transition(backFromFilmEmployee[0],backFromFilmEmployee[1]);
+	}
+    
     //initialize NewFilm view
     private void initializeNewFilm() {
         cbxAgeRating.getItems().addAll(AGE_RATINGS);
@@ -250,10 +255,9 @@ public class FilmController extends MainController {
                     c -> new SimpleStringProperty(c.getValue().getDateTime().format(timeFormatter)));
             if (mode.compareTo("FCScreeningsEmployee") == 0) {
                 tblclmnScreeningsSeats.setText("Seats Booked");
-                tblclmnScreeningsSeats
-                        .setCellValueFactory(c -> new SimpleStringProperty(countBookedSeats(c.getValue())[0] + "/"
-                                + (countBookedSeats(c.getValue())[0] + countBookedSeats(c.getValue())[1])
-                                + " seats booked"));
+				tblclmnScreeningsSeats
+						.setCellValueFactory(c -> new SimpleStringProperty(countBookedSeats(c.getValue())[0] + "/"
+								+ (countBookedSeats(c.getValue())[0] + countBookedSeats(c.getValue())[1]) + ""));
             } else if (mode.compareTo("FCScreeningsCustomer") == 0) {
                 tblclmnScreeningsSeats.setText("Seats Available");
                 tblclmnScreeningsSeats.setCellValueFactory(c -> new SimpleStringProperty(countBookedSeats(c.getValue())[1] +""));
@@ -303,7 +307,7 @@ public class FilmController extends MainController {
 									//customer has bookings: blue
 									row.setStyle("-fx-background-color:lightblue");
 									setText(empty ? ""
-											: getItem().toString() + "; Your seats: " + booking.getSeatsString());
+											: getItem().toString() + "; Your seat(s): " + booking.getSeatsString());
 								} 
 							}
 							//date is in the past: red
@@ -326,18 +330,25 @@ public class FilmController extends MainController {
         lblTableInfo = new Label("Select a date.");
         tblScreenings.setPlaceholder(lblTableInfo);
         disableDatesInThePast();
+        if (chosenDate != null) {
+        	showScreeningsOnSelectedDate(chosenDate);
+        }
     }
 
+    public void datePickerChoose(ActionEvent event) {
+    	showScreeningsOnSelectedDate(dtpckrDate.getValue());
+    }
+    
     // used in NewBooking view
-    public void showScreeningsOnSelectedDate(ActionEvent event) {
+    public void showScreeningsOnSelectedDate(LocalDate date) {
         tblScreenings.getItems().clear();
-        ObservableList<Screening> screeningList = getScreeningsByDate(dtpckrDate.getValue());
+        ObservableList<Screening> screeningList = getScreeningsByDate(date);
         if (screeningList.size() > 0) {
             tblScreenings.getItems().addAll(screeningList);
             tblclmnScreeningsFilmImage.setCellValueFactory(c -> {
                 ImageView iv = new ImageView();
-                iv.setFitHeight(75);
-                iv.setFitWidth(75);
+                iv.setFitWidth(120);
+                iv.setPreserveRatio(true);
                 try {
                     iv.setImage(c.getValue().getFilm().getImage());
                 } catch (NullPointerException e) {
@@ -351,7 +362,7 @@ public class FilmController extends MainController {
             tblclmnScreeningsFilmAge.setCellValueFactory(
                     c -> new SimpleStringProperty(c.getValue().getFilm().getAgeRating()));
             tblclmnScreeningsSeats.setCellValueFactory(
-                    c -> new SimpleStringProperty(countBookedSeats(c.getValue())[1] + " seats available"));
+                    c -> new SimpleStringProperty(countBookedSeats(c.getValue())[1] + ""));
 
             tblScreenings.setRowFactory(r -> {
                 TableRow<Screening> row = new TableRow<>();
@@ -359,13 +370,15 @@ public class FilmController extends MainController {
                     if (!row.isEmpty() && rowClick.getButton() == MouseButton.PRIMARY
                             && rowClick.getClickCount() == 1) {
                         BookingController.chosenScreening = row.getItem();
-                        transition("BookingSeats", "BCBookingSeats");
+                        chosenDate = date;
+                        if (row.getItem().getDateTime().isAfter(LocalDateTime.now())) {
+                        	transition("BookingSeats", "BCBookingSeats");
+                        }
                     }
                 });
                 return row;
             });
-//TODO: this
-		/*	// change row background colour if customer has bookings in the screening
+			// change row background colour if customer has bookings in the screening
 			tblclmnScreeningsSeats.setCellFactory(column -> {
 				return new TableCell<Screening, String>() {
 					protected void updateItem(String item, boolean empty) {
@@ -373,7 +386,7 @@ public class FilmController extends MainController {
 						setText(empty ? "" : getItem().toString());
 						setGraphic(null);
 						TableRow<Screening> row = getTableRow();
-						if (!isEmpty()) {
+						if (row.getItem() != null) {
 							// default colour: green
 							row.setStyle("-fx-background-color:lightgreen");
 							Customer customer = (Customer) (Main.stage.getUserData());
@@ -382,16 +395,16 @@ public class FilmController extends MainController {
 								// customer has bookings: blue
 								row.setStyle("-fx-background-color:lightblue");
 								setText(empty ? ""
-										: getItem().toString() + "; Your seats: " + booking.getSeatsString());
+										: getItem().toString() + "; Your seat(s): " + booking.getSeatsString());
 							}
-						}
-						// date is in the past: red
-						if (row.getItem().getDateTime().isBefore(LocalDateTime.now())) {
-							row.setStyle("-fx-background-color:lightcoral");
+							//date is in the past: red
+							if (row.getItem().getDateTime().isBefore(LocalDateTime.now())) {
+								row.setStyle("-fx-background-color:lightcoral");
+							}
 						}
 					}
 				};
-			});*/
+			});
 
 		} else {
             tblScreenings.getItems().clear();

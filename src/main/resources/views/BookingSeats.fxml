@@ -22,11 +22,6 @@
          <top>
             <AnchorPane prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="lblBookingSeatsTitle" text="Choose your Seats!" underline="true" AnchorPane.leftAnchor="466.0" AnchorPane.rightAnchor="466.0" AnchorPane.topAnchor="20.0">
-                     <font>
-                        <Font size="40.0" />
-                     </font>
-                  </Label>
                   <JFXButton fx:id="btnLogout" buttonType="RAISED" onAction="#logout" prefWidth="150.0" ripplerFill="#4476b8" text="Log out" textAlignment="RIGHT" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="10.0">
                      <styleClass>
                         <String fx:value="lg" />
@@ -36,6 +31,23 @@
                         <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="15" />
                      </graphic>
                   </JFXButton>
+                  <GridPane prefHeight="100.0" prefWidth="1282.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="lblBookingSeatsTitle" alignment="CENTER" contentDisplay="CENTER" text="Choose your Seats!" textAlignment="CENTER" underline="true" wrapText="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <font>
+                              <Font size="40.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </GridPane>
                </children>
             </AnchorPane>
          </top>
@@ -194,7 +206,7 @@
                      </font>
                   </Label>
                   <Rectangle fill="#58626b" height="10.0" stroke="BLACK" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeType="OUTSIDE" width="750.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0" />
-                  <Label layoutX="402.0" layoutY="478.0" text="SCREEN">
+                  <Label layoutX="402.0" layoutY="478.0" text="SCREEN" AnchorPane.bottomAnchor="45.0">
                      <font>
                         <Font size="20.0" />
                      </font>

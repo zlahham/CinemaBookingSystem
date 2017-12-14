@@ -109,6 +109,8 @@ public class BookingController extends MainController {
 				//accessed from Bookings, BookingSeats
 				//uses: chosenBooking
 				//changes:
+				//no need to go back from BookingSeats to NewBooking anymore, so reset ChosenDate
+				FilmController.chosenDate = null;
 				backFromBookingSeats = new String[] {"Booking", "BCBooking"};
 				initializeBooking();
 				break;
@@ -155,6 +157,28 @@ public class BookingController extends MainController {
             });
             return row;
         });
+        
+		// change row background colour if booking is in the past
+		tblclmnBookingsFilmStatus.setCellFactory(column -> {
+			return new TableCell<Booking, String>() {
+				protected void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+					setText(empty ? "" : getItem().toString());
+					setGraphic(null);
+					TableRow<Screening> row = getTableRow();
+					if (!isEmpty()) {
+						if (getItem().compareTo("Upcoming") == 0) {
+							// upcoming colour: green
+						row.setStyle("-fx-background-color:lightgreen");
+						} else if (getItem().compareTo("Past") == 0) {
+							// past colour: red
+							row.setStyle("-fx-background-color:lightcoral");
+						}
+					}
+				}
+			};
+		});
+        
 	}
 
 	//initialize Booking view
@@ -190,7 +214,7 @@ public class BookingController extends MainController {
 		
 		if (existingBooking != null) {
 			btnBook.setText("Confirm");
-			lblBookingSeatsTitle.setText("Choose new seats!\n(Editing existing booking)");
+			lblBookingSeatsTitle.setText("Edit Existing Booking");
 		}
 		
 		for (int i = 0; i < seatsArray.length; i++) {
@@ -322,6 +346,7 @@ public class BookingController extends MainController {
 	
 	public static ObservableList<Booking> getBookingsForScreening(Screening screening) {
 		ObservableList<Booking> returnList = FXCollections.observableArrayList();
+		System.out.println(screening.getDateTime());
 		for (Booking b : Main.bookingList) {
 			if (b.getDateTime().compareTo(screening.getDateTime()) == 0){
 				returnList.add(b);
