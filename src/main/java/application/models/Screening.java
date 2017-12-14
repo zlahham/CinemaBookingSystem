@@ -40,11 +40,13 @@ public class Screening extends SuperModel{
 	// constructors
 	/**
 	 * Constructor
-	 * Given a JSONObject, calls User's JSON constructor to set username,
-	 * password and role, and sets the firstName, lastName, and email based
-	 * on the corresponding  key(string)-value(string) pairs in the JSONObject.
-	 * @param userJSON JSONObject for the user with the following keys:
-	 * username, password, role, firstName, lastName, email
+	 * Sets the Screening's film title, datetime and seats list from the
+	 * parameters, and constructs a screeningID from them
+	 * @param filmTitle Film title String to be set
+	 * @param dateTime LocalDateTime to be set
+	 * @param seats A Hashmap<String, Boolean>; the key is a letter followed
+	 * by a number (in the current  version, "a1" to "d6"),
+	 * and the value is true iff the seat is booked.
 	 */
 	public Screening(String filmTitle, LocalDateTime dateTime, HashMap<String, Boolean> seats) {
 		this.screeningID = dateTime.format(firebaseDateTimeFormatter);
@@ -52,7 +54,15 @@ public class Screening extends SuperModel{
 		this.dateTime = dateTime;
 		this.seats = seats;
 	}
-	
+	/**
+	 * Constructor
+	 * Given a JSONObject, sets the fields of the Screening object based on the 
+	 * corresponding key-value pairs in the JSONOBject; parses the JSONObject
+	 * and calls the constructor above.
+	 * @param screeningJSON JSONObject for the screening the following keys:
+	 * filmTitle, dateTime, seats; the seats object should consist of
+	 * key(String)-value(boolean) pairs in the same fashion as the seats field
+	 */
 	public Screening(JSONObject screeningJSON) {
 		this(screeningJSON.getString("filmTitle"),
 				LocalDateTime.parse(screeningJSON.getString("dateTime"), firebaseDateTimeFormatter), new HashMap<String, Boolean>());
@@ -65,7 +75,6 @@ public class Screening extends SuperModel{
 			this.seats.put(seatKey, seats.getBoolean(seatKey));
 		}
 	}
-
 	// getters
 	/**
 	 * Gets the ScreeningID of the Screening.
