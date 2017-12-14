@@ -10,6 +10,19 @@ import application.Main;
 
 import org.json.JSONObject;
 
+/**
+ * <dl>
+ * 	<dt> Purpose:
+ * 	<dd>
+ * 
+ * 	<dt> Description:
+ * 	<dd> 
+ * </dl>
+ * 
+ * @author Zaid Al Lahham and Aleksi Anttila
+ * @version $Date: 2017/12/14 16:00:00 $
+ * 
+ */
 public class Booking extends SuperModel {
 	private String bookingID;
 	private String filmTitle;

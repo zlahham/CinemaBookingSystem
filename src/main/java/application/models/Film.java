@@ -10,7 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
-public class Film {
+public class Film extends SuperModel {
 	private String filmTitle;
 	private String description;
 	private String imageFilepath;
