@@ -45,6 +45,7 @@ public class FilmController extends MainController {
     //used in: Film views, Screening views, NewScreening view
     //changed in: Dashboard views
     public static Film chosenFilm = null;
+    public static LocalDate chosenDate;
 
     @FXML
     private ImageView image;
@@ -330,12 +331,19 @@ public class FilmController extends MainController {
         lblTableInfo = new Label("Select a date.");
         tblScreenings.setPlaceholder(lblTableInfo);
         disableDatesInThePast();
+        if (chosenDate != null) {
+        	showScreeningsOnSelectedDate(chosenDate);
+        }
     }
 
+    public void datePickerChoose(ActionEvent event) {
+    	showScreeningsOnSelectedDate(dtpckrDate.getValue());
+    }
+    
     // used in NewBooking view
-    public void showScreeningsOnSelectedDate(ActionEvent event) {
+    public void showScreeningsOnSelectedDate(LocalDate date) {
         tblScreenings.getItems().clear();
-        ObservableList<Screening> screeningList = getScreeningsByDate(dtpckrDate.getValue());
+        ObservableList<Screening> screeningList = getScreeningsByDate(date);
         if (screeningList.size() > 0) {
             tblScreenings.getItems().addAll(screeningList);
             tblclmnScreeningsFilmImage.setCellValueFactory(c -> {
@@ -363,6 +371,7 @@ public class FilmController extends MainController {
                     if (!row.isEmpty() && rowClick.getButton() == MouseButton.PRIMARY
                             && rowClick.getClickCount() == 1) {
                         BookingController.chosenScreening = row.getItem();
+                        chosenDate = date;
                         transition("BookingSeats", "BCBookingSeats");
                     }
                 });

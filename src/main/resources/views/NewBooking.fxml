@@ -39,7 +39,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <DatePicker fx:id="dtpckrDate" onAction="#showScreeningsOnSelectedDate" promptText="Choose Screening Date" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="dtpckrDate" onAction="#datePickerChoose" promptText="Choose Screening Date" GridPane.columnSpan="2" GridPane.rowIndex="1" />
                   <TableView fx:id="tblScreenings" prefHeight="0.0" prefWidth="628.0" GridPane.columnSpan="6" GridPane.rowIndex="2" GridPane.rowSpan="3">
                     <columns>
                         <TableColumn fx:id="tblclmnScreeningsFilmImage" editable="false" text="Image">

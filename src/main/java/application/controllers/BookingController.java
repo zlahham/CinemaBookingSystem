@@ -109,6 +109,8 @@ public class BookingController extends MainController {
 				//accessed from Bookings, BookingSeats
 				//uses: chosenBooking
 				//changes:
+				//no need to go back from BookingSeats to NewBooking anymore, so reset ChosenDate
+				FilmController.chosenDate = null;
 				backFromBookingSeats = new String[] {"Booking", "BCBooking"};
 				initializeBooking();
 				break;
