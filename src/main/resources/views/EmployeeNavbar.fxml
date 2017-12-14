@@ -30,19 +30,7 @@
                   <Insets left="25.0" right="25.0" top="10.0" />
                </VBox.margin>
             </JFXButton>
-            <JFXButton accessibleText="T" alignment="CENTER" buttonType="RAISED" layoutX="10.0" maxHeight="213.0" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Bookings">
-               <styleClass>
-                  <String fx:value="lg" />
-                  <String fx:value="primary" />
-               </styleClass>
-               <graphic>
-                  <FontAwesomeIconView fill="WHITE" glyphName="LIST" size="15" />
-               </graphic>
-               <VBox.margin>
-                  <Insets left="25.0" right="25.0" top="10.0" />
-               </VBox.margin>
-            </JFXButton>
-            <JFXButton fx:id="btnExportFilms" buttonType="RAISED" maxHeight="213.0" onAction="#exportFilms" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Export Films">
+            <JFXButton fx:id="btnExportFilms" buttonType="RAISED" maxHeight="213.0" onAction="#exportFilms" prefHeight="213.0" prefWidth="150.0" ripplerFill="#4476b8" text="Export">
                <styleClass>
                   <String fx:value="lg" />
                   <String fx:value="info" />

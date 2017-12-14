@@ -26,13 +26,6 @@ public class CSV {
                 Screening s = screenings.get(i);
                 int bookedSeats = FilmController.countBookedSeats(s)[0];
                 int availableSeats = FilmController.countBookedSeats(s)[1];
-                for (Boolean value : s.getSeats().values()) {
-                    if (value.equals(true)) {
-                        bookedSeats++;
-                    } else {
-                        availableSeats++;
-                    }
-                }
                 // Set the date for each row
                 sb.append(f.getFilmTitle()).append(",").append(s.getDateTime().format(dateFormatter)).append(",")
                         .append(s.getDateTime().format(timeFormatter)).append(",")
