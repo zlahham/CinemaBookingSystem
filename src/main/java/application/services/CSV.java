@@ -14,7 +14,7 @@ import static application.controllers.MainController.timeFormatter;
 
 public class CSV {
     public static void export() throws FileNotFoundException {
-        PrintWriter pw = new PrintWriter(new File("filmExportList.csv"));
+        PrintWriter pw = new PrintWriter(new File("filmsExportList.csv"));
         StringBuilder sb = new StringBuilder();
         // Set the columns
         sb.append("Film Title,Date,Time,Total Seats,Booked Seats,Available Seats\n");
