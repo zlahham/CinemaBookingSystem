@@ -349,6 +349,7 @@ public class FilmController extends MainController {
                         if (mode.compareTo("FCScreeningsEmployee") == 0) {
                             transition("Screening", "BCScreening");
                         } else if (mode.compareTo("FCScreeningsCustomer") == 0) {
+                        	//customer can only click on date if it is the future
                         	if (row.getItem().getDateTime().isAfter(LocalDateTime.now())) {
                         		transition("BookingSeats", "BCBookingSeats");
                         	}
@@ -369,25 +370,27 @@ public class FilmController extends MainController {
 						setGraphic(null);
 						TableRow<Screening> row = getTableRow();
 						if (!isEmpty()) {
+							// default colour: green
+							row.setStyle("-fx-background-color:lightgreen");
 							if (mode.compareTo("FCScreeningsCustomer") == 0) {
 								Customer customer = (Customer) (Main.stage.getUserData());
 								Booking booking = BookingController.getCustomerBookingForScreening(customer,
 										row.getItem());
 								if (booking != null) {
-									row.setStyle("-fx-background-color:lightgreen");
+									//customer has bookings: blue
+									row.setStyle("-fx-background-color:lightblue");
 									setText(empty ? ""
 											: getItem().toString() + "; Your seats: " + booking.getSeatsString());
-								}
-								if (row.getItem().getDateTime().isBefore(LocalDateTime.now())) {
-									row.setStyle("-fx-background-color:lightcoral");
-								}
+								} 
+							}
+							//date is in the past: red
+							if (row.getItem().getDateTime().isBefore(LocalDateTime.now())) {
+								row.setStyle("-fx-background-color:lightcoral");
 							}
 						}
 					}
 				};
             });
-            
-            
             
         } else {
             lblTableInfo = new Label("This film has no screenings.");
@@ -395,14 +398,14 @@ public class FilmController extends MainController {
         }
     }
 
-    // new booking view initialisation
+    // NewBooking view initialisation
     private void initializeNewBooking() {
         lblTableInfo = new Label("Select a date.");
         tblScreenings.setPlaceholder(lblTableInfo);
         disableDatesInThePast();
     }
 
-    // used in new booking view
+    // used in NewBooking view
     public void showScreeningsOnSelectedDate(ActionEvent event) {
         tblScreenings.getItems().clear();
         ObservableList<Screening> screeningList = filterScreeningsByDate(dtpckrDate.getValue());
@@ -438,7 +441,36 @@ public class FilmController extends MainController {
                 });
                 return row;
             });
-        } else {
+//TODO: this
+		/*	// change row background colour if customer has bookings in the screening
+			tblclmnScreeningsSeats.setCellFactory(column -> {
+				return new TableCell<Screening, String>() {
+					protected void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+						setText(empty ? "" : getItem().toString());
+						setGraphic(null);
+						TableRow<Screening> row = getTableRow();
+						if (!isEmpty()) {
+							// default colour: green
+							row.setStyle("-fx-background-color:lightgreen");
+							Customer customer = (Customer) (Main.stage.getUserData());
+							Booking booking = BookingController.getCustomerBookingForScreening(customer, row.getItem());
+							if (booking != null) {
+								// customer has bookings: blue
+								row.setStyle("-fx-background-color:lightblue");
+								setText(empty ? ""
+										: getItem().toString() + "; Your seats: " + booking.getSeatsString());
+							}
+						}
+						// date is in the past: red
+						if (row.getItem().getDateTime().isBefore(LocalDateTime.now())) {
+							row.setStyle("-fx-background-color:lightcoral");
+						}
+					}
+				};
+			});*/
+
+		} else {
             tblScreenings.getItems().clear();
             lblTableInfo.setText("No screenings on this date.");
         }
