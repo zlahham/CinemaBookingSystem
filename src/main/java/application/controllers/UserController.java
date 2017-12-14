@@ -50,6 +50,7 @@ public class UserController  extends MainController{
     	BookingController.chosenBooking = null;
     	BookingController.chosenScreening = null;
     	FilmController.chosenFilm = null;
+    	FilmController.backFromFilmEmployee = new String[] {"Employee", ""};
     	
         initializeFilmTable();
         setName();

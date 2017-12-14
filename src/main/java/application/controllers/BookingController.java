@@ -31,7 +31,7 @@ public class BookingController extends MainController {
 
     //variable for initialisation control
     public static String mode;
-    public static String backFromSeats[];
+    public static String backFromBookingSeats[];
 
     // used in: Booking
     // changed in: Bookings, Booking, BookingSeats
@@ -109,7 +109,7 @@ public class BookingController extends MainController {
 				//accessed from Bookings, BookingSeats
 				//uses: chosenBooking
 				//changes:
-				backFromSeats = new String[] {"Booking", "BCBooking"};
+				backFromBookingSeats = new String[] {"Booking", "BCBooking"};
 				initializeBooking();
 				break;
 			case "BCBookingSeats": //Customer
@@ -291,8 +291,8 @@ public class BookingController extends MainController {
 		}
 	}
 	
-	public void backFromSeats(ActionEvent event) {
-		transition(backFromSeats[0],backFromSeats[1]);
+	public void backFromBookingSeats(ActionEvent event) {
+		transition(backFromBookingSeats[0],backFromBookingSeats[1]);
 	}
 	
 	//used in Screening view

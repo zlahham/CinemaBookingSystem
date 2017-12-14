@@ -40,6 +40,7 @@ public class FilmController extends MainController {
             .observableArrayList(Arrays.asList("U", "PG", "12A", "12", "15", "18", "R18"));
 
     public static String mode;
+    public static String backFromFilmEmployee[];
     
     //used in: Film views, Screening views, NewScreening view
     //changed in: Dashboard views
@@ -112,6 +113,7 @@ public class FilmController extends MainController {
                 initializeFilm();
                 break;
             case "FCNewFilm":
+				backFromFilmEmployee = new String[] {"NewFilm", "FCNewFilm"};
                 initializeNewFilm();
                 break;
             case "FCNewScreening":
@@ -120,7 +122,7 @@ public class FilmController extends MainController {
             case "FCNewBooking":
             	BookingController.chosenScreening = null;
 				BookingController.chosenBooking = null;
-            	BookingController.backFromSeats = new String[] {"NewBooking", "FCNewBooking"};
+            	BookingController.backFromBookingSeats = new String[] {"NewBooking", "FCNewBooking"};
                 initializeNewBooking();
                 break;
             case "FCScreeningsEmployee":
@@ -130,7 +132,7 @@ public class FilmController extends MainController {
             case "FCScreeningsCustomer":
             	BookingController.chosenScreening = null;
 				BookingController.chosenBooking = null;
-            	BookingController.backFromSeats = new String[] {"ScreeningsCustomer", "FCScreeningsCustomer"};
+            	BookingController.backFromBookingSeats = new String[] {"ScreeningsCustomer", "FCScreeningsCustomer"};
                 initializeScreenings();
                 break;
             default:
@@ -199,9 +201,10 @@ public class FilmController extends MainController {
 
             Film film = new Film(txtFilmTitle.getText().trim(), txtDescription.getText().trim(), txtFilmTitle.getText().trim(), cbxAgeRating.getValue(), FXCollections.observableArrayList());
             Main.filmList.add(film);
+            chosenFilm = film;
             chosenFile = null;
             image = null;
-            transition("Employee", "");
+            transition("FilmEmployee", "FCFilmEmployee");
         } else {
             for (String error : errors) {
                 if (lblError.getText().trim().isEmpty()) {
