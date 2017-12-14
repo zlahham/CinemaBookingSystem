@@ -1,11 +1,6 @@
 package application.models;
 
-import java.util.AbstractMap.SimpleEntry;
-
 import org.json.JSONObject;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 /**
  * <dl>
@@ -24,50 +19,56 @@ public class Customer extends User {
 	private String firstName;
 	private String lastName;
 	private String email;
-	// list of customer details for TableView
-	private ObservableList<SimpleEntry<String, String>> details = FXCollections.observableArrayList();
 	
 	public Customer(JSONObject userJSON) {
 		super(userJSON);
 		this.firstName = userJSON.getString("firstName");
 		this.lastName = userJSON.getString("lastName");
 		this.email = userJSON.getString("email");
-		
-		// construct details list
-		details.add(new SimpleEntry<String, String>("Username", this.getUsername()));
-		details.add(new SimpleEntry<String, String>("Password", "********"));
-		//details.add(new SimpleEntry<String, String>("Password", password.replaceAll(".", "*"))); maybe not the best idea
-		details.add(new SimpleEntry<String, String>("First name", this.getFirstName()));
-		details.add(new SimpleEntry<String, String>("Last name", this.getLastName()));
-		details.add(new SimpleEntry<String, String>("Email address", this.getEmail()));
 	}
 	// setters
+	/**
+	 * Sets Customer's first name.
+	 * @param firstName New first name
+	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-
+	/**
+	 * Sets Customer's last name.
+	 * @param lastName New last name
+	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
+	/**
+	 * Sets Customer's email address.
+	 * @param email New email address
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	// getters
+	/**
+	 * Gets Customer's first name.
+	 * @return Customer's first name
+	 */
 	public String getFirstName() {
 		return firstName;
 	}
-
+	/**
+	 * Gets Customer's last name.
+	 * @return Customer's last name
+	 */
 	public String getLastName() {
 		return lastName;
 	}
-
+	/**
+	 * Gets Customer's email address.
+	 * @return Customer's email address
+	 */
 	public String getEmail() {
 		return email;
-	}
-	
-	public ObservableList<SimpleEntry<String, String>> getDetails() {
-		return details;
 	}
 }
