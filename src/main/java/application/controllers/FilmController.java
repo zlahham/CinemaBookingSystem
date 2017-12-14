@@ -560,12 +560,23 @@ public class FilmController extends MainController {
         dtpckrDate.setDayCellFactory(dayCellFactory);
     }
 
-    private void createFirebaseScreening(String filmTitle, String dateTime) {
+    private static void createFirebaseScreening(String filmTitle, String dateTime) {
         Map<String, String> params = new HashMap<>();
         params.put("filmTitle", filmTitle);
         params.put("dateTime", dateTime);
         try {
             Firebase.createScreening(params);
+        } catch (UnirestException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private static void deleteFirebaseScreening(Screening screening) {
+        try {
+        	for (Booking b : BookingController.getBookingsForScreening(screening)) {
+        		Firebase.deleteBooking(b.getBookingID());
+        	}
+            Firebase.deleteScreening(screening.getScreeningID());
         } catch (UnirestException e) {
             e.printStackTrace();
         }

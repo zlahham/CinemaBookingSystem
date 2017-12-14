@@ -61,6 +61,9 @@ public class Firebase {
                 .asString();
     }
 
+    public static void deleteScreening(String screeningID) throws UnirestException {
+        Unirest.delete(URL + "bookings/" + screeningID +".json").asString();
+    }
 
     // Params needed: dateTime, filmTitle, username, seats
     //works with incomplete seat map
@@ -83,6 +86,7 @@ public class Firebase {
     public static void deleteBooking(String bookingID) throws UnirestException {
         Unirest.delete(URL + "bookings/" + bookingID +".json").asString();
     }
+    
     public static boolean destroy() {
         return false;
     }
