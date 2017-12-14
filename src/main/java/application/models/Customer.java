@@ -21,7 +21,6 @@ public class Customer extends User {
 	private String email;
 	
 	// constructors
-	
 	/**
 	 * Constructor
 	 * Given a JSONObject, calls User's JSON constructor to set username,

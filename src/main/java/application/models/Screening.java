@@ -11,10 +11,14 @@ import org.json.JSONObject;
 /**
  * <dl>
  * 	<dt> Purpose:
- * 	<dd>
+ * 	<dd> Screening class containing fields and methods pertaining to
+ *  <dd> a single screening
  * 
  * 	<dt> Description:
- * 	<dd> 
+ * 	<dd> Contains information about the screening in the form of String fields,
+ *  <dd> a list of seats in the screening (with information on whether or not
+ *  <dd> each seat is booked); along with setter/getter methods and methods
+ *  <dd> for managing the list of seats.
  * </dl>
  * 
  * @author Zaid Al Lahham and Aleksi Anttila
@@ -22,15 +26,26 @@ import org.json.JSONObject;
  * 
  */
 public class Screening extends SuperModel{
-	// used when a new Screening is created within the program;
+	// theatreDimensions used when a new Screening is created within the program;
 	// Screenings from the database get their dimensions from the database
 	public static final int[] theatreDimensions = {4, 6};	
-	//TODO: put this somewhere else?
+	// The screeningID is the dateTime as a formatted String
 	private String screeningID;
 	private String filmTitle;
 	private LocalDateTime dateTime;
+	// The key is a letter followed by a number (in the current
+	//  version, "a1" to "d6"), and the value is true iff the seat is booked.
 	private HashMap<String, Boolean> seats;
 
+	// constructors
+	/**
+	 * Constructor
+	 * Given a JSONObject, calls User's JSON constructor to set username,
+	 * password and role, and sets the firstName, lastName, and email based
+	 * on the corresponding  key(string)-value(string) pairs in the JSONObject.
+	 * @param userJSON JSONObject for the user with the following keys:
+	 * username, password, role, firstName, lastName, email
+	 */
 	public Screening(String filmTitle, LocalDateTime dateTime, HashMap<String, Boolean> seats) {
 		this.screeningID = dateTime.format(firebaseDateTimeFormatter);
 		this.filmTitle = filmTitle;
@@ -38,10 +53,9 @@ public class Screening extends SuperModel{
 		this.seats = seats;
 	}
 	
-	// TODO: Refactor this constructor with the others
 	public Screening(JSONObject screeningJSON) {
 		this(screeningJSON.getString("filmTitle"),
-				LocalDateTime.parse(screeningJSON.getString("dateTime"), firebaseDateTimeFormatter ), new HashMap<String, Boolean>());
+				LocalDateTime.parse(screeningJSON.getString("dateTime"), firebaseDateTimeFormatter), new HashMap<String, Boolean>());
 		// construct seats HashMap
 		JSONObject seats = screeningJSON.getJSONObject("seats");
 		Iterator<String> iterator = seats.keys();
@@ -53,14 +67,25 @@ public class Screening extends SuperModel{
 	}
 
 	// getters
+	/**
+	 * Gets the ScreeningID of the Screening.
+	 * @return The screeningID
+	 */
 	public String getScreeningID() {
 		return this.screeningID;
 	}
-	
+	/**
+	 * Gets the film title of the film the Screening is for.
+	 * @return The film title
+	 */
 	public String getFilmTitle() {
 		return this.filmTitle;
 	}
-
+	/**
+	 * Gets a reference to the Film object the Screening is for
+	 * (from the filmList in Main)
+	 * @return The Film object
+	 */
 	public Film getFilm() {
 		for (Film f : Main.filmList) {
 			if (this.filmTitle.compareTo(f.getFilmTitle()) == 0) {
@@ -69,16 +94,26 @@ public class Screening extends SuperModel{
 		}
 		return null;
 	}
-
+	/**
+	 * Gets the dateTime of the Screening (LocalDateTime)
+	 * @return The dateTime
+	 */
 	public LocalDateTime getDateTime() {
 		return this.dateTime;
 	}
-	
+	/**
+	 * Gets the list of seats for the screening, along with their
+	 * booking status (true iff booked)
+	 * @return The seats HashMap
+	 */
 	public HashMap<String, Boolean> getSeats() {
 		return this.seats;
 	}
-	
-	// TODO: take another look at this and changing the theatre dimensions!
+	/**
+	 * Checks if a given seat in the Screening is booked.
+	 * @param seat The key for the seat to be checked
+	 * @return True iff the seat is booked
+	 */
 	public boolean checkSeat(String seat) {
 		if (this.seats.containsKey(seat)) {
 			return seats.get(seat);
@@ -86,14 +121,27 @@ public class Screening extends SuperModel{
 			return false;
 		}
 	}
-	
+	/**
+	 * Given a list of seats in the Screening that are to be changed,
+	 * updates the Screening's list of seats using the new list
+	 * (all values corresponding to keys that are shared between the
+	 * Screening's list and the new list are overwritten by the values
+	 * in the new list, and all other values are left as they are.)
+	 * @param seats The seats list updating the Screening's seat list
+	 */
 	public void updateSeats(HashMap<String, Boolean> seats) {
 		this.seats.putAll(seats);
 	}
-	
-	// gets theatre dimensions for existing Screening objects
-	// assumes the seat plan is a rectangle,
-	// and that the row index is a single character
+	/**
+	 * Gets the theatre dimensions for this Screening object
+	 * as an integer array where the first element is the number
+	 * of seat rows in the theatre, and the second is the number
+	 * of seat columns. Assumes that the seat plan is a rectangle,
+	 * and that the row index is a single character.
+	 * @return A two-element integer array; the first element is the number
+	 * of seat rows in the theatre, and the second is the number
+	 * of seat columns.
+	 */
 	public int[] getTheatreDimensions() {
 		Iterator<String> iterator = this.getSeats().keySet().iterator();
 		String key = "";

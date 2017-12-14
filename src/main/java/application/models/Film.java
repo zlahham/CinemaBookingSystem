@@ -10,6 +10,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 
+/**
+ * <dl>
+ * 	<dt> Purpose:
+ * 	<dd> Film class containing fields and methods pertaining to
+ *  <dd> a single film
+ * 
+ * 	<dt> Description:
+ * 	<dd> Contains information about the film in the form of String fields,
+ *  <dd> the image for the film, and a list of Screenings; along with
+ *  <dd> setter/getter methods and methods for managing the list of Screenings
+ * </dl>
+ * 
+ * @author Zaid Al Lahham and Aleksi Anttila
+ * @version $Date: 2017/12/14 16:00:00 $
+ * 
+ */
 public class Film extends SuperModel {
 	private String filmTitle;
 	private String description;
@@ -29,7 +45,6 @@ public class Film extends SuperModel {
 		this.image = new Image(imageFile.toURI().toString());
 	}
 	
-	// TODO: Refactor this constructor with the others
 	public Film(JSONObject filmJSON) {
 		this(filmJSON.getString("filmTitle"), filmJSON.getString("description"), filmJSON.getString("imageFileName"),
 				filmJSON.getString("ageRating"), FXCollections.<Screening>observableArrayList());
@@ -53,7 +68,7 @@ public class Film extends SuperModel {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public void setImage(String imageFilepath) {
+	public void setImagePath(String imageFilepath) {
 		this.imageFilepath = imageFilepath;
 	}
 	public void setAgeRating(String ageRating) {
@@ -83,7 +98,8 @@ public class Film extends SuperModel {
 		this.screenings.addAll(screenings);
 	}
 	
-	//TODO change to use a List?
+	
+	
 	public void removeScreening(Screening screening) {
 		Iterator<Screening> iterator = this.screenings.iterator();
 		while (iterator.hasNext()) {
