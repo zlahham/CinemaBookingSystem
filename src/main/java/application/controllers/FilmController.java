@@ -23,8 +23,10 @@ import org.apache.tika.Tika;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -208,8 +210,11 @@ public class FilmController extends MainController {
         }
         if (errors.isEmpty()) {
 
+
+            File destinationFile = new File(System.getProperty("user.dir") + "/images/" + txtFilmTitle.getText().trim());
             try {
-                Files.copy(chosenFile.toPath(), Paths.get("src/main/resources/images/films/" + txtFilmTitle.getText().trim()));
+                //Copies the image file from the specified source to the destination
+                Files.copy(chosenFile.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -249,21 +254,27 @@ public class FilmController extends MainController {
         final FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose image");
         chosenFile = fileChooser.showOpenDialog(Main.stage);
-        if (chosenFile != null) {
-
-            Tika tika = new Tika();
-            try {
-                String mimeType = tika.detect(chosenFile).split("/")[0];
-                if (mimeType.compareTo("image") == 0) {
-                    Image imagePicked = new Image(chosenFile.toURI().toString());
-                    image.setImage(imagePicked);
-                } else {
-                    lblImageError.setText("* The file you chose does not seem to be an image.");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//        if (chosenFile != null) {
+//
+//            Tika tika = new Tika();
+//            try {
+//                String mimeType = tika.detect(chosenFile).split("/")[0];
+//                if (mimeType.compareTo("image") == 0) {
+        String imagePath = null;
+        try {
+            imagePath = chosenFile.toURI().toURL().toString();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
         }
+        Image imagePicked = new Image(imagePath, 500,500,true,true,true);
+                    image.setImage(imagePicked);
+//                } else {
+//                    lblImageError.setText("* The file you chose does not seem to be an image.");
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     //initialize Screenings views
