@@ -62,7 +62,7 @@ public class Film extends SuperModel {
 	/**
 	 * Constructor
 	 * Given a JSONObject, sets the fields of the Film object based on the 
-	 * corresponding key-value pairs in the JSONOBject; parses the JSONObject
+	 * corresponding key-value pairs in the JSONObject; parses the JSONObject
 	 * and calls the constructor above.
 	 * @param filmJSON JSONObject for the film containing the following keys:
 	 *        filmTitle, description, imageFileName, ageRating, screenings;

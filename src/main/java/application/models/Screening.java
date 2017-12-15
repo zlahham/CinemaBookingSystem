@@ -33,7 +33,7 @@ public class Screening extends SuperModel{
 	private String screeningID;
 	private String filmTitle;
 	private LocalDateTime dateTime;
-	// The key is a letter followed by a number (in the current
+	// On seats: the key is a letter followed by a number (in the current
 	//  version, "a1" to "d6"), and the value is true iff the seat is booked.
 	private HashMap<String, Boolean> seats;
 
@@ -57,7 +57,7 @@ public class Screening extends SuperModel{
 	/**
 	 * Constructor
 	 * Given a JSONObject, sets the fields of the Screening object based on the 
-	 * corresponding key-value pairs in the JSONOBject; parses the JSONObject
+	 * corresponding key-value pairs in the JSONObject; parses the JSONObject
 	 * and calls the constructor above.
 	 * @param screeningJSON JSONObject for the screening containing the following keys:
 	 *        filmTitle, dateTime, seats; the seats object should consist of
