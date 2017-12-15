@@ -12,6 +12,21 @@ import javafx.scene.control.TextField;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <dl>
+ * 	<dt> Purpose:
+ * 	<dd> Control basic Customer functionality.
+ * 
+ * 	<dt> Description:
+ * 	<dd> Controls initialisation of the Customer Dashboard and Profile 
+ * 	<dd> (calling UserController to initialize the Dashboard), and
+* 	<dd> enabling a Customer to edit their details.
+ * </dl>
+ * 
+ * @author Zaid Al Lahham and Aleksi Anttila
+ * @version $Date: 2017/12/14 16:00:00 $
+ * 
+ */
 public class CustomerController extends UserController {
     private Customer customer = (Customer) (Main.stage.getUserData());
 
@@ -19,13 +34,10 @@ public class CustomerController extends UserController {
     private Label lblFailure;
     @FXML
     private TextField txtEmail;
-
     @FXML
     private PasswordField pwPassword;
-
     @FXML
     private TextField txtFirstname;
-
     @FXML
     private TextField txtLastname;
 

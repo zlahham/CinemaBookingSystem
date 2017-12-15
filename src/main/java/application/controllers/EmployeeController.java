@@ -11,10 +11,24 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.chart.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+/**
+ * <dl>
+ * 	<dt> Purpose:
+ * 	<dd> Control basic Employee functionality.
+ * 
+ * 	<dt> Description:
+ * 	<dd> Controls the navbar for the Employee, and generates
+ * 	<dd> statistics about Users, Films, Screenings and Bookings
+ * 	<dd> for the Employee Dashboard.
+ * </dl>
+ * 
+ * @author Zaid Al Lahham and Aleksi Anttila
+ * @version $Date: 2017/12/14 16:00:00 $
+ * 
+ */
 public class EmployeeController extends UserController {
     @FXML
     private JFXHamburger hamburger;

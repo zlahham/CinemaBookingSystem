@@ -14,12 +14,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Background;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
 import org.apache.tika.Tika;
@@ -31,14 +28,36 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * <dl>
+ * 	<dt> Purpose:
+ * 	<dd> Display Film and Screening information, and 
+ * 	<dd> and manipulate Film and Screening objects
+ * 
+ * 	<dt> Description:
+ * 	<dd> Contains all methods manipulating films and screenings,
+ * 	<dd> and sets up the views primarily governed with film and 
+ * 	<dd> screening tables and manipulation (FilmEmployee and
+ * 	<dd> FilmCustomer (displaying information about a given film),
+ * 	<dd> NewFilm (for adding new films), NewScreening (for adding new
+ * 	<dd> screenings), NewBooking (for displaying a screenings table and
+ * 	<dd> choosing one for a new booking), and ScreeningsCustomer and 
+ * 	<dd> ScreeningsEmployee (for displaying a list of screenings for 
+* 	<dd> a given film)).
+ * </dl>
+ * 
+ * @author Zaid Al Lahham and Aleksi Anttila
+ * @version $Date: 2017/12/14 16:00:00 $
+ * 
+ */
 public class FilmController extends MainController {
 
     private static final ObservableList<String> AGE_RATINGS = FXCollections
             .observableArrayList(Arrays.asList("U", "PG", "12A", "12", "15", "18", "R18"));
 
+    //variable for initialisation control
     public static String mode;
     public static String backFromFilmEmployee[];
     
@@ -47,6 +66,7 @@ public class FilmController extends MainController {
     public static Film chosenFilm = null;
     public static LocalDate chosenDate;
 
+    //NewFilm view controls
     @FXML
     private ImageView image;
     @FXML
@@ -74,6 +94,7 @@ public class FilmController extends MainController {
 	private File chosenFile;
 	private ArrayList<String> errors;
 
+	//Screenings views controls
     @FXML
     private TableView<Screening> tblScreenings;
     @FXML
@@ -91,6 +112,7 @@ public class FilmController extends MainController {
 
     private Label lblTableInfo;
 
+    //NewScreening view controls
     @FXML
     private TableView<LocalTime> tblTimes;
     @FXML
@@ -261,10 +283,7 @@ public class FilmController extends MainController {
             } else if (mode.compareTo("FCScreeningsCustomer") == 0) {
                 tblclmnScreeningsSeats.setText("Seats Available");
                 tblclmnScreeningsSeats.setCellValueFactory(c -> new SimpleStringProperty(countBookedSeats(c.getValue())[1] +""));
-            } else {
-                // TODO: print error message?
-
-            }
+            } 
 
             //clicking a row takes a customer to seats selection; an employee to Screening view
             tblScreenings.setRowFactory(r -> {

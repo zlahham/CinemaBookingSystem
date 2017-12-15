@@ -18,6 +18,23 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <dl>
+ * 	<dt> Purpose:
+ * 	<dd> Control logging in to the program, and for setting up
+ * 	<dd> a User and their environment
+ * 
+ * 	<dt> Description:
+ * 	<dd> Checks the user's username and password (via the Login view) and
+ * 	<dd> enables creation of Customer's (via the Registration view).
+ * 	<dd> Sends the User to the appropriate Dashboard (that for the Customer
+ * 	<dd> or that for the Employee) when they log in.
+ * </dl>
+ * 
+ * @author Zaid Al Lahham and Aleksi Anttila
+ * @version $Date: 2017/12/14 16:00:00 $
+ * 
+ */
 public class LoginController extends MainController {
     @FXML
     private Label lblSuccess;
@@ -31,7 +48,6 @@ public class LoginController extends MainController {
     private TextField txtFirstname;
     @FXML
     private TextField txtLastname;
-
     @FXML
     private PasswordField pwPassword;
 

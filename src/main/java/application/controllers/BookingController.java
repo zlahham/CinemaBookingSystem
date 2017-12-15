@@ -25,9 +25,29 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import org.json.JSONObject;
 
+/**
+ * <dl>
+ * 	<dt> Purpose:
+ * 	<dd> Display Booking information, and manipulate Booking objects
+ * 
+ * 	<dt> Description:
+ * 	<dd> Contains all methods manipulating bookings,
+ * 	<dd> and sets up the views primarily governed with booking 
+ * 	<dd> tables and manipulation (Booking (for displaying
+ * 	<dd> information about a particular booking), Bookings
+ * 	<dd> (for displaying a table of all bookings a Customer
+ * 	<dd> has made), BookingSeats (for displaying a seat plan
+ * 	<dd> a Customer can choose their booking seats from), and 
+ * 	<dd> Screening (for displaying an employee a seat plan
+ * 	<dd> for a screening, and enabling the employee to delete
+ * 	<dd> the screening)).
+ * </dl>
+ * 
+ * @author Zaid Al Lahham and Aleksi Anttila
+ * @version $Date: 2017/12/14 16:00:00 $
+ * 
+ */
 public class BookingController extends MainController {
-
-    //TODO: move variable definitions into initialisation methods?
 
     //variable for initialisation control
     public static String mode;
@@ -55,7 +75,6 @@ public class BookingController extends MainController {
     private JFXButton btnDelete;
     @FXML
     private JFXButton btnToBookingSeats_BCBookingSeats;
-
 
     // view bookings view controls
     @FXML
@@ -273,8 +292,6 @@ public class BookingController extends MainController {
 				grdpnSeats.add(seatsArray[i][j], j, i);
 				seatsBooked.put(getSeatKeyInGridPane(i, j), false);
 				gridPaneClick(i, j);
-			} else {
-				// TODO:display error message (seat already booked)?
 			}
 		});
 	}
@@ -341,7 +358,6 @@ public class BookingController extends MainController {
 	
 	public static ObservableList<Booking> getBookingsForScreening(Screening screening) {
 		ObservableList<Booking> returnList = FXCollections.observableArrayList();
-		System.out.println(screening.getDateTime());
 		for (Booking b : Main.bookingList) {
 			if (b.getDateTime().compareTo(screening.getDateTime()) == 0){
 				returnList.add(b);
@@ -397,9 +413,6 @@ public class BookingController extends MainController {
 		return seats;
 	}
 	
-	// TODO: remove this; or merge it with addSeats in Booking?
-	// add seat removal functionality to the same method
-	// make the interfaces uniform
 	public void updateBookingSeats(String bookingID, HashMap<String, Boolean> seats) {
 		Booking booking = getBooking(bookingID);
 		booking.updateSeats(seats);

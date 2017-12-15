@@ -12,6 +12,21 @@ import static application.controllers.MainController.dateFormatter;
 import static application.controllers.MainController.dateTimeFormatter;
 import static application.controllers.MainController.timeFormatter;
 
+/**
+ * <dl>
+ * 	<dt> Purpose:
+ * 	<dd> Enable the Employee to export information outside the program.
+ * 
+ * 	<dt> Description:
+ * 	<dd> Contains methods for exporting a CSV or a formatted text file
+ * 	<dd> containing information and statistics about the Users, Films,
+ * 	<dd> Screenings and Bookings in the program.
+ * </dl>
+ * 
+ * @author Zaid Al Lahham and Aleksi Anttila
+ * @version $Date: 2017/12/14 16:00:00 $
+ * 
+ */
 public class CSV {
     public static void export() throws FileNotFoundException {
         PrintWriter pw = new PrintWriter(new File("filmsExportList.csv"));

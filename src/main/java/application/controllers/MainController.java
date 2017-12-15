@@ -2,15 +2,12 @@ package application.controllers;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import application.models.Booking;
 import application.models.Film;
-import application.models.User;
 import application.Main;
 
-import org.apache.commons.codec.binary.StringUtils;
 import org.json.JSONObject;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -22,6 +19,23 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
+/**
+ * <dl>
+ * 	<dt> Purpose:
+ * 	<dd> Parent class for all Controllers, governs transitions
+ * 	<dd> and globally available functionality such as logging out.
+ * 
+ * 	<dt> Description:
+ * 	<dd> Contains methods for transitioning between different views,
+ * 	<dd> for linking buttons to transitions, for populating the global
+ * 	<dd> lists of Booking and Films used the program, for logging out,
+ * 	<dd> for logging issues in the program.
+ * </dl>
+ * 
+ * @author Zaid Al Lahham and Aleksi Anttila
+ * @version $Date: 2017/12/14 16:00:00 $
+ * 
+ */
 public class MainController {
 	
 	public static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd MMM yyyy HH:mm");
@@ -50,10 +64,6 @@ public class MainController {
 	}
 	
 	public void transition(String viewName, String mode) {
-		//transition debugging
-		System.out.println("transition method; view: " + viewName);
-		System.out.println("transition method; mode: " + mode);
-		//
 		if (mode.length() > 0) {
 			if (mode.substring(0, 1).compareTo("F") == 0) {
 				FilmController.mode = mode;
@@ -78,18 +88,12 @@ public class MainController {
 		String[] transitionDetails = ((Button)(event.getSource())).getId().split("_");
 		switch (transitionDetails.length) {
 			case 1:
-				//transition debugging
-				System.out.println("buttonTransition method; view: " + transitionDetails[0].replace("btnTo", ""));
 				transition(transitionDetails[0].replace("btnTo", ""), "");
 				break;
 			case 2:
-				//transition debugging
-				System.out.println("buttonTransition method; view: " + transitionDetails[0].replace("btnTo", ""));
-				System.out.println("buttonRransition method; mode: " + transitionDetails[1]);
 				transition(transitionDetails[0].replaceAll("btnTo", ""), transitionDetails[1]);
 				break;
 			default:
-				//transition debugging
 				System.err.println("The button you pressed has been improperly named");
 		}
 	}

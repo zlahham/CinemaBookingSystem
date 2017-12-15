@@ -27,6 +27,22 @@ import java.util.stream.Collectors;
 
 import com.sun.prism.paint.Color;
 
+/**
+ * <dl>
+ * 	<dt> Purpose:
+ * 	<dd> Sets up and controls the Dashboard views for an Employee and
+ * 	<dd> for a Customer
+ * 
+ * 	<dt> Description:
+ * 	<dd> Depending on the mode in which it is set, initialises either
+ * 	<dd> the Customer's or the Employee's dashboard, with a table of 
+ * 	<dd> films and buttons to the other parts of the program.
+ * </dl>
+ * 
+ * @author Zaid Al Lahham and Aleksi Anttila
+ * @version $Date: 2017/12/14 16:00:00 $
+ * 
+ */
 public class UserController  extends MainController{
 
     public static String mode = "";
@@ -35,7 +51,6 @@ public class UserController  extends MainController{
     private Label lblDate;
     @FXML
     private Label lblWelcome;
-
     @FXML
     private TableView<Film> tblFilms;
     @FXML
@@ -105,6 +120,5 @@ public class UserController  extends MainController{
     private void setName(){
         User user = (User) Main.stage.getUserData();
         lblWelcome.setText(user.getUsername());
-
     }
 }

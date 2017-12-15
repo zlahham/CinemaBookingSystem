@@ -7,6 +7,22 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
+/**
+ * <dl>
+ * 	<dt> Purpose:
+ * 	<dd> Connect the program to its Firebase database.
+ * 
+ * 	<dt> Description:
+ * 	<dd> Contains methods for retrieving information from
+ * 	<dd> Firebase, and for creating, deleting and updating the
+ * 	<dd> Users, Films, Screenings and Bookings in the Firebase
+ * 	<dd> database.
+ * </dl>
+ * 
+ * @author Zaid Al Lahham and Aleksi Anttila
+ * @version $Date: 2017/12/14 16:00:00 $
+ * 
+ */
 public class Firebase {
     private static String URL = "https://cinema-booking-app.firebaseio.com/";
 
