@@ -48,7 +48,7 @@ public class Booking extends SuperModel {
 	 * @param filmTitle Film title String to be set
 	 * @param dateTime LocalDateTime to be set
 	 * @param username Customer's username to be set
-	 * @param seats A Hashmap<String, Boolean>; the key is a letter followed
+	 * @param seats A HashMap; the key is a letter followed
 	 *        by a number (in the current  version, "a1" to "d6"),
 	 *        and the value is always true; unbooked seats are not
 	 *        included here

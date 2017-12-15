@@ -44,7 +44,7 @@ public class Screening extends SuperModel{
 	 * parameters, and constructs a screeningID from them
 	 * @param filmTitle Film title String to be set
 	 * @param dateTime LocalDateTime to be set
-	 * @param seats A Hashmap<String, Boolean>; the key is a letter followed
+	 * @param seats A Hashmap; the key is a letter followed
 	 *        by a number (in the current  version, "a1" to "d6"),
 	 *        and the value is true iff the seat is booked.
 	 */

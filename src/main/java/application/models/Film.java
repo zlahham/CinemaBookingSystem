@@ -139,7 +139,7 @@ public class Film extends SuperModel {
 	/**
 	 * Remove a Screening from the list of Screenings for
 	 * the Film
-	 * @param screenings The Screening to be removed
+	 * @param screening The Screening to be removed
 	 */
 	public void removeScreening(Screening screening) {
 		Iterator<Screening> iterator = this.screenings.iterator();
