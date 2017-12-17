@@ -1,9 +1,9 @@
 AZ Cinema Booking System
 ========================
 
-A Cinema Booking System that includes Authetication and Authorization (Cinema Staff and Customers). 
+A Cinema Booking System that includes Authentication and Authorization (Cinema Staff and Customers). 
 
-As a Staff member the application allows you to add Films and their associated screenings, in addition to exporting the data to a `txt` file.
+As a Staff member the application allows you to add Films and their associated screenings, in addition to exporting the data to a `csv` or `txt` file.
 
 As a regular Customer, you can make movie bookings and choose your seats, view your booking history, and update your profile information.
 
@@ -27,11 +27,6 @@ Getting Started
 - `cd repo`
 - Open your favourite IDE and enjoy!
 
-Documentation and Support
--------------------------
-
-Issues
--------------
 
 Contributing
 ------------
@@ -40,7 +35,4 @@ Please fork the repo, and then submit a pull request.
 Credits
 -------
 This application was initially built for a coursework by [Aleksi Antilla](https://github.com/alekanttila) and [Zaid Lahham](https://github.com/zlahham)
-
-License
--------
 
